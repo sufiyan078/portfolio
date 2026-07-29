@@ -95,22 +95,33 @@ export const BackgroundCanvas: React.FC = () => {
       }
       ctx.globalAlpha = 1.0;
 
-      // 4. Horizon Low Sun / Moon Orb (Right side horizon)
+      // 4. Moon Orb (Right side horizon)
       const sunX = width * 0.72;
       const sunY = height * 0.40;
       const sunR = Math.min(width, height) * 0.08;
 
-      const sunGlow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 3.5);
-      sunGlow.addColorStop(0, 'rgba(200, 210, 220, 0.30)');
-      sunGlow.addColorStop(0.3, 'rgba(120, 135, 155, 0.12)');
+      // Large ambient moonlight wash on the sky (drawn before mountains)
+      const moonAmbient = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 8);
+      moonAmbient.addColorStop(0, 'rgba(180, 200, 220, 0.18)');
+      moonAmbient.addColorStop(0.25, 'rgba(140, 165, 195, 0.10)');
+      moonAmbient.addColorStop(0.5, 'rgba(100, 130, 170, 0.05)');
+      moonAmbient.addColorStop(1, 'rgba(7, 10, 16, 0)');
+      ctx.fillStyle = moonAmbient;
+      ctx.fillRect(0, 0, width, height);
+
+      // Moon inner glow halo
+      const sunGlow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 4);
+      sunGlow.addColorStop(0, 'rgba(220, 230, 240, 0.50)');
+      sunGlow.addColorStop(0.15, 'rgba(180, 200, 220, 0.30)');
+      sunGlow.addColorStop(0.4, 'rgba(120, 150, 185, 0.12)');
       sunGlow.addColorStop(1, 'rgba(7, 10, 16, 0)');
       ctx.fillStyle = sunGlow;
       ctx.beginPath();
-      ctx.arc(sunX, sunY, sunR * 3.5, 0, Math.PI * 2);
+      ctx.arc(sunX, sunY, sunR * 4, 0, Math.PI * 2);
       ctx.fill();
 
-      // Sun Disc Core
-      ctx.fillStyle = '#C8D0DA';
+      // Moon Disc Core
+      ctx.fillStyle = '#E2E8F0';
       ctx.beginPath();
       ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
       ctx.fill();
@@ -131,6 +142,17 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.closePath();
       ctx.fill();
 
+      // Moonlight reflected on far mountains
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      const farMountainLight = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 6);
+      farMountainLight.addColorStop(0, 'rgba(160, 180, 210, 0.14)');
+      farMountainLight.addColorStop(0.4, 'rgba(100, 130, 165, 0.06)');
+      farMountainLight.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = farMountainLight;
+      ctx.fillRect(width * 0.4, height * 0.3, width * 0.6, height * 0.4);
+      ctx.restore();
+
       // 6. Mid-Ground Dark Mountain Ranges (Layer 2)
       ctx.fillStyle = '#0E1520';
       ctx.beginPath();
@@ -145,6 +167,17 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.lineTo(width, height);
       ctx.closePath();
       ctx.fill();
+
+      // Moonlight reflected on mid mountains
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      const midMountainLight = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 5);
+      midMountainLight.addColorStop(0, 'rgba(140, 165, 200, 0.10)');
+      midMountainLight.addColorStop(0.4, 'rgba(80, 110, 150, 0.04)');
+      midMountainLight.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = midMountainLight;
+      ctx.fillRect(width * 0.45, height * 0.35, width * 0.55, height * 0.35);
+      ctx.restore();
 
 
 
