@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Mail, FileText, Check, Copy, Sparkles, MessageSquare, Download } from 'lucide-react';
+import { Send, Mail, Check, Copy, Sparkles, MessageSquare } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 
 export const ContactSection: React.FC = () => {
@@ -38,7 +38,7 @@ export const ContactSection: React.FC = () => {
           GET IN <span className="text-[#FF8F00]">TOUCH</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Open for high-impact software engineering roles, system architecture design, and technical consulting.
+          &gt; Available for projects, full-stack engineering roles, system architecture design, and technical consulting.
         </p>
       </div>
 
@@ -49,7 +49,7 @@ export const ContactSection: React.FC = () => {
             <h3 className="font-heading font-bold text-xl text-white mb-6">DIRECT CHANNELS</h3>
 
             {/* Email Copy Card */}
-            <div className="p-4 rounded-2xl bg-[#070B14] border border-white/10 mb-4 flex items-center justify-between gap-3">
+            <div className="p-4 rounded-2xl bg-[#070B14] border border-white/10 mb-6 flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 overflow-hidden">
                 <div className="w-10 h-10 rounded-xl bg-[#443199]/20 border border-[#443199]/50 flex items-center justify-center text-[#443199] shrink-0">
                   <Mail className="w-5 h-5" />
@@ -67,32 +67,6 @@ export const ContactSection: React.FC = () => {
                 {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedEmail ? 'COPIED' : 'COPY'}</span>
               </button>
-            </div>
-
-            {/* Resume Download CTA */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-[#443199]/20 to-[#7C3AED]/10 border border-[#443199]/40 mb-6 flex items-center justify-between">
-              <div className="flex items-center gap-3 font-mono">
-                <div className="w-10 h-10 rounded-xl bg-[#F59E0B]/15 border border-[#F59E0B]/40 flex items-center justify-center text-[#F59E0B]">
-                  <FileText className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="font-heading text-xs font-bold text-white">ENGINEERING RESUME</div>
-                  <div className="text-[10px] text-gray-400">PDF Document</div>
-                </div>
-              </div>
-
-              <a
-                href="#download"
-                onClick={(e) => {
-                  e.preventDefault();
-                  playCyberSound('click');
-                  alert("Downloading Sufiyan Ahmed's Engineering Resume (PDF)...");
-                }}
-                className="px-3.5 py-2 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 text-xs font-mono font-bold flex items-center gap-1.5 transition-all"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>GET RESUME</span>
-              </a>
             </div>
 
             {/* Social Channels */}
