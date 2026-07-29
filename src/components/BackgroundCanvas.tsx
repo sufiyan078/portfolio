@@ -74,13 +74,13 @@ export const BackgroundCanvas: React.FC = () => {
         ctx.globalAlpha = c.opacity;
 
         const cloudLines = [
-          { dx: 4, dy: 0, w: 4, color: '#FFB84C' },
-          { dx: 3, dy: 1, w: 7, color: '#FF758F' },
-          { dx: 8, dy: 1, w: 3, color: '#FFB84C' },
-          { dx: 2, dy: 2, w: 11, color: '#F06595' },
-          { dx: 1, dy: 3, w: 14, color: '#9C8EFE' },
-          { dx: 0, dy: 4, w: 16, color: '#7B2CBF' },
-          { dx: 1, dy: 5, w: 15, color: '#3A0CA3' }
+          { dx: 4, dy: 0, w: 4, color: '#2A3A5C' },
+          { dx: 3, dy: 1, w: 7, color: '#253352' },
+          { dx: 8, dy: 1, w: 3, color: '#2A3A5C' },
+          { dx: 2, dy: 2, w: 11, color: '#1E2D4A' },
+          { dx: 1, dy: 3, w: 14, color: '#192640' },
+          { dx: 0, dy: 4, w: 16, color: '#142036' },
+          { dx: 1, dy: 5, w: 15, color: '#101B2E' }
         ];
 
         for (const line of cloudLines) {
