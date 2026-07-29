@@ -37,11 +37,11 @@ export const PROFILE: Profile = {
     "Machine Learning & Predictive Modeling"
   ],
   philosophy: [
-    { number: "01", title: "Problem Solving First", text: "Understand the actual business problem thoroughly before designing a technical solution." },
-    { number: "02", title: "System Thinking", text: "Design applications with modular architecture, clear boundaries, maintainability, and scalability." },
-    { number: "03", title: "Data Accuracy", text: "Build deterministic systems where output metrics and reports can be verifiably trusted." },
-    { number: "04", title: "Product Mindset", text: "Focus on user workflow improvements, operational clarity, and tangible real-world impact." },
-    { number: "05", title: "Engineering Quality", text: "Prioritize clean code, single sources of truth, type safety, and responsive user experience." }
+    { number: "01", title: "AI-Augmented Engineering", text: "Leverage AI copilots, LLMs, and intelligent automation as force multipliers — not replacements. The best engineers in 2026 don't just write code; they orchestrate AI to ship 10x faster." },
+    { number: "02", title: "Systems Over Scripts", text: "Think in architectures, not files. Design modular, event-driven systems with clear contracts and boundaries that scale gracefully — because the next feature is always around the corner." },
+    { number: "03", title: "Data is the Product", text: "In the age of AI, data pipelines are the backbone of every decision. Build deterministic, observable systems where every metric, report, and prediction can be trusted and traced." },
+    { number: "04", title: "Ship Fast, Stay Sharp", text: "Velocity without quality is chaos. Deliver rapid iterations with CI/CD, type safety, and automated testing — because in 2026, the market doesn't wait and neither should your deploys." },
+    { number: "05", title: "Human-Centered Impact", text: "Technology is only valuable when it transforms real workflows. Focus on building tools that empower users, eliminate friction, and create measurable business outcomes — not just cool demos." }
   ]
 };
 
