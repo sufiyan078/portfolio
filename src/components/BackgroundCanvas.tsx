@@ -276,63 +276,163 @@ export const BackgroundCanvas: React.FC = () => {
       const startX = width * 0.04;
       const endX = width * 0.92;
       const warriorX = startX + (endX - startX) * scrollProgress;
-      const p = 3; // pixel size
+      const p = 2; // pixel size
       const frame = Math.floor(Date.now() / 300) % 2; // walk animation frame
 
-      // Draw pixel warrior
+      // Draw detailed dark fantasy warrior
       const drawWarrior = (wx: number, wy: number) => {
-        // Helmet
-        ctx.fillStyle = '#FF8F00';
-        ctx.fillRect(wx - p, wy - 12 * p, 3 * p, p);
-        ctx.fillRect(wx - 2 * p, wy - 11 * p, 5 * p, p);
-        ctx.fillRect(wx - 2 * p, wy - 10 * p, 5 * p, p);
-
-        // Visor
+        // Cape (flowing behind - drawn first, behind body)
         ctx.fillStyle = '#1A1A2E';
-        ctx.fillRect(wx - p, wy - 9 * p, 3 * p, p);
-
-        // Face
-        ctx.fillStyle = '#F4C89A';
-        ctx.fillRect(wx - p, wy - 8 * p, 3 * p, p);
-
-        // Body armor
-        ctx.fillStyle = '#B0B0B0';
-        ctx.fillRect(wx - 2 * p, wy - 7 * p, 5 * p, p);
-        ctx.fillRect(wx - 2 * p, wy - 6 * p, 5 * p, p);
-        ctx.fillStyle = '#888';
-        ctx.fillRect(wx - 2 * p, wy - 5 * p, 5 * p, p);
-        ctx.fillRect(wx - p, wy - 4 * p, 3 * p, p);
-
-        // Sword (right hand)
-        ctx.fillStyle = '#C0C0C0';
-        ctx.fillRect(wx + 3 * p, wy - 9 * p, p, 6 * p);
-        ctx.fillStyle = '#FFD700';
-        ctx.fillRect(wx + 2 * p, wy - 3 * p, 3 * p, p);
-
-        // Shield (left hand)
-        ctx.fillStyle = '#FF8F00';
-        ctx.fillRect(wx - 4 * p, wy - 7 * p, 2 * p, 4 * p);
-        ctx.fillStyle = '#CC7200';
-        ctx.fillRect(wx - 4 * p, wy - 6 * p, p, 2 * p);
-
-        // Legs (animated)
-        ctx.fillStyle = '#555';
         if (frame === 0) {
-          ctx.fillRect(wx - p, wy - 3 * p, p, 3 * p);
-          ctx.fillRect(wx + p, wy - 3 * p, p, 3 * p);
+          ctx.fillRect(wx + 3 * p, wy - 20 * p, 2 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 19 * p, 3 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 18 * p, 4 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 17 * p, 5 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 16 * p, 6 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 15 * p, 7 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 14 * p, 7 * p, p);
+          ctx.fillRect(wx + 3 * p, wy - 13 * p, 8 * p, p);
+          ctx.fillRect(wx + 3 * p, wy - 12 * p, 8 * p, p);
+          ctx.fillRect(wx + 2 * p, wy - 11 * p, 8 * p, p);
+          ctx.fillRect(wx + 2 * p, wy - 10 * p, 7 * p, p);
         } else {
-          ctx.fillRect(wx - 2 * p, wy - 3 * p, p, 3 * p);
-          ctx.fillRect(wx + 2 * p, wy - 3 * p, p, 3 * p);
+          ctx.fillRect(wx + 3 * p, wy - 20 * p, 2 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 19 * p, 4 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 18 * p, 5 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 17 * p, 6 * p, p);
+          ctx.fillRect(wx + 5 * p, wy - 16 * p, 7 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 15 * p, 8 * p, p);
+          ctx.fillRect(wx + 4 * p, wy - 14 * p, 8 * p, p);
+          ctx.fillRect(wx + 3 * p, wy - 13 * p, 9 * p, p);
+          ctx.fillRect(wx + 3 * p, wy - 12 * p, 9 * p, p);
+          ctx.fillRect(wx + 2 * p, wy - 11 * p, 9 * p, p);
+          ctx.fillRect(wx + 2 * p, wy - 10 * p, 8 * p, p);
         }
 
-        // Boots
-        ctx.fillStyle = '#3A2518';
+        // Hair (dark, messy)
+        ctx.fillStyle = '#1C1C1C';
+        ctx.fillRect(wx - 3 * p, wy - 25 * p, 7 * p, p);
+        ctx.fillRect(wx - 4 * p, wy - 24 * p, 9 * p, p);
+        ctx.fillRect(wx - 4 * p, wy - 23 * p, 9 * p, p);
+        ctx.fillRect(wx - 3 * p, wy - 22 * p, 8 * p, p);
+
+        // Face / Head
+        ctx.fillStyle = '#E8C9A0';
+        ctx.fillRect(wx - 2 * p, wy - 22 * p, 5 * p, p);
+        ctx.fillRect(wx - 2 * p, wy - 21 * p, 5 * p, p);
+        ctx.fillRect(wx - 2 * p, wy - 20 * p, 5 * p, p);
+
+        // Eyes
+        ctx.fillStyle = '#1A1A2E';
+        ctx.fillRect(wx - p, wy - 21 * p, p, p);
+        ctx.fillRect(wx + p, wy - 21 * p, p, p);
+
+        // Neck
+        ctx.fillStyle = '#D4AD80';
+        ctx.fillRect(wx - p, wy - 19 * p, 3 * p, p);
+
+        // Shoulder armor (dark red)
+        ctx.fillStyle = '#6B1A1A';
+        ctx.fillRect(wx - 5 * p, wy - 18 * p, 11 * p, p);
+        ctx.fillRect(wx - 5 * p, wy - 17 * p, 11 * p, p);
+
+        // Sword over shoulder (blade going up-left)
+        ctx.fillStyle = '#888';
+        ctx.fillRect(wx - 6 * p, wy - 28 * p, p, 2 * p);
+        ctx.fillRect(wx - 5 * p, wy - 27 * p, p, 2 * p);
+        ctx.fillRect(wx - 4 * p, wy - 26 * p, p, 2 * p);
+        ctx.fillRect(wx - 3 * p, wy - 25 * p, p, 2 * p);
+        ctx.fillRect(wx - 2 * p, wy - 24 * p, p, 3 * p);
+        ctx.fillRect(wx - p, wy - 22 * p, p, 4 * p);
+        // Sword guard (gold)
+        ctx.fillStyle = '#DAA520';
+        ctx.fillRect(wx - 2 * p, wy - 18 * p, 3 * p, p);
+        // Sword handle
+        ctx.fillStyle = '#4A3520';
+        ctx.fillRect(wx - p, wy - 17 * p, p, 2 * p);
+
+        // Chest armor (dark red with cross-hatch detail)
+        ctx.fillStyle = '#7B2020';
+        ctx.fillRect(wx - 4 * p, wy - 16 * p, 9 * p, p);
+        ctx.fillRect(wx - 4 * p, wy - 15 * p, 9 * p, p);
+        ctx.fillRect(wx - 4 * p, wy - 14 * p, 9 * p, p);
+        ctx.fillRect(wx - 3 * p, wy - 13 * p, 7 * p, p);
+        // Armor highlight lines
+        ctx.fillStyle = '#8B3030';
+        ctx.fillRect(wx - 2 * p, wy - 16 * p, p, 3 * p);
+        ctx.fillRect(wx + 2 * p, wy - 16 * p, p, 3 * p);
+        ctx.fillStyle = '#5A1515';
+        ctx.fillRect(wx, wy - 15 * p, p, 2 * p);
+
+        // Belt
+        ctx.fillStyle = '#5C3A1E';
+        ctx.fillRect(wx - 4 * p, wy - 12 * p, 9 * p, p);
+        // Belt buckle
+        ctx.fillStyle = '#DAA520';
+        ctx.fillRect(wx - p, wy - 12 * p, 2 * p, p);
+
+        // Belt pouch (brown, left side)
+        ctx.fillStyle = '#6B4226';
+        ctx.fillRect(wx + 3 * p, wy - 13 * p, 3 * p, 3 * p);
+        ctx.fillStyle = '#8B5A3A';
+        ctx.fillRect(wx + 3 * p, wy - 13 * p, 3 * p, p);
+
+        // Lower armor / tunic
+        ctx.fillStyle = '#6B1A1A';
+        ctx.fillRect(wx - 3 * p, wy - 11 * p, 7 * p, p);
+        ctx.fillRect(wx - 3 * p, wy - 10 * p, 7 * p, p);
+        ctx.fillStyle = '#551515';
+        ctx.fillRect(wx - 2 * p, wy - 9 * p, 5 * p, p);
+
+        // Legs (dark pants, animated)
+        ctx.fillStyle = '#2A1A1A';
         if (frame === 0) {
-          ctx.fillRect(wx - 2 * p, wy, 2 * p, p);
-          ctx.fillRect(wx + p, wy, 2 * p, p);
+          // Standing / stride 1
+          ctx.fillRect(wx - 2 * p, wy - 8 * p, 2 * p, 4 * p);
+          ctx.fillRect(wx + p, wy - 8 * p, 2 * p, 4 * p);
         } else {
-          ctx.fillRect(wx - 3 * p, wy, 2 * p, p);
-          ctx.fillRect(wx + 2 * p, wy, 2 * p, p);
+          // Stride 2
+          ctx.fillRect(wx - 3 * p, wy - 8 * p, 2 * p, 4 * p);
+          ctx.fillRect(wx + 2 * p, wy - 8 * p, 2 * p, 4 * p);
+        }
+
+        // Knee armor
+        ctx.fillStyle = '#5A1515';
+        if (frame === 0) {
+          ctx.fillRect(wx - 2 * p, wy - 5 * p, 2 * p, p);
+          ctx.fillRect(wx + p, wy - 5 * p, 2 * p, p);
+        } else {
+          ctx.fillRect(wx - 3 * p, wy - 5 * p, 2 * p, p);
+          ctx.fillRect(wx + 2 * p, wy - 5 * p, 2 * p, p);
+        }
+
+        // Shin guards
+        ctx.fillStyle = '#3A2218';
+        if (frame === 0) {
+          ctx.fillRect(wx - 2 * p, wy - 4 * p, 2 * p, 2 * p);
+          ctx.fillRect(wx + p, wy - 4 * p, 2 * p, 2 * p);
+        } else {
+          ctx.fillRect(wx - 3 * p, wy - 4 * p, 2 * p, 2 * p);
+          ctx.fillRect(wx + 2 * p, wy - 4 * p, 2 * p, 2 * p);
+        }
+
+        // Boots (brown leather)
+        ctx.fillStyle = '#5C3A1E';
+        if (frame === 0) {
+          ctx.fillRect(wx - 3 * p, wy - 2 * p, 3 * p, 2 * p);
+          ctx.fillRect(wx + p, wy - 2 * p, 3 * p, 2 * p);
+        } else {
+          ctx.fillRect(wx - 4 * p, wy - 2 * p, 3 * p, 2 * p);
+          ctx.fillRect(wx + 2 * p, wy - 2 * p, 3 * p, 2 * p);
+        }
+        // Boot soles
+        ctx.fillStyle = '#3A2010';
+        if (frame === 0) {
+          ctx.fillRect(wx - 3 * p, wy, 3 * p, p);
+          ctx.fillRect(wx + p, wy, 3 * p, p);
+        } else {
+          ctx.fillRect(wx - 4 * p, wy, 3 * p, p);
+          ctx.fillRect(wx + 2 * p, wy, 3 * p, p);
         }
       };
 
