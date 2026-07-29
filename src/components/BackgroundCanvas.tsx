@@ -43,15 +43,23 @@ export const BackgroundCanvas: React.FC = () => {
       });
     }
 
-    // Moving Clouds Effect (7 animated drifting clouds across sky)
+    // Moving Clouds Effect (15 continuous animated drifting clouds across sky)
     const clouds = [
-      { x: width * 0.02, y: height * 0.06, speed: 0.24, scale: 6.5, opacity: 0.92 },
-      { x: width * 0.28, y: height * 0.16, speed: 0.18, scale: 5.5, opacity: 0.86 },
-      { x: width * 0.52, y: height * 0.08, speed: 0.28, scale: 7, opacity: 0.90 },
-      { x: width * 0.78, y: height * 0.22, speed: 0.15, scale: 6, opacity: 0.88 },
-      { x: width * 0.15, y: height * 0.32, speed: 0.22, scale: 5, opacity: 0.82 },
-      { x: width * 0.42, y: height * 0.38, speed: 0.19, scale: 6.5, opacity: 0.85 },
-      { x: width * 0.88, y: height * 0.35, speed: 0.25, scale: 5.5, opacity: 0.87 }
+      { x: width * -0.05, y: height * 0.04, speed: 0.22, scale: 6.5, opacity: 0.92 },
+      { x: width * 0.12, y: height * 0.12, speed: 0.18, scale: 5.5, opacity: 0.86 },
+      { x: width * 0.28, y: height * 0.06, speed: 0.26, scale: 7, opacity: 0.90 },
+      { x: width * 0.42, y: height * 0.18, speed: 0.19, scale: 6, opacity: 0.88 },
+      { x: width * 0.58, y: height * 0.08, speed: 0.24, scale: 6.8, opacity: 0.91 },
+      { x: width * 0.72, y: height * 0.22, speed: 0.16, scale: 5.2, opacity: 0.84 },
+      { x: width * 0.88, y: height * 0.10, speed: 0.28, scale: 7.2, opacity: 0.89 },
+      { x: width * 0.05, y: height * 0.28, speed: 0.20, scale: 5.8, opacity: 0.85 },
+      { x: width * 0.22, y: height * 0.35, speed: 0.15, scale: 6.2, opacity: 0.87 },
+      { x: width * 0.38, y: height * 0.26, speed: 0.23, scale: 5.4, opacity: 0.83 },
+      { x: width * 0.52, y: height * 0.38, speed: 0.17, scale: 6.6, opacity: 0.88 },
+      { x: width * 0.68, y: height * 0.32, speed: 0.25, scale: 5.9, opacity: 0.86 },
+      { x: width * 0.82, y: height * 0.40, speed: 0.21, scale: 6.4, opacity: 0.84 },
+      { x: width * 0.96, y: height * 0.25, speed: 0.19, scale: 5.6, opacity: 0.86 },
+      { x: width * 1.10, y: height * 0.15, speed: 0.23, scale: 6.7, opacity: 0.90 }
     ];
 
     const render = () => {
