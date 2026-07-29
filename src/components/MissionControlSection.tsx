@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PROJECTS, type Project } from '../data/projects';
-import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, Sparkles } from 'lucide-react';
+import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, Sparkles, X } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 
 export const MissionControlSection: React.FC = () => {
@@ -98,9 +98,11 @@ export const MissionControlSection: React.FC = () => {
                   playCyberSound('closeModal');
                   setSelectedProject(null);
                 }}
-                className="p-2 rounded-lg bg-white/10 text-gray-400 hover:text-white font-mono text-xs cursor-pointer"
+                aria-label="Close modal"
+                title="Close"
+                className="p-2.5 rounded-xl bg-white/10 hover:bg-[#FF8F00]/20 border border-white/15 hover:border-[#FF8F00]/50 text-gray-300 hover:text-[#FF8F00] transition-all cursor-pointer flex items-center justify-center"
               >
-                [CLOSE ESC]
+                <X className="w-5 h-5" />
               </button>
             </div>
 
