@@ -80,7 +80,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             onClick={() => handleTabSelect('inventory')}
             className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'inventory'
-                ? 'bg-[#5A0E24] text-white border border-[#5A0E24] shadow-[0_0_20px_rgba(90,14,36,0.6)]'
+                ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -101,41 +101,28 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest">{skill.category}</span>
-                  <span className="badge-tag badge-success text-[10px]">{skill.level}</span>
+                  <span className="font-mono text-xs font-bold text-[#FF8F00] px-2 py-0.5 rounded bg-[#FF8F00]/15 border border-[#FF8F00]/30">
+                    LVL {skill.level}
+                  </span>
                 </div>
 
-                <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#443199] transition-colors mb-2">
-                  {skill.name}
-                </h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
+                    <Cpu className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors">
+                    {skill.name}
+                  </h3>
+                </div>
 
                 <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4">
                   {skill.description}
                 </p>
               </div>
 
-              <div>
-                {/* Skill Mastery Bar */}
-                <div className="mb-4">
-                  <div className="flex justify-between items-center text-xs font-mono mb-1">
-                    <span className="text-gray-400">MASTERY</span>
-                    <span className="text-[#443199] font-bold">{skill.percentage}%</span>
-                  </div>
-                  <div className="w-full bg-[#070B14] h-2 rounded-full overflow-hidden border border-white/5">
-                    <div className="h-full xp-fill rounded-full" style={{ width: `${skill.percentage}%` }} />
-                  </div>
-                </div>
-
-                {/* Projects Used */}
-                <div className="pt-3 border-t border-white/10">
-                  <span className="font-mono text-[10px] text-gray-400 block mb-1.5 uppercase">PROJECTS USED</span>
-                  <div className="flex flex-wrap gap-1">
-                    {skill.projectsUsed.map((proj, i) => (
-                      <span key={i} className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#070B14] border border-white/5 text-gray-300">
-                        {proj}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between font-mono text-xs text-gray-400">
+                <span>PROFICIENCY</span>
+                <span className="text-[#FF8F00] font-bold">{skill.percentage}%</span>
               </div>
             </div>
           ))}
@@ -153,7 +140,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
               <div
                 key={item.id}
                 onMouseEnter={() => playCyberSound('hover')}
-                className="glass-panel p-6 flex flex-col justify-between group hover:border-[#5A0E24] transition-all duration-300"
+                className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/50 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -164,7 +151,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   </div>
 
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#5A0E24]/40 border border-[#5A0E24] flex items-center justify-center text-white">
+                    <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
                       <IconComponent className="w-5 h-5" />
                     </div>
                     <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors">
