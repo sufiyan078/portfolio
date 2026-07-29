@@ -13,6 +13,7 @@ export const BackgroundCanvas: React.FC = () => {
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+    let scrollProgress = 0;
 
     const handleResize = () => {
       if (!canvas) return;
@@ -21,6 +22,13 @@ export const BackgroundCanvas: React.FC = () => {
     };
 
     window.addEventListener('resize', handleResize);
+
+    // Scroll tracker for warrior movement
+    const handleScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = docHeight > 0 ? window.scrollY / docHeight : 0;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // Stars in dark sky
     const starCount = 60;
@@ -263,6 +271,73 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fillStyle = '#020305';
       ctx.fillRect(0, height * 0.94, width, height * 0.06);
 
+      // 9. Pixel Warrior (scroll-driven left → right)
+      const warriorGroundY = height * 0.90;
+      const startX = width * 0.04;
+      const endX = width * 0.92;
+      const warriorX = startX + (endX - startX) * scrollProgress;
+      const p = 3; // pixel size
+      const frame = Math.floor(Date.now() / 300) % 2; // walk animation frame
+
+      // Draw pixel warrior
+      const drawWarrior = (wx: number, wy: number) => {
+        // Helmet
+        ctx.fillStyle = '#FF8F00';
+        ctx.fillRect(wx - p, wy - 12 * p, 3 * p, p);
+        ctx.fillRect(wx - 2 * p, wy - 11 * p, 5 * p, p);
+        ctx.fillRect(wx - 2 * p, wy - 10 * p, 5 * p, p);
+
+        // Visor
+        ctx.fillStyle = '#1A1A2E';
+        ctx.fillRect(wx - p, wy - 9 * p, 3 * p, p);
+
+        // Face
+        ctx.fillStyle = '#F4C89A';
+        ctx.fillRect(wx - p, wy - 8 * p, 3 * p, p);
+
+        // Body armor
+        ctx.fillStyle = '#B0B0B0';
+        ctx.fillRect(wx - 2 * p, wy - 7 * p, 5 * p, p);
+        ctx.fillRect(wx - 2 * p, wy - 6 * p, 5 * p, p);
+        ctx.fillStyle = '#888';
+        ctx.fillRect(wx - 2 * p, wy - 5 * p, 5 * p, p);
+        ctx.fillRect(wx - p, wy - 4 * p, 3 * p, p);
+
+        // Sword (right hand)
+        ctx.fillStyle = '#C0C0C0';
+        ctx.fillRect(wx + 3 * p, wy - 9 * p, p, 6 * p);
+        ctx.fillStyle = '#FFD700';
+        ctx.fillRect(wx + 2 * p, wy - 3 * p, 3 * p, p);
+
+        // Shield (left hand)
+        ctx.fillStyle = '#FF8F00';
+        ctx.fillRect(wx - 4 * p, wy - 7 * p, 2 * p, 4 * p);
+        ctx.fillStyle = '#CC7200';
+        ctx.fillRect(wx - 4 * p, wy - 6 * p, p, 2 * p);
+
+        // Legs (animated)
+        ctx.fillStyle = '#555';
+        if (frame === 0) {
+          ctx.fillRect(wx - p, wy - 3 * p, p, 3 * p);
+          ctx.fillRect(wx + p, wy - 3 * p, p, 3 * p);
+        } else {
+          ctx.fillRect(wx - 2 * p, wy - 3 * p, p, 3 * p);
+          ctx.fillRect(wx + 2 * p, wy - 3 * p, p, 3 * p);
+        }
+
+        // Boots
+        ctx.fillStyle = '#3A2518';
+        if (frame === 0) {
+          ctx.fillRect(wx - 2 * p, wy, 2 * p, p);
+          ctx.fillRect(wx + p, wy, 2 * p, p);
+        } else {
+          ctx.fillRect(wx - 3 * p, wy, 2 * p, p);
+          ctx.fillRect(wx + 2 * p, wy, 2 * p, p);
+        }
+      };
+
+      drawWarrior(warriorX, warriorGroundY);
+
       animationFrameId = requestAnimationFrame(render);
     };
 
@@ -270,6 +345,7 @@ export const BackgroundCanvas: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
