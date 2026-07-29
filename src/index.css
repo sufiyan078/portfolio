@@ -231,9 +231,9 @@
 }
 
 .badge-rare {
-  color: #210F37;
-  background: rgba(33, 15, 55, 0.4);
-  border-color: #210F37;
+  color: #E9D5FF;
+  background: #210F37;
+  border-color: #7E22CE;
 }
 
 .badge-common {
