@@ -17,10 +17,10 @@ export const BossBattlesSection: React.FC = () => {
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag badge-legendary mb-3">
           <Swords className="w-3.5 h-3.5 text-[#FF8F00]" />
-          <span>BOSS BATTLES</span>
+          <span className="text-[#FF8F00]">BOSS BATTLES</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-          ENGINEERING <span className="text-[#D90000]">BOSS BATTLES</span>
+          ENGINEERING <span className="text-[#FF8F00]">BOSS BATTLES</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
           &gt; Signature engineering problem-solving stories: Problem Context → Investigation → Technical Solution → Outcome.

@@ -17,11 +17,11 @@ export const AchievementsSection: React.FC = () => {
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag badge-legendary mb-3">
-          <Trophy className="w-3.5 h-3.5 text-[#F59E0B]" />
-          <span>ACHIEVEMENTS</span>
+          <Trophy className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <span className="text-[#FF8F00]">ACHIEVEMENTS</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-          UNLOCKED <span className="text-[#F59E0B]">MILESTONES & BADGES</span>
+          UNLOCKED <span className="text-[#FF8F00]">MILESTONES & BADGES</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
           &gt; Key engineering achievements and unlockable portfolio milestones.

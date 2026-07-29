@@ -52,11 +52,11 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-12">
         <div className="badge-tag badge-rare mb-3">
-          <Package className="w-3.5 h-3.5 text-[#443199]" />
-          <span>ABILITIES // INVENTORY</span>
+          <Package className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <span className="text-[#FF8F00]">ABILITIES // INVENTORY</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-          DEVELOPER <span className="text-[#443199]">ABILITIES & INVENTORY</span>
+          DEVELOPER <span className="text-[#FF8F00]">ABILITIES & INVENTORY</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
           &gt; Engineering competencies presented as abilities & technology stack collectible inventory.
@@ -70,7 +70,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             onClick={() => handleTabSelect('abilities')}
             className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'abilities'
-                ? 'bg-[#443199]/30 text-[#443199] border border-[#443199]/70 shadow-[0_0_15px_rgba(68,49,153,0.35)]'
+                ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -96,7 +96,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             <div
               key={skill.id}
               onMouseEnter={() => playCyberSound('hover')}
-              className="glass-panel p-6 flex flex-col justify-between group hover:border-[#443199]/50 transition-all duration-300"
+              className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/50 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">

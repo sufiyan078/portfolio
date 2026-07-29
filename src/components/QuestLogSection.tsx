@@ -9,32 +9,32 @@ export const QuestLogSection: React.FC = () => {
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag badge-rare mb-3">
-          <Flag className="w-3.5 h-3.5 text-[#443199]" />
-          <span>QUEST LOG</span>
+          <Flag className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <span className="text-[#FF8F00]">QUEST LOG</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-          CAREER <span className="text-[#443199]">QUEST LOG TIMELINE</span>
+          CAREER <span className="text-[#FF8F00]">QUEST LOG TIMELINE</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
           &gt; Quest Log tracking major software engineering milestones and career progression.
         </p>
       </div>
 
-      <div className="relative border-l-2 border-[#443199]/40 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-10">
+      <div className="relative border-l-2 border-[#FF8F00]/40 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-10">
         {QUEST_LOG.map((quest) => (
           <div
             key={quest.id}
             onMouseEnter={() => playCyberSound('hover')}
-            className="relative glass-panel p-6 sm:p-8 group hover:border-[#443199]/50 transition-all duration-300"
+            className="relative glass-panel p-6 sm:p-8 group hover:border-[#FF8F00]/50 transition-all duration-300"
           >
             {/* Timeline Dot */}
-            <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-5 h-5 rounded-full bg-[#070B14] border-2 border-[#443199] flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-[#443199]" />
+            <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-5 h-5 rounded-full bg-[#070B14] border-2 border-[#FF8F00] flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-[#FF8F00]" />
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs font-bold text-[#443199] px-2.5 py-1 rounded-md bg-[#443199]/15 border border-[#443199]/40">
+                <span className="font-mono text-xs font-bold text-[#FF8F00] px-2.5 py-1 rounded-md bg-[#FF8F00]/15 border border-[#FF8F00]/40">
                   {quest.period}
                 </span>
                 <span className="badge-tag badge-success text-[10px]">
@@ -44,7 +44,7 @@ export const QuestLogSection: React.FC = () => {
               <span className="font-mono text-xs text-gray-400">{quest.role}</span>
             </div>
 
-            <h3 className="font-heading font-bold text-xl text-white group-hover:text-[#443199] transition-colors mb-3">
+            <h3 className="font-heading font-bold text-xl text-white group-hover:text-[#FF8F00] transition-colors mb-3">
               {quest.title}
             </h3>
 

@@ -31,11 +31,11 @@ export const ContactSection: React.FC = () => {
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag badge-rare mb-3">
-          <Mail className="w-3.5 h-3.5 text-[#443199]" />
-          <span>CONTACT</span>
+          <Mail className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <span className="text-[#FF8F00]">CONTACT</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-          GET IN <span className="text-[#443199]">TOUCH</span>
+          GET IN <span className="text-[#FF8F00]">TOUCH</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
           &gt; Open for high-impact software engineering roles, system architecture design, and technical consulting.
