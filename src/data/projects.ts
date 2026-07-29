@@ -172,46 +172,79 @@ export const PROJECTS: Project[] = [
   {
     id: "mission-03",
     missionNumber: "MISSION 03",
-    title: "Quarterly Analysis with report generation",
-    tagline: "Interactive quarterly data analytics, trend forecasting & automated executive report generation",
+    title: "Quarterly Inventory Analytics & Reporting Portal",
+    tagline: "Excel-driven quarterly inventory analytics, business rule validation & executive report generation",
     category: "Analytics",
     status: "COMPLETED",
-    difficulty: "★ ★ ★ ★ ☆",
-    description: "An analytics dashboard designed to transform raw operational inventory information into clear, understandable business insights.",
-    businessProblem: "Convert complex raw operational inventory data into intuitive visual dashboards for decision-makers.",
+    difficulty: "★ ★ ★ ★ ★",
+    description: "A browser-based inventory analytics and reporting platform built to streamline quarterly inventory audits. The application enables users to upload inventory valuation Excel workbooks, automatically validate and normalize inventory data, calculate business KPIs, visualize inventory performance through interactive dashboards, and generate professional executive reports. Unlike a simple dashboard, the platform combines Excel processing, business rule validation, KPI calculation, reporting, and visualization into a single workflow.",
+    businessProblem: "Quarterly inventory audits required manually reviewing large Excel workbooks, validating thousands of inventory records, calculating business metrics, and preparing management reports. The existing process was time-consuming and susceptible to inconsistencies between spreadsheets and reports. The application automates Excel ingestion, validation, data normalization, KPI calculation, dashboard generation, and executive reporting while ensuring consistency across all outputs.",
     architecture: {
       nodes: [
-        { name: "React + TypeScript", type: "Dashboard Frontend" },
-        { name: "Data Processing Engine", type: "Aggregation Layer" },
-        { name: "Chart Visualization", type: "Analytics Component Suite" }
+        { name: "User Authentication", type: "Firebase Authentication" },
+        { name: "Quarterly Excel Upload", type: "File Ingestion Layer" },
+        { name: "SheetJS Workbook Parser", type: "Excel Processing Engine" },
+        { name: "Data Validation & Normalization", type: "Cleaning & Sanitization" },
+        { name: "Business Rule Engine", type: "Rule-Based Validation" },
+        { name: "KPI Calculation Engine", type: "Metrics & Aggregation" },
+        { name: "Interactive Analytics Dashboard", type: "Charts, Tables & Filters" },
+        { name: "Shared Report Model", type: "Consistent Data Layer" },
+        { name: "Professional PDF Export", type: "html2canvas + jsPDF" },
+        { name: "PowerPoint Export", type: "pptxgenjs" }
       ],
-      description: "Modular dashboard architecture leveraging interactive charts and data aggregation utilities to present real-time business health metrics."
+      description: "User Authentication (Firebase) → Quarterly Excel Upload → SheetJS Workbook Parser → Data Validation & Normalization → Business Rule Engine → KPI Calculation Engine → Interactive Analytics Dashboard → Shared Report Model → Professional PDF Export → PowerPoint Export."
     },
     features: [
-      "Interactive stock movement and trend charts",
-      "Automated metric aggregation for fast business assessment",
-      "Filterable inventory status views and alerts",
-      "Responsive analytics layout optimized for executive review"
+      "Secure user authentication with Firebase Authentication",
+      "Upload quarterly inventory valuation Excel workbooks",
+      "Browser-based Excel parsing using SheetJS",
+      "Automated validation and normalization of uploaded inventory data",
+      "Rule-based KPI calculation engine",
+      "Interactive dashboards with inventory KPIs, charts, and analytical tables",
+      "Division and supplier performance analysis",
+      "Executive PDF report generation",
+      "PowerPoint report export",
+      "Shared report model ensuring dashboard, PDF, and PowerPoint consistency"
     ],
     technologyLoadout: [
+      "Next.js",
       "React",
       "TypeScript",
-      "Charts",
-      "Data Processing"
+      "Tailwind CSS",
+      "Firebase Authentication",
+      "Firestore",
+      "SheetJS (xlsx)",
+      "html2canvas",
+      "jsPDF",
+      "pptxgenjs",
+      "Git"
     ],
     challenges: [
       {
-        issue: "Visualizing complex multi-category inventory metrics without cluttering dashboard layout.",
-        investigation: "Initial monolithic grid layout overloaded users with secondary metrics.",
-        solution: "Organized dashboard into focused tabbed panels with key KPI overview cards at the top."
+        issue: "Dashboard, PDF, and PowerPoint exports displayed inconsistent KPI values and formatting.",
+        investigation: "Each export path independently recalculated metrics from raw data, introducing rounding and aggregation discrepancies.",
+        solution: "Designed a shared report model that calculates all KPIs once and feeds the same data structure to dashboards, PDF, and PowerPoint exports."
+      },
+      {
+        issue: "Complex Excel workbooks with inconsistent formatting caused parsing failures during quarterly uploads.",
+        investigation: "SheetJS returned mixed types for cells that contained formulas, merged ranges, or whitespace-padded values.",
+        solution: "Built a normalization pipeline with explicit type coercion, empty-cell handling, and merged-range expansion before data enters the validation layer."
+      },
+      {
+        issue: "Uploaded workbook totals did not reconcile with calculated KPI summaries.",
+        investigation: "Source workbooks contained pre-calculated subtotals that diverged from row-level re-aggregation due to hidden rows and filtered records.",
+        solution: "Implemented reconciliation checks comparing uploaded subtotals against recalculated values, flagging discrepancies for auditor review."
       }
     ],
     outcome: [
-      "Successfully converted raw operational data into intuitive interactive dashboards",
-      "Provided business decision-makers with clear visibility into inventory health"
+      "Automated quarterly inventory analytics from uploaded Excel workbooks",
+      "Reduced manual effort required to validate inventory data and prepare management reports",
+      "Delivered consistent reporting across dashboards, PDF exports, and PowerPoint presentations through a shared reporting architecture",
+      "Improved confidence in inventory reporting by implementing validation, reconciliation, and rule-based KPI calculations"
     ],
     lessonsLearned: [
-      "Clear visual hierarchy is essential when presenting multi-dimensional business metrics."
+      "A shared report model that decouples calculation from presentation eliminates cross-format inconsistencies in multi-output reporting systems.",
+      "Deterministic report layouts require explicit control over data flow — allowing each export to independently compute metrics guarantees divergence."
     ]
   }
 ];
