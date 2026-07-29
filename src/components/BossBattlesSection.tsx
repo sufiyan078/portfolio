@@ -4,7 +4,7 @@ import { Swords, AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activi
 import { playCyberSound } from '../utils/soundEffects';
 
 export const BossBattlesSection: React.FC = () => {
-  const [expandedBattleId, setExpandedBattleId] = useState<string>(BOSS_BATTLES[0].id);
+  const [expandedBattleId, setExpandedBattleId] = useState<string>('');
 
   const toggleBattle = (id: string) => {
     playCyberSound('click');
