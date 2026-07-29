@@ -8,9 +8,9 @@ export const QuestLogSection: React.FC = () => {
     <section id="quest-log" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag badge-rare mb-3">
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
           <Flag className="w-3.5 h-3.5 text-[#FF8F00]" />
-          <span className="text-[#FF8F00]">QUEST LOG</span>
+          <span className="text-[#FF8F00] font-bold">QUEST LOG</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
           CAREER <span className="text-[#FF8F00]">QUEST LOG TIMELINE</span>

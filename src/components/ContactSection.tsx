@@ -30,9 +30,9 @@ export const ContactSection: React.FC = () => {
     <section id="contact" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag badge-rare mb-3">
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
           <Mail className="w-3.5 h-3.5 text-[#FF8F00]" />
-          <span className="text-[#FF8F00]">CONTACT</span>
+          <span className="text-[#FF8F00] font-bold">CONTACT</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
           GET IN <span className="text-[#FF8F00]">TOUCH</span>

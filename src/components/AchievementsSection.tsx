@@ -16,9 +16,9 @@ export const AchievementsSection: React.FC = () => {
     <section id="achievements" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag badge-legendary mb-3">
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
           <Trophy className="w-3.5 h-3.5 text-[#FF8F00]" />
-          <span className="text-[#FF8F00]">ACHIEVEMENTS</span>
+          <span className="text-[#FF8F00] font-bold">ACHIEVEMENTS</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
           UNLOCKED <span className="text-[#FF8F00]">MILESTONES & BADGES</span>
