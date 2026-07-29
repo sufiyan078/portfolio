@@ -10,42 +10,42 @@ export interface Achievement {
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-01",
-    title: "Reporting Engine Creator",
-    description: "Architected a multi-format PDF and PowerPoint reporting engine with 100% data parity.",
+    title: "Reporting Engine Architect",
+    description: "Architected a multi-format PDF and PowerPoint reporting engine with a shared report model for inventory analytics.",
     category: "Analytics",
     date: "2026",
     rarity: "Legendary"
   },
   {
     id: "ach-02",
-    title: "AI Product Builder",
-    description: "Created CareerAI platform with real-time streaming LLM resume optimization workflows.",
+    title: "AI Product Engineer",
+    description: "Created CareerAI platform with Gemini Flash API, resume optimization, ATS scoring, and job matching workflows.",
     category: "AI",
-    date: "2025",
+    date: "2026",
     rarity: "Epic"
   },
   {
     id: "ach-03",
-    title: "Analytics Engineer",
-    description: "Built rule-driven inventory analytics platforms transforming manual spreadsheets into dashboards.",
+    title: "Audit Automation Engineer",
+    description: "Built browser-based monthly inventory audit dashboards for GAS, automating Excel parsing and data normalization.",
     category: "Analytics",
     date: "2026",
     rarity: "Epic"
   },
   {
     id: "ach-04",
-    title: "Problem Solver",
-    description: "Resolved complex data calculation bugs and verification accuracy edge cases.",
+    title: "Data Validation Specialist",
+    description: "Implemented deterministic business rule engines and reconciliation checks for complex Excel workbooks.",
     category: "Engineering",
     date: "2026",
     rarity: "Rare"
   },
   {
     id: "ach-05",
-    title: "First Production Application",
-    description: "Built and deployed complete production software applications.",
+    title: "Production System Builder",
+    description: "Engineered and deployed full-stack web applications with authentication, databases, and structured workflows.",
     category: "Product",
-    date: "2024",
+    date: "2026",
     rarity: "Rare"
   }
 ];
