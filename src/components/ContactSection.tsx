@@ -38,7 +38,7 @@ export const ContactSection: React.FC = () => {
           GET IN <span className="text-[#FF8F00]">TOUCH</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; <span className="text-[#FF8F00] font-semibold">Available for projects</span>, full-stack engineering roles, system architecture design, and technical consulting.
+          &gt; <span className="text-[#FF8F00] font-semibold">Available for freelance projects & contract work</span>. Have an idea, dataset, or application to build? Send a message below or email directly to get started.
         </p>
       </div>
 
