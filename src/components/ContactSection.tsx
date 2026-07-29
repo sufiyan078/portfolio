@@ -99,7 +99,7 @@ export const ContactSection: React.FC = () => {
             <h4 className="font-mono text-xs text-gray-400 uppercase mb-3 font-bold">NETWORK CHANNELS</h4>
             <div className="flex gap-3">
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/sufiyan-ahmed-66baa91b3"
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 p-3 rounded-xl bg-[#070B14] border border-white/10 text-gray-300 hover:text-[#443199] hover:border-[#443199]/50 transition-all flex items-center justify-center gap-2 font-mono text-xs"
@@ -108,7 +108,7 @@ export const ContactSection: React.FC = () => {
                 <span>LinkedIn</span>
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/sufiyan078"
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 p-3 rounded-xl bg-[#070B14] border border-white/10 text-gray-300 hover:text-[#10B981] hover:border-[#10B981]/40 transition-all flex items-center justify-center gap-2 font-mono text-xs"

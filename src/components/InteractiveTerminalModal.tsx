@@ -140,8 +140,8 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
           <div className="space-y-1 text-xs font-mono text-gray-300">
             <p className="text-[#00f3ff] font-bold">TRANSMISSION CONTACT MATRIX:</p>
             <p>Email: <span className="text-[#00ff9d]">work.sufiyan.ahmed078@gmail.com</span></p>
-            <p>LinkedIn: <span className="text-[#00f3ff]">linkedin.com/in/sufiyan-ahmed-dev</span></p>
-            <p>GitHub: <span className="text-[#00f3ff]">github.com/sufiyan-ahmed</span></p>
+            <p>LinkedIn: <span className="text-[#00f3ff]">linkedin.com/in/sufiyan-ahmed-66baa91b3</span></p>
+            <p>GitHub: <span className="text-[#00f3ff]">github.com/sufiyan078</span></p>
           </div>
         );
         break;
