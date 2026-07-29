@@ -22,7 +22,7 @@ export const QUEST_LOG: Quest[] = [
   },
   {
     id: "quest-02",
-    period: "2025",
+    period: "2026",
     title: "Created CareerAI Platform",
     role: "Full Stack Developer",
     questType: "Main Quest",
@@ -32,7 +32,7 @@ export const QUEST_LOG: Quest[] = [
   },
   {
     id: "quest-01",
-    period: "2024",
+    period: "2026",
     title: "Built Quarterly Analysis with report generation",
     role: "Full Stack Developer",
     questType: "Milestone",
