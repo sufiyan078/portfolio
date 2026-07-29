@@ -24,38 +24,33 @@ export const ContactSection: React.FC = () => {
     setSending(true);
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch(`https://formsubmit.co/ajax/${emailAddress}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
-          access_key: '568cb1a9-b684-48ee-[#web3forms-key-placeholder]', // Will use standard Mailto fallback if no key or send via form endpoint
-          email_to: emailAddress,
           name: formData.name,
           email: formData.email,
-          subject: formData.subject || 'Portfolio Inquiry from ' + formData.name,
+          _subject: formData.subject || `New Portfolio Message from ${formData.name}`,
           message: formData.message,
-          from_name: 'Portfolio Contact Form'
+          _template: 'table'
         })
       });
 
       const data = await response.json();
-      if (data.success) {
+      if (data.success === "true" || response.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        // Fallback: open mailto prefilled if web3forms isn't configured
-        const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-        window.location.href = mailtoUrl;
-        setSubmitted(true);
+        alert("Failed to send message. Please email work.sufiyan.ahmed078@gmail.com directly.");
       }
     } catch {
-      // Fallback: mailto
-      const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-      window.location.href = mailtoUrl;
-      setSubmitted(true);
+      alert("Network error sending message. Please email work.sufiyan.ahmed078@gmail.com directly.");
     } finally {
       setSending(false);
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 6000);
     }
   };
 
