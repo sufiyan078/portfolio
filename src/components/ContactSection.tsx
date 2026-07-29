@@ -7,7 +7,7 @@ export const ContactSection: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const emailAddress = "sufiyan.ahmed.eng@gmail.com";
+  const emailAddress = "work.sufiyan.ahmed078@gmail.com";
 
   const handleCopyEmail = () => {
     playCyberSound('click');
