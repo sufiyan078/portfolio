@@ -271,172 +271,220 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fillStyle = '#020305';
       ctx.fillRect(0, height * 0.94, width, height * 0.06);
 
-      // 9. Pixel Warrior (scroll-driven left → right)
-      const warriorGroundY = height * 0.90;
-      const startX = width * 0.04;
-      const endX = width * 0.92;
+      // 9. Mounted Knight on Horseback (scroll-driven left → right)
+      const warriorGroundY = height * 0.91;
+      const startX = width * 0.02;
+      const endX = width * 0.94;
       const warriorX = startX + (endX - startX) * scrollProgress;
       const p = 2; // pixel size
-      const frame = Math.floor(Date.now() / 300) % 2; // walk animation frame
+      const frame = Math.floor(Date.now() / 200) % 4; // 4-frame gallop animation
 
-      // Draw detailed dark fantasy warrior
-      const drawWarrior = (wx: number, wy: number) => {
-        // Cape (flowing behind - drawn first, behind body)
-        ctx.fillStyle = '#1A1A2E';
-        if (frame === 0) {
-          ctx.fillRect(wx + 3 * p, wy - 20 * p, 2 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 19 * p, 3 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 18 * p, 4 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 17 * p, 5 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 16 * p, 6 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 15 * p, 7 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 14 * p, 7 * p, p);
-          ctx.fillRect(wx + 3 * p, wy - 13 * p, 8 * p, p);
-          ctx.fillRect(wx + 3 * p, wy - 12 * p, 8 * p, p);
-          ctx.fillRect(wx + 2 * p, wy - 11 * p, 8 * p, p);
-          ctx.fillRect(wx + 2 * p, wy - 10 * p, 7 * p, p);
+      const drawMountedKnight = (cx: number, cy: number) => {
+        // === HORSE ===
+        // Horse body (brown)
+        ctx.fillStyle = '#A0652A';
+        ctx.fillRect(cx - 8 * p, cy - 6 * p, 18 * p, 5 * p);
+        ctx.fillRect(cx - 7 * p, cy - 7 * p, 16 * p, p);
+        ctx.fillRect(cx - 6 * p, cy - 8 * p, 14 * p, p);
+        // Belly
+        ctx.fillStyle = '#8B5522';
+        ctx.fillRect(cx - 6 * p, cy - 2 * p, 14 * p, 2 * p);
+
+        // Horse dark shading
+        ctx.fillStyle = '#7A4A1E';
+        ctx.fillRect(cx - 7 * p, cy - 4 * p, 2 * p, 3 * p);
+        ctx.fillRect(cx + 7 * p, cy - 4 * p, 2 * p, 3 * p);
+
+        // Saddle (red)
+        ctx.fillStyle = '#B22222';
+        ctx.fillRect(cx - 3 * p, cy - 9 * p, 8 * p, 2 * p);
+        ctx.fillRect(cx - 2 * p, cy - 10 * p, 6 * p, p);
+        // Saddle blanket
+        ctx.fillStyle = '#8B1A1A';
+        ctx.fillRect(cx - 4 * p, cy - 8 * p, 10 * p, p);
+
+        // Horse neck
+        ctx.fillStyle = '#A0652A';
+        ctx.fillRect(cx + 8 * p, cy - 10 * p, 3 * p, 5 * p);
+        ctx.fillRect(cx + 9 * p, cy - 12 * p, 3 * p, 3 * p);
+        ctx.fillRect(cx + 10 * p, cy - 14 * p, 2 * p, 3 * p);
+        // Mane (dark brown)
+        ctx.fillStyle = '#4A2A10';
+        ctx.fillRect(cx + 8 * p, cy - 12 * p, p, 4 * p);
+        ctx.fillRect(cx + 9 * p, cy - 14 * p, p, 3 * p);
+
+        // Horse head
+        ctx.fillStyle = '#B07030';
+        ctx.fillRect(cx + 11 * p, cy - 16 * p, 3 * p, 4 * p);
+        ctx.fillRect(cx + 12 * p, cy - 17 * p, 3 * p, 2 * p);
+        // Nose
+        ctx.fillStyle = '#8B5522';
+        ctx.fillRect(cx + 13 * p, cy - 14 * p, 2 * p, 2 * p);
+        // Eye
+        ctx.fillStyle = '#1A1A1A';
+        ctx.fillRect(cx + 12 * p, cy - 16 * p, p, p);
+        // Ear
+        ctx.fillStyle = '#A0652A';
+        ctx.fillRect(cx + 12 * p, cy - 18 * p, p, 2 * p);
+        // Bridle
+        ctx.fillStyle = '#2A1A0A';
+        ctx.fillRect(cx + 11 * p, cy - 15 * p, 4 * p, p);
+
+        // Horse tail
+        ctx.fillStyle = '#3A1E0A';
+        if (frame < 2) {
+          ctx.fillRect(cx - 9 * p, cy - 7 * p, 2 * p, p);
+          ctx.fillRect(cx - 11 * p, cy - 6 * p, 3 * p, p);
+          ctx.fillRect(cx - 12 * p, cy - 5 * p, 3 * p, p);
+          ctx.fillRect(cx - 12 * p, cy - 4 * p, 2 * p, p);
         } else {
-          ctx.fillRect(wx + 3 * p, wy - 20 * p, 2 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 19 * p, 4 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 18 * p, 5 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 17 * p, 6 * p, p);
-          ctx.fillRect(wx + 5 * p, wy - 16 * p, 7 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 15 * p, 8 * p, p);
-          ctx.fillRect(wx + 4 * p, wy - 14 * p, 8 * p, p);
-          ctx.fillRect(wx + 3 * p, wy - 13 * p, 9 * p, p);
-          ctx.fillRect(wx + 3 * p, wy - 12 * p, 9 * p, p);
-          ctx.fillRect(wx + 2 * p, wy - 11 * p, 9 * p, p);
-          ctx.fillRect(wx + 2 * p, wy - 10 * p, 8 * p, p);
+          ctx.fillRect(cx - 9 * p, cy - 8 * p, 2 * p, p);
+          ctx.fillRect(cx - 11 * p, cy - 7 * p, 3 * p, p);
+          ctx.fillRect(cx - 13 * p, cy - 6 * p, 3 * p, p);
+          ctx.fillRect(cx - 13 * p, cy - 5 * p, 2 * p, p);
         }
 
-        // Hair (dark, messy)
-        ctx.fillStyle = '#1C1C1C';
-        ctx.fillRect(wx - 3 * p, wy - 25 * p, 7 * p, p);
-        ctx.fillRect(wx - 4 * p, wy - 24 * p, 9 * p, p);
-        ctx.fillRect(wx - 4 * p, wy - 23 * p, 9 * p, p);
-        ctx.fillRect(wx - 3 * p, wy - 22 * p, 8 * p, p);
+        // Horse legs (4-frame gallop animation)
+        ctx.fillStyle = '#7A4A1E';
+        const legTop = cy - p;
+        const legLen = 5 * p;
+        // Front legs
+        if (frame === 0) {
+          ctx.fillRect(cx + 5 * p, legTop, 2 * p, legLen);
+          ctx.fillRect(cx + 7 * p, legTop, 2 * p, legLen - p);
+        } else if (frame === 1) {
+          ctx.fillRect(cx + 6 * p, legTop, 2 * p, legLen + p);
+          ctx.fillRect(cx + 4 * p, legTop, 2 * p, legLen - 2 * p);
+        } else if (frame === 2) {
+          ctx.fillRect(cx + 7 * p, legTop, 2 * p, legLen);
+          ctx.fillRect(cx + 5 * p, legTop, 2 * p, legLen);
+        } else {
+          ctx.fillRect(cx + 4 * p, legTop, 2 * p, legLen - 2 * p);
+          ctx.fillRect(cx + 7 * p, legTop, 2 * p, legLen + p);
+        }
+        // Back legs
+        if (frame === 0) {
+          ctx.fillRect(cx - 6 * p, legTop, 2 * p, legLen - p);
+          ctx.fillRect(cx - 4 * p, legTop, 2 * p, legLen);
+        } else if (frame === 1) {
+          ctx.fillRect(cx - 5 * p, legTop, 2 * p, legLen + p);
+          ctx.fillRect(cx - 7 * p, legTop, 2 * p, legLen - 2 * p);
+        } else if (frame === 2) {
+          ctx.fillRect(cx - 4 * p, legTop, 2 * p, legLen);
+          ctx.fillRect(cx - 6 * p, legTop, 2 * p, legLen);
+        } else {
+          ctx.fillRect(cx - 7 * p, legTop, 2 * p, legLen - 2 * p);
+          ctx.fillRect(cx - 4 * p, legTop, 2 * p, legLen + p);
+        }
+        // Hooves
+        ctx.fillStyle = '#1A1008';
+        if (frame === 0) {
+          ctx.fillRect(cx + 5 * p, legTop + legLen, 2 * p, p);
+          ctx.fillRect(cx + 7 * p, legTop + legLen - p, 2 * p, p);
+          ctx.fillRect(cx - 6 * p, legTop + legLen - p, 2 * p, p);
+          ctx.fillRect(cx - 4 * p, legTop + legLen, 2 * p, p);
+        } else if (frame === 1) {
+          ctx.fillRect(cx + 6 * p, legTop + legLen + p, 2 * p, p);
+          ctx.fillRect(cx + 4 * p, legTop + legLen - 2 * p, 2 * p, p);
+          ctx.fillRect(cx - 5 * p, legTop + legLen + p, 2 * p, p);
+          ctx.fillRect(cx - 7 * p, legTop + legLen - 2 * p, 2 * p, p);
+        } else if (frame === 2) {
+          ctx.fillRect(cx + 7 * p, legTop + legLen, 2 * p, p);
+          ctx.fillRect(cx + 5 * p, legTop + legLen, 2 * p, p);
+          ctx.fillRect(cx - 4 * p, legTop + legLen, 2 * p, p);
+          ctx.fillRect(cx - 6 * p, legTop + legLen, 2 * p, p);
+        } else {
+          ctx.fillRect(cx + 4 * p, legTop + legLen - 2 * p, 2 * p, p);
+          ctx.fillRect(cx + 7 * p, legTop + legLen + p, 2 * p, p);
+          ctx.fillRect(cx - 7 * p, legTop + legLen - 2 * p, 2 * p, p);
+          ctx.fillRect(cx - 4 * p, legTop + legLen + p, 2 * p, p);
+        }
 
-        // Face / Head
-        ctx.fillStyle = '#E8C9A0';
-        ctx.fillRect(wx - 2 * p, wy - 22 * p, 5 * p, p);
-        ctx.fillRect(wx - 2 * p, wy - 21 * p, 5 * p, p);
-        ctx.fillRect(wx - 2 * p, wy - 20 * p, 5 * p, p);
+        // === KNIGHT (on horse) ===
+        // Knight legs (over horse)
+        ctx.fillStyle = '#778899';
+        ctx.fillRect(cx - 2 * p, cy - 8 * p, 2 * p, 3 * p);
+        ctx.fillRect(cx + 3 * p, cy - 8 * p, 2 * p, 3 * p);
+        // Boots on stirrups
+        ctx.fillStyle = '#555';
+        ctx.fillRect(cx - 3 * p, cy - 5 * p, 2 * p, p);
+        ctx.fillRect(cx + 4 * p, cy - 5 * p, 2 * p, p);
 
-        // Eyes
+        // Body armor (silver/steel)
+        ctx.fillStyle = '#A8B4C0';
+        ctx.fillRect(cx - p, cy - 15 * p, 5 * p, 2 * p);
+        ctx.fillRect(cx - 2 * p, cy - 13 * p, 6 * p, 3 * p);
+        ctx.fillRect(cx - p, cy - 10 * p, 5 * p, 2 * p);
+        // Armor highlights
+        ctx.fillStyle = '#C8D4E0';
+        ctx.fillRect(cx, cy - 14 * p, p, 3 * p);
+        ctx.fillRect(cx + 2 * p, cy - 14 * p, p, 3 * p);
+        // Armor red accent
+        ctx.fillStyle = '#B22222';
+        ctx.fillRect(cx + p, cy - 13 * p, p, 2 * p);
+
+        // Shoulder plates
+        ctx.fillStyle = '#8899AA';
+        ctx.fillRect(cx - 3 * p, cy - 14 * p, 2 * p, 2 * p);
+        ctx.fillRect(cx + 4 * p, cy - 14 * p, 2 * p, 2 * p);
+
+        // Cape (red, flowing behind)
+        ctx.fillStyle = '#CC2222';
+        if (frame < 2) {
+          ctx.fillRect(cx - 3 * p, cy - 15 * p, 2 * p, p);
+          ctx.fillRect(cx - 4 * p, cy - 14 * p, 2 * p, 3 * p);
+          ctx.fillRect(cx - 5 * p, cy - 12 * p, 2 * p, 4 * p);
+          ctx.fillRect(cx - 6 * p, cy - 9 * p, 2 * p, 2 * p);
+        } else {
+          ctx.fillRect(cx - 3 * p, cy - 15 * p, 2 * p, p);
+          ctx.fillRect(cx - 5 * p, cy - 14 * p, 3 * p, 3 * p);
+          ctx.fillRect(cx - 6 * p, cy - 12 * p, 3 * p, 4 * p);
+          ctx.fillRect(cx - 7 * p, cy - 9 * p, 2 * p, 3 * p);
+        }
+        ctx.fillStyle = '#991818';
+        if (frame < 2) {
+          ctx.fillRect(cx - 5 * p, cy - 10 * p, p, 2 * p);
+        } else {
+          ctx.fillRect(cx - 6 * p, cy - 10 * p, p, 2 * p);
+        }
+
+        // Helmet (steel)
+        ctx.fillStyle = '#A8B4C0';
+        ctx.fillRect(cx, cy - 19 * p, 3 * p, p);
+        ctx.fillRect(cx - p, cy - 18 * p, 5 * p, p);
+        ctx.fillRect(cx - p, cy - 17 * p, 5 * p, p);
+        ctx.fillRect(cx, cy - 16 * p, 3 * p, p);
+        // Visor slit
         ctx.fillStyle = '#1A1A2E';
-        ctx.fillRect(wx - p, wy - 21 * p, p, p);
-        ctx.fillRect(wx + p, wy - 21 * p, p, p);
+        ctx.fillRect(cx, cy - 17 * p, 3 * p, p);
+        // Helmet highlight
+        ctx.fillStyle = '#C8D4E0';
+        ctx.fillRect(cx + p, cy - 19 * p, p, p);
 
-        // Neck
-        ctx.fillStyle = '#D4AD80';
-        ctx.fillRect(wx - p, wy - 19 * p, 3 * p, p);
+        // Red plume on helmet
+        ctx.fillStyle = '#CC2222';
+        ctx.fillRect(cx - p, cy - 22 * p, 2 * p, p);
+        ctx.fillRect(cx - 2 * p, cy - 21 * p, 3 * p, p);
+        ctx.fillRect(cx - 2 * p, cy - 20 * p, 3 * p, p);
+        ctx.fillRect(cx - p, cy - 19 * p, 2 * p, p);
+        ctx.fillStyle = '#991818';
+        ctx.fillRect(cx - 2 * p, cy - 21 * p, p, 2 * p);
 
-        // Shoulder armor (dark red)
-        ctx.fillStyle = '#6B1A1A';
-        ctx.fillRect(wx - 5 * p, wy - 18 * p, 11 * p, p);
-        ctx.fillRect(wx - 5 * p, wy - 17 * p, 11 * p, p);
-
-        // Sword over shoulder (blade going up-left)
-        ctx.fillStyle = '#888';
-        ctx.fillRect(wx - 6 * p, wy - 28 * p, p, 2 * p);
-        ctx.fillRect(wx - 5 * p, wy - 27 * p, p, 2 * p);
-        ctx.fillRect(wx - 4 * p, wy - 26 * p, p, 2 * p);
-        ctx.fillRect(wx - 3 * p, wy - 25 * p, p, 2 * p);
-        ctx.fillRect(wx - 2 * p, wy - 24 * p, p, 3 * p);
-        ctx.fillRect(wx - p, wy - 22 * p, p, 4 * p);
-        // Sword guard (gold)
+        // Lance / Sword (pointing forward-right)
+        ctx.fillStyle = '#AAA';
+        ctx.fillRect(cx + 6 * p, cy - 16 * p, 10 * p, p);
+        ctx.fillRect(cx + 14 * p, cy - 17 * p, 3 * p, p);
+        ctx.fillRect(cx + 15 * p, cy - 16 * p, 3 * p, p);
+        ctx.fillRect(cx + 14 * p, cy - 15 * p, 3 * p, p);
+        // Sword guard
         ctx.fillStyle = '#DAA520';
-        ctx.fillRect(wx - 2 * p, wy - 18 * p, 3 * p, p);
-        // Sword handle
+        ctx.fillRect(cx + 5 * p, cy - 17 * p, p, 3 * p);
+        // Handle
         ctx.fillStyle = '#4A3520';
-        ctx.fillRect(wx - p, wy - 17 * p, p, 2 * p);
-
-        // Chest armor (dark red with cross-hatch detail)
-        ctx.fillStyle = '#7B2020';
-        ctx.fillRect(wx - 4 * p, wy - 16 * p, 9 * p, p);
-        ctx.fillRect(wx - 4 * p, wy - 15 * p, 9 * p, p);
-        ctx.fillRect(wx - 4 * p, wy - 14 * p, 9 * p, p);
-        ctx.fillRect(wx - 3 * p, wy - 13 * p, 7 * p, p);
-        // Armor highlight lines
-        ctx.fillStyle = '#8B3030';
-        ctx.fillRect(wx - 2 * p, wy - 16 * p, p, 3 * p);
-        ctx.fillRect(wx + 2 * p, wy - 16 * p, p, 3 * p);
-        ctx.fillStyle = '#5A1515';
-        ctx.fillRect(wx, wy - 15 * p, p, 2 * p);
-
-        // Belt
-        ctx.fillStyle = '#5C3A1E';
-        ctx.fillRect(wx - 4 * p, wy - 12 * p, 9 * p, p);
-        // Belt buckle
-        ctx.fillStyle = '#DAA520';
-        ctx.fillRect(wx - p, wy - 12 * p, 2 * p, p);
-
-        // Belt pouch (brown, left side)
-        ctx.fillStyle = '#6B4226';
-        ctx.fillRect(wx + 3 * p, wy - 13 * p, 3 * p, 3 * p);
-        ctx.fillStyle = '#8B5A3A';
-        ctx.fillRect(wx + 3 * p, wy - 13 * p, 3 * p, p);
-
-        // Lower armor / tunic
-        ctx.fillStyle = '#6B1A1A';
-        ctx.fillRect(wx - 3 * p, wy - 11 * p, 7 * p, p);
-        ctx.fillRect(wx - 3 * p, wy - 10 * p, 7 * p, p);
-        ctx.fillStyle = '#551515';
-        ctx.fillRect(wx - 2 * p, wy - 9 * p, 5 * p, p);
-
-        // Legs (dark pants, animated)
-        ctx.fillStyle = '#2A1A1A';
-        if (frame === 0) {
-          // Standing / stride 1
-          ctx.fillRect(wx - 2 * p, wy - 8 * p, 2 * p, 4 * p);
-          ctx.fillRect(wx + p, wy - 8 * p, 2 * p, 4 * p);
-        } else {
-          // Stride 2
-          ctx.fillRect(wx - 3 * p, wy - 8 * p, 2 * p, 4 * p);
-          ctx.fillRect(wx + 2 * p, wy - 8 * p, 2 * p, 4 * p);
-        }
-
-        // Knee armor
-        ctx.fillStyle = '#5A1515';
-        if (frame === 0) {
-          ctx.fillRect(wx - 2 * p, wy - 5 * p, 2 * p, p);
-          ctx.fillRect(wx + p, wy - 5 * p, 2 * p, p);
-        } else {
-          ctx.fillRect(wx - 3 * p, wy - 5 * p, 2 * p, p);
-          ctx.fillRect(wx + 2 * p, wy - 5 * p, 2 * p, p);
-        }
-
-        // Shin guards
-        ctx.fillStyle = '#3A2218';
-        if (frame === 0) {
-          ctx.fillRect(wx - 2 * p, wy - 4 * p, 2 * p, 2 * p);
-          ctx.fillRect(wx + p, wy - 4 * p, 2 * p, 2 * p);
-        } else {
-          ctx.fillRect(wx - 3 * p, wy - 4 * p, 2 * p, 2 * p);
-          ctx.fillRect(wx + 2 * p, wy - 4 * p, 2 * p, 2 * p);
-        }
-
-        // Boots (brown leather)
-        ctx.fillStyle = '#5C3A1E';
-        if (frame === 0) {
-          ctx.fillRect(wx - 3 * p, wy - 2 * p, 3 * p, 2 * p);
-          ctx.fillRect(wx + p, wy - 2 * p, 3 * p, 2 * p);
-        } else {
-          ctx.fillRect(wx - 4 * p, wy - 2 * p, 3 * p, 2 * p);
-          ctx.fillRect(wx + 2 * p, wy - 2 * p, 3 * p, 2 * p);
-        }
-        // Boot soles
-        ctx.fillStyle = '#3A2010';
-        if (frame === 0) {
-          ctx.fillRect(wx - 3 * p, wy, 3 * p, p);
-          ctx.fillRect(wx + p, wy, 3 * p, p);
-        } else {
-          ctx.fillRect(wx - 4 * p, wy, 3 * p, p);
-          ctx.fillRect(wx + 2 * p, wy, 3 * p, p);
-        }
+        ctx.fillRect(cx + 4 * p, cy - 16 * p, p, p);
       };
 
-      drawWarrior(warriorX, warriorGroundY);
+      drawMountedKnight(warriorX, warriorGroundY);
 
       animationFrameId = requestAnimationFrame(render);
     };
