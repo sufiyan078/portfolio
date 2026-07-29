@@ -101,8 +101,8 @@ export const BackgroundCanvas: React.FC = () => {
       const sunR = Math.min(width, height) * 0.08;
 
       const sunGlow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 3.5);
-      sunGlow.addColorStop(0, 'rgba(241, 245, 249, 0.45)');
-      sunGlow.addColorStop(0.3, 'rgba(148, 163, 184, 0.18)');
+      sunGlow.addColorStop(0, 'rgba(200, 210, 220, 0.30)');
+      sunGlow.addColorStop(0.3, 'rgba(120, 135, 155, 0.12)');
       sunGlow.addColorStop(1, 'rgba(7, 10, 16, 0)');
       ctx.fillStyle = sunGlow;
       ctx.beginPath();
@@ -110,13 +110,13 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fill();
 
       // Sun Disc Core
-      ctx.fillStyle = '#E2E8F0';
+      ctx.fillStyle = '#C8D0DA';
       ctx.beginPath();
       ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
       ctx.fill();
 
       // 5. Far Distant Mountain Range (Layer 1)
-      ctx.fillStyle = '#1E293B';
+      ctx.fillStyle = '#131A26';
       ctx.beginPath();
       ctx.moveTo(0, height);
       ctx.lineTo(0, height * 0.52);
@@ -132,7 +132,7 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fill();
 
       // 6. Mid-Ground Dark Mountain Ranges (Layer 2)
-      ctx.fillStyle = '#151C28';
+      ctx.fillStyle = '#0E1520';
       ctx.beginPath();
       ctx.moveTo(0, height);
       ctx.lineTo(0, height * 0.62);
