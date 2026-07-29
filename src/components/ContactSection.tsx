@@ -9,6 +9,8 @@ export const ContactSection: React.FC = () => {
 
   const emailAddress = "work.sufiyan.ahmed078@gmail.com";
 
+  const [sending, setSending] = useState(false);
+
   const handleCopyEmail = () => {
     playCyberSound('click');
     navigator.clipboard.writeText(emailAddress);
@@ -16,14 +18,45 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     playCyberSound('click');
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 4000);
+    setSending(true);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '568cb1a9-b684-48ee-[#web3forms-key-placeholder]', // Will use standard Mailto fallback if no key or send via form endpoint
+          email_to: emailAddress,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Inquiry from ' + formData.name,
+          message: formData.message,
+          from_name: 'Portfolio Contact Form'
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        // Fallback: open mailto prefilled if web3forms isn't configured
+        const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
+        window.location.href = mailtoUrl;
+        setSubmitted(true);
+      }
+    } catch {
+      // Fallback: mailto
+      const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
+      window.location.href = mailtoUrl;
+      setSubmitted(true);
+    } finally {
+      setSending(false);
+      setTimeout(() => setSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -168,10 +201,11 @@ export const ContactSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="btn-primary w-full justify-center py-3 text-sm"
+                  disabled={sending}
+                  className="btn-primary w-full justify-center py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>SEND TRANSMISSION</span>
+                  <Send className={`w-4 h-4 ${sending ? 'animate-spin' : ''}`} />
+                  <span>{sending ? 'TRANSMITTING...' : 'SEND TRANSMISSION'}</span>
                 </button>
               </form>
             )}
