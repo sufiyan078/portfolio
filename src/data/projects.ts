@@ -100,51 +100,73 @@ export const PROJECTS: Project[] = [
     id: "mission-02",
     missionNumber: "MISSION 02",
     title: "CareerAI — AI Career Assistant",
-    tagline: "AI-assisted resume generation, optimization workflows & career application support",
+    tagline: "AI-powered resume generation, ATS optimization, job matching & career application assistant",
     category: "AI",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ☆",
-    description: "An AI-powered career platform designed to help users create better resumes, optimize job applications, and streamline overall job search workflows.",
-    businessProblem: "Job seekers spend significant manual effort customizing resume bullet points and cover letters without structured feedback on application relevance.",
+    description: "CareerAI is an AI-powered career platform that enables users to build professional resumes from scratch, choose from multiple resume templates, upload existing resumes for AI-assisted optimization, analyze resumes against job descriptions, receive ATS compatibility scoring, generate personalized cover letters, and discover relevant jobs through JSearch integration. The platform combines AI-assisted content generation with structured career workflows to simplify and improve the job application process.",
+    businessProblem: "Job seekers commonly struggle with creating professional resumes, tailoring resumes for each application, understanding ATS compatibility, identifying missing keywords, writing customized cover letters, and finding relevant job opportunities. CareerAI reduces repetitive manual work by combining resume generation, optimization, ATS analysis, AI recommendations, and job search into a unified workflow.",
     architecture: {
       nodes: [
         { name: "Next.js + React Client", type: "Web Application" },
-        { name: "Gemini / Vertex AI APIs", type: "LLM Inference Engine" },
-        { name: "Firebase Services", type: "User Auth & Cloud Data" },
-        { name: "Job Search APIs", type: "External Integration" }
+        { name: "Firebase Authentication", type: "User Login & Session Management" },
+        { name: "Resume Builder", type: "Template Selection & Creation" },
+        { name: "Resume Upload / Resume Creation", type: "Input Processing Layer" },
+        { name: "Prompt Construction Layer", type: "AI Request Formatting" },
+        { name: "Gemini Flash API", type: "LLM Inference Engine" },
+        { name: "Structured AI Response Processing", type: "Output Parsing & Validation" },
+        { name: "ATS Analysis & Resume Optimization", type: "Scoring & Recommendations" },
+        { name: "Cover Letter Generation", type: "AI Content Generation" },
+        { name: "Firebase Database & Billing", type: "User Data & SaaS Billing" }
       ],
-      description: "Structured AI integration engine that processes resume content against job requirement specifications to provide actionable bullet optimization recommendations."
+      description: "Next.js + React Client → Firebase Authentication (User Login) → Resume Builder (Template Selection) → Resume Upload / Resume Creation → Prompt Construction Layer → Gemini Flash API → Structured AI Response Processing → ATS Analysis & Resume Optimization → Cover Letter Generation → Firebase Database (User Data & Billing)."
     },
     features: [
-      "Structured resume creation and AI-assisted bullet point optimization",
-      "Targeted application improvement suggestions based on job requirements",
-      "Automated drafting assistant for cover letters and application materials",
-      "Interactive career workflow dashboard for application tracking"
+      "AI-powered resume generation from scratch",
+      "Resume template selection with multiple professional layouts",
+      "Upload existing resumes for AI-assisted optimization",
+      "ATS compatibility scoring against job descriptions",
+      "Resume analysis with keyword gap identification",
+      "AI-generated resume improvement suggestions",
+      "Personalized cover letter generation",
+      "Job discovery through JSearch API integration",
+      "Firebase Authentication for secure user sessions",
+      "Firebase Database and Billing integration for SaaS model"
     ],
     technologyLoadout: [
       "Next.js",
       "React",
       "TypeScript",
-      "Gemini",
-      "Vertex AI",
-      "Firebase",
-      "Job Search APIs"
+      "Tailwind CSS",
+      "Gemini API",
+      "Gemini Flash",
+      "Firebase Authentication",
+      "Firebase Database",
+      "Firebase Billing",
+      "JSearch API",
+      "Git"
     ],
     challenges: [
       {
-        issue: "AI generation latencies caused perceived UI slowdown during text generation.",
-        investigation: "Blocking API requests waited for complete response text before updating client UI state.",
-        solution: "Implemented streaming response handling to render AI suggestions progressively as generated."
+        issue: "AI generation latencies caused perceived UI slowdown during resume content generation.",
+        investigation: "Blocking API requests waited for complete Gemini Flash response before updating client UI state.",
+        solution: "Implemented streaming response handling to render AI suggestions progressively as tokens were generated."
+      },
+      {
+        issue: "ATS keyword matching produced inconsistent relevance scores across different job description formats.",
+        investigation: "Raw text comparison missed semantic equivalences between resume terms and job description requirements.",
+        solution: "Structured prompt construction layer to normalize job descriptions before comparison, improving ATS scoring consistency."
       }
     ],
     outcome: [
-      "Created an AI-powered career productivity platform simplifying job application workflows",
-      "Streamlined resume drafting and tailoring processes through structured AI assistance",
-      "Delivered a responsive user experience with clean workflow management"
+      "Built an AI-powered career platform combining resume creation, optimization, ATS analysis, and job discovery",
+      "Reduced repetitive manual effort involved in tailoring resumes for different job applications",
+      "Delivered structured AI workflows using Gemini Flash API for resume generation and optimization",
+      "Created a scalable SaaS foundation using Firebase Authentication, Database, and Billing"
     ],
     lessonsLearned: [
-      "Streaming tokens dramatically improves perceived UI responsiveness during AI text generation.",
-      "Clear prompt boundaries and schema validation ensure consistent LLM outputs."
+      "Structured prompt construction with clear schema boundaries ensures consistent and reliable LLM outputs from Gemini Flash.",
+      "Separating ATS analysis from content generation allows independent optimization of scoring accuracy without affecting resume quality."
     ]
   },
   {
