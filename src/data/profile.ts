@@ -16,7 +16,7 @@ export interface Profile {
 export const PROFILE: Profile = {
   name: "Sufiyan Ahmed",
   role: "Data Analyst",
-  playerClass: "DATA",
+  playerClass: "BUILDER",
   level: "LEVEL 99",
   status: "ONLINE",
   location: "EARTH",

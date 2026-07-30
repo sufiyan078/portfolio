@@ -92,7 +92,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
             <div className="flex flex-wrap items-center gap-2 font-pixel text-[8px] text-gray-400 mt-1">
               <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-pixel bg-[#CD1818]/15 border border-[#CD1818]/40 text-[#FF8F00]">
-                CLASS: <span className="text-[#CD1818] font-black ml-1">DATA</span>
+                CLASS: <span className="text-[#CD1818] font-black ml-1">BUILDER</span>
               </span>
               <div className="inline-flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#08CB00] animate-pulse" />
