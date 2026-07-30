@@ -1,3 +1,134 @@
+// ─── Builder Profile ────────────────────────────────────────
+export interface BuilderProfile {
+  name: string;
+  playerClass: string;
+  roles: string[];
+  level: string;
+  status: string;
+  location: string;
+}
+
+export const BUILDER_PROFILE: BuilderProfile = {
+  name: "Sufiyan Ahmed",
+  playerClass: "BUILDER",
+  roles: [
+    "Full Stack Software Engineer",
+    "AI Product Builder",
+    "Automation Engineer"
+  ],
+  level: "LEVEL 99",
+  status: "ONLINE",
+  location: "EARTH"
+};
+
+// ─── Development Process (RPG Skill Tree) ───────────────────
+export interface ProcessStage {
+  id: string;
+  label: string;
+  icon: string;       // Lucide icon name
+  description: string;
+}
+
+export const DEV_PROCESS: ProcessStage[] = [
+  {
+    id: "discovery",
+    label: "DISCOVERY",
+    icon: "Search",
+    description: "Understand the business problem, user needs, and success criteria before writing a single line of code."
+  },
+  {
+    id: "architecture",
+    label: "ARCHITECTURE",
+    icon: "Layers",
+    description: "Design the system structure, data models, and technical stack for reliability and scalability."
+  },
+  {
+    id: "rapid-dev",
+    label: "RAPID DEVELOPMENT",
+    icon: "Zap",
+    description: "Build features iteratively using AI-accelerated workflows to deliver working software fast."
+  },
+  {
+    id: "testing",
+    label: "TESTING & VALIDATION",
+    icon: "ShieldCheck",
+    description: "Validate every feature against requirements with automated tests and manual review."
+  },
+  {
+    id: "deployment",
+    label: "DEPLOYMENT",
+    icon: "Rocket",
+    description: "Ship to production with CI/CD pipelines, monitoring, and zero-downtime releases."
+  },
+  {
+    id: "support",
+    label: "ONGOING SUPPORT",
+    icon: "HeartHandshake",
+    description: "Provide maintenance, feature iterations, and technical support after launch."
+  }
+];
+
+// ─── Why Clients Choose Me ──────────────────────────────────
+export interface ClientCard {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;       // Lucide icon name
+}
+
+export const CLIENT_REASONS: ClientCard[] = [
+  {
+    id: "business-first",
+    title: "Business-First Approach",
+    icon: "Target",
+    description: "I focus on solving business problems rather than writing unnecessary code. Every feature serves a purpose."
+  },
+  {
+    id: "ai-accelerated",
+    title: "AI-Accelerated Development",
+    icon: "Bot",
+    description: "I leverage Google Antigravity and modern AI tooling to deliver faster without sacrificing quality."
+  },
+  {
+    id: "production-ready",
+    title: "Production Ready",
+    icon: "ShieldCheck",
+    description: "Projects include authentication, validation, scalability, and maintainable architecture from day one."
+  },
+  {
+    id: "transparent-comms",
+    title: "Transparent Communication",
+    icon: "MessageSquare",
+    description: "Clients always know project status, milestones, and next steps. No surprises, no black boxes."
+  },
+  {
+    id: "clean-ux",
+    title: "Clean User Experience",
+    icon: "Sparkles",
+    description: "Every interface is designed for usability, clarity, and performance. Software people actually want to use."
+  },
+  {
+    id: "long-term",
+    title: "Long-Term Thinking",
+    icon: "TrendingUp",
+    description: "Software should be easy to maintain and evolve. I build systems you won't need to throw away in six months."
+  },
+  {
+    id: "structured-process",
+    title: "Structured Process",
+    icon: "GitBranch",
+    description: "Discovery, architecture, development, testing, deployment, support — every project follows a proven workflow."
+  },
+  {
+    id: "full-ownership",
+    title: "Full Ownership",
+    icon: "Crown",
+    description: "From database design to frontend polish, I handle the entire stack. One point of contact, full accountability."
+  }
+];
+
+// ─── Legacy exports for backward compat ─────────────────────
+// (Some other components may still import PROFILE)
 export interface Profile {
   name: string;
   role: string;
@@ -15,7 +146,7 @@ export interface Profile {
 
 export const PROFILE: Profile = {
   name: "Sufiyan Ahmed",
-  role: "Data Analyst",
+  role: "Software Engineer",
   playerClass: "BUILDER",
   level: "LEVEL 99",
   status: "ONLINE",
@@ -23,26 +154,9 @@ export const PROFILE: Profile = {
   bio: "Building business software products that save time and automate workflows.",
   missionStatement: "Creating software products that transform manual processes into reliable, validated digital systems.",
   xpPercentage: 82,
-  stats: [
-    { label: "Analytical Tools (Excel, SQL, Python)", score: 96 },
-    { label: "Data Visualization (Tableau, Power BI)", score: 95 },
-    { label: "Data Libraries (Pandas, NumPy, Seaborn)", score: 94 },
-    { label: "Machine Learning & Scikit-Learn", score: 90 },
-    { label: "Problem Solving & Data Validation", score: 96 }
-  ],
-  specializations: [
-    "Analytical Tools (Microsoft Excel, Python, PostgreSQL)",
-    "Data Science Libraries (NumPy, Pandas, Matplotlib, Seaborn, Web Scraping, Scikit-Learn)",
-    "Data Visualization Tools (Tableau, Power BI)",
-    "Machine Learning & Predictive Modeling"
-  ],
-  philosophy: [
-    { number: "01", title: "AI-Augmented Engineering", text: "Leverage AI copilots, LLMs, and intelligent automation as force multipliers — not replacements. The best engineers in 2026 don't just write code; they orchestrate AI to ship 10x faster." },
-    { number: "02", title: "Systems Over Scripts", text: "Think in architectures, not files. Design modular, event-driven systems with clear contracts and boundaries that scale gracefully — because the next feature is always around the corner." },
-    { number: "03", title: "Data is the Product", text: "In the age of AI, data pipelines are the backbone of every decision. Build deterministic, observable systems where every metric, report, and prediction can be trusted and traced." },
-    { number: "04", title: "Ship Fast, Stay Sharp", text: "Velocity without quality is chaos. Deliver rapid iterations with CI/CD, type safety, and automated testing — because in 2026, the market doesn't wait and neither should your deploys." },
-    { number: "05", title: "Human-Centered Impact", text: "Technology is only valuable when it transforms real workflows. Focus on building tools that empower users, eliminate friction, and create measurable business outcomes — not just cool demos." }
-  ]
+  stats: [],
+  specializations: [],
+  philosophy: []
 };
 
 export const PLAYER_PROFILE = PROFILE;
