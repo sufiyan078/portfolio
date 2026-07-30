@@ -57,7 +57,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             onMouseEnter={() => playCyberSound('hover')}
             className="btn-primary font-black-ops tracking-wider"
           >
-            <span>GAME ON</span>
+            <span>Start Mission</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
