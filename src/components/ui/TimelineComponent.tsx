@@ -1,7 +1,7 @@
 import React from 'react';
 import { GlassPanel } from './GlassPanel';
 import { AchievementBadge } from './AchievementBadge';
-import { Sparkles, CheckCircle2, Clock } from 'lucide-react';
+import { CheckCircle2, Clock } from 'lucide-react';
 import type { Quest } from '../../data/timeline';
 
 interface TimelineComponentProps {
@@ -21,7 +21,7 @@ export const TimelineComponent: React.FC<TimelineComponentProps> = ({ quests }) 
                 ? 'bg-[#443199] border-white text-white shadow-[0_0_15px_rgba(68,49,153,0.8)] animate-pulse'
                 : 'bg-[#070B14] border-[#443199]/50 text-[#443199]'
             }`}>
-              {isCurrent ? <Sparkles className="w-3.5 h-3.5" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+              <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
 
             <GlassPanel borderGlowColor={isCurrent ? 'cyan' : 'purple'}>

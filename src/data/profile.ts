@@ -68,6 +68,46 @@ export const DEV_PROCESS: ProcessStage[] = [
   }
 ];
 
+// ─── How I Can Help Your Business ───────────────────────────
+export interface HelpBusinessItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export const BUSINESS_HELP_ITEMS: HelpBusinessItem[] = [
+  {
+    id: 'dashboard',
+    question: "Need a business dashboard?",
+    answer: "I'll build one."
+  },
+  {
+    id: 'automate',
+    question: "Need to automate repetitive work?",
+    answer: "I'll automate it."
+  },
+  {
+    id: 'ai-workflow',
+    question: "Need AI integrated into your workflow?",
+    answer: "I'll build it."
+  },
+  {
+    id: 'internal-app',
+    question: "Need an internal web application?",
+    answer: "I'll develop it."
+  },
+  {
+    id: 'reports',
+    question: "Need reports generated automatically?",
+    answer: "I'll handle it."
+  },
+  {
+    id: 'saas-mvp',
+    question: "Need a complete SaaS MVP?",
+    answer: "Let's build it."
+  }
+];
+
 // ─── Why Clients Choose Me ──────────────────────────────────
 export interface ClientCard {
   id: string;

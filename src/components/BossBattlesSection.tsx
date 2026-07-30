@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BOSS_BATTLES } from '../data/bossBattles';
-import { Swords, AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
+import { ClashingSwordsIcon } from './ui/ClashingSwordsIcon';
 
 export const BossBattlesSection: React.FC = () => {
   const [expandedBattleId, setExpandedBattleId] = useState<string>('');
@@ -16,7 +17,7 @@ export const BossBattlesSection: React.FC = () => {
       {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <Swords className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <ClashingSwordsIcon className="w-4 h-4" />
           <span className="text-[#FF8F00] font-bold">BOSS BATTLES</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
@@ -35,7 +36,7 @@ export const BossBattlesSection: React.FC = () => {
           return (
             <div
               key={battle.id}
-              className={`cyber-card p-6 sm:p-8 transition-all duration-300 ${
+              className={`cyber-card p-6 sm:p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-[#FF4500]/70 hover:shadow-[0_12px_25px_rgba(255,69,0,0.2)] ${
                 isExpanded ? 'border-2 border-[#D90000]/60 bg-[#280905]/90 shadow-[0_0_35px_rgba(217,0,0,0.25)]' : ''
               }`}
             >

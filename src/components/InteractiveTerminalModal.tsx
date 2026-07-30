@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Terminal, X, CornerDownLeft, Sparkles } from 'lucide-react';
-import { PLAYER_PROFILE, MISSIONS, INVENTORY_SKILLS, BOSS_BATTLES } from '../data/portfolioData';
+import { PLAYER_PROFILE, MISSIONS, BOSS_BATTLES } from '../data/portfolioData';
+import { SKILLS } from '../data/skills';
 import { playCyberSound } from '../utils/soundEffects';
 
 interface InteractiveTerminalModalProps {
@@ -112,9 +113,9 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
           <div className="space-y-1 text-xs font-mono text-gray-300">
             <p className="text-[#00f3ff] font-bold">TOP EQUIPMENT INVENTORY:</p>
             <div className="flex flex-wrap gap-2 pt-1">
-              {INVENTORY_SKILLS.slice(0, 10).map(s => (
+              {SKILLS.slice(0, 10).map(s => (
                 <span key={s.id} className="px-2 py-0.5 rounded bg-[#080b14] border border-white/10 text-gray-200">
-                  {s.name} ({s.mastery}%)
+                  {s.name} ({s.percentage}%)
                 </span>
               ))}
             </div>

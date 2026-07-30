@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PROJECTS, type Project } from '../data/projects';
-import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, Sparkles, X } from 'lucide-react';
+import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, X } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 
 export const MissionControlSection: React.FC = () => {
@@ -11,7 +11,25 @@ export const MissionControlSection: React.FC = () => {
       {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <Target className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <div className="relative inline-flex items-center justify-center">
+            <style>{`
+              @keyframes target-lock-pulse {
+                0%, 100% {
+                  transform: scale(1);
+                  filter: drop-shadow(0 0 2px rgba(255, 143, 0, 0.4));
+                }
+                50% {
+                  transform: scale(1.22);
+                  filter: drop-shadow(0 0 10px rgba(255, 143, 0, 0.95)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+                }
+              }
+              .anim-target-lock {
+                animation: target-lock-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                transform-origin: center center;
+              }
+            `}</style>
+            <Target className="w-3.5 h-3.5 text-[#FF8F00] anim-target-lock" />
+          </div>
           <span className="text-[#FF8F00] font-bold">MISSIONS</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
@@ -28,9 +46,44 @@ export const MissionControlSection: React.FC = () => {
           <div
             key={project.id}
             onMouseEnter={() => playCyberSound('hover')}
-            className="glass-panel p-6 sm:p-8 flex flex-col justify-between group hover:border-[#FF8F00]/50 transition-all duration-300"
+            className="p-6 sm:p-8 flex flex-col justify-between group rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-[#FF8F00]/70 hover:shadow-[0_12px_28px_rgba(255,143,0,0.2)] relative overflow-hidden cursor-pointer"
+            style={{
+              backgroundImage: `linear-gradient(180deg, rgba(30,18,8,0.7) 0%, rgba(30,18,8,0.5) 50%, rgba(30,18,8,0.7) 100%), url('/wood-texture.png')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              border: '2px solid rgba(139,90,43,0.6)',
+              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.4), 0 4px 20px rgba(0,0,0,0.5)',
+            }}
           >
-            <div>
+            {/* Pure SVG Grass & Hanging Vines Overlay */}
+            <svg className="absolute top-0 left-0 w-full h-14 z-10 pointer-events-none" viewBox="0 0 400 50" preserveAspectRatio="none" fill="none">
+              {/* Grass blades base row across top */}
+              <path d="M0 0 L15 12 L22 0 L35 15 L45 0 L60 10 L70 0 L85 14 L95 0 L110 12 L120 0 L135 15 L150 0 L165 10 L178 0 L190 14 L205 0 L220 12 L232 0 L248 15 L260 0 L275 11 L288 0 L302 14 L315 0 L330 12 L342 0 L358 15 L370 0 L385 11 L400 0 Z" fill="#2d6a1e" opacity="0.85" />
+              <path d="M0 0 L10 8 L18 0 L28 10 L38 0 L50 7 L62 0 L75 10 L88 0 L100 8 L112 0 L125 10 L138 0 L152 7 L168 0 L180 10 L195 0 L210 8 L225 0 L238 10 L252 0 L268 7 L280 0 L295 10 L310 0 L322 8 L335 0 L350 10 L365 0 L378 7 L390 0 L400 6 Z" fill="#4a8a35" opacity="0.9" />
+
+              {/* Hanging Vine 1 (Left) */}
+              <path d="M45 0 C45 10, 40 15, 43 25 C46 35, 38 38, 41 46" stroke="#2a5518" strokeWidth="2" fill="none" opacity="0.9" />
+              <path d="M43 15 C35 15 32 10 38 8 Z" fill="#3a7a28" opacity="0.95" />
+              <path d="M44 26 C52 26 55 21 49 19 Z" fill="#4a8a35" opacity="0.95" />
+              <path d="M41 38 C33 38 30 33 36 31 Z" fill="#2d6a1e" opacity="0.9" />
+
+              {/* Hanging Vine 2 (Center-Left) */}
+              <path d="M150 0 C150 12, 155 18, 152 30" stroke="#2a5518" strokeWidth="1.8" fill="none" opacity="0.85" />
+              <path d="M151 16 C158 16 161 11 155 9 Z" fill="#4a8a35" opacity="0.9" />
+              <path d="M152 28 C144 28 141 23 147 21 Z" fill="#3a7a28" opacity="0.9" />
+
+              {/* Hanging Vine 3 (Center-Right) */}
+              <path d="M260 0 C260 10, 255 16, 258 28 C261 38, 254 42, 257 48" stroke="#2a5518" strokeWidth="2" fill="none" opacity="0.9" />
+              <path d="M259 14 C251 14 248 9 254 7 Z" fill="#2d6a1e" opacity="0.95" />
+              <path d="M259 26 C267 26 270 21 264 19 Z" fill="#4a8a35" opacity="0.95" />
+              <path d="M257 40 C249 40 246 35 252 33 Z" fill="#3a7a28" opacity="0.9" />
+
+              {/* Hanging Vine 4 (Right) */}
+              <path d="M350 0 C350 12, 355 16, 352 28" stroke="#2a5518" strokeWidth="1.8" fill="none" opacity="0.85" />
+              <path d="M351 16 C343 16 340 11 346 9 Z" fill="#3a7a28" opacity="0.9" />
+              <path d="M352 26 C360 26 363 21 357 19 Z" fill="#4a8a35" opacity="0.9" />
+            </svg>
+            <div className="relative z-20">
               {/* Mission Header Badges */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="font-pixel text-[11px] font-bold text-[#FF8F00] tracking-widest">
@@ -70,7 +123,7 @@ export const MissionControlSection: React.FC = () => {
                 playCyberSound('openModal');
                 setSelectedProject(project);
               }}
-              className="w-full mt-4 py-3 rounded-xl bg-[#000000] border border-white/10 hover:border-[#FF8F00]/50 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 group-hover:bg-[#FF8F00]/15 transition-all cursor-pointer"
+              className="relative z-20 w-full mt-4 py-3 rounded-xl bg-[#000000] border border-white/10 hover:border-[#FF8F00]/50 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 group-hover:bg-[#FF8F00]/15 transition-all cursor-pointer"
             >
               <span>INSPECT MISSION DETAILS</span>
               <ChevronRight className="w-4 h-4 text-[#FF8F00] group-hover:translate-x-1 transition-transform" />
@@ -111,7 +164,7 @@ export const MissionControlSection: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30">
                   <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4" /> MISSION BRIEF
+                    MISSION BRIEF
                   </h4>
                   <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
                 </div>

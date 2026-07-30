@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  User, Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
+  Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
   Target, Bot, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
-import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS } from '../data/profile';
+import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
 import type { ProcessStage, ClientCard } from '../data/profile';
 import { playCyberSound } from '../utils/soundEffects';
+import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
@@ -91,7 +92,29 @@ export const PlayerProfileSection: React.FC = () => {
       {/* ── Section Header ─────────────────────────────── */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <Crosshair className="w-3.5 h-3.5 text-[#FF8F00]" />
+          <div className="relative inline-flex items-center justify-center">
+            <style>{`
+              @keyframes radar-scan-spin {
+                0% {
+                  transform: rotate(0deg) scale(1);
+                  filter: drop-shadow(0 0 2px rgba(255, 143, 0, 0.4));
+                }
+                50% {
+                  transform: rotate(180deg) scale(1.15);
+                  filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.9));
+                }
+                100% {
+                  transform: rotate(360deg) scale(1);
+                  filter: drop-shadow(0 0 2px rgba(255, 143, 0, 0.4));
+                }
+              }
+              .anim-radar-crosshair {
+                animation: radar-scan-spin 3s linear infinite;
+                transform-origin: center center;
+              }
+            `}</style>
+            <Crosshair className="w-3.5 h-3.5 text-[#FF8F00] anim-radar-crosshair" />
+          </div>
           <span className="text-[#FF8F00] font-bold">BUILDER INTEL</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
@@ -111,8 +134,8 @@ export const PlayerProfileSection: React.FC = () => {
           {/* Builder Profile Card */}
           <div className="glass-panel p-6 sm:p-8">
             <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-5">
-              <div className="w-12 h-12 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
-                <User className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center">
+                <ShieldKnightEmblem className="w-10 h-10" size={40} />
               </div>
               <div>
                 <h3 className="font-heading font-bold text-xl text-white">{BUILDER_PROFILE.name}</h3>
@@ -159,8 +182,43 @@ export const PlayerProfileSection: React.FC = () => {
           </div>
         </div>
 
-        {/* ═══ RIGHT COLUMN — Why Clients Choose Me ═══ */}
+        {/* ═══ RIGHT COLUMN — Business Value + Why Clients Choose Me ═══ */}
         <div className="lg:col-span-7 flex flex-col gap-6">
+
+          {/* How I Can Help Your Business Card */}
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#FF8F00]/40 shadow-[0_0_30px_rgba(255,143,0,0.15)] relative overflow-hidden">
+            <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/50 flex items-center justify-center text-[#FF8F00]">
+                <Target className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-pixel font-bold text-base sm:text-lg text-white tracking-wide">HOW I CAN HELP YOUR BUSINESS</h3>
+                <span className="font-mono text-xs text-[#FF8F00]">Custom software engineering solutions</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {BUSINESS_HELP_ITEMS.map((item) => (
+                <div
+                  key={item.id}
+                  onMouseEnter={() => playCyberSound('hover')}
+                  className="p-4 rounded-xl bg-[#000000]/70 border border-[#FF8F00]/30 hover:border-[#FF8F00]/60 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_8px_18px_rgba(255,143,0,0.18)] transition-all duration-300 group flex items-start gap-3 cursor-pointer"
+                >
+                  <span className="font-bold text-[#FF8F00] text-sm shrink-0 mt-0.5 select-none">✓</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-mono font-medium text-gray-200 group-hover:text-white transition-colors">
+                      {item.question}
+                    </div>
+                    <div className="text-xs font-black-ops font-bold text-[#FF8F00] mt-1 tracking-wide group-hover:translate-x-0.5 transition-transform">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Why Clients Choose Me Card */}
           <div className="glass-panel p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">

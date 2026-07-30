@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { SKILLS } from '../data/skills';
-import { INVENTORY_ITEMS } from '../data/inventory';
-import { Package, Cpu, FileCode2, Database, Server, FileSpreadsheet, FileText, Palette, Code, CheckCircle2 } from 'lucide-react';
+import { INVENTORY_CATEGORIES } from '../data/inventory';
+import { Package, Cpu, Database, Server, CheckCircle2, Bot, Layout, Zap, BarChart3, Box, Rocket } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
+import { AnimatedPackageIcon } from './ui/AnimatedPackageIcon';
 
 interface InventorySkillsSectionProps {
   activeTab?: 'abilities' | 'inventory';
@@ -27,23 +28,16 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'FileCode': return FileCode2;
-      case 'Code': return Code;
+      case 'Bot': return Bot;
+      case 'Zap': return Zap;
+      case 'BarChart3': return BarChart3;
+      case 'Layout': return Layout;
+      case 'Rocket': return Rocket;
       case 'Server': return Server;
-      case 'FileSpreadsheet': return FileSpreadsheet;
-      case 'FileText': return FileText;
+      case 'Database': return Database;
       case 'Cpu': return Cpu;
-      case 'Palette': return Palette;
-      default: return Database;
-    }
-  };
-
-  const getRarityBadgeClass = (rarity: string) => {
-    switch (rarity) {
-      case 'Legendary': return 'badge-legendary';
-      case 'Epic': return 'badge-epic';
-      case 'Rare': return 'badge-rare';
-      default: return 'badge-common';
+      case 'Box': return Box;
+      default: return Cpu;
     }
   };
 
@@ -51,8 +45,8 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
     <section id="inventory" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header per Section 15 */}
       <div className="flex flex-col items-center text-center mb-12">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <Package className="w-3.5 h-3.5 text-[#FF8F00]" />
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3 group/badge">
+          <AnimatedPackageIcon className="w-3.5 h-3.5" />
           <span className="text-[#FF8F00] font-bold">ABILITIES // INVENTORY</span>
         </div>
         <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
@@ -89,87 +83,150 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
         </div>
       </div>
 
-      {/* Abilities View per UI/UX Section 12 & Content Engine Section 7 */}
+      {/* Abilities View - 8 Builder Capability Cards */}
       {activeTab === 'abilities' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SKILLS.map((skill) => (
-            <div
-              key={skill.id}
-              onMouseEnter={() => playCyberSound('hover')}
-              className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/50 transition-all duration-300"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest">{skill.category}</span>
-                  <span className="font-mono text-xs font-bold text-[#FF8F00] px-2 py-0.5 rounded bg-[#FF8F00]/15 border border-[#FF8F00]/30">
-                    LVL {skill.level}
-                  </span>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {SKILLS.map((skill) => {
+            const IconComp = getIcon(skill.iconName);
 
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
-                    <Cpu className="w-5 h-5" />
+            return (
+              <div
+                key={skill.id}
+                onMouseEnter={() => playCyberSound('hover')}
+                className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/70 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(255,143,0,0.18)] transition-all duration-300 relative overflow-hidden cursor-pointer"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-[9px] text-[#FF8F00] font-bold uppercase tracking-widest bg-[#FF8F00]/10 px-2 py-0.5 rounded border border-[#FF8F00]/30">
+                      {skill.category}
+                    </span>
+                    <span className="font-mono text-xs font-bold text-[#FF8F00] px-2 py-0.5 rounded bg-[#FF8F00]/15 border border-[#FF8F00]/30">
+                      LVL {skill.level.toUpperCase()}
+                    </span>
                   </div>
-                  <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors">
-                    {skill.name}
-                  </h3>
+
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0">
+                      <IconComp className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-base text-white group-hover:text-[#FF8F00] transition-colors leading-tight">
+                        {skill.name}
+                      </h3>
+                      <span className="font-black-ops text-xs font-bold text-[#FF8F00] block mt-0.5">
+                        {skill.capabilityTag}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4">
+                    {skill.description}
+                  </p>
                 </div>
 
-                <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4">
-                  {skill.description}
-                </p>
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between font-mono text-xs text-gray-400">
+                  <span>CAPABILITY SCORE</span>
+                  <span className="text-[#FF8F00] font-bold">{skill.percentage}%</span>
+                </div>
               </div>
-
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between font-mono text-xs text-gray-400">
-                <span>PROFICIENCY</span>
-                <span className="text-[#FF8F00] font-bold">{skill.percentage}%</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
-      {/* Collectible Inventory View per UI/UX Section 18 & Content Engine Section 8 */}
+      {/* ── RPG Collectible Inventory Vault View ──────────────────────── */}
       {activeTab === 'inventory' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {INVENTORY_ITEMS.map((item) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {INVENTORY_CATEGORIES.map((item, categoryIdx) => {
             const IconComponent = getIcon(item.iconName);
-            const rarityClass = getRarityBadgeClass(item.rarity);
 
             return (
               <div
                 key={item.id}
                 onMouseEnter={() => playCyberSound('hover')}
-                className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/50 transition-all duration-300"
+                className={`glass-panel p-6 sm:p-7 flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(255,143,0,0.18)] border-2 ${item.borderColor} relative overflow-hidden cursor-pointer`}
+                style={{
+                  boxShadow: `0 8px 32px rgba(0,0,0,0.6), inset 0 0 25px ${item.glowColor}`
+                }}
               >
+                {/* Tactical HUD Corner Crosshairs */}
+                <span className="absolute top-2 left-2 text-[#FF8F00]/40 font-mono text-[9px] select-none pointer-events-none">+</span>
+                <span className="absolute top-2 right-2 text-[#FF8F00]/40 font-mono text-[9px] select-none pointer-events-none">+</span>
+                <span className="absolute bottom-2 left-2 text-[#FF8F00]/40 font-mono text-[9px] select-none pointer-events-none">+</span>
+                <span className="absolute bottom-2 right-2 text-[#FF8F00]/40 font-mono text-[9px] select-none pointer-events-none">+</span>
+
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest">{item.category}</span>
-                    <span className={`badge-tag ${rarityClass} text-[10px] uppercase font-bold`}>
+                  {/* Vault Header Bar */}
+                  <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-white/15">
+                    <div>
+                      <div className="font-pixel text-[10px] font-bold text-white tracking-widest flex items-center gap-1.5">
+                        <span className={item.textColor}>{item.categoryName.toUpperCase()}</span>
+                        <span className="text-gray-500">//</span>
+                        <span className="text-gray-300">VAULT 0{categoryIdx + 1}</span>
+                      </div>
+                      <span className="font-mono text-[9px] text-gray-400 block mt-0.5">CAPACITY: {item.techList.length}/6 ITEMS</span>
+                    </div>
+                    
+                    <span className={`font-pixel text-[8px] tracking-wider px-2 py-1 rounded border ${item.badgeColor} font-extrabold uppercase shadow-sm`}>
                       {item.rarity}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
-                      <IconComponent className="w-5 h-5" />
+                  {/* Vault Description & Category Title */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-11 h-11 rounded-xl ${item.bgColor} border border-white/15 flex items-center justify-center ${item.textColor} shrink-0 shadow-inner`}>
+                      <IconComponent className="w-5.5 h-5.5" />
                     </div>
-                    <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors">
-                      {item.name}
-                    </h3>
+                    <div>
+                      <h3 className="font-black-ops font-bold text-base sm:text-lg text-white group-hover:text-white transition-colors tracking-wide leading-tight">
+                        {item.name}
+                      </h3>
+                      <p className="text-[11px] text-gray-400 font-sans leading-snug mt-0.5">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
 
-                  <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4">
-                    {item.description}
-                  </p>
+                  {/* RPG Inventory Item Slots Grid (2 Columns x 3 Rows) */}
+                  <div className="mb-5">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="font-mono text-[10px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                        <Package className={`w-3 h-3 ${item.textColor}`} /> EQUIPPED ITEM SLOTS
+                      </span>
+                      <span className={`font-mono text-[9px] ${item.textColor} font-bold`}>100% READY</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      {item.techList.map((techName, slotIdx) => (
+                        <div
+                          key={slotIdx}
+                          className="p-2.5 rounded-lg bg-[#000000]/80 border border-white/10 hover:border-white/30 flex items-center justify-between gap-2 group/slot transition-all shadow-inner"
+                        >
+                          <div className="flex items-center gap-2 overflow-hidden">
+                            <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-mono font-bold text-gray-400 shrink-0">
+                              0{slotIdx + 1}
+                            </div>
+                            <span className="font-mono text-xs font-bold text-gray-200 group-hover/slot:text-white truncate">
+                              {techName}
+                            </span>
+                          </div>
+                          <span className={`w-1.5 h-1.5 rounded-full ${item.dotBgColor} shrink-0`} title="Equipped & Active" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10">
-                  <span className="font-mono text-[10px] text-gray-400 block mb-1.5 uppercase">USED IN MISSIONS</span>
-                  <div className="flex flex-wrap gap-1">
+                {/* Vault Mission Telemetry */}
+                <div className="pt-3.5 border-t border-white/15">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-mono text-[9px] text-gray-400 font-bold uppercase tracking-wider">FIELD DEPLOYMENTS</span>
+                    <span className={`font-mono text-[9px] ${item.textColor}`}>VERIFIED</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
                     {item.projectsUsed.map((proj, i) => (
-                      <span key={i} className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#070B14] border border-white/5 text-[#10B981] font-semibold flex items-center gap-1">
-                        <CheckCircle2 className="w-2.5 h-2.5" />
+                      <span key={i} className={`font-mono text-[10px] px-2 py-0.5 rounded bg-[#070B14] border border-white/10 ${item.textColor} font-semibold flex items-center gap-1`}>
+                        <CheckCircle2 className={`w-2.5 h-2.5 ${item.textColor}`} />
                         {proj}
                       </span>
                     ))}
