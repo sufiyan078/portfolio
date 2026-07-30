@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Terminal, Sparkles, Code, Cpu, Database, FileSpreadsheet, BarChart3, PieChart } from 'lucide-react';
+import { ArrowRight, Terminal, Sparkles, Globe, Smartphone, BarChart3, Bot, Cog, TrendingUp } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 
@@ -9,13 +9,13 @@ interface LandingHeroProps {
 }
 
 export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTerminal }) => {
-  const techBadges = [
-    { name: "Microsoft Excel", icon: FileSpreadsheet, color: "text-[#FF8F00]" },
-    { name: "Python Analytics", icon: Code, color: "text-[#FF8F00]" },
-    { name: "PostgreSQL & SQL", icon: Database, color: "text-[#FF8F00]" },
-    { name: "Pandas & NumPy", icon: BarChart3, color: "text-[#FF8F00]" },
-    { name: "Tableau & Power BI", icon: PieChart, color: "text-[#FF8F00]" },
-    { name: "Machine Learning", icon: Cpu, color: "text-[#FF8F00]" }
+  const serviceBadges = [
+    { name: "Websites & Landing Pages", icon: Globe, color: "text-[#FF8F00]" },
+    { name: "Custom Web Applications", icon: Smartphone, color: "text-[#FF8F00]" },
+    { name: "Dashboards & Data Visualization", icon: BarChart3, color: "text-[#FF8F00]" },
+    { name: "AI Agents & AI Automation", icon: Bot, color: "text-[#FF8F00]" },
+    { name: "Business Process Automation", icon: Cog, color: "text-[#FF8F00]" },
+    { name: "Reporting & Analytics Systems", icon: TrendingUp, color: "text-[#FF8F00]" }
   ];
 
   return (
@@ -81,7 +81,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             <span>Services I Build</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {techBadges.map((b, i) => (
+            {serviceBadges.map((b, i) => (
               <div key={i} className="p-3 rounded-xl bg-[#000000]/80 border border-white/5 flex flex-col items-center justify-center gap-1.5 hover:border-[#FF8F00]/50 transition-all">
                 <b.icon className={`w-5 h-5 ${b.color}`} />
                 <span className="font-mono text-xs text-gray-200 font-semibold">{b.name}</span>
