@@ -39,7 +39,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
 
         {/* Sub-headline / Vision */}
         <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-semibold text-gray-200 mb-8 max-w-3xl">
-          Architecting Reliable <span className="text-[#FF8F00]">Software</span> & Systems.
+          Building Business <span className="text-[#FF8F00]">Software</span> That Saves Time & Makes Money.
         </h2>
 
         {/* Bio Narrative */}
