@@ -81,7 +81,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
 
           <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
             <Sparkles className="w-4 h-4 text-[#FF8F00]" />
-            <span>TECHNOLOGY LOADOUT & STACK</span>
+            <span>Services I Build</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {techBadges.map((b, i) => (
