@@ -42,10 +42,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           Building Business <span className="text-[#FF8F00]">Software</span> That Saves Time & Makes Money.
         </h2>
 
-        {/* Bio Narrative */}
-        <p className="font-sans max-w-2xl mb-10 text-gray-300 text-base sm:text-lg leading-relaxed">
-          A data analyst who builds practical software products that solve real-world problems through thoughtful engineering and clean architecture.
-        </p>
+
 
         {/* Action Buttons */}
         <div className="flex flex-wrap justify-center items-center gap-4 mb-14">

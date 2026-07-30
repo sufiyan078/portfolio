@@ -20,7 +20,7 @@ export const PROFILE: Profile = {
   level: "LEVEL 99",
   status: "ONLINE",
   location: "EARTH",
-  bio: "A data analyst who builds practical software products that solve real-world problems through thoughtful engineering and clean architecture.",
+  bio: "Building business software products that save time and automate workflows.",
   missionStatement: "Creating software products that transform manual processes into reliable, validated digital systems.",
   xpPercentage: 82,
   stats: [
