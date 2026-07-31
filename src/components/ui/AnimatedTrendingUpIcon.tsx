@@ -3,21 +3,32 @@ import React from 'react';
 export const AnimatedTrendingUpIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
   <svg className={`fill-none stroke-current ${className}`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <style>{`
-      @keyframes trendPulse {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(1.5px, -1.5px); }
+      @keyframes lineDraw {
+        0% { stroke-dashoffset: 32; opacity: 0.4; }
+        50%, 100% { stroke-dashoffset: 0; opacity: 1; }
       }
-      @keyframes lineGlow {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.6; }
+      @keyframes headPulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.22); opacity: 0.75; }
       }
-      .animated-trend-arrow { animation: trendPulse 1.8s ease-in-out infinite; }
-      .animated-trend-line { animation: lineGlow 2s ease-in-out infinite; }
+      @keyframes sparkClimb {
+        0% { transform: translate(1px, 18px); opacity: 0; }
+        25% { opacity: 1; }
+        75% { transform: translate(22px, 6px); opacity: 1; }
+        100% { transform: translate(22px, 6px); opacity: 0; }
+      }
+      .trend-path { stroke-dasharray: 32; animation: lineDraw 2.5s ease-in-out infinite; }
+      .arrow-head { transform-origin: 20px 9px; animation: headPulse 1.5s ease-in-out infinite alternate; }
+      .climb-spark { animation: sparkClimb 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
     `}</style>
     
-    <g className="animated-trend-arrow">
-      <polyline className="animated-trend-line" points="23 6 13.5 15.5 8.5 10.5 1 18" />
-      <polyline points="17 6 23 6 23 12" />
-    </g>
+    {/* Dynamic Ascending Line Trace */}
+    <polyline className="trend-path" points="23 6 13.5 15.5 8.5 10.5 1 18" />
+
+    {/* Pulsing Arrowhead Tip */}
+    <polyline className="arrow-head" points="17 6 23 6 23 12" />
+
+    {/* Ascending Data Energy Spark */}
+    <circle className="climb-spark" cx="0" cy="0" r="1.2" fill="currentColor" stroke="none" />
   </svg>
 );
