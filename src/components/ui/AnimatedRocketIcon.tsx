@@ -1,38 +1,46 @@
 import React from 'react';
 
 export const AnimatedRocketIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg className={`fill-none stroke-current ${className}`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg className={`fill-none stroke-current ${className}`} viewBox="0 0 24 24" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
     <style>{`
-      @keyframes rocketThrust {
-        0% { transform: translate(0, 0); }
-        50% { transform: translate(1.2px, -1.8px); }
-        100% { transform: translate(0, 0); }
+      @keyframes rocketFly {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(1.2px, -1.5px); }
       }
-      @keyframes flamePulse {
+      @keyframes thrustFlicker {
         0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.55; transform: scale(0.85); }
+        50% { opacity: 0.6; transform: scale(0.85); }
       }
-      @keyframes exhaustSmoke {
-        0% { opacity: 0.9; transform: translate(0, 0); }
-        100% { opacity: 0; transform: translate(-3.5px, 3.5px); }
+      @keyframes eyeGlint {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.25); }
       }
-      .rocket-body { animation: rocketThrust 1.8s ease-in-out infinite; }
-      .rocket-flame { transform-origin: 5px 19px; animation: flamePulse 0.4s ease-in-out infinite alternate; }
-      .rocket-smoke { animation: exhaustSmoke 0.8s linear infinite; }
+      .rocket-ship { animation: rocketFly 1.8s ease-in-out infinite; }
+      .thrust-trail { transform-origin: 6px 18px; animation: thrustFlicker 0.4s ease-in-out infinite alternate; }
+      .window-glint { transform-origin: 14.5px 8.5px; animation: eyeGlint 2s ease-in-out infinite; }
     `}</style>
     
-    <g className="rocket-body">
-      {/* Rocket Main Hull Body */}
-      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-      <path d="M12 15l-3-3a22 2 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z" />
-      <path d="M9 12l-5 5" />
-      <path d="M15 12l5 5" />
+    <g className="rocket-ship">
+      {/* Lightning Flame Thrust Trail (Matching Screenshot 2) */}
+      <g className="thrust-trail">
+        <path d="M7.5 17L4.5 18.5L6 19.5L2 22L7.5 19.5L6.5 18.5Z" fill="currentColor" strokeWidth="1" />
+      </g>
 
-      {/* Thrust Flame Core (Bottom Left Nozzle) */}
-      <path className="rocket-flame" d="M4.5 19.5c-1 1-2.5 1.5-3.5 1.5.5-1 1-2.5 2-3.5" fill="currentColor" strokeWidth="1.5" />
+      {/* Top Fin / Wing */}
+      <path d="M11 8.5C9 5.5 5 7 7.5 12" strokeWidth="1.6" />
 
-      {/* Particle Sparks */}
-      <circle className="rocket-smoke" cx="3" cy="21" r="0.8" fill="currentColor" />
+      {/* Bottom Fin / Leg */}
+      <path d="M12.5 15.5C11 18.5 13 20.5 15.5 17.5" strokeWidth="1.6" />
+
+      {/* Main Rocket Torpedo Body (Matching Screenshot 2 Nose & Curves) */}
+      <path d="M7 16C8 10 16 4 22 2C20 10 14 18 8.5 17C7.5 17 7 16.5 7 16Z" strokeWidth="1.8" />
+
+      {/* Rear Nozzle Cap Rim */}
+      <path d="M7 16L8.5 17" strokeWidth="2" />
+
+      {/* Porthole Window with Pupil (Matching Screenshot 2) */}
+      <circle cx="14.5" cy="8.5" r="2.2" strokeWidth="1.5" />
+      <circle className="window-glint" cx="14.5" cy="8.5" r="0.9" fill="currentColor" />
     </g>
   </svg>
 );
