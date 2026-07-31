@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Terminal, Smartphone } from 'lucide-react';
+import { ArrowRight, Terminal } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
@@ -7,6 +7,7 @@ import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
 import { AnimatedGlobeIcon } from './ui/AnimatedGlobeIcon';
 import { AnimatedCogIcon } from './ui/AnimatedCogIcon';
 import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
+import { AnimatedSmartphoneIcon } from './ui/AnimatedSmartphoneIcon';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -16,7 +17,7 @@ interface LandingHeroProps {
 export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTerminal }) => {
   const serviceBadges = [
     { name: "Websites & Landing Pages", icon: AnimatedGlobeIcon, color: "text-[#FF8F00]" },
-    { name: "Custom Web Applications", icon: Smartphone, color: "text-[#FF8F00]" },
+    { name: "Custom Web Applications", icon: AnimatedSmartphoneIcon, color: "text-[#FF8F00]" },
     { name: "Dashboards & Data Visualization", icon: AnimatedChartIcon, color: "text-[#FF8F00]" },
     { name: "AI Agents & AI Automation", icon: AnimatedBotIcon, color: "text-[#FF8F00]" },
     { name: "Business Process Automation", icon: AnimatedCogIcon, color: "text-[#FF8F00]" },
