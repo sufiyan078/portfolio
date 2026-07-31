@@ -30,10 +30,37 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
         40% { opacity: 1; }
         100% { transform: translate(42px, 0px); opacity: 0; }
       }
+      @keyframes hammerStrikeLeft {
+        0%, 100% { transform: rotate(0deg); }
+        35% { transform: rotate(24deg); }
+        42% { transform: rotate(24deg); }
+        52% { transform: rotate(-2deg); }
+        70% { transform: rotate(0deg); }
+      }
+      @keyframes hammerStrikeRight {
+        0%, 100% { transform: rotate(0deg); }
+        35% { transform: rotate(-24deg); }
+        42% { transform: rotate(-24deg); }
+        52% { transform: rotate(2deg); }
+        70% { transform: rotate(0deg); }
+      }
+      @keyframes anvilImpactLeft {
+        0%, 34%, 55%, 100% { opacity: 0; transform: scale(0.5); }
+        38% { opacity: 1; transform: scale(1.4); }
+      }
+      @keyframes anvilImpactRight {
+        0%, 34%, 55%, 100% { opacity: 0; transform: scale(0.5); }
+        38% { opacity: 1; transform: scale(1.4); }
+      }
+
       .animated-outer-flame { transform-origin: 32px 24px; animation: forgeFlameFlicker 0.45s ease-in-out infinite; }
       .animated-inner-flame { transform-origin: 32px 22px; animation: forgeCoreFlicker 0.35s ease-in-out infinite alternate; }
       .forge-spark-1 { animation: forgeSparkLeft 1.2s ease-out infinite; }
       .forge-spark-2 { animation: forgeSparkRight 1.4s ease-out 0.5s infinite; }
+      .animated-hammer-left { transform-origin: 22px 32px; animation: hammerStrikeLeft 1.4s ease-in-out infinite; }
+      .animated-hammer-right { transform-origin: 42px 32px; animation: hammerStrikeRight 1.4s ease-in-out 0.7s infinite; }
+      .impact-spark-left { transform-origin: 16px 35px; animation: anvilImpactLeft 1.4s ease-out infinite; }
+      .impact-spark-right { transform-origin: 48px 35px; animation: anvilImpactRight 1.4s ease-out 0.7s infinite; }
     `}</style>
 
     {/* Flying Ember Sparks */}
@@ -44,13 +71,21 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
     <path className="animated-outer-flame" d="M32 0C32 0 20 12 20 20C20 26.6 25.4 24 32 24C38.6 24 44 26.6 44 20C44 12 32 0 32 0Z" fill="url(#forgeFlameGrad)" />
     <path className="animated-inner-flame" d="M32 8C32 8 27 15 27 19C27 22 29.2 22 32 22C34.8 22 37 22 37 19C37 15 32 8 32 8Z" fill="#FFD740" />
 
-    {/* Left Hammer — Thick Diagonal Handle + Big Head */}
-    <path d="M8 16L20 34L24 31L12 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
-    <rect x="3" y="11" width="12" height="7" rx="2" transform="rotate(-35 9 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
+    {/* Anvil Strike Impact Sparks */}
+    <circle className="impact-spark-left" cx="16" cy="35" r="2.5" fill="#FFE082" />
+    <circle className="impact-spark-right" cx="48" cy="35" r="2.5" fill="#FFE082" />
 
-    {/* Right Hammer — Thick Diagonal Handle + Big Head */}
-    <path d="M56 16L44 34L40 31L52 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
-    <rect x="49" y="11" width="12" height="7" rx="2" transform="rotate(35 55 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
+    {/* Left Hammer — Striking Anvil */}
+    <g className="animated-hammer-left">
+      <path d="M8 16L20 34L24 31L12 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
+      <rect x="3" y="11" width="12" height="7" rx="2" transform="rotate(-35 9 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
+    </g>
+
+    {/* Right Hammer — Striking Anvil (Alternating Rhythm) */}
+    <g className="animated-hammer-right">
+      <path d="M56 16L44 34L40 31L52 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
+      <rect x="49" y="11" width="12" height="7" rx="2" transform="rotate(35 55 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
+    </g>
 
     {/* Anvil — Bold, Clear T-Shape */}
     <rect x="10" y="36" width="44" height="6" rx="2" fill="#6D4C41" stroke="#4E342E" strokeWidth="1" />
