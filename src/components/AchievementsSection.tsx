@@ -7,6 +7,7 @@ import {
 import { playCyberSound } from '../utils/soundEffects';
 import { GlitteringTrophyIcon } from './ui/GlitteringTrophyIcon';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
+import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
 
 // Custom animated fast stopwatch icon matching Screenshot 2 (speed dashes + spinning hands)
 const FastStopwatchIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
@@ -154,37 +155,6 @@ const AnimatedSpeedometerIcon: React.FC<{ className?: string }> = ({ className =
 
     {/* Sleek Flame Trail Wisp */}
     <path d="M5.5 10c-1.5-2 0-4.5 3-4.5 1.5 1 2 2 1.2 3.5" strokeWidth="1.4" />
-  </svg>
-);
-
-// Custom animated Bar Chart icon for Actionable Insights (staggered growing bars)
-const AnimatedChartIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg className={`fill-none stroke-current ${className}`} viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <style>{`
-      @keyframes barGrow1 {
-        0%, 100% { transform: scaleY(0.45); }
-        50% { transform: scaleY(1); }
-      }
-      @keyframes barGrow2 {
-        0%, 100% { transform: scaleY(0.55); }
-        50% { transform: scaleY(1.15); }
-      }
-      @keyframes barGrow3 {
-        0%, 100% { transform: scaleY(0.35); }
-        50% { transform: scaleY(0.95); }
-      }
-      .chart-bar-1 { transform-origin: 7px 18px; animation: barGrow1 2.4s ease-in-out infinite; }
-      .chart-bar-2 { transform-origin: 12px 18px; animation: barGrow2 2.4s ease-in-out 0.3s infinite; }
-      .chart-bar-3 { transform-origin: 17px 18px; animation: barGrow3 2.4s ease-in-out 0.6s infinite; }
-    `}</style>
-    
-    {/* Chart Axis Base Frame */}
-    <path d="M3 3v15a2 2 0 0 0 2 2h16" strokeWidth="2" />
-
-    {/* Staggered Animated Growing Bar Chart Bars */}
-    <path className="chart-bar-1" d="M7 18v-4" strokeWidth="2.5" />
-    <path className="chart-bar-2" d="M12 18V7" strokeWidth="2.5" />
-    <path className="chart-bar-3" d="M17 18v-7" strokeWidth="2.5" />
   </svg>
 );
 

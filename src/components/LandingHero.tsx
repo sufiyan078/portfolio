@@ -1,8 +1,9 @@
 import React from 'react';
-import { ArrowRight, Terminal, Globe, Smartphone, BarChart3, Cog, TrendingUp } from 'lucide-react';
+import { ArrowRight, Terminal, Globe, Smartphone, Cog, TrendingUp } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
+import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -13,7 +14,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
   const serviceBadges = [
     { name: "Websites & Landing Pages", icon: Globe, color: "text-[#FF8F00]" },
     { name: "Custom Web Applications", icon: Smartphone, color: "text-[#FF8F00]" },
-    { name: "Dashboards & Data Visualization", icon: BarChart3, color: "text-[#FF8F00]" },
+    { name: "Dashboards & Data Visualization", icon: AnimatedChartIcon, color: "text-[#FF8F00]" },
     { name: "AI Agents & AI Automation", icon: AnimatedBotIcon, color: "text-[#FF8F00]" },
     { name: "Business Process Automation", icon: Cog, color: "text-[#FF8F00]" },
     { name: "Reporting & Analytics Systems", icon: TrendingUp, color: "text-[#FF8F00]" }
