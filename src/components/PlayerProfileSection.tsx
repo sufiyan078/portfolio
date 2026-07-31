@@ -1,18 +1,19 @@
 import React from 'react';
 import {
   Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
-  Target, Bot, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
+  Target, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
 import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
 import type { ProcessStage, ClientCard } from '../data/profile';
 import { playCyberSound } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
+import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
-const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
   Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
-  Target, Bot, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown
+  Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown
 };
 
 const resolveIcon = (name: string) => iconMap[name] ?? Target;
