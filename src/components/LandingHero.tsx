@@ -138,7 +138,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
                 onClick={() => playCyberSound('click')}
                 className="p-4 rounded-xl bg-[#000000]/80 border border-white/10 hover:border-[#FF8F00]/60 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_10px_25px_rgba(255,143,0,0.18)] hover:bg-[#FF8F00]/10 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center gap-2"
               >
-                <b.icon className={`w-5.5 h-5.5 ${b.color} group-hover:scale-110 transition-transform duration-300`} />
+                <b.icon className={`w-6 h-6 ${b.color} group-hover:scale-110 transition-transform duration-300`} />
                 <span className="font-mono text-xs text-gray-200 group-hover:text-white font-semibold leading-snug">{b.name}</span>
               </div>
             ))}
