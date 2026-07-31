@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
+  Search, Layers, Zap, ShieldCheck, HeartHandshake,
   Target, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
@@ -9,10 +9,11 @@ import type { ProcessStage, ClientCard } from '../data/profile';
 import { playCyberSound } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
+import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
-  Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake,
+  Search, Layers, Zap, ShieldCheck, Rocket: AnimatedRocketIcon, HeartHandshake,
   Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown
 };
 
@@ -174,7 +175,7 @@ export const PlayerProfileSection: React.FC = () => {
           {/* Mission Callout */}
           <div className="glass-panel p-6 border-l-4 border-l-[#FF8F00]">
             <div className="flex items-center gap-2 text-xs font-mono text-[#FF8F00] mb-2 font-bold uppercase">
-              <Rocket className="w-4 h-4" />
+              <AnimatedRocketIcon className="w-4 h-4" />
               <span>READY FOR DEPLOYMENT</span>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed font-sans">

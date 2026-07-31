@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { SKILLS } from '../data/skills';
 import { INVENTORY_CATEGORIES } from '../data/inventory';
-import { Package, Cpu, Database, Server, CheckCircle2, Layout, Zap, Box, Rocket } from 'lucide-react';
+import { Package, Cpu, Database, Server, CheckCircle2, Layout, Zap, Box } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { AnimatedPackageIcon } from './ui/AnimatedPackageIcon';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
+import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 
 interface InventorySkillsSectionProps {
   activeTab?: 'abilities' | 'inventory';
@@ -34,7 +35,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
       case 'Zap': return Zap;
       case 'BarChart3': return AnimatedChartIcon;
       case 'Layout': return Layout;
-      case 'Rocket': return Rocket;
+      case 'Rocket': return AnimatedRocketIcon;
       case 'Server': return Server;
       case 'Database': return Database;
       case 'Cpu': return Cpu;

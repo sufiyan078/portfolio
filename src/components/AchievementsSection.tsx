@@ -1,13 +1,14 @@
 import React from 'react';
 import { ACHIEVEMENTS, CLIENT_REWARDS } from '../data/achievements';
 import { 
-  Trophy, CheckCircle2, Gift, Rocket, Cog, 
+  Trophy, CheckCircle2, Gift, Cog, 
   TrendingUp, Link, Globe, Wrench 
 } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { GlitteringTrophyIcon } from './ui/GlitteringTrophyIcon';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
+import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 
 // Custom animated fast stopwatch icon matching Screenshot 2 (speed dashes + spinning hands)
 const FastStopwatchIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
@@ -169,7 +170,7 @@ export const AchievementsSection: React.FC = () => {
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Rocket': return Rocket;
+      case 'Rocket': return AnimatedRocketIcon;
       case 'Bot': return AnimatedBotIcon;
       case 'BarChart3': return AnimatedChartIcon;
       case 'Cog': return Cog;
