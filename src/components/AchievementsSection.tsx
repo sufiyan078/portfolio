@@ -10,6 +10,7 @@ import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
 import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
+import { AnimatedSpeedometerIcon } from './ui/AnimatedSpeedometerIcon';
 
 // Custom animated fast stopwatch icon matching Screenshot 2 (speed dashes + spinning hands)
 const FastStopwatchIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
@@ -142,6 +143,7 @@ export const AchievementsSection: React.FC = () => {
       case 'Coins': return SaveMoneyIcon;
       case 'Eye': return AnimatedEyeIcon;
       case 'Zap': return AnimatedCircuitGearIcon;
+      case 'Speedometer': return AnimatedSpeedometerIcon;
       default: return Trophy;
     }
   };

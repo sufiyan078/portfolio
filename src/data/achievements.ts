@@ -94,6 +94,6 @@ export const CLIENT_REWARDS: ClientReward[] = [
   { id: "rew-2", label: "Save Money", icon: "Coins" },
   { id: "rew-3", label: "Better Visibility", icon: "Eye" },
   { id: "rew-4", label: "Automation", icon: "Bot" },
-  { id: "rew-5", label: "Faster Workflows", icon: "Zap" },
+  { id: "rew-5", label: "Faster Workflows", icon: "Speedometer" },
   { id: "rew-6", label: "Actionable Insights", icon: "BarChart3" }
 ];
