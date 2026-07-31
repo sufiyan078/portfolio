@@ -45,38 +45,12 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
         75% { transform: rotate(0deg); }
       }
 
-      /* Left Impact Spark Rays (Burst outward at 45% keyframe) */
-      @keyframes sparkFanLeft1 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(-8px, -11px) scale(1.2); opacity: 0; }
-      }
-      @keyframes sparkFanLeft2 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(0px, -14px) scale(1.2); opacity: 0; }
-      }
-      @keyframes sparkFanLeft3 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(7px, -10px) scale(1.2); opacity: 0; }
-      }
-
-      /* Right Impact Spark Rays (Burst outward at 45% keyframe, 0.75s offset) */
-      @keyframes sparkFanRight1 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(-7px, -10px) scale(1.2); opacity: 0; }
-      }
-      @keyframes sparkFanRight2 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(0px, -14px) scale(1.2); opacity: 0; }
-      }
-      @keyframes sparkFanRight3 {
-        0%, 42%, 60%, 100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
-        46% { opacity: 1; }
-        54% { transform: translate(8px, -11px) scale(1.2); opacity: 0; }
+      /* Bold Visible Impact Spark Burst Animation */
+      @keyframes sparkBurstFlash {
+        0%, 42%, 62%, 100% { opacity: 0; transform: scale(0.2); }
+        45% { opacity: 1; transform: scale(1); }
+        54% { opacity: 0.85; transform: scale(1.4); }
+        60% { opacity: 0; transform: scale(1.6); }
       }
 
       .animated-outer-flame { transform-origin: 32px 24px; animation: forgeFlameFlicker 0.45s ease-in-out infinite; }
@@ -86,15 +60,11 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
       .animated-hammer-left { transform-origin: 22px 32px; animation: hammerHeadStrikeLeft 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
       .animated-hammer-right { transform-origin: 42px 32px; animation: hammerHeadStrikeRight 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.75s infinite; }
 
-      .impact-l1 { transform-origin: 39px 36px; animation: sparkFanLeft1 1.5s ease-out infinite; }
-      .impact-l2 { transform-origin: 39px 36px; animation: sparkFanLeft2 1.5s ease-out infinite; }
-      .impact-l3 { transform-origin: 39px 36px; animation: sparkFanLeft3 1.5s ease-out infinite; }
-      .impact-r1 { transform-origin: 25px 36px; animation: sparkFanRight1 1.5s ease-out 0.75s infinite; }
-      .impact-r2 { transform-origin: 25px 36px; animation: sparkFanRight2 1.5s ease-out 0.75s infinite; }
-      .impact-r3 { transform-origin: 25px 36px; animation: sparkFanRight3 1.5s ease-out 0.75s infinite; }
+      .impact-spark-group-left { transform-origin: 39px 36px; animation: sparkBurstFlash 1.5s ease-out infinite; }
+      .impact-spark-group-right { transform-origin: 25px 36px; animation: sparkBurstFlash 1.5s ease-out 0.75s infinite; }
     `}</style>
 
-    {/* Flying Ember Sparks */}
+    {/* Flying Ember Sparks from Fire */}
     <circle className="forge-spark-1" cx="0" cy="0" r="1.2" fill="#FFD740" />
     <circle className="forge-spark-2" cx="0" cy="0" r="1" fill="#FF9100" />
 
@@ -102,23 +72,13 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
     <path className="animated-outer-flame" d="M32 0C32 0 20 12 20 20C20 26.6 25.4 24 32 24C38.6 24 44 26.6 44 20C44 12 32 0 32 0Z" fill="url(#forgeFlameGrad)" />
     <path className="animated-inner-flame" d="M32 8C32 8 27 15 27 19C27 22 29.2 22 32 22C34.8 22 37 22 37 19C37 15 32 8 32 8Z" fill="#FFD740" />
 
-    {/* Left Hammer Impact Flying Spark Burst (3 Rays) */}
-    <circle className="impact-l1" cx="39" cy="36" r="1.4" fill="#FFD740" />
-    <circle className="impact-l2" cx="39" cy="36" r="1.6" fill="#FFEE58" />
-    <circle className="impact-l3" cx="39" cy="36" r="1.3" fill="#FF9100" />
-
-    {/* Right Hammer Impact Flying Spark Burst (3 Rays) */}
-    <circle className="impact-r1" cx="25" cy="36" r="1.3" fill="#FF9100" />
-    <circle className="impact-r2" cx="25" cy="36" r="1.6" fill="#FFEE58" />
-    <circle className="impact-r3" cx="25" cy="36" r="1.4" fill="#FFD740" />
-
-    {/* Left Hammer — Hammer Head Arc Swing Striking Anvil Surface */}
+    {/* Left Hammer — Hammer Head Arc Swing */}
     <g className="animated-hammer-left">
       <path d="M8 16L20 34L24 31L12 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
       <rect x="3" y="11" width="12" height="7" rx="2" transform="rotate(-35 9 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
     </g>
 
-    {/* Right Hammer — Hammer Head Arc Swing Striking Anvil Surface (Alternating Rhythm) */}
+    {/* Right Hammer — Hammer Head Arc Swing */}
     <g className="animated-hammer-right">
       <path d="M56 16L44 34L40 31L52 13Z" fill="#CFD8DC" stroke="#90A4AE" strokeWidth="1" />
       <rect x="49" y="11" width="12" height="7" rx="2" transform="rotate(35 55 14.5)" fill="#B0BEC5" stroke="#78909C" strokeWidth="1" />
@@ -130,5 +90,24 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
     <rect x="18" y="42" width="28" height="8" rx="1" fill="#4E342E" stroke="#3E2723" strokeWidth="1" />
     <rect x="14" y="50" width="36" height="6" rx="2" fill="#3E2723" stroke="#2D1B14" strokeWidth="1" />
     <rect x="11" y="36" width="42" height="2" rx="1" fill="#8D6E63" opacity="0.6" />
+
+    {/* RENDERED ON TOP OF EVERYTHING: BOLD ANVIL IMPACT SPARK BURSTS */}
+    {/* Left Hammer Strike Spark Burst */}
+    <g className="impact-spark-group-left">
+      <path d="M39 36L46 28M39 36L39 23M39 36L31 29M39 36L47 36M39 36L33 41" stroke="#FFF59D" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="46" cy="28" r="1.5" fill="#FFD540" />
+      <circle cx="39" cy="23" r="1.8" fill="#FFF" />
+      <circle cx="31" cy="29" r="1.4" fill="#FF9100" />
+      <circle cx="47" cy="36" r="1.3" fill="#FFAB00" />
+    </g>
+
+    {/* Right Hammer Strike Spark Burst */}
+    <g className="impact-spark-group-right">
+      <path d="M25 36L18 28M25 36L25 23M25 36L33 29M25 36L17 36M25 36L31 41" stroke="#FFF59D" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="18" cy="28" r="1.5" fill="#FFD540" />
+      <circle cx="25" cy="23" r="1.8" fill="#FFF" />
+      <circle cx="33" cy="29" r="1.4" fill="#FF9100" />
+      <circle cx="17" cy="36" r="1.3" fill="#FFAB00" />
+    </g>
   </svg>
 );
