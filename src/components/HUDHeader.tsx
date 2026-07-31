@@ -101,16 +101,8 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
               <span className="text-gray-500">|</span>
               <div className="inline-flex items-center gap-1">
                 <span className="font-pixel text-[8px] text-gray-400">LEVEL 99</span>
-                <span className="inline-flex items-center gap-0.5 text-[#FF8F00] text-[7px] font-pixel bg-[#FF8F00]/10 border border-[#FF8F00]/30 px-1 py-0.2 rounded">
-                  <span>LVL</span>
-                  <div className="inline-flex flex-col items-center -space-y-1 shrink-0">
-                    <svg className="w-2 h-2 fill-[#08CB00] animate-pulse" viewBox="0 0 24 24">
-                      <path d="M12 4L2 20h20L12 4z" />
-                    </svg>
-                    <svg className="w-2 h-2 fill-[#08CB00] animate-pulse" viewBox="0 0 24 24">
-                      <path d="M12 4L2 20h20L12 4z" />
-                    </svg>
-                  </div>
+                <span className="inline-flex items-center text-[#FF8F00] text-[7px] font-pixel bg-[#FF8F00]/10 border border-[#FF8F00]/30 px-1 py-0.2 rounded font-bold tracking-wider">
+                  MAX
                 </span>
               </div>
             </div>
