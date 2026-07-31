@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Search, Layers, ShieldCheck, HeartHandshake,
-  Target, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
+  Target, MessageSquare, Sparkles, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
 import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
@@ -11,11 +11,12 @@ import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
+import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
   Search, Layers, Zap: AnimatedCircuitGearIcon, ShieldCheck, Rocket: AnimatedRocketIcon, HeartHandshake,
-  Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown
+  Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp: AnimatedTrendingUpIcon, GitBranch, Crown
 };
 
 const resolveIcon = (name: string) => iconMap[name] ?? Target;

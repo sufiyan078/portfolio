@@ -2,7 +2,7 @@ import React from 'react';
 import { ACHIEVEMENTS, CLIENT_REWARDS } from '../data/achievements';
 import { 
   Trophy, CheckCircle2, Gift, 
-  TrendingUp, Link, Wrench 
+  Link, Wrench 
 } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { GlitteringTrophyIcon } from './ui/GlitteringTrophyIcon';
@@ -13,6 +13,7 @@ import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
 import { AnimatedSpeedometerIcon } from './ui/AnimatedSpeedometerIcon';
 import { AnimatedGlobeIcon } from './ui/AnimatedGlobeIcon';
 import { AnimatedCogIcon } from './ui/AnimatedCogIcon';
+import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
 
 // Custom animated fast stopwatch icon matching Screenshot 2 (speed dashes + spinning hands)
 const FastStopwatchIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
@@ -137,7 +138,7 @@ export const AchievementsSection: React.FC = () => {
       case 'Bot': return AnimatedBotIcon;
       case 'BarChart3': return AnimatedChartIcon;
       case 'Cog': return AnimatedCogIcon;
-      case 'TrendingUp': return TrendingUp;
+      case 'TrendingUp': return AnimatedTrendingUpIcon;
       case 'Link': return Link;
       case 'Globe': return AnimatedGlobeIcon;
       case 'Wrench': return Wrench;

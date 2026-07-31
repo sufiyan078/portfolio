@@ -1,11 +1,12 @@
 import React from 'react';
-import { ArrowRight, Terminal, Smartphone, TrendingUp } from 'lucide-react';
+import { ArrowRight, Terminal, Smartphone } from 'lucide-react';
 import { playCyberSound } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
 import { AnimatedGlobeIcon } from './ui/AnimatedGlobeIcon';
 import { AnimatedCogIcon } from './ui/AnimatedCogIcon';
+import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -19,7 +20,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
     { name: "Dashboards & Data Visualization", icon: AnimatedChartIcon, color: "text-[#FF8F00]" },
     { name: "AI Agents & AI Automation", icon: AnimatedBotIcon, color: "text-[#FF8F00]" },
     { name: "Business Process Automation", icon: AnimatedCogIcon, color: "text-[#FF8F00]" },
-    { name: "Reporting & Analytics Systems", icon: TrendingUp, color: "text-[#FF8F00]" }
+    { name: "Reporting & Analytics Systems", icon: AnimatedTrendingUpIcon, color: "text-[#FF8F00]" }
   ];
 
   return (
