@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Search, Layers, Zap, ShieldCheck, HeartHandshake,
+  Search, Layers, ShieldCheck, HeartHandshake,
   Target, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
@@ -10,10 +10,11 @@ import { playCyberSound } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
+import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
-  Search, Layers, Zap, ShieldCheck, Rocket: AnimatedRocketIcon, HeartHandshake,
+  Search, Layers, Zap: AnimatedCircuitGearIcon, ShieldCheck, Rocket: AnimatedRocketIcon, HeartHandshake,
   Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp, GitBranch, Crown
 };
 
