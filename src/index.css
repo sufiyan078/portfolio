@@ -51,62 +51,63 @@
   }
 }
 
-.font-sans, .font-sans * {
-  font-family: 'Nova Flat', sans-serif !important;
-}
-
-.font-heading, .font-heading * {
-  font-family: 'Nova Flat', sans-serif !important;
-}
-
-.font-nova, .font-nova * {
-  font-family: 'Nova Flat', sans-serif !important;
-}
-
-.font-pixel, .font-pixel * {
-  font-family: 'Press Start 2P', cursive !important;
-}
-
-.font-mono, .font-mono * {
-  font-family: 'Press Start 2P', 'JetBrains Mono', monospace !important;
-}
-
-.font-bungee, .font-bungee * {
-  font-family: 'Bungee Shade', cursive !important;
-}
-
-.font-black-ops, .font-black-ops * {
-  font-family: 'Black Ops One', cursive !important;
-}
-
-/* Custom Cyber Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 143, 0, 0.35);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 143, 0, 0.7);
-  box-shadow: 0 0 10px rgba(255, 143, 0, 0.6);
-}
-
-/* Typography Utility Classes */
-.font-heading {
-  font-family: 'Space Grotesk', sans-serif !important;
-  letter-spacing: -0.02em;
-}
-
 .font-sans {
-  font-family: 'Inter', system-ui, sans-serif !important;
+  font-family: 'Nova Flat', sans-serif !important;
+}
+
+.font-heading {
+  font-family: 'Nova Flat', sans-serif !important;
+}
+
+.font-nova {
+  font-family: 'Nova Flat', sans-serif !important;
+}
+
+.font-pixel {
+  font-family: 'Press Start 2P', cursive !important;
 }
 
 .font-mono {
   font-family: 'JetBrains Mono', monospace !important;
+}
+
+.font-bungee {
+  font-family: 'Bungee Shade', cursive !important;
+}
+
+.font-black-ops {
+  font-family: 'Black Ops One', cursive !important;
+}
+
+/* Section Main Header Title System (Increased by 4px with perfect baseline alignment) */
+.section-title {
+  font-family: 'Nova Flat', 'Space Grotesk', sans-serif !important;
+  font-weight: 800;
+  font-size: 2rem; /* 32px mobile */
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+}
+
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 2.5rem; /* 40px tablet/desktop (+4px) */
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 2.75rem; /* 44px large screens (+8px) */
+  }
+}
+
+.section-title span {
+  display: inline;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  vertical-align: baseline !important;
 }
 
 /* Glassmorphism System with Custom Colors */

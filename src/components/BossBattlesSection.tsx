@@ -20,7 +20,7 @@ export const BossBattlesSection: React.FC = () => {
           <ClashingSwordsIcon className="w-4 h-4" />
           <span className="text-[#FF8F00] font-bold">BOSS BATTLES</span>
         </div>
-        <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+        <h2 className="section-title">
           ENGINEERING <span className="text-[#FF8F00]">BOSS BATTLES</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
