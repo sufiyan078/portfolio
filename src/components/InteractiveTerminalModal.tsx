@@ -96,11 +96,11 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
 
       case 'projects':
         outputNode = (
-          <div className="space-y-2 text-xs font-mono">
+          <div className="space-y-2.5 text-xs sm:text-sm font-mono">
             <p className="text-[#FF8F00] font-bold">DEPLOYED ENGINEERING MISSIONS:</p>
             {MISSIONS.map(m => (
-              <div key={m.id} className="text-gray-300 border-l-2 border-l-[#FF8F00] pl-2">
-                <span className="text-[#FFA726] font-bold">[{m.missionNumber}] {m.title}</span> - {m.tagline}
+              <div key={m.id} className="text-gray-300 border-l-2 border-[#FF8F00]/70 pl-3 py-1.5 bg-[#FF8F00]/5 rounded-r-lg">
+                <span className="text-[#FFA726] font-bold">[{m.missionNumber}] {m.title}</span> — {m.tagline}
               </div>
             ))}
           </div>
@@ -178,54 +178,55 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="glass-panel w-full max-w-3xl h-[550px] flex flex-col border-2 border-[#FF8F00]/50 bg-[#080503]/95 shadow-[0_0_50px_rgba(255,143,0,0.3)]">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
+      <div className="w-[94vw] max-w-6xl h-[86vh] min-h-[580px] flex flex-col rounded-2xl border border-[#FF8F00]/50 bg-[#090503] shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_30px_rgba(255,143,0,0.25)] overflow-hidden relative">
         {/* Terminal Window Top Bar */}
-        <div className="px-4 py-3 bg-[#140D07] border-b border-[#FF8F00]/30 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        <div className="px-5 py-3.5 bg-[#140D07] border-b border-[#FF8F00]/30 flex items-center justify-between shrink-0 select-none">
+          <div className="flex items-center gap-2.5">
             <div className="w-3 h-3 rounded-full bg-[#FF4500]" />
             <div className="w-3 h-3 rounded-full bg-[#FF8F00]" />
             <div className="w-3 h-3 rounded-full bg-[#22C55E]" />
-            <span className="ml-2 font-mono text-xs text-[#FF8F00] font-bold flex items-center gap-1.5">
+            <span className="ml-3 font-mono text-xs sm:text-sm text-[#FF8F00] font-bold flex items-center gap-2 tracking-wide">
               <Terminal className="w-4 h-4 text-[#FF8F00]" />
               cli@code-realm:~$
             </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded bg-white/5 text-gray-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Close terminal window"
+            className="p-1.5 rounded-lg bg-white/5 hover:bg-[#FF8F00]/20 text-gray-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Command Log Body */}
-        <div className="flex-1 p-4 overflow-y-auto font-mono space-y-4">
+        <div className="flex-1 p-5 sm:p-6 overflow-y-auto font-mono space-y-5 custom-terminal-scroll">
           {history.map((item, index) => (
-            <div key={index} className="space-y-1">
-              <div className="flex items-center gap-2 text-xs text-[#FF8F00]">
-                <Sparkles className="w-3.5 h-3.5 text-[#FF8F00]" />
+            <div key={index} className="space-y-2">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#FF8F00]">
+                <Sparkles className="w-4 h-4 text-[#FF8F00] shrink-0" />
                 <span className="font-bold">user@realm:~$ {item.command}</span>
               </div>
-              <div className="pl-4">{item.output}</div>
+              <div className="pl-6">{item.output}</div>
             </div>
           ))}
           <div ref={bottomRef} />
         </div>
 
         {/* Input Prompt Footer */}
-        <form onSubmit={handleCommand} className="p-3 bg-[#140D07] border-t border-[#FF8F00]/30 flex items-center gap-2">
-          <span className="font-mono text-xs text-[#FF8F00] font-bold">&gt;</span>
+        <form onSubmit={handleCommand} className="p-3.5 sm:p-4 bg-[#140D07] border-t border-[#FF8F00]/30 flex items-center gap-3 shrink-0">
+          <span className="font-mono text-sm text-[#FF8F00] font-bold select-none">&gt;</span>
           <input
             ref={inputRef}
             type="text"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             placeholder="Type 'help' for command list..."
-            className="flex-1 bg-transparent border-none outline-none font-mono text-xs text-white placeholder-gray-500"
+            className="flex-1 bg-transparent border-none outline-none font-mono text-xs sm:text-sm text-white placeholder-gray-500"
           />
-          <button type="submit" className="text-gray-400 hover:text-[#FF8F00] transition-colors cursor-pointer">
-            <CornerDownLeft className="w-4 h-4" />
+          <button type="submit" aria-label="Submit command" className="p-1 text-gray-400 hover:text-[#FF8F00] transition-colors cursor-pointer">
+            <CornerDownLeft className="w-4.5 h-4.5" />
           </button>
         </form>
       </div>
