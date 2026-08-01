@@ -5,16 +5,42 @@ let soundEnabled = true;
 const getAudioContext = (): AudioContext | null => {
   if (typeof window === 'undefined') return null;
   if (!audioCtx) {
-    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const AudioContextClass =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (AudioContextClass) {
       audioCtx = new AudioContextClass();
     }
   }
   if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
+    audioCtx.resume().catch(() => {});
   }
   return audioCtx;
 };
+
+// Global automatic AudioContext unlock on first user gesture (click/touch/keypress)
+if (typeof window !== 'undefined') {
+  const unlockAudio = () => {
+    const ctx = getAudioContext();
+    if (ctx) {
+      if (ctx.state === 'suspended') {
+        ctx.resume().then(() => {
+          window.removeEventListener('pointerdown', unlockAudio);
+          window.removeEventListener('keydown', unlockAudio);
+          window.removeEventListener('touchstart', unlockAudio);
+        }).catch(() => {});
+      } else {
+        window.removeEventListener('pointerdown', unlockAudio);
+        window.removeEventListener('keydown', unlockAudio);
+        window.removeEventListener('touchstart', unlockAudio);
+      }
+    }
+  };
+
+  window.addEventListener('pointerdown', unlockAudio, { passive: true, capture: true });
+  window.addEventListener('keydown', unlockAudio, { passive: true, capture: true });
+  window.addEventListener('touchstart', unlockAudio, { passive: true, capture: true });
+}
 
 export const toggleSound = (): boolean => {
   soundEnabled = !soundEnabled;
@@ -33,6 +59,11 @@ export const playCyberSound = (type: SoundEffectType) => {
   try {
     const ctx = getAudioContext();
     if (!ctx) return;
+
+    // Force context resume if browser suspended it
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
 
     const now = ctx.currentTime;
     const osc = ctx.createOscillator();
@@ -55,10 +86,10 @@ export const playCyberSound = (type: SoundEffectType) => {
       case 'hover':
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(580, now);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
         osc.start(now);
-        osc.stop(now + 0.03);
+        osc.stop(now + 0.04);
         break;
 
       case 'openModal':
@@ -84,10 +115,10 @@ export const playCyberSound = (type: SoundEffectType) => {
       case 'terminal':
         osc.type = 'sine';
         osc.frequency.setValueAtTime(950, now);
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
         osc.start(now);
-        osc.stop(now + 0.03);
+        osc.stop(now + 0.04);
         break;
     }
   } catch {
