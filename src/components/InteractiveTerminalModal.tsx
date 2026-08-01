@@ -191,13 +191,19 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
               cli@code-realm:~$
             </span>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close terminal window"
-            className="p-1.5 rounded-lg bg-white/5 hover:bg-[#FF8F00]/20 text-gray-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/40 font-mono text-[10px] text-[#22C55E] font-bold tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-ping" />
+              ONLINE
+            </span>
+            <button
+              onClick={onClose}
+              aria-label="Close terminal window"
+              className="p-1.5 rounded-lg bg-white/5 hover:bg-[#FF8F00]/20 text-gray-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Command Log Body */}
@@ -218,14 +224,17 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
         {/* Input Prompt Footer */}
         <form onSubmit={handleCommand} className="p-3.5 sm:p-4 bg-[#140D07] border-t border-[#FF8F00]/30 flex items-center gap-3 shrink-0">
           <span className="font-mono text-sm text-[#22C55E] font-bold select-none">&gt;</span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={inputVal}
-            onChange={(e) => setInputVal(e.target.value)}
-            placeholder="Type 'help' for command list..."
-            className="flex-1 bg-transparent border-none outline-none font-mono text-xs sm:text-sm text-white placeholder-gray-500"
-          />
+          <div className="flex-1 flex items-center">
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputVal}
+              onChange={(e) => setInputVal(e.target.value)}
+              placeholder="Type 'help' for command list..."
+              className="w-full bg-transparent border-none outline-none font-mono text-xs sm:text-sm text-white placeholder-gray-500"
+            />
+            <span className="inline-block w-2 h-4 bg-[#22C55E] animate-pulse ml-0.5 shrink-0" />
+          </div>
           <button type="submit" aria-label="Submit command" className="p-1 text-gray-400 hover:text-[#FF8F00] transition-colors cursor-pointer">
             <CornerDownLeft className="w-4.5 h-4.5" />
           </button>
