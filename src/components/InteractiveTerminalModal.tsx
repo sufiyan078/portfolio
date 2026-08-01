@@ -205,8 +205,8 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
           {history.map((item, index) => (
             <div key={index} className="space-y-2">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm">
-                <ChevronRight className="w-4 h-4 text-[#38BDF8] shrink-0 stroke-[2.5]" />
-                <span className="font-bold text-[#38BDF8]">user@realm:~$</span>
+                <ChevronRight className="w-4 h-4 text-[#22C55E] shrink-0 stroke-[2.5]" />
+                <span className="font-bold text-[#22C55E]">user@realm:~$</span>
                 <span className="font-bold text-[#FFD700]">{item.command}</span>
               </div>
               <div className="pl-6">{item.output}</div>
@@ -217,7 +217,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
 
         {/* Input Prompt Footer */}
         <form onSubmit={handleCommand} className="p-3.5 sm:p-4 bg-[#140D07] border-t border-[#FFD700]/30 flex items-center gap-3 shrink-0">
-          <span className="font-mono text-sm text-[#38BDF8] font-bold select-none">&gt;</span>
+          <span className="font-mono text-sm text-[#22C55E] font-bold select-none">&gt;</span>
           <input
             ref={inputRef}
             type="text"
