@@ -109,20 +109,27 @@
   font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Glassmorphism System with Custom Colors */
+/* Selection Custom Highlight */
+::selection {
+  background: #FF8F00;
+  color: #000000;
+  text-shadow: none;
+}
+
+/* Glassmorphism System with Custom Colors & Crystal Bevel Highlight */
 .glass-panel {
   background: rgba(31, 21, 12, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 143, 0, 0.2);
   border-radius: 20px;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel:hover {
   border-color: rgba(255, 143, 0, 0.5);
-  box-shadow: 0 15px 35px -10px rgba(255, 143, 0, 0.25), inset 0 0 15px rgba(255, 143, 0, 0.05);
+  box-shadow: 0 15px 35px -10px rgba(255, 143, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
 
@@ -143,11 +150,12 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .cyber-card:hover {
   border-color: rgba(217, 0, 0, 0.5);
-  box-shadow: 0 12px 32px rgba(217, 0, 0, 0.25);
+  box-shadow: 0 12px 32px rgba(217, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
 }
 
@@ -216,6 +224,11 @@
   align-items: center;
   gap: 0.35rem;
   border: 1px solid currentColor;
+  transition: all 0.25s ease;
+}
+
+.badge-tag:hover {
+  box-shadow: 0 0 10px rgba(255, 143, 0, 0.3);
 }
 
 .badge-legendary {
