@@ -108,7 +108,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             </div>
 
             {/* Health Bar / System Health */}
-            <div className="flex items-center gap-1.5 mt-1 font-pixel text-[7px] text-gray-400">
+            <div className="hidden sm:flex items-center gap-1.5 mt-1 font-pixel text-[7px] text-gray-400">
               <span>SYSTEM HEALTH</span>
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
@@ -146,19 +146,19 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         </nav>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Audio FX Toggle */}
           <button
             onClick={handleSoundToggle}
             aria-label={soundOn ? 'Mute audio effects' : 'Enable audio effects'}
             title={soundOn ? 'Mute Audio FX' : 'Enable Audio FX'}
-            className={`p-1.5 rounded-lg border transition-all focus:outline-none cursor-pointer ${
+            className={`p-2 rounded-lg border transition-all focus:outline-none cursor-pointer ${
               soundOn
                 ? 'bg-[#FF8F00]/10 border-[#FF8F00]/40 text-[#FF8F00]'
                 : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
             }`}
           >
-            {soundOn ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
           </button>
 
           {/* CLI Terminal Toggle */}
@@ -169,17 +169,17 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             }}
             aria-label="Open CLI Terminal"
             title="Open CLI Terminal (Shortcut: ~)"
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-[11px] font-mono font-bold transition-all focus:outline-none cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-xs font-mono font-bold transition-all focus:outline-none cursor-pointer"
           >
-            <Terminal className="w-3.5 h-3.5 text-[#D90000]" />
-            <span className="hidden sm:inline">CLI</span>
+            <Terminal className="w-4 h-4 text-[#D90000]" />
+            <span className="inline">CLI</span>
           </button>
 
           {/* Mobile Drawer Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            className="lg:hidden p-2.5 rounded-xl border border-white/10 text-white hover:bg-white/5 focus:outline-none cursor-pointer"
+            className="lg:hidden p-2 rounded-xl border border-white/10 text-white hover:bg-white/5 focus:outline-none cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -188,17 +188,28 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#1F150C]/95 border-b border-white/10 backdrop-blur-xl px-4 py-4 mt-2 shadow-2xl">
+        <div className="lg:hidden bg-[#0D0704]/98 border-b border-[#FF8F00]/30 backdrop-blur-2xl px-4 py-5 mt-2 shadow-2xl animate-fadeIn">
           <div className="flex flex-col gap-2">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-left px-4 py-3 rounded-xl font-mono text-xs font-bold tracking-wider text-gray-300 hover:text-[#FF8F00] hover:bg-[#FF8F00]/10 cursor-pointer"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              let isActive = activeSection === item.id;
+              if (activeSection === 'inventory') {
+                const currentTab = activeSubTab || 'abilities';
+                isActive = item.id === currentTab;
+              }
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`text-left px-4 py-3 rounded-xl font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/50'
+                      : 'text-gray-300 hover:text-[#FF8F00] hover:bg-white/5'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

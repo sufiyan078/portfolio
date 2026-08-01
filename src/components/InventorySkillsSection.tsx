@@ -63,10 +63,10 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
 
       {/* Tab Switcher */}
       <div className="flex justify-center mb-12">
-        <div className="glass-panel p-1.5 flex gap-2">
+        <div className="glass-panel p-1.5 flex flex-col sm:flex-row gap-2 max-w-md w-full">
           <button
             onClick={() => handleTabSelect('abilities')}
-            className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'abilities'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'
@@ -76,7 +76,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
           </button>
           <button
             onClick={() => handleTabSelect('inventory')}
-            className={`px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'inventory'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'

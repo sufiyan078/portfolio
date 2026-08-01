@@ -88,7 +88,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             <span>Services I Build</span>
             <BlacksmithForgeIcon className="w-7 h-7" />
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
             {serviceBadges.map((b, i) => (
               <div
                 key={i}
