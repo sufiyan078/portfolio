@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Search, Layers, ShieldCheck, HeartHandshake,
   Target, MessageSquare, Sparkles, GitBranch, Crown,
   Crosshair
 } from 'lucide-react';
@@ -12,11 +11,26 @@ import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
 import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
 import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
+import { AnimatedSearchIcon } from './ui/AnimatedSearchIcon';
+import { AnimatedLayersIcon } from './ui/AnimatedLayersIcon';
+import { AnimatedShieldCheckIcon } from './ui/AnimatedShieldCheckIcon';
+import { AnimatedHeartHandshakeIcon } from './ui/AnimatedHeartHandshakeIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
-  Search, Layers, Zap: AnimatedCircuitGearIcon, ShieldCheck, Rocket: AnimatedRocketIcon, HeartHandshake,
-  Target, Bot: AnimatedBotIcon, MessageSquare, Sparkles, TrendingUp: AnimatedTrendingUpIcon, GitBranch, Crown
+  Search: AnimatedSearchIcon,
+  Layers: AnimatedLayersIcon,
+  Zap: AnimatedCircuitGearIcon,
+  ShieldCheck: AnimatedShieldCheckIcon,
+  Rocket: AnimatedRocketIcon,
+  HeartHandshake: AnimatedHeartHandshakeIcon,
+  Target,
+  Bot: AnimatedBotIcon,
+  MessageSquare,
+  Sparkles,
+  TrendingUp: AnimatedTrendingUpIcon,
+  GitBranch,
+  Crown
 };
 
 const resolveIcon = (name: string) => iconMap[name] ?? Target;
@@ -33,8 +47,8 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
         <div className="absolute left-[19px] top-[44px] w-[2px] h-[calc(100%-12px)] bg-gradient-to-b from-[#FF8F00]/60 to-[#FF8F00]/10" />
       )}
 
-      {/* Node circle */}
-      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#FF8F00]/10 border border-[#FF8F00]/40 flex items-center justify-center overflow-hidden p-2 group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/70 group-hover:shadow-[0_0_14px_rgba(255,143,0,0.35)] transition-all duration-300">
+      {/* Solid Opaque Node Circle (Blocks line behind icon badge completely) */}
+      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#1A1009] border border-[#FF8F00]/50 flex items-center justify-center overflow-hidden p-2 group-hover:bg-[#2A180C] group-hover:border-[#FF8F00] group-hover:shadow-[0_0_16px_rgba(255,143,0,0.4)] transition-all duration-300">
         <Icon className="w-5 h-5 text-[#FF8F00] shrink-0" />
       </div>
 
@@ -162,7 +176,7 @@ export const PlayerProfileSection: React.FC = () => {
             {/* Development Process — RPG Skill Tree */}
             <div className="border-t border-white/10 pt-6">
               <h4 className="font-pixel text-[9px] sm:text-[10px] text-gray-300 uppercase tracking-wider mb-5 font-bold flex items-center gap-2">
-                <Layers className="w-4 h-4 text-[#FF8F00]" />
+                <AnimatedLayersIcon className="w-4 h-4 text-[#FF8F00]" />
                 DEVELOPMENT PROCESS
               </h4>
 
@@ -226,7 +240,7 @@ export const PlayerProfileSection: React.FC = () => {
           <div className="glass-panel p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">
-                <ShieldCheck className="w-5 h-5" />
+                <AnimatedShieldCheckIcon className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-pixel font-bold text-base sm:text-lg text-white">WHY CLIENTS CHOOSE ME</h3>
