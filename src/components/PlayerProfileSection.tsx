@@ -34,8 +34,8 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
       )}
 
       {/* Node circle */}
-      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#FF8F00]/10 border border-[#FF8F00]/40 flex items-center justify-center group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/70 group-hover:shadow-[0_0_14px_rgba(255,143,0,0.35)] transition-all duration-300">
-        <Icon className="w-4.5 h-4.5 text-[#FF8F00]" />
+      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#FF8F00]/10 border border-[#FF8F00]/40 flex items-center justify-center overflow-hidden p-2 group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/70 group-hover:shadow-[0_0_14px_rgba(255,143,0,0.35)] transition-all duration-300">
+        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0" />
       </div>
 
       {/* Content */}
@@ -65,8 +65,8 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
     >
       <div className="flex items-start gap-3.5">
         {/* Icon badge */}
-        <div className="w-9 h-9 shrink-0 rounded-lg bg-[#FF8F00]/10 border border-[#FF8F00]/30 flex items-center justify-center group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/50 group-hover:shadow-[0_0_10px_rgba(255,143,0,0.25)] transition-all duration-300">
-          <Icon className="w-4 h-4 text-[#FF8F00]" />
+        <div className="w-9 h-9 shrink-0 rounded-lg bg-[#FF8F00]/10 border border-[#FF8F00]/30 flex items-center justify-center overflow-hidden p-1.5 group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/50 group-hover:shadow-[0_0_10px_rgba(255,143,0,0.25)] transition-all duration-300">
+          <Icon className="w-4 h-4 text-[#FF8F00] shrink-0" />
         </div>
 
         {/* Text */}
