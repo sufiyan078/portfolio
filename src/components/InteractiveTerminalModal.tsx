@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, X, CornerDownLeft, Sparkles } from 'lucide-react';
+import { Terminal, X, CornerDownLeft, ChevronRight } from 'lucide-react';
 import { BUILDER_PROFILE, MISSIONS, BOSS_BATTLES, SKILLS } from '../data/portfolioData';
 import { playCyberSound } from '../utils/soundEffects';
 
@@ -204,8 +204,8 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
         <div className="flex-1 p-5 sm:p-6 overflow-y-auto font-mono space-y-5 custom-terminal-scroll">
           {history.map((item, index) => (
             <div key={index} className="space-y-2">
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
-                <Sparkles className="w-4 h-4 text-[#38BDF8] shrink-0" />
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm">
+                <ChevronRight className="w-4 h-4 text-[#38BDF8] shrink-0 stroke-[2.5]" />
                 <span className="font-bold text-[#38BDF8]">user@realm:~$</span>
                 <span className="font-bold text-[#FFD700]">{item.command}</span>
               </div>
