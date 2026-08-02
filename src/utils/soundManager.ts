@@ -142,7 +142,7 @@ class SoundManager {
           osc.frequency.setValueAtTime(420, now);
           osc.frequency.exponentialRampToValueAtTime(1550, now + 0.038);
 
-          gain.gain.setValueAtTime(baseVol * 0.45, now);
+          gain.gain.setValueAtTime(baseVol * 0.95, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.038);
 
           osc.connect(gain);
@@ -161,7 +161,7 @@ class SoundManager {
           osc.frequency.setValueAtTime(450, now);
           osc.frequency.exponentialRampToValueAtTime(1400, now + 0.035);
 
-          gain.gain.setValueAtTime(baseVol * 0.45, now);
+          gain.gain.setValueAtTime(baseVol * 0.95, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
 
           osc.connect(gain);
