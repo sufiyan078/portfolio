@@ -134,32 +134,34 @@ class SoundManager {
 
       switch (type) {
         case 'hover': {
-          // Light high-pitched sci-fi hover chirp (850Hz -> 1200Hz blip)
+          // Classic 8-bit RPG Menu Cursor Move (Square Wave 880Hz -> 1320Hz blip)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(850, now);
-          osc.frequency.exponentialRampToValueAtTime(1250, now + 0.04);
 
-          gain.gain.setValueAtTime(baseVol * 0.45, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.035);
+
+          gain.gain.setValueAtTime(baseVol * 0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
 
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.04);
+          osc.stop(now + 0.035);
           break;
         }
 
         case 'touchStart': {
-          // Mobile touch down selection chirp (600Hz -> 850Hz)
+          // Mobile 8-bit touch selection blip (Square Wave 700Hz -> 950Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(600, now);
-          osc.frequency.exponentialRampToValueAtTime(850, now + 0.035);
 
-          gain.gain.setValueAtTime(baseVol * 0.5, now);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(700, now);
+          osc.frequency.exponentialRampToValueAtTime(950, now + 0.035);
+
+          gain.gain.setValueAtTime(baseVol * 0.3, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
 
           osc.connect(gain);
@@ -170,76 +172,21 @@ class SoundManager {
         }
 
         case 'click': {
-          // Tactile cybernetic mechanical snap click (High transient click pop + punchy body drop 420Hz -> 140Hz)
-          const bodyOsc = ctx.createOscillator();
-          const bodyGain = ctx.createGain();
-
-          bodyOsc.type = 'sine';
-          bodyOsc.frequency.setValueAtTime(420, now);
-          bodyOsc.frequency.exponentialRampToValueAtTime(130, now + 0.065);
-
-          bodyGain.gain.setValueAtTime(baseVol * 0.9, now);
-          bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
-
-          bodyOsc.connect(bodyGain);
-          bodyGain.connect(ctx.destination);
-          bodyOsc.start(now);
-          bodyOsc.stop(now + 0.065);
-
-          // High transient click snap accent
-          const clickOsc = ctx.createOscillator();
-          const clickGain = ctx.createGain();
-
-          clickOsc.type = 'square';
-          clickOsc.frequency.setValueAtTime(1800, now);
-          clickOsc.frequency.exponentialRampToValueAtTime(400, now + 0.015);
-
-          clickGain.gain.setValueAtTime(baseVol * 0.4, now);
-          clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.015);
-
-          clickOsc.connect(clickGain);
-          clickGain.connect(ctx.destination);
-          clickOsc.start(now);
-          clickOsc.stop(now + 0.015);
-          break;
-        }
-
-        case 'touchEnd': {
-          // Mobile tap release confirmation snap (450Hz -> 980Hz upward pop)
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(450, now);
-          osc.frequency.exponentialRampToValueAtTime(980, now + 0.055);
-
-          gain.gain.setValueAtTime(baseVol * 0.85, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.055);
-          break;
-        }
-
-        case 'openModal': {
-          // Rich sci-fi dual-tone warp up (280Hz -> 1100Hz sweep)
+          // Retro 16-Bit Arcade Item Select / Action Snap (Square + Triangle transient pop + 650Hz -> 220Hz punch)
           const osc1 = ctx.createOscillator();
           const osc2 = ctx.createOscillator();
           const gain = ctx.createGain();
 
-          osc1.type = 'sine';
+          osc1.type = 'square';
+          osc1.frequency.setValueAtTime(650, now);
+          osc1.frequency.exponentialRampToValueAtTime(220, now + 0.06);
+
           osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(1300, now);
+          osc2.frequency.exponentialRampToValueAtTime(320, now + 0.06);
 
-          osc1.frequency.setValueAtTime(280, now);
-          osc1.frequency.exponentialRampToValueAtTime(1100, now + 0.14);
-
-          osc2.frequency.setValueAtTime(560, now);
-          osc2.frequency.exponentialRampToValueAtTime(2200, now + 0.14);
-
-          gain.gain.setValueAtTime(baseVol * 0.85, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          gain.gain.setValueAtTime(baseVol * 0.65, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
 
           osc1.connect(gain);
           osc2.connect(gain);
@@ -247,93 +194,142 @@ class SoundManager {
 
           osc1.start(now);
           osc2.start(now);
-          osc1.stop(now + 0.14);
-          osc2.stop(now + 0.14);
+          osc1.stop(now + 0.06);
+          osc2.stop(now + 0.06);
+          break;
+        }
+
+        case 'touchEnd': {
+          // Mobile 8-bit tap release confirmation snap (Square Wave 523Hz -> 880Hz upward blip)
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.05);
+
+          gain.gain.setValueAtTime(baseVol * 0.45, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.05);
+          break;
+        }
+
+        case 'openModal': {
+          // Authentic 8-Bit RPG Inventory Chest / Window Open Arpeggio Sweep (C5 -> E5 -> G5 -> C6)
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          const noteDuration = 0.035;
+
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const noteStart = now + idx * noteDuration;
+
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, noteStart);
+
+            gain.gain.setValueAtTime(baseVol * 0.4, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.05);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(noteStart);
+            osc.stop(noteStart + 0.05);
+          });
           break;
         }
 
         case 'closeModal': {
-          // Sci-fi power down sweep (950Hz -> 260Hz)
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
+          // Authentic 8-Bit RPG Menu Close / Cancel Down-Step (C6 -> G5 -> E5 -> C5)
+          const notes = [1046.50, 783.99, 659.25, 523.25];
+          const noteDuration = 0.03;
 
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(950, now);
-          osc.frequency.exponentialRampToValueAtTime(260, now + 0.11);
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const noteStart = now + idx * noteDuration;
 
-          gain.gain.setValueAtTime(baseVol * 0.8, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, noteStart);
 
-          osc.connect(gain);
-          gain.connect(ctx.destination);
+            gain.gain.setValueAtTime(baseVol * 0.35, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.045);
 
-          osc.start(now);
-          osc.stop(now + 0.11);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(noteStart);
+            osc.stop(noteStart + 0.045);
+          });
           break;
         }
 
         case 'terminal': {
-          // Crisp terminal keyboard key stroke (1400Hz blip)
+          // Retro 8-Bit Computer Terminal Keystroke Beep (Square 1318Hz -> 1760Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
 
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(1400, now);
-          osc.frequency.exponentialRampToValueAtTime(650, now + 0.03);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(1318.51, now);
+          osc.frequency.exponentialRampToValueAtTime(1760, now + 0.025);
 
-          gain.gain.setValueAtTime(baseVol * 0.6, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+          gain.gain.setValueAtTime(baseVol * 0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
 
           osc.connect(gain);
           gain.connect(ctx.destination);
 
           osc.start(now);
-          osc.stop(now + 0.03);
+          osc.stop(now + 0.025);
           break;
         }
 
         case 'success': {
-          // Arpeggiated triadic victory chime (C5 523Hz -> E5 659Hz -> G5 784Hz -> C6 1046Hz)
-          const notes = [523.25, 659.25, 783.99, 1046.50];
-          const duration = 0.06;
+          // 8-Bit RPG Victory / Item Unlocked Fanfare (C5 -> E5 -> G5 -> B5 -> C6)
+          const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
+          const noteDuration = 0.05;
 
           notes.forEach((freq, idx) => {
-            const noteOsc = ctx.createOscillator();
-            const noteGain = ctx.createGain();
-            const noteStartTime = now + idx * duration;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const noteStart = now + idx * noteDuration;
 
-            noteOsc.type = 'sine';
-            noteOsc.frequency.setValueAtTime(freq, noteStartTime);
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, noteStart);
 
-            noteGain.gain.setValueAtTime(baseVol * 0.75, noteStartTime);
-            noteGain.gain.exponentialRampToValueAtTime(0.001, noteStartTime + 0.12);
+            gain.gain.setValueAtTime(baseVol * 0.45, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.08);
 
-            noteOsc.connect(noteGain);
-            noteGain.connect(ctx.destination);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
 
-            noteOsc.start(noteStartTime);
-            noteOsc.stop(noteStartTime + 0.12);
+            osc.start(noteStart);
+            osc.stop(noteStart + 0.08);
           });
           break;
         }
 
         case 'error': {
-          // Low warning buzz (Sawtooth 240Hz -> 140Hz)
+          // 8-Bit Game Over Low Sawtooth Buzz (180Hz -> 120Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
 
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(240, now);
-          osc.frequency.setValueAtTime(140, now + 0.07);
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.setValueAtTime(120, now + 0.07);
 
-          gain.gain.setValueAtTime(baseVol * 0.75, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+          gain.gain.setValueAtTime(baseVol * 0.5, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
           osc.connect(gain);
           gain.connect(ctx.destination);
 
           osc.start(now);
-          osc.stop(now + 0.16);
+          osc.stop(now + 0.14);
           break;
         }
       }
