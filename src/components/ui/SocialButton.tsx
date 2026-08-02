@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Check } from 'lucide-react';
-import { playCyberSound } from '../../utils/soundEffects';
+import { getUniversalAudioProps } from '../../utils/soundEffects';
 
 export interface SocialChannelItem {
   icon: React.FC<{ className?: string }>;
@@ -53,7 +53,6 @@ export const SocialButton: React.FC<SocialButtonProps> = ({
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const handleChannelClick = (index: number, item: SocialChannelItem) => {
-    playCyberSound('click');
     if (item.action) {
       item.action();
       setCopiedIndex(index);
@@ -66,16 +65,17 @@ export const SocialButton: React.FC<SocialButtonProps> = ({
   return (
     <div
       className={`relative w-full ${className}`}
-      onMouseEnter={() => {
-        playCyberSound('hover');
-        setIsVisible(true);
+      onPointerEnter={(e) => {
+        if (e.pointerType === 'mouse') setIsVisible(true);
       }}
+      onPointerDown={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
       {/* Main Trigger Button State */}
       <div className={`w-full transition-opacity duration-200 ${isVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <button
           type="button"
+          {...getUniversalAudioProps('click', 'hover', () => setIsVisible(true))}
           className="w-full h-11 px-4 rounded-xl bg-[#070B14] border border-[#FF8F00]/40 hover:border-[#FF8F00] text-[#FF8F00] font-mono text-xs font-bold tracking-wider flex items-center justify-center gap-2.5 shadow-[0_0_15px_rgba(255,143,0,0.15)] transition-all cursor-pointer group"
         >
           <Link className="h-4 w-4 text-[#FF8F00] group-hover:rotate-45 transition-transform" />
@@ -96,19 +96,15 @@ export const SocialButton: React.FC<SocialButtonProps> = ({
               key={`social-${item.label}`}
               type="button"
               aria-label={item.label}
-              onClick={() => handleChannelClick(i, item)}
+              {...getUniversalAudioProps('click', 'hover', () => handleChannelClick(i, item))}
               style={{
-                transitionDelay: isVisible ? `${i * 40}ms` : '0ms'
+                width: `${100 / items.length}%`,
+                transitionDelay: isVisible ? `${i * 60}ms` : '0ms'
               }}
-              className={`flex-1 h-full flex items-center justify-center border-r border-white/10 last:border-r-0 transition-all duration-300 cursor-pointer relative group ${
-                isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-              } ${item.color || 'text-white'}`}
-              title={item.label}
+              className={`h-full flex items-center justify-center gap-2 font-mono text-xs font-bold transition-all cursor-pointer border-r border-white/10 last:border-r-0 ${item.color || 'text-white hover:bg-white/10'}`}
             >
-              <div className="flex items-center gap-2 font-mono text-xs font-bold px-3">
-                <IconComp className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110" />
-                <span className="text-xs font-bold font-mono tracking-wide">{copiedIndex === i ? 'COPIED' : item.label}</span>
-              </div>
+              <IconComp className="h-4 w-4 shrink-0" />
+              <span className="text-xs font-bold font-mono tracking-wide">{copiedIndex === i ? 'COPIED' : item.label}</span>
             </button>
           );
         })}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Mail, Check, Copy, MessageSquare, Sparkles } from 'lucide-react';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
 import { AnimatedEnvelopeIcon } from './ui/AnimatedEnvelopeIcon';
 import { SocialButton } from './ui/SocialButton';
 
@@ -14,7 +14,6 @@ export const ContactSection: React.FC = () => {
   const [sending, setSending] = useState(false);
 
   const handleCopyEmail = () => {
-    playCyberSound('click');
     navigator.clipboard.writeText(emailAddress);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
@@ -22,7 +21,6 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    playCyberSound('click');
     setSending(true);
 
     try {
@@ -43,12 +41,15 @@ export const ContactSection: React.FC = () => {
 
       const data = await response.json();
       if (data.success === "true" || response.ok) {
+        playCyberSound('success');
         setSubmitted(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
+        playCyberSound('error');
         alert("Failed to send message. Please email work.sufiyan.ahmed078@gmail.com directly.");
       }
     } catch {
+      playCyberSound('error');
       alert("Network error sending message. Please email work.sufiyan.ahmed078@gmail.com directly.");
     } finally {
       setSending(false);
@@ -94,7 +95,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <button
-                onClick={handleCopyEmail}
+                {...getUniversalAudioProps('click', 'hover', handleCopyEmail)}
                 className="px-3 py-1.5 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 text-xs font-mono shrink-0 flex items-center gap-1 cursor-pointer"
               >
                 {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
@@ -183,10 +184,11 @@ export const ContactSection: React.FC = () => {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="btn-primary w-full justify-center py-3 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  {...getUniversalAudioProps('click', 'hover')}
+                  className="btn-primary w-full py-3.5 font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  <Send className={`w-4 h-4 ${sending ? 'animate-spin' : ''}`} />
-                  <span>{sending ? 'TRANSMITTING...' : 'SEND TRANSMISSION'}</span>
+                  <Send className="w-4 h-4" />
+                  <span>{sending ? 'TRANSMITTING MESSAGE...' : 'SEND TRANSMISSION'}</span>
                 </button>
               </form>
             )}

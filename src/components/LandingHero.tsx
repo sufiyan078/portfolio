@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Terminal } from 'lucide-react';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
@@ -49,16 +49,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           Building Business <span className="text-[#FF8F00]">Software</span> That Saves Time & Makes Money.
         </h2>
 
-
-
         {/* Action Buttons */}
         <div className="flex flex-wrap justify-center items-center gap-4 mb-14">
           <button
-            onClick={() => {
-              playCyberSound('click');
-              onPressStart();
-            }}
-            onMouseEnter={() => playCyberSound('hover')}
+            {...getUniversalAudioProps('click', 'hover', onPressStart)}
             className="btn-primary font-black-ops tracking-wider"
           >
             <span>Start Mission</span>
@@ -66,11 +60,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           </button>
 
           <button
-            onClick={() => {
-              playCyberSound('openModal');
-              onOpenTerminal();
-            }}
-            onMouseEnter={() => playCyberSound('hover')}
+            {...getUniversalAudioProps('openModal', 'hover', onOpenTerminal)}
             className="btn-secondary font-black-ops tracking-wider"
           >
             <Terminal className="w-4 h-4 text-[#D90000]" />
@@ -92,8 +82,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             {serviceBadges.map((b, i) => (
               <div
                 key={i}
-                onMouseEnter={() => playCyberSound('hover')}
-                onClick={() => playCyberSound('click')}
+                {...getUniversalAudioProps('click', 'hover')}
                 className="p-4 rounded-xl bg-[#000000]/80 border border-white/10 hover:border-[#FF8F00]/60 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_10px_25px_rgba(255,143,0,0.18)] hover:bg-[#FF8F00]/10 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center gap-2"
               >
                 <b.icon className={`w-6 h-6 ${b.color} group-hover:scale-110 transition-transform duration-300`} />

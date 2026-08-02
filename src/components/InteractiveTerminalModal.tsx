@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, X, CornerDownLeft, ChevronRight } from 'lucide-react';
+import { Terminal, X, CornerDownLeft } from 'lucide-react';
 import { BUILDER_PROFILE, MISSIONS, BOSS_BATTLES, SKILLS } from '../data/portfolioData';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
 
 interface InteractiveTerminalModalProps {
   isOpen: boolean;
@@ -180,63 +180,64 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
       <div className="w-[94vw] max-w-6xl h-[86vh] min-h-[580px] flex flex-col rounded-2xl border border-[#FF8F00]/50 bg-[#090503] shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_30px_rgba(255,143,0,0.25)] overflow-hidden relative">
-        {/* Terminal Window Top Bar */}
-        <div className="px-5 py-3.5 bg-[#140D07] border-b border-[#FF8F00]/30 flex items-center justify-between shrink-0 select-none">
-          <div className="flex items-center gap-2.5">
-            <div className="w-3 h-3 rounded-full bg-[#FF4500]" />
-            <div className="w-3 h-3 rounded-full bg-[#FF8F00]" />
-            <div className="w-3 h-3 rounded-full bg-[#22C55E]" />
-            <span className="ml-3 font-mono text-xs sm:text-sm text-[#FF8F00] font-bold flex items-center gap-2 tracking-wide">
-              <Terminal className="w-4 h-4 text-[#FF8F00]" />
+        
+        {/* Header Controls */}
+        <div className="flex items-center justify-between px-4 py-3 bg-[#0D0A08] border-b border-[#FF8F00]/30 select-none">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
+            <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
+            <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]" />
+            <span className="ml-2 font-mono text-xs font-bold text-[#FF8F00] flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-[#FF8F00]" />
               cli@code-realm:~$
             </span>
           </div>
+
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/40 font-mono text-[10px] text-[#22C55E] font-bold tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-ping" />
+            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[9px] font-mono bg-[#10B981]/15 border border-[#10B981]/40 text-[#10B981] font-bold">
               ONLINE
             </span>
             <button
-              onClick={onClose}
+              {...getUniversalAudioProps('closeModal', 'hover', onClose)}
               aria-label="Close terminal window"
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-[#FF8F00]/20 text-gray-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Command Log Body */}
-        <div className="flex-1 p-5 sm:p-6 overflow-y-auto font-mono space-y-5 custom-terminal-scroll">
-          {history.map((item, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm">
-                <ChevronRight className="w-4 h-4 text-[#22C55E] shrink-0 stroke-[2.5]" />
-                <span className="font-bold text-[#22C55E]">user@realm:~$</span>
-                <span className="font-bold text-white ml-1">{item.command}</span>
+        {/* Terminal Console Output Area */}
+        <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 font-mono text-xs sm:text-sm custom-scrollbar">
+          {history.map((item, idx) => (
+            <div key={idx} className="space-y-2">
+              <div className="flex items-center gap-2 text-gray-400">
+                <span className="text-[#22C55E] font-bold">&gt; user@realm:~$</span>
+                <span className="text-white font-bold">{item.command}</span>
               </div>
-              <div className="pl-6">{item.output}</div>
+              <div className="pl-4">{item.output}</div>
             </div>
           ))}
           <div ref={bottomRef} />
         </div>
 
         {/* Input Prompt Footer */}
-        <form onSubmit={handleCommand} className="p-3.5 sm:p-4 bg-[#140D07] border-t border-[#FF8F00]/30 flex items-center gap-3 shrink-0">
-          <span className="font-mono text-sm text-[#22C55E] font-bold select-none">&gt;</span>
-          <div className="flex-1 flex items-center">
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputVal}
-              onChange={(e) => setInputVal(e.target.value)}
-              placeholder="Type 'help' for command list..."
-              className="w-full bg-transparent border-none outline-none font-mono text-xs sm:text-sm text-white placeholder-gray-500"
-            />
-            <span className="inline-block w-2 h-4 bg-[#22C55E] animate-pulse ml-0.5 shrink-0" />
-          </div>
-          <button type="submit" aria-label="Submit command" className="p-1 text-gray-400 hover:text-[#FF8F00] transition-colors cursor-pointer">
-            <CornerDownLeft className="w-4.5 h-4.5" />
+        <form onSubmit={handleCommand} className="p-3 bg-[#0D0A08] border-t border-[#FF8F00]/30 flex items-center gap-2">
+          <span className="text-[#FF8F00] font-bold pl-2 select-none">&gt;</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            placeholder="Type 'help' for command list..."
+            className="flex-1 bg-transparent text-white font-mono text-xs sm:text-sm outline-none placeholder:text-gray-600"
+          />
+          <button
+            type="submit"
+            {...getUniversalAudioProps('terminal', 'hover')}
+            className="p-1.5 rounded-lg bg-[#FF8F00]/20 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 transition-colors cursor-pointer shrink-0"
+          >
+            <CornerDownLeft className="w-4 h-4" />
           </button>
         </form>
       </div>

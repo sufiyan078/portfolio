@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Terminal, Menu, X, Heart } from 'lucide-react';
-import { toggleSound, isSoundEnabled, playCyberSound } from '../utils/soundEffects';
+import { toggleSound, isSoundEnabled, getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 
 interface HUDHeaderProps {
@@ -40,7 +40,6 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
   ];
 
   const scrollToSection = (id: string) => {
-    playCyberSound('click');
     setMobileMenuOpen(false);
 
     if (id === 'abilities') {
@@ -78,7 +77,10 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         {/* Left Side: Gamer Avatar & Level Status Telemetry */}
         <a
           href="#profile"
-          onClick={() => playCyberSound('click')}
+          {...getUniversalAudioProps('click', 'hover', (e) => {
+            e.preventDefault();
+            scrollToSection('profile');
+          })}
           className="flex items-center gap-3 group text-left cursor-pointer focus:outline-none"
         >
           {/* Shield Knight Icon Emblem */}
@@ -130,8 +132,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             return (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                onMouseEnter={() => playCyberSound('hover')}
+                {...getUniversalAudioProps('click', 'hover', () => scrollToSection(item.id))}
                 aria-label={`Navigate to ${item.label}`}
                 className={`px-3.5 py-1.5 rounded-full font-pixel text-[9px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer ${
                   isActive
@@ -149,7 +150,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Audio FX Toggle */}
           <button
-            onClick={handleSoundToggle}
+            {...getUniversalAudioProps('click', 'hover', handleSoundToggle)}
             aria-label={soundOn ? 'Mute audio effects' : 'Enable audio effects'}
             title={soundOn ? 'Mute Audio FX' : 'Enable Audio FX'}
             className={`p-2 rounded-lg border transition-all focus:outline-none cursor-pointer ${
@@ -163,10 +164,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
           {/* CLI Terminal Toggle */}
           <button
-            onClick={() => {
-              playCyberSound('openModal');
-              onOpenTerminal();
-            }}
+            {...getUniversalAudioProps('openModal', 'hover', onOpenTerminal)}
             aria-label="Open CLI Terminal"
             title="Open CLI Terminal (Shortcut: ~)"
             className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-xs font-mono font-bold transition-all focus:outline-none cursor-pointer"
@@ -177,7 +175,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
           {/* Mobile Drawer Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            {...getUniversalAudioProps('click', 'hover', () => setMobileMenuOpen(!mobileMenuOpen))}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             className="lg:hidden p-2 rounded-xl border border-white/10 text-white hover:bg-white/5 focus:outline-none cursor-pointer"
           >
@@ -199,7 +197,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
               return (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  {...getUniversalAudioProps('click', 'hover', () => scrollToSection(item.id))}
                   className={`text-left px-4 py-3 rounded-xl font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer ${
                     isActive
                       ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/50'

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SKILLS } from '../data/skills';
 import { INVENTORY_CATEGORIES } from '../data/inventory';
 import { Package, Cpu, Database, Server, CheckCircle2, Layout, Box } from 'lucide-react';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { AnimatedPackageIcon } from './ui/AnimatedPackageIcon';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
@@ -22,7 +22,6 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
   const activeTab = controlledActiveTab !== undefined ? controlledActiveTab : localActiveTab;
 
   const handleTabSelect = (tab: 'abilities' | 'inventory') => {
-    playCyberSound('click');
     if (onTabChange) {
       onTabChange(tab);
     } else {
@@ -65,7 +64,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
       <div className="flex justify-center mb-12">
         <div className="glass-panel p-1.5 flex flex-col sm:flex-row gap-2 max-w-md w-full">
           <button
-            onClick={() => handleTabSelect('abilities')}
+            {...getUniversalAudioProps('click', 'hover', () => handleTabSelect('abilities'))}
             className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'abilities'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
@@ -75,7 +74,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             03 ABILITIES SYSTEM
           </button>
           <button
-            onClick={() => handleTabSelect('inventory')}
+            {...getUniversalAudioProps('click', 'hover', () => handleTabSelect('inventory'))}
             className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'inventory'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
@@ -96,7 +95,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             return (
               <div
                 key={skill.id}
-                onMouseEnter={() => playCyberSound('hover')}
+                {...getUniversalAudioProps('click', 'hover')}
                 className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/70 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(255,143,0,0.18)] transition-all duration-300 relative overflow-hidden cursor-pointer"
               >
                 <div>
@@ -147,7 +146,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             return (
               <div
                 key={item.id}
-                onMouseEnter={() => playCyberSound('hover')}
+                {...getUniversalAudioProps('click', 'hover')}
                 className={`glass-panel p-6 sm:p-7 flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(255,143,0,0.18)] border-2 ${item.borderColor} relative overflow-hidden cursor-pointer`}
                 style={{
                   boxShadow: `0 8px 32px rgba(0,0,0,0.6), inset 0 0 25px ${item.glowColor}`

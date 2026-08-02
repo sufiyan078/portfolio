@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { BOSS_BATTLES } from '../data/bossBattles';
 import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award } from 'lucide-react';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ClashingSwordsIcon } from './ui/ClashingSwordsIcon';
 
 export const BossBattlesSection: React.FC = () => {
   const [expandedBattleId, setExpandedBattleId] = useState<string>('');
 
   const toggleBattle = (id: string) => {
-    playCyberSound('click');
     setExpandedBattleId(prev => (prev === id ? '' : id));
   };
 
@@ -42,8 +41,7 @@ export const BossBattlesSection: React.FC = () => {
             >
               {/* Header Banner */}
               <div
-                onClick={() => toggleBattle(battle.id)}
-                onMouseEnter={() => playCyberSound('hover')}
+                {...getUniversalAudioProps('click', 'hover', () => toggleBattle(battle.id))}
                 className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 select-none"
               >
                 <div className="flex items-center gap-4">

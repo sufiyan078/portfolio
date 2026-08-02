@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
 import type { ProcessStage, ClientCard } from '../data/profile';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
@@ -41,7 +41,10 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
   const isLast = index === total - 1;
 
   return (
-    <div className="relative flex items-start gap-4 group">
+    <div
+      {...getUniversalAudioProps('click', 'hover')}
+      className="relative flex items-start gap-4 group cursor-pointer"
+    >
       {/* Vertical connector line */}
       {!isLast && (
         <div className="absolute left-[19px] top-[44px] w-[2px] h-[calc(100%-12px)] bg-gradient-to-b from-[#FF8F00]/60 to-[#FF8F00]/10" />
@@ -74,7 +77,7 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
 
   return (
     <div
-      onMouseEnter={() => playCyberSound('hover')}
+      {...getUniversalAudioProps('click', 'hover')}
       className="p-5 rounded-2xl bg-[#000000]/60 border border-white/5 hover:border-[#FF8F00]/40 transition-all duration-300 group cursor-default"
     >
       <div className="flex items-start gap-3.5">
@@ -219,7 +222,7 @@ export const PlayerProfileSection: React.FC = () => {
               {BUSINESS_HELP_ITEMS.map((item) => (
                 <div
                   key={item.id}
-                  onMouseEnter={() => playCyberSound('hover')}
+                  {...getUniversalAudioProps('click', 'hover')}
                   className="p-4 rounded-xl bg-[#000000]/70 border border-[#FF8F00]/30 hover:border-[#FF8F00]/60 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_8px_18px_rgba(255,143,0,0.18)] transition-all duration-300 group flex items-start gap-3 cursor-pointer"
                 >
                   <span className="font-bold text-[#FF8F00] text-sm shrink-0 mt-0.5 select-none">✓</span>

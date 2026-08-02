@@ -4,7 +4,7 @@ import {
   Trophy, CheckCircle2, Gift, 
   Link, Wrench 
 } from 'lucide-react';
-import { playCyberSound } from '../utils/soundEffects';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { GlitteringTrophyIcon } from './ui/GlitteringTrophyIcon';
 import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
 import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
@@ -176,7 +176,7 @@ export const AchievementsSection: React.FC = () => {
           return (
             <div
               key={ach.id}
-              onMouseEnter={() => playCyberSound('hover')}
+              {...getUniversalAudioProps('click', 'hover')}
               className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/70 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(255,143,0,0.18)] transition-all duration-300 cursor-pointer"
             >
               <div>
@@ -241,7 +241,7 @@ export const AchievementsSection: React.FC = () => {
             return (
               <div
                 key={reward.id}
-                onMouseEnter={() => playCyberSound('hover')}
+                {...getUniversalAudioProps('click', 'hover')}
                 className="p-4 rounded-xl bg-[#000000]/70 border border-[#FF8F00]/30 hover:border-[#FF8F00]/70 hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-[0_10px_20px_rgba(255,143,0,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer group"
               >
                 <div className="w-9 h-[#FF8F00] w-9 h-9 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] group-hover:scale-110 group-hover:bg-[#FF8F00]/25 transition-all">

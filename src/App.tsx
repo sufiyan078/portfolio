@@ -12,7 +12,7 @@ import { ContactSection } from './components/ContactSection';
 import { InteractiveTerminalModal } from './components/InteractiveTerminalModal';
 import { PROFILE } from './data/profile';
 import { Sparkles, Terminal, ArrowUp } from 'lucide-react';
-import { playCyberSound } from './utils/soundEffects';
+import { getUniversalAudioProps, playCyberSound } from './utils/soundEffects';
 
 export function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(false);
@@ -132,19 +132,16 @@ export function App() {
             </span>
             <span>|</span>
             <button
-              onClick={() => setIsTerminalOpen(true)}
-              className="text-[#10375C] hover:underline flex items-center gap-1 cursor-pointer"
+              {...getUniversalAudioProps('openModal', 'hover', () => setIsTerminalOpen(true))}
+              className="text-[#FF8F00] hover:underline flex items-center gap-1 cursor-pointer font-bold"
             >
               <Terminal className="w-3.5 h-3.5" />
               <span>LAUNCH CLI (~)</span>
             </button>
             <span>|</span>
             <button
-              onClick={() => {
-                playCyberSound('click');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-[#38BDF8] hover:underline flex items-center gap-1 cursor-pointer"
+              {...getUniversalAudioProps('click', 'hover', () => window.scrollTo({ top: 0, behavior: 'smooth' }))}
+              className="text-[#FF8F00] hover:underline flex items-center gap-1 cursor-pointer font-bold"
             >
               <span>TOP</span>
               <ArrowUp className="w-3.5 h-3.5" />
