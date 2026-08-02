@@ -191,16 +191,7 @@ export const PlayerProfileSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Mission Callout */}
-          <div className="glass-panel p-6 border-l-4 border-l-[#FF8F00]">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#FF8F00] mb-2 font-bold uppercase">
-              <AnimatedRocketIcon className="w-4 h-4" />
-              <span>READY FOR DEPLOYMENT</span>
-            </div>
-            <p className="text-sm text-gray-300 leading-relaxed font-sans">
-              Every project follows this process — from a one-page landing site to a full-scale business application. No shortcuts, no surprises.
-            </p>
-          </div>
+
         </div>
 
         {/* ═══ RIGHT COLUMN — Business Value + Why Clients Choose Me ═══ */}
