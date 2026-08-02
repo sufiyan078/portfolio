@@ -1,6 +1,7 @@
 // Web Audio API Synthesized UI Sound Generator
 let audioCtx: AudioContext | null = null;
 let soundEnabled = true;
+let audioUnlocked = false;
 
 const getAudioContext = (): AudioContext | null => {
   if (typeof window === 'undefined') return null;
@@ -18,28 +19,46 @@ const getAudioContext = (): AudioContext | null => {
   return audioCtx;
 };
 
-// Global automatic AudioContext unlock on first user gesture (click/touch/keypress)
+/**
+ * Mobile browsers (iOS Safari, Chrome Android) require both:
+ *   1. AudioContext.resume() called during a user gesture
+ *   2. An actual audio buffer/oscillator started during that same gesture
+ * Just calling resume() is NOT enough on iOS Safari — a silent oscillator
+ * must be played to truly "unlock" the audio pipeline.
+ */
 if (typeof window !== 'undefined') {
+  const unlockGestureEvents = ['pointerdown', 'touchstart', 'touchend', 'keydown', 'click'] as const;
+
   const unlockAudio = () => {
+    if (audioUnlocked) return;
+
     const ctx = getAudioContext();
-    if (ctx) {
-      if (ctx.state === 'suspended') {
-        ctx.resume().then(() => {
-          window.removeEventListener('pointerdown', unlockAudio);
-          window.removeEventListener('keydown', unlockAudio);
-          window.removeEventListener('touchstart', unlockAudio);
-        }).catch(() => {});
-      } else {
-        window.removeEventListener('pointerdown', unlockAudio);
-        window.removeEventListener('keydown', unlockAudio);
-        window.removeEventListener('touchstart', unlockAudio);
+    if (!ctx) return;
+
+    // Resume the context (required by all mobile browsers)
+    ctx.resume().then(() => {
+      // Play a silent oscillator to fully unlock the audio pipeline on iOS Safari.
+      // This must happen inside the user-gesture callback chain.
+      const silentOsc = ctx.createOscillator();
+      const silentGain = ctx.createGain();
+      silentGain.gain.setValueAtTime(0, ctx.currentTime);
+      silentOsc.connect(silentGain);
+      silentGain.connect(ctx.destination);
+      silentOsc.start(ctx.currentTime);
+      silentOsc.stop(ctx.currentTime + 0.001);
+
+      audioUnlocked = true;
+
+      // Clean up all unlock listeners
+      for (const evt of unlockGestureEvents) {
+        window.removeEventListener(evt, unlockAudio, true);
       }
-    }
+    }).catch(() => {});
   };
 
-  window.addEventListener('pointerdown', unlockAudio, { passive: true, capture: true });
-  window.addEventListener('keydown', unlockAudio, { passive: true, capture: true });
-  window.addEventListener('touchstart', unlockAudio, { passive: true, capture: true });
+  for (const evt of unlockGestureEvents) {
+    window.addEventListener(evt, unlockAudio, { passive: true, capture: true });
+  }
 }
 
 export const toggleSound = (): boolean => {
