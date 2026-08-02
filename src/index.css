@@ -43,7 +43,7 @@
     min-height: 100vh;
     position: relative;
     font-family: 'Press Start 2P', cursive, monospace;
-    background: radial-gradient(circle at 50% 0%, rgba(15, 48, 64, 0.45) 0%, rgba(31, 21, 12, 0.95) 50%, rgba(0, 0, 0, 1) 100%);
+    background: radial-gradient(circle at 50% 0%, rgba(17, 23, 36, 0.45) 0%, rgba(7, 10, 16, 0.95) 50%, rgba(0, 0, 0, 1) 100%);
   }
 
   h1, h2, h3, h4, h5, h6, p, span, div, button, a, input, textarea, select {

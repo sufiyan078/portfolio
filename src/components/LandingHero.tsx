@@ -27,8 +27,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
 
   return (
     <section className="relative min-h-[calc(100vh-80px)] pt-24 sm:pt-28 pb-16 flex flex-col justify-center items-center text-center px-4 overflow-hidden">
-      {/* Background Radial Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF8F00]/10 rounded-full blur-[140px] pointer-events-none" />
+      {/* Background Radial Glow — cool blue to match the sky canvas */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1A2A4A]/30 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto z-10 flex flex-col items-center">
         
