@@ -134,34 +134,34 @@ class SoundManager {
 
       switch (type) {
         case 'hover': {
-          // Classic 8-bit RPG Menu Cursor Move (Square Wave 880Hz -> 1320Hz blip)
+          // Retro RPG Game Bubble Pop / Bloop Sound (Sine Wave pitch sweep 420Hz -> 1550Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
 
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(880, now);
-          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.035);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, now);
+          osc.frequency.exponentialRampToValueAtTime(1550, now + 0.038);
 
-          gain.gain.setValueAtTime(baseVol * 0.25, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+          gain.gain.setValueAtTime(baseVol * 0.45, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.038);
 
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.035);
+          osc.stop(now + 0.038);
           break;
         }
 
         case 'touchStart': {
-          // Mobile 8-bit touch selection blip (Square Wave 700Hz -> 950Hz)
+          // Mobile Retro Game Bubble Pop Selection (Sine Wave 450Hz -> 1400Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
 
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(700, now);
-          osc.frequency.exponentialRampToValueAtTime(950, now + 0.035);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.exponentialRampToValueAtTime(1400, now + 0.035);
 
-          gain.gain.setValueAtTime(baseVol * 0.3, now);
+          gain.gain.setValueAtTime(baseVol * 0.45, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
 
           osc.connect(gain);
