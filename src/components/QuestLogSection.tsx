@@ -37,7 +37,7 @@ export const QuestLogSection: React.FC = () => {
           </div>
           <span className="text-[#FF8F00] font-bold">QUEST LOG</span>
         </div>
-        <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+        <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
           CAREER <span className="text-[#FF8F00]">QUEST LOG TIMELINE</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
