@@ -33,16 +33,23 @@ export const ContactSection: React.FC = () => {
       )}
 
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
+      <div className="flex flex-col items-center text-center mb-12">
+        {/* Availability Badge */}
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-4 px-4 py-1.5 rounded-full flex items-center gap-2">
           <AnimatedEnvelopeIcon className="w-3.5 h-3.5" />
-          <span className="text-[#FF8F00] font-bold">CONTACT</span>
+          <span className="text-[#FF8F00] font-mono text-xs font-bold tracking-wide">
+            Available for full-time roles & contract projects
+          </span>
         </div>
-        <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
-          GET IN <span className="text-[#FF8F00]">TOUCH</span>
+
+        {/* Main Headline Question */}
+        <h2 className="font-heading font-extrabold text-[26px] sm:text-[34px] md:text-[38px] text-white tracking-tight max-w-3xl leading-snug">
+          Need to build an application, automate workflows, or <span className="text-[#FF8F00]">improve a platform?</span>
         </h2>
-        <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; <span className="text-[#FF8F00] font-semibold">Available for freelance projects & contract work</span>. Have an idea, dataset, or application to build? Email directly or connect via social networks below to get started.
+
+        {/* Action Invitation Subtitle */}
+        <p className="font-sans text-sm sm:text-base text-gray-300 mt-4 max-w-xl font-medium leading-relaxed">
+          Let's discuss your goals and explore the right solution together.
         </p>
       </div>
 
@@ -51,7 +58,7 @@ export const ContactSection: React.FC = () => {
         <div className="glass-panel p-6 sm:p-8">
           <h3 className="font-heading font-bold text-xl text-white mb-2">DIRECT CHANNELS</h3>
           <p className="text-xs text-gray-300 font-sans leading-relaxed mb-6">
-            Connect directly via email or social networks for project inquiries, freelance builds, or tech consultations.
+            Whether you're hiring, planning a new product, or looking to modernize an existing system, I'd be happy to hear about your project.
           </p>
 
           {/* Email Copy Card */}
