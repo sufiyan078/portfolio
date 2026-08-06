@@ -242,10 +242,34 @@ export const PlayerProfileSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {CLIENT_REASONS.map((card) => (
-                <ReasonCard key={card.id} card={card} />
-              ))}
+            {/* How I Work Group */}
+            <div className="mb-6">
+              <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] text-[10px] font-bold tracking-widest uppercase mb-3">
+                <span>HOW I WORK</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {['business-first', 'structured-process', 'ai-accelerated', 'transparent-comms']
+                  .map(id => CLIENT_REASONS.find(c => c.id === id))
+                  .filter((card): card is NonNullable<typeof card> => Boolean(card))
+                  .map((card) => (
+                    <ReasonCard key={card.id} card={card} />
+                  ))}
+              </div>
+            </div>
+
+            {/* What You Get Group */}
+            <div>
+              <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] text-[10px] font-bold tracking-widest uppercase mb-3">
+                <span>WHAT YOU GET</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {['production-ready', 'clean-ux', 'long-term', 'full-ownership']
+                  .map(id => CLIENT_REASONS.find(c => c.id === id))
+                  .filter((card): card is NonNullable<typeof card> => Boolean(card))
+                  .map((card) => (
+                    <ReasonCard key={card.id} card={card} />
+                  ))}
+              </div>
             </div>
           </div>
         </div>

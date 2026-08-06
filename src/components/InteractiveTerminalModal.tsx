@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Terminal, X, CornerDownLeft } from 'lucide-react';
 import { BUILDER_PROFILE, MISSIONS, BOSS_BATTLES, SKILLS } from '../data/portfolioData';
 import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
@@ -32,8 +33,12 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
 
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 100);
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -177,9 +182,9 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
     setInputVal('');
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
-      <div className="w-[94vw] max-w-6xl h-[86vh] min-h-[580px] flex flex-col rounded-2xl border border-[#FF8F00]/50 bg-[#090503] shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_30px_rgba(255,143,0,0.25)] overflow-hidden relative">
+      <div className="w-full max-w-7xl h-[88vh] max-h-[88vh] flex flex-col rounded-2xl border border-[#FF8F00]/50 bg-[#090503] shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_30px_rgba(255,143,0,0.25)] overflow-hidden relative">
         
         {/* Header Controls */}
         <div className="flex items-center justify-between px-4 py-3 bg-[#0D0A08] border-b border-[#FF8F00]/30 select-none">
@@ -241,6 +246,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
           </button>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

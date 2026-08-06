@@ -17,9 +17,9 @@ export const SKILLS: SkillAbility[] = [
     category: "AI SYSTEMS",
     level: "Mastered",
     percentage: 99,
-    description: "Architecting autonomous AI agents, LLM integrations, prompt engineering, and intelligent workflow assistants.",
-    capabilityTag: "✓ AI Agents",
-    projectsUsed: ["AI Agents", "LLM Integrations", "RAG Systems"],
+    description: "Building AI tools, LLM integrations, custom prompt workflows, and practical assistant features.",
+    capabilityTag: "✓ AI Integration",
+    projectsUsed: ["AI Assistants", "LLM Features", "RAG Systems"],
     iconName: "Bot"
   },
   {
@@ -28,8 +28,8 @@ export const SKILLS: SkillAbility[] = [
     category: "AUTOMATION",
     level: "Mastered",
     percentage: 98,
-    description: "Automating repetitive business processes, web scraping, API sync pipelines, and custom task bots.",
-    capabilityTag: "✓ Automation",
+    description: "Automating repetitive business tasks, web scraping, data sync pipelines, and custom background bots.",
+    capabilityTag: "✓ Process Automation",
     projectsUsed: ["Process Automation", "Web Scraping", "n8n Workflows"],
     iconName: "Zap"
   },
@@ -39,8 +39,8 @@ export const SKILLS: SkillAbility[] = [
     category: "BI & ANALYTICS",
     level: "Mastered",
     percentage: 96,
-    description: "Building executive business dashboards, real-time KPI monitors, and interactive data visualization portals.",
-    capabilityTag: "✓ Dashboards",
+    description: "Creating clear business dashboards, KPI tracking tools, and interactive data analytics portals.",
+    capabilityTag: "✓ Business Dashboards",
     projectsUsed: ["KPI Portals", "Analytics Dashboards", "Reporting Systems"],
     iconName: "BarChart3"
   },
@@ -50,7 +50,7 @@ export const SKILLS: SkillAbility[] = [
     category: "WEB ENGINEERING",
     level: "Mastered",
     percentage: 97,
-    description: "Developing full-stack web applications, internal admin control panels, and custom enterprise web software.",
+    description: "Developing full-stack web applications, internal admin tools, and custom web software.",
     capabilityTag: "✓ Admin Panels",
     projectsUsed: ["Internal Web Apps", "Admin Panels", "Client Portals"],
     iconName: "Layout"
@@ -61,8 +61,8 @@ export const SKILLS: SkillAbility[] = [
     category: "SAAS PRODUCTS",
     level: "Mastered",
     percentage: 95,
-    description: "Building complete end-to-end SaaS MVPs with authentication, subscriptions, cloud databases, and sleek UI.",
-    capabilityTag: "✓ SaaS",
+    description: "Building production-ready SaaS MVPs with authentication, subscriptions, databases, and responsive UI.",
+    capabilityTag: "✓ SaaS Products",
     projectsUsed: ["SaaS MVPs", "Full-Stack Products", "Cloud Systems"],
     iconName: "Rocket"
   },
@@ -72,8 +72,8 @@ export const SKILLS: SkillAbility[] = [
     category: "BACKEND & APIS",
     level: "Mastered",
     percentage: 96,
-    description: "Designing scalable REST & GraphQL APIs, serverless backends, webhooks, and secure microservices.",
-    capabilityTag: "✓ APIs",
+    description: "Designing REST & GraphQL APIs, serverless backends, webhooks, and secure backend services.",
+    capabilityTag: "✓ API Development",
     projectsUsed: ["REST APIs", "GraphQL", "Webhooks"],
     iconName: "Server"
   },
@@ -83,8 +83,8 @@ export const SKILLS: SkillAbility[] = [
     category: "DATA PIPELINES",
     level: "Mastered",
     percentage: 94,
-    description: "Engineering data ingestion pipelines, automated ETL workflows, relational SQL databases, and data platforms.",
-    capabilityTag: "✓ Data Platforms",
+    description: "Building data ingestion pipelines, automated ETL workflows, SQL database schemas, and reporting engines.",
+    capabilityTag: "✓ Data Pipelines",
     projectsUsed: ["Data Platforms", "Reporting Systems", "ETL Pipelines"],
     iconName: "Database"
   },
@@ -94,9 +94,9 @@ export const SKILLS: SkillAbility[] = [
     category: "SYSTEM INTEGRATIONS",
     level: "Mastered",
     percentage: 98,
-    description: "Connecting multi-app ecosystems, third-party API integrations, automated notifications, and business logic.",
-    capabilityTag: "✓ Integrations",
-    projectsUsed: ["Integrations", "Business Logic", "App Ecosystems"],
+    description: "Connecting business apps, third-party API integrations, automated notifications, and custom business logic.",
+    capabilityTag: "✓ System Integrations",
+    projectsUsed: ["App Integrations", "Business Logic", "Workflow Systems"],
     iconName: "Cpu"
   }
 ];

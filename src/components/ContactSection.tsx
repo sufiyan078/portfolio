@@ -1,65 +1,38 @@
 import React, { useState } from 'react';
-import { Send, Mail, Check, Copy, MessageSquare, Sparkles } from 'lucide-react';
-import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
+import { Mail, Check, Copy } from 'lucide-react';
+import { getUniversalAudioProps } from '../utils/soundEffects';
 import { AnimatedEnvelopeIcon } from './ui/AnimatedEnvelopeIcon';
 import { SocialButton } from './ui/SocialButton';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   const emailAddress = "work.sufiyan.ahmed078@gmail.com";
 
-  const [sending, setSending] = useState(false);
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 3000);
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(emailAddress);
     setCopiedEmail(true);
+    showToast("Email address copied.");
     setTimeout(() => setCopiedEmail(false), 2000);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${emailAddress}`, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          _subject: formData.subject || `New Portfolio Message from ${formData.name}`,
-          message: formData.message,
-          _template: 'table'
-        })
-      });
-
-      const data = await response.json();
-      if (data.success === "true" || response.ok) {
-        playCyberSound('success');
-        setSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        playCyberSound('error');
-        alert("Failed to send message. Please email work.sufiyan.ahmed078@gmail.com directly.");
-      }
-    } catch {
-      playCyberSound('error');
-      alert("Network error sending message. Please email work.sufiyan.ahmed078@gmail.com directly.");
-    } finally {
-      setSending(false);
-      setTimeout(() => setSubmitted(false), 6000);
-    }
   };
 
   return (
     <section id="contact" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
-      {/* Section Header per Section 15 */}
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-[#10B981] text-black font-mono text-xs font-bold shadow-lg animate-fadeIn flex items-center gap-2">
+          <Check className="w-4 h-4" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
         <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
           <AnimatedEnvelopeIcon className="w-3.5 h-3.5" />
@@ -69,132 +42,46 @@ export const ContactSection: React.FC = () => {
           GET IN <span className="text-[#FF8F00]">TOUCH</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; <span className="text-[#FF8F00] font-semibold">Available for freelance projects & contract work</span>. Have an idea, dataset, or application to build? Send a message below or email directly to get started.
+          &gt; <span className="text-[#FF8F00] font-semibold">Available for freelance projects & contract work</span>. Have an idea, dataset, or application to build? Email directly or connect via social networks below to get started.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Direct Contact Info */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
-          <div className="glass-panel p-6 sm:p-8">
-            <h3 className="font-heading font-bold text-xl text-white mb-2">DIRECT CHANNELS</h3>
-            <p className="text-xs text-gray-300 font-sans leading-relaxed mb-6">
-              Connect directly via email or social networks for project inquiries, freelance builds, or tech consultations.
-            </p>
+      <div className="max-w-2xl mx-auto">
+        {/* Direct Contact Info */}
+        <div className="glass-panel p-6 sm:p-8">
+          <h3 className="font-heading font-bold text-xl text-white mb-2">DIRECT CHANNELS</h3>
+          <p className="text-xs text-gray-300 font-sans leading-relaxed mb-6">
+            Connect directly via email or social networks for project inquiries, freelance builds, or tech consultations.
+          </p>
 
-            {/* Email Copy Card */}
-            <div className="p-4 rounded-2xl bg-[#070B14] border border-white/10 mb-6 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 overflow-hidden">
-                <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="overflow-hidden font-mono">
-                  <div className="text-[10px] text-gray-400 uppercase">DIRECT EMAIL</div>
-                  <div className="text-xs text-white truncate">{emailAddress}</div>
-                </div>
+          {/* Email Copy Card */}
+          <div className="p-4 rounded-2xl bg-[#070B14] border border-white/10 mb-6 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0">
+                <Mail className="w-5 h-5" />
               </div>
-
-              <button
-                {...getUniversalAudioProps('click', 'hover', handleCopyEmail)}
-                className="px-3 py-1.5 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 text-xs font-mono shrink-0 flex items-center gap-1 cursor-pointer"
-              >
-                {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedEmail ? 'COPIED' : 'COPY'}</span>
-              </button>
-            </div>
-
-            {/* Social Channels - Animated Expandable SocialButton */}
-            <h4 className="font-mono text-xs text-gray-400 uppercase mb-3 font-bold">NETWORK CHANNELS</h4>
-            <SocialButton label="CONNECTS" />
-          </div>
-        </div>
-
-        {/* Right Column: Contact Form */}
-        <div className="lg:col-span-7">
-          <div className="glass-panel p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-[#10B981]/15 border border-[#10B981]/40 flex items-center justify-center text-[#10B981]">
-                <MessageSquare className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-xl text-white">SEND MESSAGE</h3>
-                <span className="font-mono text-xs text-gray-400">Direct message transmission</span>
+              <div className="overflow-hidden font-mono">
+                <div className="text-[10px] text-gray-400 uppercase">DIRECT EMAIL</div>
+                <div className="text-xs text-white truncate">{emailAddress}</div>
               </div>
             </div>
 
-            {submitted ? (
-              <div className="p-8 text-center rounded-2xl bg-[#10B981]/10 border border-[#10B981] space-y-3">
-                <Sparkles className="w-10 h-10 text-[#10B981] mx-auto animate-bounce" />
-                <h4 className="font-heading font-bold text-lg text-white">MESSAGE SENT SUCCESSFULLY</h4>
-                <p className="font-mono text-xs text-gray-300">
-                  Message received. I will respond to your transmission within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-mono text-xs text-gray-300 mb-1">YOUR NAME</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Alex Vance"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/10 focus:border-[#443199] text-white font-sans text-sm outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-mono text-xs text-gray-300 mb-1">YOUR EMAIL</label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. alex@company.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/10 focus:border-[#443199] text-white font-sans text-sm outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-mono text-xs text-gray-300 mb-1">SUBJECT</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="e.g. Senior Software Engineering Role / Project Inquiry"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/10 focus:border-[#443199] text-white font-sans text-sm outline-none transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-mono text-xs text-gray-300 mb-1">MESSAGE</label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Provide details about your project, team, or opportunity..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#070B14] border border-white/10 focus:border-[#443199] text-white font-sans text-sm outline-none transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={sending}
-                  {...getUniversalAudioProps('click', 'hover')}
-                  className="btn-primary w-full py-3.5 font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{sending ? 'TRANSMITTING MESSAGE...' : 'SEND TRANSMISSION'}</span>
-                </button>
-              </form>
-            )}
+            <button
+              {...getUniversalAudioProps('click', 'hover', handleCopyEmail)}
+              aria-label="Copy email address"
+              className="px-3 py-1.5 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 text-xs font-mono shrink-0 flex items-center gap-1 cursor-pointer"
+            >
+              {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{copiedEmail ? 'COPIED' : 'COPY'}</span>
+            </button>
           </div>
+
+          {/* Social Channels */}
+          <h4 className="font-mono text-xs text-gray-400 uppercase mb-3 font-bold">NETWORK CHANNELS</h4>
+          <SocialButton label="CONNECTS" />
         </div>
       </div>
     </section>
   );
 };
+

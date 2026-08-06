@@ -21,29 +21,29 @@ export const PLAYER_PROFILE: PlayerProfile = {
   level: 99,
   xpCurrent: 98500,
   xpMax: 100000,
-  status: "AVAILABLE FOR HIGH-IMPACT MISSIONS",
+  status: "AVAILABLE FOR NEW PROJECTS",
   location: "EARTH",
-  bio: "Architecting resilient full-stack web applications, AI-driven workflows, and high-performance data systems. Driven by engineering clarity, rigorous problem-solving, and state-of-the-art visual experiences.",
-  missionStatement: "Transforming complex business challenges into scalable, deterministic software systems through disciplined engineering and thoughtful UX.",
+  bio: "I build full-stack web apps, AI tools, and data systems that help businesses run smoother. I focus on clean code, practical solutions, and intuitive user experiences.",
+  missionStatement: "Turning complex business problems into reliable, easy-to-use software that saves time and scales naturally.",
   stats: [
     { label: "System Design", score: 97, max: 100 },
     { label: "Problem Solving", score: 98, max: 100 },
     { label: "Full Stack Dev", score: 96, max: 100 },
     { label: "Code Quality", score: 95, max: 100 },
-    { label: "Performance Ops", score: 99, max: 100 }
+    { label: "Performance", score: 99, max: 100 }
   ],
   specializations: [
-    "Full-Stack Web Engineering",
-    "Distributed System Design",
-    "AI Agent & Workflow Integration",
-    "High-Volume Data Analytics & Reporting",
-    "Micro-Frontend & Glassmorphic UI Engineering"
+    "Full-Stack Web Development",
+    "System Architecture & Design",
+    "AI & Workflow Automation",
+    "Data Analytics & Reporting",
+    "Responsive UI/UX Development"
   ],
   philosophy: [
-    { number: "01", title: "Show Engineering", text: "Code speaks louder than assertions. Prove technical maturity through clear architecture and measurable outcomes." },
-    { number: "02", title: "Show Problem Solving", text: "Don't just post final screenshots. Explain the root causes, constraints, trade-offs, and debug trajectories." },
-    { number: "03", title: "Tell Technical Stories", text: "Every project follows a narrative: Problem → Constraints → Investigation → Solution → Result." },
-    { number: "04", title: "Intentional Interactions", text: "UI motion should clarify hierarchy and status, never distract or delay user actions." },
-    { number: "05", title: "Uncompromising Quality", text: "Production stability, type safety, performance, and accessibility come before aesthetic fluff." }
+    { number: "01", title: "Clear Code First", text: "Focus on readable code and solid architecture rather than over-engineering." },
+    { number: "02", title: "Solve Root Causes", text: "Look deeper than surface symptoms to fix underlying problems permanently." },
+    { number: "03", title: "Clear Technical Context", text: "Explain technical choices through real project requirements, constraints, and results." },
+    { number: "04", title: "Purposeful UI Design", text: "Keep interfaces clean and responsive so users can get work done without friction." },
+    { number: "05", title: "Production Quality", text: "Prioritize stability, speed, accessibility, and type safety in every release." }
   ]
 };

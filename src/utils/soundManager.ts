@@ -15,9 +15,11 @@ export type SoundEffectType =
 class SoundManager {
   private static instance: SoundManager;
   private audioCtx: AudioContext | null = null;
+  private masterGain: GainNode | null = null;
+  private masterCompressor: DynamicsCompressorNode | null = null;
   private soundEnabled = true;
   private audioUnlocked = false;
-  private volume = 0.70; // Punchy, rich master volume
+  private volume = 0.85; // Master volume optimized for desktop & mobile phone speakers
   private lastTriggerTime = 0;
   private lastEffectType: SoundEffectType | null = null;
 
@@ -40,58 +42,101 @@ class SoundManager {
         (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioContextClass) {
         this.audioCtx = new AudioContextClass();
+
+        // Create Master Dynamics Compressor Node to equalize audio peaks across desktop & mobile speakers
+        try {
+          this.masterCompressor = this.audioCtx.createDynamicsCompressor();
+          this.masterCompressor.threshold.setValueAtTime(-18, this.audioCtx.currentTime);
+          this.masterCompressor.knee.setValueAtTime(24, this.audioCtx.currentTime);
+          this.masterCompressor.ratio.setValueAtTime(6, this.audioCtx.currentTime);
+          this.masterCompressor.attack.setValueAtTime(0.003, this.audioCtx.currentTime);
+          this.masterCompressor.release.setValueAtTime(0.15, this.audioCtx.currentTime);
+
+          // Create Master Gain Node
+          this.masterGain = this.audioCtx.createGain();
+          this.masterGain.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+
+          // Route: Master Gain -> Master Compressor -> AudioContext Destination
+          this.masterGain.connect(this.masterCompressor);
+          this.masterCompressor.connect(this.audioCtx.destination);
+        } catch {
+          this.masterGain = null;
+          this.masterCompressor = null;
+        }
       }
     }
+
     if (this.audioCtx && this.audioCtx.state === 'suspended') {
       this.audioCtx.resume().catch(() => {});
     }
+
+    if (this.audioCtx && this.masterGain) {
+      this.masterGain.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+    }
+
     return this.audioCtx;
   }
 
+  private getDestinationNode(ctx: AudioContext): AudioNode {
+    return this.masterGain || ctx.destination;
+  }
+
   /**
-   * Universal Mobile Audio Context Unlocker.
-   * Plays a 0-volume oscillator buffer during user gesture to fully unlock iOS Safari & Android WebAudio.
+   * One-time Universal Audio Context Unlocker.
+   * Registers capture-phase event listeners for pointerdown, click, touchstart, keydown.
+   * On first user interaction, synchronously resumes AudioContext and plays a 0-volume buffer,
+   * then cleans up all unlock event listeners.
    */
   private initUnlockListeners() {
     if (typeof window === 'undefined') return;
 
-    const unlockEvents = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown'] as const;
+    const unlockEvents = ['pointerdown', 'click', 'touchstart', 'keydown'] as const;
 
-    const unlock = () => {
+    const handleUnlock = async () => {
       if (this.audioUnlocked) return;
+      this.audioUnlocked = true;
+
+      // Remove listeners immediately to prevent duplicate runs
+      for (const evt of unlockEvents) {
+        window.removeEventListener(evt, handleUnlock, true);
+      }
+
       const ctx = this.getAudioContext();
       if (!ctx) return;
 
-      ctx.resume().then(() => {
+      if (ctx.state === 'suspended') {
         try {
-          const silentOsc = ctx.createOscillator();
-          const silentGain = ctx.createGain();
-          silentGain.gain.setValueAtTime(0, ctx.currentTime);
-          silentOsc.connect(silentGain);
-          silentGain.connect(ctx.destination);
-          silentOsc.start(ctx.currentTime);
-          silentOsc.stop(ctx.currentTime + 0.001);
-          this.audioUnlocked = true;
-
-          for (const evt of unlockEvents) {
-            window.removeEventListener(evt, unlock, true);
-          }
+          await ctx.resume();
         } catch {
           // ignore safely
         }
-      }).catch(() => {});
+      }
+
+      try {
+        const silentOsc = ctx.createOscillator();
+        const silentGain = ctx.createGain();
+        silentGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        silentOsc.connect(silentGain);
+        silentGain.connect(this.getDestinationNode(ctx));
+        silentOsc.start(ctx.currentTime);
+        silentOsc.stop(ctx.currentTime + 0.001);
+      } catch {
+        // ignore safely
+      }
     };
 
     for (const evt of unlockEvents) {
-      window.addEventListener(evt, unlock, { passive: true, capture: true });
+      window.addEventListener(evt, handleUnlock, { capture: true, passive: true });
     }
   }
 
+  /**
+   * Pure toggle for audio muting.
+   * ONLY toggles the soundEnabled boolean state.
+   * Never resumes AudioContext, recreates audio objects, or initializes the sound system.
+   */
   public toggleSound(): boolean {
     this.soundEnabled = !this.soundEnabled;
-    if (this.soundEnabled) {
-      this.playSound('click');
-    }
     return this.soundEnabled;
   }
 
@@ -101,6 +146,9 @@ class SoundManager {
 
   public setVolume(vol: number) {
     this.volume = Math.max(0, Math.min(1, vol));
+    if (this.audioCtx && this.masterGain) {
+      this.masterGain.gain.setValueAtTime(this.volume, this.audioCtx.currentTime);
+    }
   }
 
   public getVolume(): number {
@@ -109,17 +157,23 @@ class SoundManager {
 
   /**
    * Plays a synthesized audio effect with 35ms deduplication filter to eliminate double-firing.
+   * Ensures identical sound synthesis and volume levels across all devices.
    */
   public playSound(type: SoundEffectType) {
     if (!this.soundEnabled) return;
 
+    // Standardize touch aliases to ensure identical sound synthesis across desktop & mobile
+    let targetType = type;
+    if (targetType === 'touchStart') targetType = 'hover';
+    if (targetType === 'touchEnd') targetType = 'click';
+
     const nowTime = performance.now();
     // Deduplication filter: suppress identical or rapid duplicate triggers within 35ms
-    if (this.lastEffectType === type && nowTime - this.lastTriggerTime < 35) {
+    if (this.lastEffectType === targetType && nowTime - this.lastTriggerTime < 35) {
       return;
     }
     this.lastTriggerTime = nowTime;
-    this.lastEffectType = type;
+    this.lastEffectType = targetType;
 
     try {
       const ctx = this.getAudioContext();
@@ -130,44 +184,25 @@ class SoundManager {
       }
 
       const now = ctx.currentTime;
-      const baseVol = this.volume;
+      const dest = this.getDestinationNode(ctx);
 
-      switch (type) {
+      switch (targetType) {
         case 'hover': {
-          // Retro RPG Game Bubble Pop / Bloop Sound (Sine Wave pitch sweep 420Hz -> 1550Hz)
+          // Retro RPG Game Bubble Pop / Bloop Sound (Sine Wave pitch sweep 420Hz -> 1450Hz)
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
 
           osc.type = 'sine';
           osc.frequency.setValueAtTime(420, now);
-          osc.frequency.exponentialRampToValueAtTime(1550, now + 0.038);
+          osc.frequency.exponentialRampToValueAtTime(1450, now + 0.038);
 
-          gain.gain.setValueAtTime(baseVol * 0.95, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.038);
+          gain.gain.setValueAtTime(0.60, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.038);
 
           osc.connect(gain);
-          gain.connect(ctx.destination);
+          gain.connect(dest);
           osc.start(now);
           osc.stop(now + 0.038);
-          break;
-        }
-
-        case 'touchStart': {
-          // Mobile Retro Game Bubble Pop Selection (Sine Wave 450Hz -> 1400Hz)
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(450, now);
-          osc.frequency.exponentialRampToValueAtTime(1400, now + 0.035);
-
-          gain.gain.setValueAtTime(baseVol * 0.95, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.035);
           break;
         }
 
@@ -179,42 +214,23 @@ class SoundManager {
 
           osc1.type = 'square';
           osc1.frequency.setValueAtTime(650, now);
-          osc1.frequency.exponentialRampToValueAtTime(220, now + 0.06);
+          osc1.frequency.exponentialRampToValueAtTime(220, now + 0.055);
 
           osc2.type = 'triangle';
           osc2.frequency.setValueAtTime(1300, now);
-          osc2.frequency.exponentialRampToValueAtTime(320, now + 0.06);
+          osc2.frequency.exponentialRampToValueAtTime(320, now + 0.055);
 
-          gain.gain.setValueAtTime(baseVol * 0.65, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+          gain.gain.setValueAtTime(0.75, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
 
           osc1.connect(gain);
           osc2.connect(gain);
-          gain.connect(ctx.destination);
+          gain.connect(dest);
 
           osc1.start(now);
           osc2.start(now);
-          osc1.stop(now + 0.06);
-          osc2.stop(now + 0.06);
-          break;
-        }
-
-        case 'touchEnd': {
-          // Mobile 8-bit tap release confirmation snap (Square Wave 523Hz -> 880Hz upward blip)
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(523.25, now);
-          osc.frequency.exponentialRampToValueAtTime(880, now + 0.05);
-
-          gain.gain.setValueAtTime(baseVol * 0.45, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.05);
+          osc1.stop(now + 0.055);
+          osc2.stop(now + 0.055);
           break;
         }
 
@@ -231,11 +247,11 @@ class SoundManager {
             osc.type = 'square';
             osc.frequency.setValueAtTime(freq, noteStart);
 
-            gain.gain.setValueAtTime(baseVol * 0.4, noteStart);
-            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.05);
+            gain.gain.setValueAtTime(0.65, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.05);
 
             osc.connect(gain);
-            gain.connect(ctx.destination);
+            gain.connect(dest);
 
             osc.start(noteStart);
             osc.stop(noteStart + 0.05);
@@ -256,11 +272,11 @@ class SoundManager {
             osc.type = 'square';
             osc.frequency.setValueAtTime(freq, noteStart);
 
-            gain.gain.setValueAtTime(baseVol * 0.35, noteStart);
-            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.045);
+            gain.gain.setValueAtTime(0.65, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.045);
 
             osc.connect(gain);
-            gain.connect(ctx.destination);
+            gain.connect(dest);
 
             osc.start(noteStart);
             osc.stop(noteStart + 0.045);
@@ -277,11 +293,11 @@ class SoundManager {
           osc.frequency.setValueAtTime(1318.51, now);
           osc.frequency.exponentialRampToValueAtTime(1760, now + 0.025);
 
-          gain.gain.setValueAtTime(baseVol * 0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
+          gain.gain.setValueAtTime(0.55, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
 
           osc.connect(gain);
-          gain.connect(ctx.destination);
+          gain.connect(dest);
 
           osc.start(now);
           osc.stop(now + 0.025);
@@ -291,7 +307,7 @@ class SoundManager {
         case 'success': {
           // 8-Bit RPG Victory / Item Unlocked Fanfare (C5 -> E5 -> G5 -> B5 -> C6)
           const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
-          const noteDuration = 0.05;
+          const noteDuration = 0.045;
 
           notes.forEach((freq, idx) => {
             const osc = ctx.createOscillator();
@@ -301,14 +317,14 @@ class SoundManager {
             osc.type = 'square';
             osc.frequency.setValueAtTime(freq, noteStart);
 
-            gain.gain.setValueAtTime(baseVol * 0.45, noteStart);
-            gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.08);
+            gain.gain.setValueAtTime(0.70, noteStart);
+            gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.075);
 
             osc.connect(gain);
-            gain.connect(ctx.destination);
+            gain.connect(dest);
 
             osc.start(noteStart);
-            osc.stop(noteStart + 0.08);
+            osc.stop(noteStart + 0.075);
           });
           break;
         }
@@ -322,11 +338,11 @@ class SoundManager {
           osc.frequency.setValueAtTime(180, now);
           osc.frequency.setValueAtTime(120, now + 0.07);
 
-          gain.gain.setValueAtTime(baseVol * 0.5, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          gain.gain.setValueAtTime(0.70, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
 
           osc.connect(gain);
-          gain.connect(ctx.destination);
+          gain.connect(dest);
 
           osc.start(now);
           osc.stop(now + 0.14);
@@ -340,14 +356,14 @@ class SoundManager {
 
   /**
    * Helper to return unified cross-platform event handlers for any interactive React element.
-   * Handles Desktop Mouse Hover, Mobile Touch Press, Pointer Events, and Keyboard Navigation cleanly.
+   * Ensures identical sound synthesis and volume across Desktop Mouse, Mobile Touch Press, Pointer Events, and Keyboard.
    */
   public getUniversalAudioProps(
     clickEffect: SoundEffectType = 'click',
     hoverEffect: SoundEffectType = 'hover',
     onClickCallback?: (e: React.MouseEvent | React.KeyboardEvent | React.PointerEvent) => void
   ) {
-    let touched = false;
+    let touchHandled = false;
 
     return {
       onPointerEnter: (e: React.PointerEvent) => {
@@ -357,19 +373,22 @@ class SoundManager {
       },
       onPointerDown: (e: React.PointerEvent) => {
         if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-          touched = true;
-          this.playSound(hoverEffect === 'hover' ? 'touchStart' : hoverEffect);
+          touchHandled = true;
+          this.playSound(clickEffect);
         }
       },
       onClick: (e: React.MouseEvent) => {
-        if (touched) {
-          touched = false;
-          this.playSound(clickEffect === 'click' ? 'touchEnd' : clickEffect);
+        if (touchHandled) {
+          touchHandled = false;
+          // Audio played on pointerDown for instant touch response
+          if (onClickCallback) {
+            onClickCallback(e);
+          }
         } else {
           this.playSound(clickEffect);
-        }
-        if (onClickCallback) {
-          onClickCallback(e);
+          if (onClickCallback) {
+            onClickCallback(e);
+          }
         }
       },
       onKeyDown: (e: React.KeyboardEvent) => {
@@ -385,3 +404,4 @@ class SoundManager {
 }
 
 export const soundManager = SoundManager.getInstance();
+

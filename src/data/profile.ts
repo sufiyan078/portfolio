@@ -34,37 +34,37 @@ export const DEV_PROCESS: ProcessStage[] = [
     id: "discovery",
     label: "DISCOVERY",
     icon: "Search",
-    description: "Understand the business problem, user needs, and success criteria before writing a single line of code."
+    description: "Scope, requirements, success criteria"
   },
   {
     id: "architecture",
     label: "ARCHITECTURE",
     icon: "Layers",
-    description: "Design the system structure, data models, and technical stack for reliability and scalability."
+    description: "System design, stack, data models"
   },
   {
     id: "rapid-dev",
     label: "RAPID DEVELOPMENT",
     icon: "Zap",
-    description: "Build features iteratively using AI-accelerated workflows to deliver working software fast."
+    description: "AI-accelerated, iterative builds"
   },
   {
     id: "testing",
     label: "TESTING & VALIDATION",
     icon: "ShieldCheck",
-    description: "Validate every feature against requirements with automated tests and manual review."
+    description: "Automated tests, manual review"
   },
   {
     id: "deployment",
     label: "DEPLOYMENT",
     icon: "Rocket",
-    description: "Ship to production with CI/CD pipelines, monitoring, and zero-downtime releases."
+    description: "CI/CD, zero-downtime release"
   },
   {
     id: "support",
     label: "ONGOING SUPPORT",
     icon: "HeartHandshake",
-    description: "Provide maintenance, feature iterations, and technical support after launch."
+    description: "Maintenance, iterations, technical support"
   }
 ];
 
@@ -191,8 +191,8 @@ export const PROFILE: Profile = {
   level: "LEVEL 99",
   status: "ONLINE",
   location: "EARTH",
-  bio: "Building business software products that save time and automate workflows.",
-  missionStatement: "Creating software products that transform manual processes into reliable, validated digital systems.",
+  bio: "I build custom web applications and business tools that automate workflows and save time.",
+  missionStatement: "Developing straightforward software that turns manual tasks into smooth, reliable digital workflows.",
   xpPercentage: 82,
   stats: [],
   specializations: [],

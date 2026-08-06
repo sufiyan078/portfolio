@@ -18,7 +18,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-01",
     title: "Custom Business Applications",
-    description: "Architecting full-stack web applications tailored to solve unique operational needs, internal workflows, and enterprise logic.",
+    description: "Building custom full-stack web applications tailored to solve specific business needs and streamline internal workflows.",
     category: "Product",
     date: "2026",
     rarity: "Legendary",
@@ -27,7 +27,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-02",
     title: "AI Agents & Automation",
-    description: "Building intelligent AI assistants, LLM workflow integrations, custom prompt pipelines, and autonomous business bots.",
+    description: "Integrating AI tools, custom prompt workflows, and automated assistants into business systems.",
     category: "AI",
     date: "2026",
     rarity: "Legendary",
@@ -36,7 +36,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-03",
     title: "Executive Dashboards",
-    description: "Designing real-time business command centers, executive KPI monitors, and interactive analytics visualization portals.",
+    description: "Building clear business dashboards and interactive analytics portals to track key performance metrics.",
     category: "Analytics",
     date: "2026",
     rarity: "Epic",
@@ -45,7 +45,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-04",
     title: "Workflow Automation",
-    description: "Eliminating manual data entry, automating repetitive business processes, web scraping, and scheduled task pipelines.",
+    description: "Eliminating manual data entry by automating repetitive tasks, web scraping, and scheduled workflows.",
     category: "Engineering",
     date: "2026",
     rarity: "Epic",
@@ -54,7 +54,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-05",
     title: "Reporting Systems",
-    description: "Engineering automated multi-format PDF & Excel report engines for instant executive insights and data exports.",
+    description: "Building automated PDF and Excel report generation tools for fast data exports and executive reviews.",
     category: "Analytics",
     date: "2026",
     rarity: "Epic",
@@ -63,7 +63,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-06",
     title: "API Integrations",
-    description: "Connecting multi-app software ecosystems, third-party REST/GraphQL APIs, webhooks, and real-time database sync.",
+    description: "Connecting software systems through REST/GraphQL APIs, webhooks, and database synchronization.",
     category: "Engineering",
     date: "2026",
     rarity: "Rare",
@@ -72,7 +72,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-07",
     title: "Production Deployments",
-    description: "Deploying high-reliability, cloud-backed web platforms on Vercel, Docker, GitHub CI/CD, and fast production servers.",
+    description: "Deploying web platforms to reliable production environments using Vercel, Firebase, Docker, and CI/CD pipelines.",
     category: "Engineering",
     date: "2026",
     rarity: "Rare",
@@ -81,7 +81,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     id: "ach-08",
     title: "End-to-End Ownership",
-    description: "Managing complete software development lifecycles from architecture design and coding to cloud deployment and ongoing maintenance.",
+    description: "Managing the entire development process—from system design and coding to cloud deployment and ongoing support.",
     category: "Product",
     date: "2026",
     rarity: "Rare",

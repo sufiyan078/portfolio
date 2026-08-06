@@ -1,10 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { PROJECTS, type Project } from '../data/projects';
 import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, X } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
+import { ArchitectureDiagram } from './ui/ArchitectureDiagram';
+
+const getQuantifiableStats = (outcomeBullets: string[]) => {
+  const stats: { number: string; caption: string }[] = [];
+  for (const bullet of outcomeBullets) {
+    const match = bullet.match(/\b(\d+(?:\.\d+)?%|\d+\+|\d+x)\b/i);
+    if (match) {
+      const number = match[1];
+      let caption = bullet.replace(match[0], '').replace(/^[^a-zA-Z0-9]+/, '').trim();
+      if (caption.length > 35) caption = caption.substring(0, 35) + '...';
+      stats.push({ number, caption });
+      if (stats.length === 3) break;
+    }
+  }
+  return stats;
+};
+
+const getMissionMetaCards = (project: Project) => {
+  const cards: { label: string; value: string }[] = [];
+
+  // Client (Extract if present in project data)
+  if (project.tagline.includes("GAS (GAS Arabian Services)") || project.description.includes("GAS")) {
+    cards.push({ label: 'CLIENT', value: 'GAS (GAS Arabian Services)' });
+  }
+
+  // Role
+  cards.push({ label: 'ROLE', value: 'Full Stack Engineer' });
+
+  // Type (Derived from title/category)
+  let typeVal = project.category as string;
+  if (project.id === 'mission-01') typeVal = 'Monthly Audit Platform';
+  else if (project.id === 'mission-02') typeVal = 'AI Career Platform';
+  else if (project.id === 'mission-03') typeVal = 'Analytics Portal';
+  cards.push({ label: 'TYPE', value: typeVal });
+
+  // Category
+  cards.push({ label: 'CATEGORY', value: project.category });
+
+  // Status
+  cards.push({ label: 'STATUS', value: project.status });
+
+  return cards;
+};
+
+type ModalTab = 'overview' | 'architecture' | 'features' | 'results';
 
 export const MissionControlSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeModalTab, setActiveModalTab] = useState<ModalTab>('overview');
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null);
+      }
+    };
+    if (selectedProject) {
+      setActiveModalTab('overview');
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProject]);
 
   return (
     <section id="missions" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
@@ -133,9 +197,9 @@ export const MissionControlSection: React.FC = () => {
       </div>
 
       {/* Mission Inspection Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-start justify-center p-4 sm:p-6 pt-36 sm:pt-40 pb-10 overflow-y-auto font-sans">
-          <div className="glass-panel w-full max-w-4xl max-h-[calc(100vh-180px)] overflow-y-auto p-6 sm:p-10 border-2 border-[#FF8F00]/50 shadow-[0_0_50px_rgba(255,143,0,0.35)] relative">
+      {selectedProject && createPortal(
+        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn">
+          <div className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/50 shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_35px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-white/10 pb-6 mb-6">
               <div>
@@ -156,78 +220,146 @@ export const MissionControlSection: React.FC = () => {
               </button>
             </div>
 
+            {/* Modal Tab Bar */}
+            <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto custom-scrollbar">
+              {[
+                { id: 'overview', label: 'OVERVIEW' },
+                { id: 'architecture', label: 'ARCHITECTURE' },
+                { id: 'features', label: 'FEATURES' },
+                { id: 'results', label: 'RESULTS' },
+              ].map((tab) => {
+                const isActive = activeModalTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    {...getUniversalAudioProps('click', 'hover', () => setActiveModalTab(tab.id as ModalTab))}
+                    className={`px-4 py-2 rounded-xl font-pixel text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
             <div className="space-y-8 text-sm">
-              {/* Mission Brief & Business Problem */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30">
-                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
-                    MISSION BRIEF
-                  </h4>
-                  <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
-                </div>
+              {/* Tab 1: Overview */}
+              {activeModalTab === 'overview' && (
+                <div className="space-y-6 animate-fadeIn">
+                  {/* Meta-Info Card Row */}
+                  {(() => {
+                    const metaCards = getMissionMetaCards(selectedProject);
+                    if (metaCards.length === 0) return null;
 
-                <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
-                  <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-2 flex items-center gap-2">
-                    <Target className="w-4 h-4 text-[#D90000]" /> OBJECTIVE & PROBLEM
-                  </h4>
-                  <p className="text-gray-300 leading-relaxed">{selectedProject.businessProblem}</p>
-                </div>
-              </div>
+                    return (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+                        {metaCards.map((card, i) => (
+                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left">
+                            <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider">{card.label}</span>
+                            <span className="font-mono text-xs font-bold text-[#FF8F00] truncate">{card.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
 
-              {/* Full Technology Loadout */}
-              <div>
-                <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                  <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> FULL TECHNOLOGY LOADOUT
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologyLoadout.map((tech, i) => (
-                    <span key={i} className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* System Architecture */}
-              <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
-                <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#FF8F00]" /> SYSTEM ARCHITECTURE
-                </h4>
-                <p className="text-gray-300 font-mono text-xs leading-relaxed mb-4">{selectedProject.architecture.description}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {selectedProject.architecture.nodes.map((node, i) => (
-                    <div key={i} className="p-3 rounded-xl bg-[#1F150C] border border-white/5 flex items-center justify-between">
-                      <span className="font-mono text-xs text-white font-semibold">{node.name}</span>
-                      <span className="font-mono text-[10px] text-gray-400">{node.type}</span>
+                  {/* Mission Brief & Business Problem */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30">
+                      <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
+                        MISSION BRIEF
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Key Mission Features */}
-              <div>
-                <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4" /> KEY FEATURES & CAPABILITIES
-                </h4>
-                <div className="space-y-2">
-                  {selectedProject.features.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs font-mono text-gray-300">
-                      <span className="text-[#FF8F00] font-bold">✓</span>
-                      <span>{feat}</span>
+                    <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
+                      <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-2 flex items-center gap-2">
+                        <Target className="w-4 h-4 text-[#D90000]" /> OBJECTIVE & PROBLEM
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed">{selectedProject.businessProblem}</p>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Mission Outcome */}
-              <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30">
-                <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2">MISSION OUTCOME & RESULTS</h4>
-                <div className="space-y-1.5 text-xs font-mono text-white">
-                  {selectedProject.outcome.map((res, i) => (
-                    <div key={i}>&gt; {res}</div>
-                  ))}
+              {/* Tab 2: Architecture */}
+              {activeModalTab === 'architecture' && (
+                <div className="space-y-6 animate-fadeIn">
+                  {/* System Architecture */}
+                  <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
+                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-[#FF8F00]" /> SYSTEM ARCHITECTURE
+                    </h4>
+                    <ArchitectureDiagram
+                      stages={selectedProject.architecture.nodes.map((node) => ({
+                        stage: node.name,
+                        role: node.type,
+                      }))}
+                    />
+                  </div>
+
+                  {/* Full Technology Loadout */}
+                  <div>
+                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
+                      <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> FULL TECHNOLOGY LOADOUT
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologyLoadout.map((tech, i) => (
+                        <span key={i} className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* Tab 3: Features */}
+              {activeModalTab === 'features' && (
+                <div className="animate-fadeIn">
+                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4" /> KEY FEATURES & CAPABILITIES
+                  </h4>
+                  <div className="space-y-2">
+                    {selectedProject.features.map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs font-mono text-gray-300">
+                        <span className="text-[#FF8F00] font-bold">✓</span>
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tab 4: Results */}
+              {activeModalTab === 'results' && (
+                <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30 animate-fadeIn">
+                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3">MISSION OUTCOME & RESULTS</h4>
+                  {(() => {
+                    const statCards = getQuantifiableStats(selectedProject.outcome);
+                    if (statCards.length === 0) return null;
+
+                    return (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                        {statCards.map((stat, i) => (
+                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
+                            <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
+                            <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                  <div className="space-y-1.5 text-xs font-mono text-white">
+                    {selectedProject.outcome.map((res, i) => (
+                      <div key={i}>&gt; {res}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Project Links */}
               <div className="flex gap-4 pt-4 border-t border-white/10">
@@ -258,7 +390,8 @@ export const MissionControlSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

@@ -32,11 +32,11 @@ export const PROJECTS: Project[] = [
     id: "mission-01",
     missionNumber: "MISSION 01",
     title: "Monthly Inventory Audit Dashboard",
-    tagline: "Browser-based monthly inventory audit dashboard built for GAS (Global Audit Services)",
+    tagline: "Browser-based monthly inventory audit dashboard built for GAS (GAS Arabian Services)",
     category: "Analytics",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ★",
-    description: "A browser-based monthly inventory audit dashboard built for GAS (Global Audit Services). Designed specifically for auditors to review monthly inventory valuation workbooks, the application converts uploaded Excel files into interactive dashboards—eliminating repetitive manual spreadsheet analysis and focusing entirely on visual audit insights. This application is an audit visualization tool, not an inventory management system, and does not generate PDF reports.",
+    description: "A browser-based monthly inventory audit dashboard built for GAS (GAS Arabian Services). Designed specifically for auditors to review monthly inventory valuation workbooks, the application converts uploaded Excel files into interactive dashboards—eliminating repetitive manual spreadsheet analysis and focusing entirely on visual audit insights. This application is an audit visualization tool, not an inventory management system, and does not generate PDF reports.",
     businessProblem: "Every month, auditors at GAS reviewed large inventory valuation Excel files where manual filtering and spreadsheet analysis consumed significant time. Auditors needed faster visibility into inventory performance. The dashboard automated Excel parsing, data normalization, KPI calculation, and visual analytics to streamline the monthly audit process.",
     architecture: {
       nodes: [
@@ -173,11 +173,11 @@ export const PROJECTS: Project[] = [
     id: "mission-03",
     missionNumber: "MISSION 03",
     title: "Quarterly Inventory Analytics & Reporting Portal",
-    tagline: "Excel-driven quarterly inventory analytics, business rule validation & executive report generation",
+    tagline: "Excel-driven quarterly inventory analytics, business rule validation & executive report generation built for GAS (GAS Arabian Services)",
     category: "Analytics",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ★",
-    description: "A browser-based inventory analytics and reporting platform built to streamline quarterly inventory audits. The application enables users to upload inventory valuation Excel workbooks, automatically validate and normalize inventory data, calculate business KPIs, visualize inventory performance through interactive dashboards, and generate professional executive reports. Unlike a simple dashboard, the platform combines Excel processing, business rule validation, KPI calculation, reporting, and visualization into a single workflow.",
+    description: "A browser-based inventory analytics and reporting platform built for GAS (GAS Arabian Services) to streamline quarterly inventory audits. The application enables users to upload inventory valuation Excel workbooks, automatically validate and normalize inventory data, calculate business KPIs, visualize inventory performance through interactive dashboards, and generate professional executive reports. Unlike a simple dashboard, the platform combines Excel processing, business rule validation, KPI calculation, reporting, and visualization into a single workflow.",
     businessProblem: "Quarterly inventory audits required manually reviewing large Excel workbooks, validating thousands of inventory records, calculating business metrics, and preparing management reports. The existing process was time-consuming and susceptible to inconsistencies between spreadsheets and reports. The application automates Excel ingestion, validation, data normalization, KPI calculation, dashboard generation, and executive reporting while ensuring consistency across all outputs.",
     architecture: {
       nodes: [

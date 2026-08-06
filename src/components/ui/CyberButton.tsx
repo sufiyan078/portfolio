@@ -1,5 +1,5 @@
 import React from 'react';
-import { playCyberSound } from '../../utils/soundEffects';
+import { getUniversalAudioProps } from '../../utils/soundEffects';
 
 interface CyberButtonProps {
   children: React.ReactNode;
@@ -39,19 +39,18 @@ export const CyberButton: React.FC<CyberButtonProps> = ({
     outline: 'bg-transparent border border-white/20 text-gray-300 hover:text-white hover:border-white/50 hover:bg-white/5'
   };
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (disabled) return;
-    playCyberSound('click');
-    if (onClick) onClick(e);
-  };
+  const audioProps = getUniversalAudioProps(
+    'click',
+    'hover',
+    disabled ? undefined : (e) => onClick && onClick(e as React.MouseEvent)
+  );
 
   return (
     <button
       type={type}
       disabled={disabled}
-      onClick={handleClick}
+      {...(disabled ? {} : audioProps)}
       aria-label={ariaLabel}
-      onMouseEnter={() => !disabled && playCyberSound('hover')}
       className={`${variantMap[variant]} ${sizeMap[size]} font-orbitron font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2.5 transition-all focus:outline-none focus:ring-2 focus:ring-[#00f3ff] ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       } ${className}`}
@@ -61,3 +60,4 @@ export const CyberButton: React.FC<CyberButtonProps> = ({
     </button>
   );
 };
+

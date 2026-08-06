@@ -7,3 +7,4 @@ export * from './MissionCard';
 export * from './InventoryCard';
 export * from './BossBattleCard';
 export * from './TimelineComponent';
+export * from './ArchitectureDiagram';

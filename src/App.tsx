@@ -122,7 +122,7 @@ export function App() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#443199]" />
-            <span>THE CODE REALM | {PROFILE.name} &copy; {new Date().getFullYear()}</span>
+            <span>THE CODE REALM | {PROFILE.name.toUpperCase()} &copy; {new Date().getFullYear()}</span>
           </div>
 
           <div className="flex items-center gap-4 text-xs">

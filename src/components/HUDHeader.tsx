@@ -69,7 +69,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hud-bar ${
-        scrolled ? 'py-2 shadow-2xl bg-[#000000]/95 backdrop-blur-2xl' : 'py-3.5'
+        scrolled ? 'py-1.5 shadow-2xl bg-[#000000]/95 backdrop-blur-2xl' : 'py-2.5 sm:py-3'
       }`}
     >
       <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
@@ -81,40 +81,38 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             e.preventDefault();
             scrollToSection('profile');
           })}
-          className="flex items-center gap-3 group text-left cursor-pointer focus:outline-none"
+          className="flex items-center gap-2 sm:gap-3 group text-left cursor-pointer focus:outline-none shrink-0"
         >
           {/* Shield Knight Icon Emblem */}
-          <ShieldKnightEmblem className="w-10 h-10 transition-transform group-hover:scale-105" />
+          <ShieldKnightEmblem className="w-8 h-8 sm:w-10 sm:h-10 transition-transform group-hover:scale-105" />
 
           {/* Player Level & Class Stats Telemetry */}
           <div className="flex flex-col">
-            <span className="font-pixel text-[11px] font-extrabold text-[#FF8F00] tracking-wide group-hover:text-white transition-colors">
+            <span className="font-pixel text-[10px] sm:text-[11px] font-extrabold text-[#FF8F00] tracking-wide group-hover:text-white transition-colors">
               SUFIYAN AHMED
             </span>
 
-            <div className="flex flex-wrap items-center gap-2 font-pixel text-[8px] text-gray-400 mt-1">
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-pixel bg-[#CD1818]/15 border border-[#CD1818]/40 text-[#FF8F00]">
-                CLASS: <span className="text-[#CD1818] font-black ml-1">BUILDER</span>
+            <div className="flex items-center gap-1.5 font-pixel text-[7px] sm:text-[8px] text-gray-400 mt-0.5 flex-wrap">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[7px] sm:text-[8px] font-pixel bg-[#CD1818]/15 border border-[#CD1818]/40 text-[#FF8F00] font-bold">
+                CLASS: <span className="text-[#CD1818]">BUILDER</span>
               </span>
               <div className="inline-flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#08CB00] animate-pulse" />
                 <span className="text-[#FF8F00] font-bold">ONLINE</span>
               </div>
               <span className="text-gray-500">|</span>
-              <div className="inline-flex items-center gap-1">
-                <span className="font-pixel text-[8px] text-gray-400">LEVEL 99</span>
-                <span className="inline-flex items-center text-[#FF8F00] text-[7px] font-pixel bg-[#FF8F00]/10 border border-[#FF8F00]/30 px-1 py-0.2 rounded font-bold tracking-wider">
-                  MAX
-                </span>
-              </div>
+              <span className="text-gray-300 font-bold">LEVEL 99</span>
+              <span className="inline-flex items-center px-1 py-0.5 rounded text-[6px] sm:text-[7px] font-pixel bg-[#FF8F00]/20 border border-[#FF8F00]/50 text-[#FF8F00] font-extrabold leading-none">
+                MAX
+              </span>
             </div>
 
             {/* Health Bar / System Health */}
-            <div className="hidden sm:flex items-center gap-1.5 mt-1 font-pixel text-[7px] text-gray-400">
-              <span>SYSTEM HEALTH</span>
+            <div className="flex items-center gap-1.5 mt-0.5 font-pixel text-[7px] sm:text-[8px] text-gray-400">
+              <span className="tracking-tight">SYSTEM HEALTH</span>
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Heart key={i} className="w-2.5 h-2.5 fill-[#D90000] text-[#D90000]" />
+                  <Heart key={i} className="w-2 h-2 fill-[#D90000] text-[#D90000]" />
                 ))}
               </div>
             </div>

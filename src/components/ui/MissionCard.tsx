@@ -35,14 +35,14 @@ export const MissionCard: React.FC<MissionCardProps> = ({ mission, onOpenSpec })
         <div className="mb-6">
           <div className="text-[11px] font-mono text-gray-400 uppercase mb-2">Technology Stack:</div>
           <div className="flex flex-wrap gap-1.5">
-            {mission.technologyLoadout.slice(0, 5).map((tech: string, i: number) => (
+            {mission.technologyLoadout.slice(0, 4).map((tech: string, i: number) => (
               <span key={i} className="px-2.5 py-1 rounded-md bg-[#080b14] border border-white/10 text-xs font-mono text-gray-200">
                 {tech}
               </span>
             ))}
-            {mission.technologyLoadout.length > 5 && (
-              <span className="px-2.5 py-1 rounded-md bg-[#080b14] border border-white/10 text-xs font-mono text-[#00f3ff]">
-                +{mission.technologyLoadout.length - 5} MORE
+            {mission.technologyLoadout.length > 4 && (
+              <span className="px-2.5 py-1 rounded-md bg-transparent border border-white/20 text-xs font-mono text-gray-400">
+                +{mission.technologyLoadout.length - 4} more
               </span>
             )}
           </div>
