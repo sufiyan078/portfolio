@@ -14,6 +14,7 @@ export interface Project {
   difficulty: '★ ★ ★ ★ ★' | '★ ★ ★ ★ ☆';
   description: string;
   businessProblem: string;
+  whyItMattered: string;
   architecture: {
     nodes: { name: string; type: string }[];
     description: string;
@@ -32,12 +33,13 @@ export const PROJECTS: Project[] = [
     id: "mission-01",
     missionNumber: "MISSION 01",
     title: "Monthly Inventory Audit Dashboard",
-    tagline: "Browser-based monthly inventory audit dashboard built for GAS (GAS Arabian Services)",
+    tagline: "Automated inventory analysis converting monthly Excel workbooks into interactive visual audit dashboards for GAS (GAS Arabian Services)",
     category: "Analytics",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ★",
-    description: "A browser-based monthly inventory audit dashboard built for GAS (GAS Arabian Services). Designed specifically for auditors to review monthly inventory valuation workbooks, the application converts uploaded Excel files into interactive dashboards—eliminating repetitive manual spreadsheet analysis and focusing entirely on visual audit insights. This application is an audit visualization tool, not an inventory management system, and does not generate PDF reports.",
-    businessProblem: "Every month, auditors at GAS reviewed large inventory valuation Excel files where manual filtering and spreadsheet analysis consumed significant time. Auditors needed faster visibility into inventory performance. The dashboard automated Excel parsing, data normalization, KPI calculation, and visual analytics to streamline the monthly audit process.",
+    description: "A browser-based monthly inventory audit application built for GAS (GAS Arabian Services) to convert manual spreadsheet reviews into visual dashboards. The system ingests monthly Excel workbooks, normalizes inventory data, calculates audit KPIs, and presents division and supplier breakdowns through interactive dashboards—allowing auditors to review stock data without manual spreadsheet filtering.",
+    businessProblem: "Every month, auditors at GAS (GAS Arabian Services) manually reviewed large inventory valuation Excel workbooks. Filtering rows, checking formulas, and inspecting spreadsheets cell-by-cell consumed significant time and increased the risk of human oversight during recurring monthly audits.",
+    whyItMattered: "Why it mattered: It turned time-consuming spreadsheet filtering into instant visual audit dashboards, allowing auditors to focus on variance inspection rather than manual file processing.",
     architecture: {
       nodes: [
         { name: "React + TypeScript Application", type: "Frontend Client Dashboard" },
@@ -84,12 +86,12 @@ export const PROJECTS: Project[] = [
       }
     ],
     outcome: [
-      "Reduced repetitive manual spreadsheet analysis during monthly audits for GAS",
-      "Faster review of inventory valuation data",
-      "Improved visibility through interactive dashboards",
-      "Better identification of inventory trends and discrepancies",
-      "Browser-based processing of uploaded Excel files",
-      "Improved efficiency of recurring monthly audit reviews"
+      "Automated monthly inventory analysis, converting uploaded Excel files into interactive dashboards",
+      "Streamlined monthly valuation reviews by visualizing division and supplier stock performance",
+      "Eliminated repetitive manual data formatting and formula recalculation across monthly workbooks",
+      "Accelerated identification of stock discrepancies and slow-moving inventory",
+      "Maintained data privacy through 100% local browser-based file processing with zero server uploads",
+      "Ensured consistent KPI calculation rules across recurring monthly audit cycles"
     ],
     lessonsLearned: [
       "Local in-browser spreadsheet parsing with SheetJS protects sensitive audit data while eliminating server processing dependencies.",
@@ -100,12 +102,13 @@ export const PROJECTS: Project[] = [
     id: "mission-02",
     missionNumber: "MISSION 02",
     title: "CareerAI — AI Career Assistant",
-    tagline: "AI-powered resume generation, ATS optimization, job matching & career application assistant",
+    tagline: "AI-assisted resume generation, ATS keyword optimization, cover letter creation, and job search application",
     category: "AI",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ☆",
-    description: "CareerAI is an AI-powered career platform that enables users to build professional resumes from scratch, choose from multiple resume templates, upload existing resumes for AI-assisted optimization, analyze resumes against job descriptions, receive ATS compatibility scoring, generate personalized cover letters, and discover relevant jobs through JSearch integration. The platform combines AI-assisted content generation with structured career workflows to simplify and improve the job application process.",
-    businessProblem: "Job seekers commonly struggle with creating professional resumes, tailoring resumes for each application, understanding ATS compatibility, identifying missing keywords, writing customized cover letters, and finding relevant job opportunities. CareerAI reduces repetitive manual work by combining resume generation, optimization, ATS analysis, AI recommendations, and job search into a unified workflow.",
+    description: "An AI-assisted career web application that automates resume creation, ATS compatibility scoring, keyword gap analysis, and cover letter generation. Combining Next.js and the Gemini Flash API with structured prompt schemas, the system provides application materials and job recommendations within a unified workflow.",
+    businessProblem: "Job seekers manually format resumes for individual job descriptions, identify missing ATS keywords, and write tailored cover letters from scratch. This manual process limits application volume and leads to inconsistent resume formatting across job submissions.",
+    whyItMattered: "Why it mattered: It centralized job search, resume tailoring, and ATS analysis into one structured application, eliminating repetitive writing for every job application.",
     architecture: {
       nodes: [
         { name: "Next.js + React Client", type: "Web Application" },
@@ -159,10 +162,11 @@ export const PROJECTS: Project[] = [
       }
     ],
     outcome: [
-      "Built an AI-powered career platform combining resume creation, optimization, ATS analysis, and job discovery",
-      "Reduced repetitive manual effort involved in tailoring resumes for different job applications",
-      "Delivered structured AI workflows using Gemini Flash API for resume generation and optimization",
-      "Created a scalable SaaS foundation using Firebase Authentication, Database, and Billing"
+      "Automated ATS keyword analysis and compatibility scoring against target job descriptions",
+      "Streamlined resume tailoring and custom cover letter creation into a single guided flow",
+      "Improved formatting consistency and keyword alignment using structured AI output parsing",
+      "Integrated live job search recommendations using the JSearch API",
+      "Established a multi-user SaaS foundation with authentication, database storage, and billing structures"
     ],
     lessonsLearned: [
       "Structured prompt construction with clear schema boundaries ensures consistent and reliable LLM outputs from Gemini Flash.",
@@ -173,12 +177,13 @@ export const PROJECTS: Project[] = [
     id: "mission-03",
     missionNumber: "MISSION 03",
     title: "Quarterly Inventory Analytics & Reporting Portal",
-    tagline: "Excel-driven quarterly inventory analytics, business rule validation & executive report generation built for GAS (GAS Arabian Services)",
+    tagline: "Excel-driven quarterly inventory analytics, business rule validation, and automated report generation built for GAS (GAS Arabian Services)",
     category: "Analytics",
     status: "COMPLETED",
     difficulty: "★ ★ ★ ★ ★",
-    description: "A browser-based inventory analytics and reporting platform built for GAS (GAS Arabian Services) to streamline quarterly inventory audits. The application enables users to upload inventory valuation Excel workbooks, automatically validate and normalize inventory data, calculate business KPIs, visualize inventory performance through interactive dashboards, and generate professional executive reports. Unlike a simple dashboard, the platform combines Excel processing, business rule validation, KPI calculation, reporting, and visualization into a single workflow.",
-    businessProblem: "Quarterly inventory audits required manually reviewing large Excel workbooks, validating thousands of inventory records, calculating business metrics, and preparing management reports. The existing process was time-consuming and susceptible to inconsistencies between spreadsheets and reports. The application automates Excel ingestion, validation, data normalization, KPI calculation, dashboard generation, and executive reporting while ensuring consistency across all outputs.",
+    description: "A quarterly inventory analytics and reporting application built for GAS (GAS Arabian Services) to process raw Excel workbooks into visual dashboards and management reports. Operating on a single-source shared report model, the application maintains data consistency across live dashboards, PDF reports, and PowerPoint slide decks.",
+    businessProblem: "Quarterly inventory audits at GAS (GAS Arabian Services) required validating spreadsheet rows, calculating metrics across multiple files, and manually copying numbers into management slide decks and PDF documents. This manual workflow introduced data discrepancies between spreadsheets and final presentations.",
+    whyItMattered: "Why it mattered: It established a single source of truth for inventory metrics, guaranteeing that dashboards, PDF documents, and PowerPoint slide decks always present identical audit numbers.",
     architecture: {
       nodes: [
         { name: "User Authentication", type: "Firebase Authentication" },
@@ -237,10 +242,11 @@ export const PROJECTS: Project[] = [
       }
     ],
     outcome: [
-      "Automated quarterly inventory analytics from uploaded Excel workbooks",
-      "Reduced manual effort required to validate inventory data and prepare management reports",
-      "Delivered consistent reporting across dashboards, PDF exports, and PowerPoint presentations through a shared reporting architecture",
-      "Improved confidence in inventory reporting by implementing validation, reconciliation, and rule-based KPI calculations"
+      "Automated quarterly inventory analytics and KPI calculations directly from uploaded Excel workbooks",
+      "Generated PDF audit reports and PowerPoint slide decks directly from processed spreadsheet data",
+      "Reduced manual presentation preparation effort by generating slide decks and PDFs automatically",
+      "Eliminated metric discrepancies across dashboards, PDFs, and slide decks via a shared report model",
+      "Improved audit accuracy through rule-based data validation and automated subtotal reconciliation"
     ],
     lessonsLearned: [
       "A shared report model that decouples calculation from presentation eliminates cross-format inconsistencies in multi-output reporting systems.",

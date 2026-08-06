@@ -224,9 +224,9 @@ export const MissionControlSection: React.FC = () => {
             <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto custom-scrollbar">
               {[
                 { id: 'overview', label: 'OVERVIEW' },
-                { id: 'architecture', label: 'ARCHITECTURE' },
+                { id: 'results', label: 'BUSINESS IMPACT' },
                 { id: 'features', label: 'FEATURES' },
-                { id: 'results', label: 'RESULTS' },
+                { id: 'architecture', label: 'TECHNICAL HIGHLIGHTS' },
               ].map((tab) => {
                 const isActive = activeModalTab === tab.id;
                 return (
@@ -266,53 +266,55 @@ export const MissionControlSection: React.FC = () => {
                     );
                   })()}
 
-                  {/* Mission Brief & Business Problem */}
+                  {/* Business Challenge & Solution */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30">
                       <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
-                        MISSION BRIEF
+                        <Target className="w-4 h-4 text-[#D90000]" /> BUSINESS CHALLENGE
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
+                      <p className="text-gray-300 leading-relaxed">{selectedProject.businessProblem}</p>
                     </div>
 
                     <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
                       <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-2 flex items-center gap-2">
-                        <Target className="w-4 h-4 text-[#D90000]" /> OBJECTIVE & PROBLEM
+                        SOLUTION & IMPLEMENTATION
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">{selectedProject.businessProblem}</p>
+                      <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
                     </div>
                   </div>
+
+                  {/* Why It Mattered Section */}
+                  {selectedProject.whyItMattered && (
+                    <div className="p-4 rounded-xl bg-[#000000] border border-[#FF8F00]/40 font-mono text-xs text-[#FF8F00] leading-relaxed">
+                      <span className="font-bold">{selectedProject.whyItMattered}</span>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Tab 2: Architecture */}
-              {activeModalTab === 'architecture' && (
-                <div className="space-y-6 animate-fadeIn">
-                  {/* System Architecture */}
-                  <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
-                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-[#FF8F00]" /> SYSTEM ARCHITECTURE
-                    </h4>
-                    <ArchitectureDiagram
-                      stages={selectedProject.architecture.nodes.map((node) => ({
-                        stage: node.name,
-                        role: node.type,
-                      }))}
-                    />
-                  </div>
+              {/* Tab 2: Business Impact */}
+              {activeModalTab === 'results' && (
+                <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30 animate-fadeIn">
+                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3">BUSINESS IMPACT & MEASURABLE OUTCOMES</h4>
+                  {(() => {
+                    const statCards = getQuantifiableStats(selectedProject.outcome);
+                    if (statCards.length === 0) return null;
 
-                  {/* Full Technology Loadout */}
-                  <div>
-                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                      <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> FULL TECHNOLOGY LOADOUT
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.technologyLoadout.map((tech, i) => (
-                        <span key={i} className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                    return (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                        {statCards.map((stat, i) => (
+                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
+                            <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
+                            <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                  <div className="space-y-1.5 text-xs font-mono text-white">
+                    {selectedProject.outcome.map((res, i) => (
+                      <div key={i}>&gt; {res}</div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -334,29 +336,34 @@ export const MissionControlSection: React.FC = () => {
                 </div>
               )}
 
-              {/* Tab 4: Results */}
-              {activeModalTab === 'results' && (
-                <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30 animate-fadeIn">
-                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3">MISSION OUTCOME & RESULTS</h4>
-                  {(() => {
-                    const statCards = getQuantifiableStats(selectedProject.outcome);
-                    if (statCards.length === 0) return null;
+              {/* Tab 4: Technical Highlights */}
+              {activeModalTab === 'architecture' && (
+                <div className="space-y-6 animate-fadeIn">
+                  {/* System Architecture */}
+                  <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
+                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-[#FF8F00]" /> SYSTEM ARCHITECTURE
+                    </h4>
+                    <ArchitectureDiagram
+                      stages={selectedProject.architecture.nodes.map((node) => ({
+                        stage: node.name,
+                        role: node.type,
+                      }))}
+                    />
+                  </div>
 
-                    return (
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                        {statCards.map((stat, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
-                            <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
-                            <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  })()}
-                  <div className="space-y-1.5 text-xs font-mono text-white">
-                    {selectedProject.outcome.map((res, i) => (
-                      <div key={i}>&gt; {res}</div>
-                    ))}
+                  {/* Concise Technical Highlights */}
+                  <div>
+                    <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
+                      <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> TECHNICAL HIGHLIGHTS & LOADOUT
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologyLoadout.map((tech, i) => (
+                        <span key={i} className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
