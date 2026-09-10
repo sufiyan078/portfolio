@@ -173,11 +173,32 @@ export const AchievementsSection: React.FC = () => {
           const rarityClass = getRarityClass(ach.rarity);
           const IconComp = getIcon(ach.icon);
 
+          const rarityStyle = ach.rarity === 'Legendary'
+            ? {
+                border: 'border-2 border-[#FFD700]/35 hover:border-[#FFD700]',
+                shadow: 'hover:shadow-[0_12px_25px_rgba(255,215,0,0.25)]',
+                iconBox: 'bg-[#FFD700]/15 border-[#FFD700]/40 text-[#FFD700]',
+                hoverTitle: 'group-hover:text-[#FFD700]',
+              }
+            : ach.rarity === 'Epic'
+            ? {
+                border: 'border-2 border-[#FF4500]/35 hover:border-[#FF4500]',
+                shadow: 'hover:shadow-[0_12px_25px_rgba(255,69,0,0.25)]',
+                iconBox: 'bg-[#FF4500]/15 border-[#FF4500]/40 text-[#FF4500]',
+                hoverTitle: 'group-hover:text-[#FF4500]',
+              }
+            : {
+                border: 'border-2 border-[#A855F7]/35 hover:border-[#A855F7]',
+                shadow: 'hover:shadow-[0_12px_25px_rgba(168,85,247,0.25)]',
+                iconBox: 'bg-[#A855F7]/15 border-[#A855F7]/40 text-[#A855F7]',
+                hoverTitle: 'group-hover:text-[#A855F7]',
+              };
+
           return (
             <div
               key={ach.id}
               {...getUniversalAudioProps('click', 'hover')}
-              className="glass-panel p-6 flex flex-col justify-between group hover:border-[#FF8F00]/70 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(255,143,0,0.18)] transition-all duration-300 cursor-pointer"
+              className={`glass-panel p-6 flex flex-col justify-between group ${rarityStyle.border} ${rarityStyle.shadow} hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -188,11 +209,11 @@ export const AchievementsSection: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0 overflow-hidden p-2 group-hover:scale-110 group-hover:border-[#FF8F00] transition-all">
+                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 overflow-hidden p-2 group-hover:scale-110 transition-all ${rarityStyle.iconBox}`}>
                     <IconComp className="w-5 h-5 shrink-0" />
                   </div>
                   <div>
-                    <h3 className="font-heading font-bold text-base text-white group-hover:text-[#FF8F00] transition-colors leading-tight">
+                    <h3 className={`font-heading font-bold text-base text-white ${rarityStyle.hoverTitle} transition-colors leading-tight`}>
                       {ach.title}
                     </h3>
                   </div>
@@ -222,7 +243,7 @@ export const AchievementsSection: React.FC = () => {
               <Gift className="w-6 h-6 animate-pulse" />
             </div>
             <div>
-              <h3 className="font-black-ops font-bold text-lg sm:text-xl text-white tracking-wide">
+              <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white tracking-tight">
                 YOUR REWARD FOR HIRING ME
               </h3>
               <span className="font-mono text-xs text-[#FF8F00]">
@@ -242,12 +263,12 @@ export const AchievementsSection: React.FC = () => {
               <div
                 key={reward.id}
                 {...getUniversalAudioProps('click', 'hover')}
-                className="p-4 rounded-xl bg-[#000000]/70 border border-[#FF8F00]/30 hover:border-[#FF8F00]/70 hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-[0_10px_20px_rgba(255,143,0,0.2)] transition-all duration-300 flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer group"
+                className="p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_10px_20px_rgba(255,143,0,0.22)] transition-all duration-200 flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer group"
               >
-                <div className="w-9 h-[#FF8F00] w-9 h-9 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] group-hover:scale-110 group-hover:bg-[#FF8F00]/25 transition-all">
+                <div className="w-9 h-9 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] group-hover:scale-110 group-hover:bg-[#FF8F00]/25 transition-all">
                   <RewardIcon className="w-4.5 h-4.5" />
                 </div>
-                <span className="font-mono text-xs font-bold text-gray-200 group-hover:text-white transition-colors">{reward.label}</span>
+                <span className="font-mono text-xs font-semibold text-slate-200 group-hover:text-white transition-colors">{reward.label}</span>
               </div>
             );
           })}

@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-black': '#000000',
-        'brand-dark-warm': '#1F150C',
-        'brand-dark-crimson': '#280905',
-        'brand-teal': '#0F3040',
+        'brand-black': '#070A11',
+        'brand-dark-warm': '#0D111C',
+        'brand-dark-crimson': '#141A29',
+        'brand-teal': '#0B1E2B',
         'brand-amber': '#FF8F00',
-        'brand-red': '#D90000',
-        // Legacy alias maps to new palette
-        'void-black': '#000000',
-        'dark-interface': '#1F150C',
-        'cyber-blue': '#FF8F00',
-        'energy-purple': '#D90000',
-        'system-green': '#FF8F00',
+        'brand-red': '#EF4444',
+        // Cohesive obsidian cyber palette
+        'void-black': '#070A11',
+        'dark-interface': '#0D111C',
+        'cyber-blue': '#38BDF8',
+        'energy-purple': '#818CF8',
+        'system-green': '#10B981',
       },
       fontFamily: {
         heading: ['"Nova Flat"', 'sans-serif'],

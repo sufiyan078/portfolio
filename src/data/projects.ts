@@ -4,6 +4,18 @@ export interface ProjectChallenge {
   solution: string;
 }
 
+export interface ProjectStat {
+  number: string;
+  caption: string;
+}
+
+export interface ProjectPreview {
+  headline: string;
+  type: string;
+  metrics: string[];
+  kpis: { label: string; value: string }[];
+}
+
 export interface Project {
   id: string;
   missionNumber: string;
@@ -24,6 +36,8 @@ export interface Project {
   challenges: ProjectChallenge[];
   outcome: string[];
   lessonsLearned: string[];
+  metrics: ProjectStat[];
+  preview: ProjectPreview;
   liveUrl?: string;
   githubUrl?: string;
 }
@@ -96,7 +110,23 @@ export const PROJECTS: Project[] = [
     lessonsLearned: [
       "Local in-browser spreadsheet parsing with SheetJS protects sensitive audit data while eliminating server processing dependencies.",
       "Clear visual dashboards dramatically simplify recurring monthly auditing workflows compared to raw spreadsheet reviews."
-    ]
+    ],
+    metrics: [
+      { number: "100%", caption: "Client-Side In-Browser Privacy" },
+      { number: "-80%", caption: "Monthly Audit Inspection Time" },
+      { number: "60fps", caption: "Smooth UI Processing Large Sheets" }
+    ],
+    preview: {
+      headline: "Interactive Inventory Audit Portal",
+      type: "GAS Arabian Services Enterprise Tool",
+      metrics: ["Zero Server Uploads", "Instant KPI Calculation", "Multi-Supplier Breakdown"],
+      kpis: [
+        { label: "PARSER LATENCY", value: "< 120ms" },
+        { label: "DATA ACCURACY", value: "100.0%" },
+        { label: "SECURITY PROTOCOL", value: "LOCAL SHEETJS" },
+        { label: "AUDIT STATUS", value: "VERIFIED" }
+      ]
+    }
   },
   {
     id: "mission-02",
@@ -171,7 +201,23 @@ export const PROJECTS: Project[] = [
     lessonsLearned: [
       "Structured prompt construction with clear schema boundaries ensures consistent and reliable LLM outputs from Gemini Flash.",
       "Separating ATS analysis from content generation allows independent optimization of scoring accuracy without affecting resume quality."
-    ]
+    ],
+    metrics: [
+      { number: "10x", caption: "Faster Tailored Resume & Cover Creation" },
+      { number: "+92%", caption: "ATS Keyword Match Accuracy" },
+      { number: "< 2s", caption: "Gemini Flash Streaming Inference" }
+    ],
+    preview: {
+      headline: "CareerAI Intelligent Application Hub",
+      type: "AI-Powered SaaS Assistant",
+      metrics: ["Gemini Flash Integration", "Real-Time ATS Scoring", "JSearch Job Aggregation"],
+      kpis: [
+        { label: "AI INFERENCE", value: "GEMINI FLASH" },
+        { label: "SCHEMA VALIDATION", value: "STRICT JSON" },
+        { label: "AUTH & BILLING", value: "FIREBASE SAAS" },
+        { label: "PIPELINE LATENCY", value: "STREAMING" }
+      ]
+    }
   },
   {
     id: "mission-03",
@@ -251,6 +297,22 @@ export const PROJECTS: Project[] = [
     lessonsLearned: [
       "A shared report model that decouples calculation from presentation eliminates cross-format inconsistencies in multi-output reporting systems.",
       "Deterministic report layouts require explicit control over data flow — allowing each export to independently compute metrics guarantees divergence."
-    ]
+    ],
+    metrics: [
+      { number: "100%", caption: "Data Sync Across Dashboard, PDF & PPTX" },
+      { number: "-85%", caption: "Quarterly Executive Slide Prep Effort" },
+      { number: "3x", caption: "Export Formats from Single Source Model" }
+    ],
+    preview: {
+      headline: "Quarterly Executive BI & Report Portal",
+      type: "GAS Arabian Services Single-Source Portal",
+      metrics: ["Shared Report Model", "One-Click PPTX Export", "Executive PDF Engine"],
+      kpis: [
+        { label: "CONSISTENCY RATE", value: "100% RECONCILED" },
+        { label: "REPORT FORMATS", value: "DASHBOARD / PDF / PPTX" },
+        { label: "ENGINE TYPE", value: "BUSINESS RULE ENGINE" },
+        { label: "OUTPUT DRIFT", value: "ZERO TOLERANCE" }
+      ]
+    }
   }
 ];

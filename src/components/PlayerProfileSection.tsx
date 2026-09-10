@@ -59,7 +59,7 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
       <div className="pb-7 min-w-0 flex-1">
         <div className="flex items-center gap-2 mb-1">
           <span className="font-mono text-[10px] text-[#FF8F00]/60 font-bold">0{index + 1}</span>
-          <h4 className="font-pixel text-[10px] sm:text-[11px] font-bold text-white group-hover:text-[#FF8F00] transition-colors tracking-wider">
+          <h4 className="font-heading text-xs font-bold text-white group-hover:text-[#FF8F00] transition-colors tracking-wide">
             {stage.label}
           </h4>
         </div>
@@ -78,23 +78,23 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
   return (
     <div
       {...getUniversalAudioProps('click', 'hover')}
-      className="p-5 rounded-2xl bg-[#000000]/60 border border-white/5 hover:border-[#FF8F00]/40 transition-all duration-300 group cursor-default"
+      className="p-5 rounded-2xl bg-[#000000]/75 border border-white/10 hover:border-[#D90000]/60 hover:shadow-[0_8px_20px_rgba(217,0,0,0.18)] transition-all duration-200 group cursor-default"
     >
       <div className="flex items-start gap-3.5">
         {/* Icon badge */}
-        <div className="w-9 h-9 shrink-0 rounded-lg bg-[#FF8F00]/10 border border-[#FF8F00]/30 flex items-center justify-center overflow-hidden p-1.5 group-hover:bg-[#FF8F00]/20 group-hover:border-[#FF8F00]/50 group-hover:shadow-[0_0_10px_rgba(255,143,0,0.25)] transition-all duration-300">
-          <Icon className="w-4 h-4 text-[#FF8F00] shrink-0" />
+        <div className="w-9 h-9 shrink-0 rounded-lg bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center overflow-hidden p-1.5 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_10px_rgba(217,0,0,0.3)] transition-all duration-300">
+          <Icon className="w-4 h-4 text-[#FF4500] shrink-0" />
         </div>
 
         {/* Text */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[9px] text-[#FF8F00]/40 font-bold">✔</span>
-            <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FF8F00] transition-colors">
+            <span className="font-mono text-[9px] text-[#FF4500] font-bold">✔</span>
+            <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FF4500] transition-colors">
               {card.title}
             </h4>
           </div>
-          <p className="text-xs text-gray-400 leading-relaxed font-sans">
+          <p className="text-xs text-gray-300 leading-relaxed font-sans">
             {card.description}
           </p>
         </div>
@@ -161,7 +161,7 @@ export const PlayerProfileSection: React.FC = () => {
               <div>
                 <h3 className="font-heading font-bold text-xl text-white">{BUILDER_PROFILE.name}</h3>
                 <div className="flex items-center gap-2 font-mono text-xs mt-0.5">
-                  <span className="px-1.5 py-0.5 rounded bg-[#FF8F00]/20 border border-[#FF8F00]/40 text-[#FF8F00] font-bold">CLASS: <span className="text-[#CD1818]">{BUILDER_PROFILE.playerClass}</span></span>
+                  <span className="px-1.5 py-0.5 rounded bg-[#CD1818]/20 border border-[#CD1818]/50 text-[#FF8F00] font-bold">CLASS: <span className="text-[#FF4500]">{BUILDER_PROFILE.playerClass}</span></span>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@ export const PlayerProfileSection: React.FC = () => {
             {/* Roles */}
             <div className="space-y-2 mb-6">
               {BUILDER_PROFILE.roles.map((role, i) => (
-                <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm font-black-ops tracking-wide text-gray-300">
+                <div key={i} className="flex items-center gap-2.5 text-xs sm:text-sm font-heading font-semibold tracking-wide text-slate-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FF8F00] shrink-0" />
                   <span>{role}</span>
                 </div>
@@ -178,7 +178,7 @@ export const PlayerProfileSection: React.FC = () => {
 
             {/* Development Process — RPG Skill Tree */}
             <div className="border-t border-white/10 pt-6">
-              <h4 className="font-pixel text-[9px] sm:text-[10px] text-gray-300 uppercase tracking-wider mb-5 font-bold flex items-center gap-2">
+              <h4 className="font-mono text-xs text-slate-300 uppercase tracking-widest mb-5 font-bold flex items-center gap-2">
                 <AnimatedLayersIcon className="w-4 h-4 text-[#FF8F00]" />
                 DEVELOPMENT PROCESS
               </h4>
@@ -198,13 +198,13 @@ export const PlayerProfileSection: React.FC = () => {
         <div className="lg:col-span-7 flex flex-col gap-6">
 
           {/* How I Can Help Your Business Card */}
-          <div className="glass-panel p-6 sm:p-8 border-2 border-[#FF8F00]/40 shadow-[0_0_30px_rgba(255,143,0,0.15)] relative overflow-hidden">
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#FF8F00]/30 shadow-[0_0_30px_rgba(255,143,0,0.1)] relative overflow-hidden">
             <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/50 flex items-center justify-center text-[#FF8F00]">
+              <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00]">
                 <Target className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-pixel font-bold text-base sm:text-lg text-white tracking-wide">HOW I CAN HELP YOUR BUSINESS</h3>
+                <h3 className="font-heading font-extrabold text-base sm:text-lg text-white tracking-tight">HOW I CAN HELP YOUR BUSINESS</h3>
                 <span className="font-mono text-xs text-[#FF8F00]">Custom software engineering solutions</span>
               </div>
             </div>
@@ -213,15 +213,19 @@ export const PlayerProfileSection: React.FC = () => {
               {BUSINESS_HELP_ITEMS.map((item) => (
                 <div
                   key={item.id}
-                  {...getUniversalAudioProps('click', 'hover')}
-                  className="p-4 rounded-xl bg-[#000000]/70 border border-[#FF8F00]/30 hover:border-[#FF8F00]/60 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_8px_18px_rgba(255,143,0,0.18)] transition-all duration-300 group flex items-start gap-3 cursor-pointer"
+                  {...getUniversalAudioProps('click', 'hover', () => {
+                    const targetId = item.id === 'saas-mvp' || item.id === 'automate' ? 'contact' : 'missions';
+                    const el = document.getElementById(targetId);
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  })}
+                  className="p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex items-start gap-3 cursor-pointer"
                 >
                   <span className="font-bold text-[#FF8F00] text-sm shrink-0 mt-0.5 select-none">✓</span>
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs font-mono font-medium text-gray-200 group-hover:text-white transition-colors">
+                    <div className="text-xs font-mono font-medium text-slate-200 group-hover:text-white transition-colors">
                       {item.question}
                     </div>
-                    <div className="text-xs font-black-ops font-bold text-[#FF8F00] mt-1 tracking-wide group-hover:translate-x-0.5 transition-transform">
+                    <div className="text-xs font-heading font-bold text-[#FF8F00] mt-1 tracking-normal group-hover:translate-x-0.5 transition-transform">
                       {item.answer}
                     </div>
                   </div>
@@ -231,20 +235,20 @@ export const PlayerProfileSection: React.FC = () => {
           </div>
 
           {/* Why Clients Choose Me Card */}
-          <div className="glass-panel p-6 sm:p-8">
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)]">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">
                 <AnimatedShieldCheckIcon className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-pixel font-bold text-base sm:text-lg text-white">WHY CLIENTS CHOOSE ME</h3>
+                <h3 className="font-heading font-extrabold text-base sm:text-lg text-white tracking-tight">WHY CLIENTS CHOOSE ME</h3>
                 <span className="font-mono text-xs text-gray-400">How I deliver reliable business software</span>
               </div>
             </div>
 
             {/* How I Work Group */}
             <div className="mb-6">
-              <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] text-[10px] font-bold tracking-widest uppercase mb-3">
+              <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
                 <span>HOW I WORK</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -259,7 +263,7 @@ export const PlayerProfileSection: React.FC = () => {
 
             {/* What You Get Group */}
             <div>
-              <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] text-[10px] font-bold tracking-widest uppercase mb-3">
+              <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
                 <span>WHAT YOU GET</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -8,3 +8,4 @@ export * from './InventoryCard';
 export * from './BossBattleCard';
 export * from './TimelineComponent';
 export * from './ArchitectureDiagram';
+export * from './HoverMarqueeText';

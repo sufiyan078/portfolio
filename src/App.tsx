@@ -7,6 +7,7 @@ import { MissionControlSection } from './components/MissionControlSection';
 import { BossBattlesSection } from './components/BossBattlesSection';
 import { InventorySkillsSection } from './components/InventorySkillsSection';
 import { AchievementsSection } from './components/AchievementsSection';
+import { EngineeringPrinciplesSection } from './components/EngineeringPrinciplesSection';
 import { QuestLogSection } from './components/QuestLogSection';
 import { ContactSection } from './components/ContactSection';
 import { InteractiveTerminalModal } from './components/InteractiveTerminalModal';
@@ -35,7 +36,7 @@ export function App() {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['profile', 'missions', 'inventory', 'boss-battles', 'achievements', 'quest-log', 'contact'];
+      const sections = ['profile', 'missions', 'inventory', 'boss-battles', 'principles', 'achievements', 'quest-log', 'contact'];
       const scrollPos = window.scrollY + 250;
 
       for (const sectionId of sections) {
@@ -82,7 +83,7 @@ export function App() {
       <main className="relative z-10">
         {/* Landing Hero HUD Screen */}
         <LandingHero
-          onPressStart={() => scrollToSection('profile')}
+          onPressStart={() => scrollToSection('missions')}
           onOpenTerminal={() => setIsTerminalOpen(true)}
         />
 
@@ -101,13 +102,16 @@ export function App() {
         {/* 05 Engineering Boss Battles */}
         <BossBattlesSection />
 
-        {/* 06 Achievements */}
+        {/* 06 Engineering Principles */}
+        <EngineeringPrinciplesSection />
+
+        {/* 07 Achievements */}
         <AchievementsSection />
 
-        {/* 07 Quest Log Timeline */}
+        {/* 08 Quest Log Timeline */}
         <QuestLogSection />
 
-        {/* 08 Contact */}
+        {/* 09 Contact */}
         <ContactSection />
       </main>
 

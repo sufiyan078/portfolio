@@ -1,37 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { PROJECTS, type Project } from '../data/projects';
-import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, X } from 'lucide-react';
+import { Target, CheckCircle2, ChevronRight, Layers, FileCode2, ExternalLink, X, Send, Cpu, ShieldCheck } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ArchitectureDiagram } from './ui/ArchitectureDiagram';
-
-const getQuantifiableStats = (outcomeBullets: string[]) => {
-  const stats: { number: string; caption: string }[] = [];
-  for (const bullet of outcomeBullets) {
-    const match = bullet.match(/\b(\d+(?:\.\d+)?%|\d+\+|\d+x)\b/i);
-    if (match) {
-      const number = match[1];
-      let caption = bullet.replace(match[0], '').replace(/^[^a-zA-Z0-9]+/, '').trim();
-      if (caption.length > 35) caption = caption.substring(0, 35) + '...';
-      stats.push({ number, caption });
-      if (stats.length === 3) break;
-    }
-  }
-  return stats;
-};
+import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
 const getMissionMetaCards = (project: Project) => {
   const cards: { label: string; value: string }[] = [];
 
-  // Client (Extract if present in project data)
+  // Client
   if (project.tagline.includes("GAS (GAS Arabian Services)") || project.description.includes("GAS")) {
     cards.push({ label: 'CLIENT', value: 'GAS (GAS Arabian Services)' });
+  } else {
+    cards.push({ label: 'PLATFORM', value: 'Production SaaS' });
   }
 
   // Role
-  cards.push({ label: 'ROLE', value: 'Full Stack Engineer' });
+  cards.push({ label: 'ROLE', value: 'Lead Full Stack Architect' });
 
-  // Type (Derived from title/category)
+  // Type
   let typeVal = project.category as string;
   if (project.id === 'mission-01') typeVal = 'Monthly Audit Platform';
   else if (project.id === 'mission-02') typeVal = 'AI Career Platform';
@@ -45,6 +33,33 @@ const getMissionMetaCards = (project: Project) => {
   cards.push({ label: 'STATUS', value: project.status });
 
   return cards;
+};
+
+const MetaChipCard: React.FC<{ label: string; value: string }> = ({ label, value }) => {
+  return (
+    <div className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left min-w-0 transition-colors hover:border-[#FF8F00]">
+      <HoverMarqueeText
+        text={label}
+        className="font-mono text-[10px] text-gray-400 uppercase tracking-wider"
+      />
+      <HoverMarqueeText
+        text={value}
+        className="font-mono text-xs font-bold text-[#FF8F00] hover:text-amber-300 transition-colors"
+      />
+    </div>
+  );
+};
+
+const MissionMetricBox: React.FC<{ number: string; caption: string }> = ({ number, caption }) => {
+  return (
+    <div className="flex flex-col min-w-0">
+      <span className="font-mono text-base font-extrabold text-[#FF8F00]">{number}</span>
+      <HoverMarqueeText
+        text={caption}
+        className="font-mono text-[9px] text-gray-300 uppercase tracking-tight hover:text-white transition-colors"
+      />
+    </div>
+  );
 };
 
 type ModalTab = 'overview' | 'architecture' | 'features' | 'results';
@@ -69,6 +84,16 @@ export const MissionControlSection: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedProject]);
+
+  const handleInquireClick = () => {
+    setSelectedProject(null);
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      setTimeout(() => {
+        contactEl.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
 
   return (
     <section id="missions" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
@@ -97,26 +122,26 @@ export const MissionControlSection: React.FC = () => {
           <span className="text-[#FF8F00] font-bold">MISSIONS</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
-          FEATURED <span className="text-[#FF8F00]">PROJECT MISSIONS</span>
+          FEATURED <span className="text-[#FF8F00]">ENGINEERING MISSIONS</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; In-depth software engineering missions detailing business briefs, architecture, and outcomes.
+          &gt; Production software applications delivering verifiable business ROI, data integrity, and scalable architecture.
         </p>
       </div>
 
-      {/* Projects Grid */}
+      {/* Projects Grid — Distinctive RPG Wood Texture & Hanging Vines Theme */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {PROJECTS.map((project) => (
           <div
             key={project.id}
             {...getUniversalAudioProps('openModal', 'hover', () => setSelectedProject(project))}
-            className="p-6 sm:p-8 flex flex-col justify-between group rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-[#FF8F00]/70 hover:shadow-[0_12px_28px_rgba(255,143,0,0.2)] relative overflow-hidden cursor-pointer"
+            className="h-full p-6 sm:p-8 flex flex-col justify-between group rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-[#FF8F00] hover:shadow-[0_15px_35px_rgba(255,143,0,0.25)] relative overflow-hidden cursor-pointer"
             style={{
-              backgroundImage: `linear-gradient(180deg, rgba(30,18,8,0.7) 0%, rgba(30,18,8,0.5) 50%, rgba(30,18,8,0.7) 100%), url('/wood-texture.png')`,
+              backgroundImage: `linear-gradient(180deg, rgba(30,18,8,0.78) 0%, rgba(30,18,8,0.6) 50%, rgba(30,18,8,0.85) 100%), url('/wood-texture.png')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              border: '2px solid rgba(139,90,43,0.6)',
-              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.4), 0 4px 20px rgba(0,0,0,0.5)',
+              border: '2px solid rgba(139,90,43,0.7)',
+              boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5), 0 8px 25px rgba(0,0,0,0.6)',
             }}
           >
             {/* Pure SVG Grass & Hanging Vines Overlay */}
@@ -147,33 +172,44 @@ export const MissionControlSection: React.FC = () => {
               <path d="M351 16 C343 16 340 11 346 9 Z" fill="#3a7a28" opacity="0.9" />
               <path d="M352 26 C360 26 363 21 357 19 Z" fill="#4a8a35" opacity="0.9" />
             </svg>
-            <div className="relative z-20">
+
+            <div className="relative z-20 flex-1 flex flex-col">
               {/* Mission Header Badges */}
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="font-pixel text-[11px] font-bold text-[#FF8F00] tracking-widest">
+                <span className="font-mono text-xs font-bold text-[#FF8F00] tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF8F00] animate-pulse" />
                   {project.missionNumber}
                 </span>
-                <span className="badge-tag badge-success text-[11px]">
+                <span className="badge-tag badge-success text-[10px] font-mono font-bold">
                   {project.status}
                 </span>
               </div>
 
               {/* Mission Title */}
-              <h3 className="font-black-ops font-bold text-xl sm:text-2xl text-white group-hover:text-[#FF8F00] transition-colors mb-3 tracking-wide leading-snug">
+              <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white group-hover:text-[#FF8F00] transition-colors mb-3 tracking-tight leading-snug">
                 {project.title}
               </h3>
 
               {/* Tagline */}
-              <p className="text-sm text-gray-300 mb-6 font-sans leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-200 mb-5 font-sans leading-relaxed">
                 {project.tagline}
               </p>
 
+              {/* Key Impact Stats Bar */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mb-5 p-3 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/40 shadow-inner">
+                  {project.metrics.slice(0, 2).map((m, idx) => (
+                    <MissionMetricBox key={idx} number={m.number} caption={m.caption} />
+                  ))}
+                </div>
+              )}
+
               {/* Technology Loadout Tags */}
               <div className="mb-6">
-                <span className="font-mono text-[11px] text-gray-400 block mb-2 uppercase tracking-wider">TECHNOLOGY LOADOUT</span>
+                <span className="font-mono text-[10px] text-gray-300 block mb-2 uppercase tracking-wider font-bold">TECH ARSENAL</span>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.technologyLoadout.map((tech, i) => (
-                    <span key={i} className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-[#000000] border border-white/10 text-gray-300">
+                  {project.technologyLoadout.slice(0, 5).map((tech, i) => (
+                    <span key={i} className="font-mono text-[10px] px-2.5 py-1 rounded-md bg-[#000000]/85 border border-white/15 text-gray-200 font-medium">
                       {tech}
                     </span>
                   ))}
@@ -187,9 +223,9 @@ export const MissionControlSection: React.FC = () => {
                 e.stopPropagation();
                 setSelectedProject(project);
               })}
-              className="relative z-20 w-full mt-4 py-3 rounded-xl bg-[#000000] border border-white/10 hover:border-[#FF8F00]/50 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 group-hover:bg-[#FF8F00]/15 transition-all cursor-pointer"
+              className="relative z-20 w-full mt-2 py-3 rounded-xl bg-[#FF8F00]/20 border border-[#FF8F00]/60 hover:bg-[#FF8F00]/35 hover:border-[#FF8F00] text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,143,0,0.2)]"
             >
-              <span>INSPECT MISSION DETAILS</span>
+              <span>INSPECT MISSION SPECIFICATION</span>
               <ChevronRight className="w-4 h-4 text-[#FF8F00] group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -198,22 +234,22 @@ export const MissionControlSection: React.FC = () => {
 
       {/* Mission Inspection Modal */}
       {selectedProject && createPortal(
-        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn">
-          <div className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/50 shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_35px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
+        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="mission-modal-title">
+          <div className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/60 shadow-[0_0_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-white/10 pb-6 mb-6">
               <div>
-                <div className="flex items-center gap-3 mb-2 font-pixel text-[11px]">
+                <div className="flex items-center gap-3 mb-2 font-mono text-xs">
                   <span className="text-[#FF8F00] font-bold">{selectedProject.missionNumber}</span>
                   <span className="text-gray-500">|</span>
-                  <span className="text-[#FF8F00] font-semibold">{selectedProject.status}</span>
+                  <span className="text-[#10B981] font-semibold">{selectedProject.status}</span>
                 </div>
-                <h2 className="font-black-ops text-2xl sm:text-3xl font-extrabold text-white tracking-wide">{selectedProject.title}</h2>
+                <h2 id="mission-modal-title" className="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{selectedProject.title}</h2>
               </div>
               <button
                 {...getUniversalAudioProps('closeModal', 'hover', () => setSelectedProject(null))}
                 aria-label="Close modal"
-                title="Close"
+                title="Close (ESC)"
                 className="p-2.5 rounded-xl bg-white/10 hover:bg-[#FF8F00]/20 border border-white/15 hover:border-[#FF8F00]/50 text-gray-300 hover:text-[#FF8F00] transition-all cursor-pointer flex items-center justify-center"
               >
                 <X className="w-5 h-5" />
@@ -223,10 +259,10 @@ export const MissionControlSection: React.FC = () => {
             {/* Modal Tab Bar */}
             <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto custom-scrollbar">
               {[
-                { id: 'overview', label: 'OVERVIEW' },
-                { id: 'results', label: 'BUSINESS IMPACT' },
-                { id: 'features', label: 'FEATURES' },
-                { id: 'architecture', label: 'TECHNICAL HIGHLIGHTS' },
+                { id: 'overview', label: '01 OVERVIEW & BLUEPRINT' },
+                { id: 'results', label: '02 MEASURED BUSINESS ROI' },
+                { id: 'features', label: '03 KEY CAPABILITIES' },
+                { id: 'architecture', label: '04 TECHNICAL ARCHITECTURE' },
               ].map((tab) => {
                 const isActive = activeModalTab === tab.id;
                 return (
@@ -257,14 +293,46 @@ export const MissionControlSection: React.FC = () => {
                     return (
                       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
                         {metaCards.map((card, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left">
-                            <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider">{card.label}</span>
-                            <span className="font-mono text-xs font-bold text-[#FF8F00] truncate">{card.value}</span>
-                          </div>
+                          <MetaChipCard key={i} label={card.label} value={card.value} />
                         ))}
                       </div>
                     );
                   })()}
+
+                  {/* UI Blueprint / System Mockup Card */}
+                  {selectedProject.preview && (
+                    <div className="p-5 rounded-2xl bg-[#070B14] border border-[#FF8F00]/40 shadow-inner">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-white/10 pb-3 mb-4">
+                        <div className="flex items-center gap-2">
+                          <Cpu className="w-4 h-4 text-[#FF8F00]" />
+                          <span className="font-mono text-xs font-bold text-white uppercase">{selectedProject.preview.headline}</span>
+                        </div>
+                        <span className="font-mono text-[10px] text-[#10B981] font-bold px-2 py-0.5 rounded bg-[#10B981]/15 border border-[#10B981]/30">
+                          {selectedProject.preview.type}
+                        </span>
+                      </div>
+
+                      {/* Simulated KPI Grid */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                        {selectedProject.preview.kpis.map((kpi, idx) => (
+                          <div key={idx} className="p-2.5 rounded-lg bg-[#000000] border border-white/10 text-center min-w-0">
+                            <HoverMarqueeText text={kpi.label} className="font-mono text-[9px] text-gray-400 block" />
+                            <HoverMarqueeText text={kpi.value} className="font-mono text-xs font-bold text-[#FF8F00]" />
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Blueprint Highlights */}
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.preview.metrics.map((badge, idx) => (
+                          <span key={idx} className="font-mono text-[11px] px-3 py-1 rounded-md bg-[#FF8F00]/15 border border-[#FF8F00]/30 text-white font-semibold flex items-center gap-1.5">
+                            <ShieldCheck className="w-3 h-3 text-[#FF8F00]" />
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Business Challenge & Solution */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -272,14 +340,14 @@ export const MissionControlSection: React.FC = () => {
                       <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
                         <Target className="w-4 h-4 text-[#D90000]" /> BUSINESS CHALLENGE
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">{selectedProject.businessProblem}</p>
+                      <p className="text-gray-300 leading-relaxed font-sans text-xs sm:text-sm">{selectedProject.businessProblem}</p>
                     </div>
 
                     <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
                       <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-2 flex items-center gap-2">
-                        SOLUTION & IMPLEMENTATION
+                        SOLUTION &amp; ARCHITECTURE
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
+                      <p className="text-gray-300 leading-relaxed font-sans text-xs sm:text-sm">{selectedProject.description}</p>
                     </div>
                   </div>
 
@@ -295,25 +363,26 @@ export const MissionControlSection: React.FC = () => {
               {/* Tab 2: Business Impact */}
               {activeModalTab === 'results' && (
                 <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30 animate-fadeIn">
-                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3">BUSINESS IMPACT & MEASURABLE OUTCOMES</h4>
-                  {(() => {
-                    const statCards = getQuantifiableStats(selectedProject.outcome);
-                    if (statCards.length === 0) return null;
+                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-4">VERIFIED BUSINESS ROI &amp; MEASURABLE RESULTS</h4>
+                  
+                  {/* High Impact 3-Column Metric Cards */}
+                  {selectedProject.metrics && selectedProject.metrics.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                      {selectedProject.metrics.map((stat, i) => (
+                        <div key={i} className="p-4 rounded-xl bg-[#000000] border border-[#FF8F00]/50 flex flex-col items-center justify-center text-center shadow-[0_0_15px_rgba(255,143,0,0.15)]">
+                          <span className="font-mono text-2xl sm:text-3xl font-extrabold text-[#FF8F00]">{stat.number}</span>
+                          <span className="font-mono text-[10px] sm:text-[11px] text-gray-200 uppercase tracking-wider mt-1.5 font-bold">{stat.caption}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-                    return (
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-                        {statCards.map((stat, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
-                            <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
-                            <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  })()}
-                  <div className="space-y-1.5 text-xs font-mono text-white">
+                  <div className="space-y-2 text-xs font-mono text-white">
                     {selectedProject.outcome.map((res, i) => (
-                      <div key={i}>&gt; {res}</div>
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="text-[#FF8F00] font-bold">&gt;</span>
+                        <span>{res}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -322,13 +391,13 @@ export const MissionControlSection: React.FC = () => {
               {/* Tab 3: Features */}
               {activeModalTab === 'features' && (
                 <div className="animate-fadeIn">
-                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4" /> KEY FEATURES & CAPABILITIES
+                  <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-4 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4" /> COMPREHENSIVE PLATFORM CAPABILITIES
                   </h4>
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedProject.features.map((feat, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs font-mono text-gray-300">
-                        <span className="text-[#FF8F00] font-bold">✓</span>
+                      <div key={i} className="p-3 rounded-xl bg-[#000000] border border-white/10 flex items-start gap-2.5 text-xs font-mono text-gray-300">
+                        <span className="text-[#FF8F00] font-bold mt-0.5">✔</span>
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -339,10 +408,10 @@ export const MissionControlSection: React.FC = () => {
               {/* Tab 4: Technical Highlights */}
               {activeModalTab === 'architecture' && (
                 <div className="space-y-6 animate-fadeIn">
-                  {/* System Architecture */}
+                  {/* System Architecture Flow */}
                   <div className="p-5 rounded-2xl bg-[#000000] border border-white/10">
                     <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-[#FF8F00]" /> SYSTEM ARCHITECTURE
+                      <Layers className="w-4 h-4 text-[#FF8F00]" /> DATA &amp; APPLICATION FLOW PIPELINE
                     </h4>
                     <ArchitectureDiagram
                       stages={selectedProject.architecture.nodes.map((node) => ({
@@ -352,10 +421,10 @@ export const MissionControlSection: React.FC = () => {
                     />
                   </div>
 
-                  {/* Concise Technical Highlights */}
+                  {/* Technical Loadout Tags */}
                   <div>
                     <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                      <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> TECHNICAL HIGHLIGHTS & LOADOUT
+                      <FileCode2 className="w-4 h-4 text-[#FF8F00]" /> COMPLETE ENGINEERING LOADOUT
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.technologyLoadout.map((tech, i) => (
@@ -368,32 +437,43 @@ export const MissionControlSection: React.FC = () => {
                 </div>
               )}
 
-              {/* Project Links */}
-              <div className="flex gap-4 pt-4 border-t border-white/10">
-                {selectedProject.liveUrl && (
-                  <a
-                    href={selectedProject.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    {...getUniversalAudioProps('click', 'hover')}
-                    className="btn-primary text-xs py-2.5"
+              {/* Project Action Links & Inquire Bar */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-5 border-t border-white/10">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={handleInquireClick}
+                    className="btn-primary text-xs py-2.5 w-full sm:w-auto justify-center flex items-center gap-2 font-mono font-bold cursor-pointer"
                   >
-                    <span>LIVE DEMO</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                {selectedProject.githubUrl && (
-                  <a
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    {...getUniversalAudioProps('click', 'hover')}
-                    className="btn-secondary text-xs py-2.5"
-                  >
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    <span>SOURCE REPOSITORY</span>
-                  </a>
-                )}
+                    <Send className="w-3.5 h-3.5" />
+                    <span>INQUIRE ABOUT SIMILAR PROJECT</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      {...getUniversalAudioProps('click', 'hover')}
+                      className="btn-primary text-xs py-2.5"
+                    >
+                      <span>LIVE DEMO</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      {...getUniversalAudioProps('click', 'hover')}
+                      className="btn-secondary text-xs py-2.5"
+                    >
+                      <span>CODE REPOSITORY</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>

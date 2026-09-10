@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { QUEST_LOG, type Quest } from '../data/timeline';
 import { Flag, Award, ChevronDown, ChevronUp, Layers, CheckCircle2, Target } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
+import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
 type QuestTab = 'overview' | 'deliverables' | 'tech' | 'reward';
 
@@ -11,6 +12,21 @@ const getQuestMetaCards = (quest: Quest) => [
   { label: 'QUEST TYPE', value: quest.questType },
   { label: 'STATUS', value: quest.status },
 ];
+
+const MetaChipCard: React.FC<{ label: string; value: string }> = ({ label, value }) => {
+  return (
+    <div className="p-3 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/40 flex flex-col gap-1 text-left min-w-0 transition-colors hover:border-[#FF8F00]">
+      <HoverMarqueeText
+        text={label}
+        className="font-mono text-[10px] text-gray-400 uppercase tracking-wider"
+      />
+      <HoverMarqueeText
+        text={value}
+        className="font-mono text-xs font-bold text-[#FF8F00] hover:text-amber-300 transition-colors"
+      />
+    </div>
+  );
+};
 
 const getQuantifiableStats = (text: string) => {
   const stats: { number: string; caption: string }[] = [];
@@ -147,10 +163,10 @@ export const QuestLogSection: React.FC = () => {
                         <button
                           key={t.id}
                           {...getUniversalAudioProps('click', 'hover', () => setTab(quest.id, t.id as QuestTab))}
-                          className={`px-4 py-2 rounded-xl font-pixel text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer whitespace-nowrap ${
+                          className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                             isActive
-                              ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
-                              : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                              ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/60 shadow-[0_0_12px_rgba(255,143,0,0.25)]'
+                              : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
                           }`}
                         >
                           {t.label}
@@ -165,42 +181,47 @@ export const QuestLogSection: React.FC = () => {
                       {/* Meta-Info Card Row */}
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {metaCards.map((card, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left">
-                            <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider">{card.label}</span>
-                            <span className="font-mono text-xs font-bold text-[#FF8F00] truncate">{card.value}</span>
-                          </div>
+                          <MetaChipCard key={i} label={card.label} value={card.value} />
                         ))}
                       </div>
 
                       {/* Description */}
-                      <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30">
+                      <div className="p-5 rounded-2xl bg-[#000000]/80 border border-[#FF8F00]/30">
                         <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2 flex items-center gap-2">
-                          <Target className="w-4 h-4 text-[#FF8F00]" /> QUEST OBJECTIVE & OVERVIEW
+                          <Target className="w-4 h-4 text-[#FF8F00]" /> QUEST OBJECTIVE &amp; OVERVIEW
                         </h4>
-                        <p className="text-sm text-gray-300 font-sans leading-relaxed">{quest.description}</p>
+                        <p className="text-sm text-gray-200 font-sans leading-relaxed">{quest.description}</p>
                       </div>
                     </div>
                   )}
 
                   {currentTab === 'deliverables' && (
-                    <div className="p-5 rounded-2xl bg-[#000000] border border-white/10 animate-fadeIn">
+                    <div className="p-5 rounded-2xl bg-[#000000]/80 border border-[#FF8F00]/30 animate-fadeIn">
                       <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-[#FF8F00]" /> KEY ENGINEERING DELIVERABLES
                       </h4>
-                      <p className="text-xs text-gray-300 font-mono leading-relaxed">&gt; {quest.description}</p>
+                      <div className="space-y-2">
+                        {(quest.deliverables || [quest.description]).map((deliv, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5 text-xs font-mono text-gray-200">
+                            <span className="text-[#10B981] font-bold">✔</span>
+                            <span>{deliv}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
                   {currentTab === 'tech' && (
-                    <div className="p-5 rounded-2xl bg-[#000000] border border-[#FF8F00]/30 animate-fadeIn">
-                      <h4 className="font-mono text-xs text-gray-300 font-bold uppercase mb-3 flex items-center gap-2">
-                        <Layers className="w-4 h-4 text-[#FF8F00]" /> CORE TECH LOADOUT & PLATFORMS
+                    <div className="p-5 rounded-2xl bg-[#000000]/80 border border-[#FF8F00]/30 animate-fadeIn">
+                      <h4 className="font-mono text-xs text-gray-200 font-bold uppercase mb-3 flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-[#FF8F00]" /> CORE TECH LOADOUT &amp; PLATFORMS
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        <span className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">React</span>
-                        <span className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">TypeScript</span>
-                        <span className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">Firebase</span>
-                        <span className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">Tailwind CSS</span>
+                        {(quest.techLoadout || ["React", "TypeScript", "Tailwind CSS", "Firebase"]).map((tech, idx) => (
+                          <span key={idx} className="font-mono text-xs px-3 py-1.5 rounded-lg bg-[#000000] border border-[#FF8F00]/40 text-[#FF8F00] font-semibold">
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -211,9 +232,9 @@ export const QuestLogSection: React.FC = () => {
                       {statCards.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                           {statCards.map((stat, i) => (
-                            <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
+                            <div key={i} className="p-3 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center min-w-0">
                               <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
-                              <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
+                              <HoverMarqueeText text={stat.caption} className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1" />
                             </div>
                           ))}
                         </div>

@@ -3,6 +3,7 @@ import { BOSS_BATTLES, type BossBattle } from '../data/bossBattles';
 import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ClashingSwordsIcon } from './ui/ClashingSwordsIcon';
+import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
 type BattleTab = 'overview' | 'investigation' | 'solution' | 'results';
 
@@ -12,6 +13,21 @@ const getBossMetaCards = (battle: BossBattle) => [
   { label: 'IMPACT SCOPE', value: battle.bossName },
   { label: 'STATUS', value: 'DEFEATED' },
 ];
+
+const MetaChipCard: React.FC<{ label: string; value: string }> = ({ label, value }) => {
+  return (
+    <div className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left min-w-0 transition-colors hover:border-[#FF8F00]">
+      <HoverMarqueeText
+        text={label}
+        className="font-mono text-[10px] text-gray-400 uppercase tracking-wider"
+      />
+      <HoverMarqueeText
+        text={value}
+        className="font-mono text-xs font-bold text-[#FF8F00] hover:text-amber-300 transition-colors"
+      />
+    </div>
+  );
+};
 
 const getQuantifiableStats = (text: string) => {
   const stats: { number: string; caption: string }[] = [];
@@ -64,8 +80,8 @@ export const BossBattlesSection: React.FC = () => {
           return (
             <div
               key={battle.id}
-              className={`cyber-card p-6 sm:p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-[#FF4500]/70 hover:shadow-[0_12px_25px_rgba(255,69,0,0.2)] ${
-                isExpanded ? 'border-2 border-[#D90000]/60 bg-[#280905]/90 shadow-[0_0_35px_rgba(217,0,0,0.25)]' : ''
+              className={`cyber-card p-6 sm:p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-[#FF4500]/70 hover:shadow-[0_12px_25px_rgba(255,69,0,0.25)] ${
+                isExpanded ? 'border-2 border-[#D90000]/70 bg-[#280905]/95 shadow-[0_0_35px_rgba(217,0,0,0.3)]' : ''
               }`}
             >
               {/* Header Banner */}
@@ -116,10 +132,10 @@ export const BossBattlesSection: React.FC = () => {
                         <button
                           key={t.id}
                           {...getUniversalAudioProps('click', 'hover', () => setTab(battle.id, t.id as BattleTab))}
-                          className={`px-4 py-2 rounded-xl font-pixel text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer whitespace-nowrap ${
+                          className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                             isActive
-                              ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
-                              : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                              ? 'bg-[#D90000]/25 text-[#FF4500] border border-[#D90000]/70 shadow-[0_0_12px_rgba(217,0,0,0.35)]'
+                              : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
                           }`}
                         >
                           {t.label}
@@ -134,10 +150,7 @@ export const BossBattlesSection: React.FC = () => {
                       {/* Meta-Info Card Row */}
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {metaCards.map((card, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col gap-1 text-left">
-                            <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider">{card.label}</span>
-                            <span className="font-mono text-xs font-bold text-[#FF8F00] truncate">{card.value}</span>
-                          </div>
+                          <MetaChipCard key={i} label={card.label} value={card.value} />
                         ))}
                       </div>
 
@@ -177,9 +190,9 @@ export const BossBattlesSection: React.FC = () => {
                   )}
 
                   {currentTab === 'solution' && (
-                    <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30 animate-fadeIn">
-                      <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-3 flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4" /> TECHNICAL SOLUTION
+                    <div className="p-5 rounded-2xl bg-[#D90000]/15 border border-[#D90000]/40 animate-fadeIn">
+                      <h4 className="font-mono text-xs text-[#FF4500] font-bold uppercase mb-3 flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-[#FF4500]" /> TECHNICAL SOLUTION
                       </h4>
                       <p className="text-xs text-white font-mono leading-relaxed mb-3">{battle.solution}</p>
                     </div>
@@ -191,24 +204,24 @@ export const BossBattlesSection: React.FC = () => {
                       {statCards.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                           {statCards.map((stat, i) => (
-                            <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#FF8F00]/40 flex flex-col items-center justify-center text-center">
-                              <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF8F00]">{stat.number}</span>
-                              <span className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1">{stat.caption}</span>
+                            <div key={i} className="p-3 rounded-xl bg-[#000000] border border-[#D90000]/40 flex flex-col items-center justify-center text-center min-w-0">
+                              <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF4500]">{stat.number}</span>
+                              <HoverMarqueeText text={stat.caption} className="font-mono text-[10px] text-gray-300 uppercase tracking-wider mt-1" />
                             </div>
                           ))}
                         </div>
                       )}
 
                       {/* Outcome & Takeaway */}
-                      <div className="p-5 rounded-2xl bg-[#FF8F00]/10 border border-[#FF8F00]/30">
-                        <h4 className="font-mono text-xs text-[#FF8F00] font-bold uppercase mb-2">BATTLE OUTCOME</h4>
+                      <div className="p-5 rounded-2xl bg-[#D90000]/15 border border-[#D90000]/40">
+                        <h4 className="font-mono text-xs text-[#FF4500] font-bold uppercase mb-2">BATTLE OUTCOME</h4>
                         <div className="text-xs font-mono text-white mb-4">&gt; {battle.outcome}</div>
 
                         <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <Award className="w-5 h-5 text-[#FF8F00] shrink-0" />
+                            <Award className="w-5 h-5 text-[#FF4500] shrink-0" />
                             <div className="text-xs font-mono text-gray-200">
-                              <strong className="text-[#FF8F00]">KEY TAKEAWAY:</strong> {battle.takeaway}
+                              <strong className="text-[#FF4500]">KEY TAKEAWAY:</strong> {battle.takeaway}
                             </div>
                           </div>
                           <span className="badge-tag badge-legendary text-xs shrink-0 font-bold">

@@ -17,13 +17,19 @@ class SoundManager {
   private audioCtx: AudioContext | null = null;
   private masterGain: GainNode | null = null;
   private masterCompressor: DynamicsCompressorNode | null = null;
-  private soundEnabled = true;
+  private soundEnabled = false;
   private audioUnlocked = false;
-  private volume = 0.85; // Master volume optimized for desktop & mobile phone speakers
+  private volume = 0.45; // Master volume comfortable for desktop & mobile speakers
   private lastTriggerTime = 0;
   private lastEffectType: SoundEffectType | null = null;
 
   private constructor() {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('portfolio_sound_enabled');
+      if (saved !== null) {
+        this.soundEnabled = saved === 'true';
+      }
+    }
     this.initUnlockListeners();
   }
 
@@ -137,6 +143,13 @@ class SoundManager {
    */
   public toggleSound(): boolean {
     this.soundEnabled = !this.soundEnabled;
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('portfolio_sound_enabled', String(this.soundEnabled));
+      } catch {
+        // Safe fallback if localStorage is disabled
+      }
+    }
     return this.soundEnabled;
   }
 

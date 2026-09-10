@@ -144,7 +144,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
         outputNode = (
           <div className="space-y-1.5 text-xs sm:text-sm font-mono text-gray-300">
             <p className="text-[#FF8F00] font-bold tracking-wider">TRANSMISSION CONTACT CHANNELS:</p>
-            <p>Email: <span className="text-[#38BDF8] font-bold">work.sufiyan.ahmed078@gmail.com</span></p>
+            <p>Email: <span className="text-[#38BDF8] font-bold">hello@sufiyanahmed.com</span></p>
             <p>LinkedIn: <span className="text-[#38BDF8]">linkedin.com/in/sufiyan-ahmed-66baa91b3</span></p>
             <p>GitHub: <span className="text-[#38BDF8]">github.com/sufiyan078</span></p>
           </div>

@@ -69,10 +69,10 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hud-bar ${
-        scrolled ? 'py-1.5 shadow-2xl bg-[#000000]/95 backdrop-blur-2xl' : 'py-2.5 sm:py-3'
+        scrolled ? 'py-1.5 shadow-2xl bg-[#000000]/95 backdrop-blur-2xl' : 'py-2 sm:py-2.5'
       }`}
     >
-      <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Left Side: Gamer Avatar & Level Status Telemetry */}
         <a
@@ -81,46 +81,43 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             e.preventDefault();
             scrollToSection('profile');
           })}
-          className="flex items-center gap-2 sm:gap-3 group text-left cursor-pointer focus:outline-none shrink-0"
+          className="flex items-center gap-2 sm:gap-2.5 group text-left cursor-pointer focus:outline-none shrink-0"
         >
           {/* Shield Knight Icon Emblem */}
-          <ShieldKnightEmblem className="w-8 h-8 sm:w-10 sm:h-10 transition-transform group-hover:scale-105" />
+          <ShieldKnightEmblem className="w-8 h-8 sm:w-9 sm:h-9 transition-transform group-hover:scale-105 shrink-0" />
 
           {/* Player Level & Class Stats Telemetry */}
           <div className="flex flex-col">
-            <span className="font-pixel text-[10px] sm:text-[11px] font-extrabold text-[#FF8F00] tracking-wide group-hover:text-white transition-colors">
+            <span className="font-heading text-xs sm:text-sm font-bold text-white tracking-wide group-hover:text-[#FF8F00] transition-colors">
               SUFIYAN AHMED
             </span>
 
-            <div className="flex items-center gap-1.5 font-pixel text-[7px] sm:text-[8px] text-gray-400 mt-0.5 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[7px] sm:text-[8px] font-pixel bg-[#CD1818]/15 border border-[#CD1818]/40 text-[#FF8F00] font-bold">
-                CLASS: <span className="text-[#CD1818]">BUILDER</span>
+            <div className="flex items-center gap-1.5 font-mono text-[8.5px] sm:text-[9.5px] text-gray-300 mt-0.5 flex-wrap">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9.5px] bg-[#CD1818]/20 border border-[#CD1818]/50 text-[#FF8F00] font-bold whitespace-nowrap">
+                CLASS: <span className="text-[#FF4500]">BUILDER</span>
               </span>
-              <div className="inline-flex items-center gap-1">
+              <div className="inline-flex items-center gap-1 whitespace-nowrap">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#08CB00] animate-pulse" />
                 <span className="text-[#FF8F00] font-bold">ONLINE</span>
               </div>
-              <span className="text-gray-500">|</span>
-              <span className="text-gray-300 font-bold">LEVEL 99</span>
-              <span className="inline-flex items-center px-1 py-0.5 rounded text-[6px] sm:text-[7px] font-pixel bg-[#FF8F00]/20 border border-[#FF8F00]/50 text-[#FF8F00] font-extrabold leading-none">
-                MAX
-              </span>
+              <span className="text-gray-500 hidden xl:inline">|</span>
+              <span className="text-gray-300 font-bold hidden xl:inline whitespace-nowrap">LVL 99</span>
             </div>
 
             {/* Health Bar / System Health */}
-            <div className="flex items-center gap-1.5 mt-0.5 font-pixel text-[7px] sm:text-[8px] text-gray-400">
-              <span className="tracking-tight">SYSTEM HEALTH</span>
+            <div className="hidden 2xl:flex items-center gap-1.5 mt-0.5 font-mono text-[8.5px] text-gray-400">
+              <span className="tracking-tight">SYS HEALTH</span>
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Heart key={i} className="w-2 h-2 fill-[#D90000] text-[#D90000]" />
+                  <Heart key={i} className="w-2.5 h-2.5 fill-[#D90000] text-[#D90000]" />
                 ))}
               </div>
             </div>
           </div>
         </a>
 
-        {/* Desktop HUD Navigation Menu (Crystal Liquid Glass Effect) */}
-        <nav className="hidden lg:flex items-center gap-1.5 bg-[#1F150C]/60 backdrop-blur-xl px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2)]" aria-label="Main Navigation">
+        {/* Desktop HUD Navigation Menu */}
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-[#1F150C]/70 backdrop-blur-xl px-1.5 xl:px-2 py-1 rounded-full border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] shrink-0" aria-label="Main Navigation">
           {navItems.map((item) => {
             let isActive = activeSection === item.id;
             if (activeSection === 'inventory') {
@@ -132,10 +129,10 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
                 key={item.id}
                 {...getUniversalAudioProps('click', 'hover', () => scrollToSection(item.id))}
                 aria-label={`Navigate to ${item.label}`}
-                className={`px-3.5 py-1.5 rounded-full font-pixel text-[9px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer ${
+                className={`px-2 xl:px-2.5 py-1 rounded-full font-mono text-[8.5px] xl:text-[9.5px] font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                   isActive
-                    ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10 hover:border-white/20 border border-transparent'
+                    ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/60 shadow-[0_0_12px_rgba(255,143,0,0.25)]'
+                    : 'text-slate-300 hover:text-white hover:bg-white/[0.06] border border-transparent'
                 }`}
               >
                 {item.label}
@@ -145,19 +142,22 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         </nav>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           {/* Audio FX Toggle */}
           <button
             {...getUniversalAudioProps('click', 'hover', handleSoundToggle)}
             aria-label={soundOn ? 'Mute audio effects' : 'Enable audio effects'}
             title={soundOn ? 'Mute Audio FX' : 'Enable Audio FX'}
-            className={`p-2 rounded-lg border transition-all focus:outline-none cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-lg border transition-all focus:outline-none cursor-pointer flex items-center gap-1.5 ${
               soundOn
-                ? 'bg-[#FF8F00]/10 border-[#FF8F00]/40 text-[#FF8F00]'
-                : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
+                ? 'bg-[#FF8F00]/15 border-[#FF8F00]/50 text-[#FF8F00] shadow-[0_0_10px_rgba(255,143,0,0.25)]'
+                : 'bg-white/5 border-white/15 text-gray-400 hover:text-white hover:border-white/30'
             }`}
           >
-            {soundOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            {soundOn ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span className="font-mono text-[9px] font-bold hidden sm:inline whitespace-nowrap">
+              {soundOn ? 'AUDIO ON' : 'AUDIO OFF'}
+            </span>
           </button>
 
           {/* CLI Terminal Toggle */}
@@ -165,9 +165,9 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             {...getUniversalAudioProps('openModal', 'hover', onOpenTerminal)}
             aria-label="Open CLI Terminal"
             title="Open CLI Terminal (Shortcut: ~)"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-xs font-mono font-bold transition-all focus:outline-none cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-xs font-mono font-bold transition-all focus:outline-none cursor-pointer shadow-[0_0_12px_rgba(217,0,0,0.25)] whitespace-nowrap"
           >
-            <Terminal className="w-4 h-4 text-[#D90000]" />
+            <Terminal className="w-3.5 h-3.5 text-[#D90000]" />
             <span className="inline">CLI</span>
           </button>
 

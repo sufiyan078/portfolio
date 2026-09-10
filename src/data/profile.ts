@@ -79,32 +79,32 @@ export const BUSINESS_HELP_ITEMS: HelpBusinessItem[] = [
   {
     id: 'dashboard',
     question: "Need a business dashboard?",
-    answer: "I'll build one."
+    answer: "Interactive KPI portals & visual analytics"
   },
   {
     id: 'automate',
     question: "Need to automate repetitive work?",
-    answer: "I'll automate it."
+    answer: "Custom background workers & ingestion pipelines"
   },
   {
     id: 'ai-workflow',
     question: "Need AI integrated into your workflow?",
-    answer: "I'll build it."
+    answer: "LLM agents, schema generation & RAG pipelines"
   },
   {
     id: 'internal-app',
     question: "Need an internal web application?",
-    answer: "I'll develop it."
+    answer: "Role-based dashboards with bulletproof auth"
   },
   {
     id: 'reports',
     question: "Need reports generated automatically?",
-    answer: "I'll handle it."
+    answer: "Single-source PDF, Excel & PPTX export engines"
   },
   {
     id: 'saas-mvp',
     question: "Need a complete SaaS MVP?",
-    answer: "Let's build it."
+    answer: "From database architecture to high-polish release"
   }
 ];
 
