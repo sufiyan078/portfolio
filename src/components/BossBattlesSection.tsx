@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { BOSS_BATTLES, type BossBattle } from '../data/bossBattles';
-import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award, Swords } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
-import { ClashingSwordsIcon } from './ui/ClashingSwordsIcon';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
 type BattleTab = 'overview' | 'investigation' | 'solution' | 'results';
@@ -57,8 +56,8 @@ export const BossBattlesSection: React.FC = () => {
     <section id="boss-battles" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <ClashingSwordsIcon className="w-4 h-4" />
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3 group">
+          <Swords className="w-4 h-4 text-[#FF8F00] transition-transform duration-300 group-hover:scale-110" />
           <span className="text-[#FF8F00] font-bold">BOSS BATTLES</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
@@ -91,7 +90,7 @@ export const BossBattlesSection: React.FC = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000] shrink-0">
-                    <Bug className="w-6 h-6" />
+                    <Bug className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 mb-1">

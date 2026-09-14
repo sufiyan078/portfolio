@@ -1,14 +1,7 @@
 import React from 'react';
-import { ArrowRight, Terminal } from 'lucide-react';
+import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, TrendingUp, Layers } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
-import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
-import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
-import { AnimatedGlobeIcon } from './ui/AnimatedGlobeIcon';
-import { AnimatedCogIcon } from './ui/AnimatedCogIcon';
-import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
-import { AnimatedSmartphoneIcon } from './ui/AnimatedSmartphoneIcon';
-import { BlacksmithForgeIcon } from './ui/BlacksmithForgeIcon';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -17,12 +10,12 @@ interface LandingHeroProps {
 
 export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTerminal }) => {
   const serviceBadges = [
-    { name: "Websites & Landing Pages", icon: AnimatedGlobeIcon, color: "text-[#FF8F00]" },
-    { name: "Custom Web Applications", icon: AnimatedSmartphoneIcon, color: "text-[#FF8F00]" },
-    { name: "Dashboards & Data Visualization", icon: AnimatedChartIcon, color: "text-[#FF8F00]" },
-    { name: "AI Agents & Automation", icon: AnimatedBotIcon, color: "text-[#FF8F00]" },
-    { name: "Business Process Automation", icon: AnimatedCogIcon, color: "text-[#FF8F00]" },
-    { name: "Reporting & Analytics Systems", icon: AnimatedTrendingUpIcon, color: "text-[#FF8F00]" }
+    { name: "Websites & Landing Pages", icon: Globe, color: "text-[#FF8F00]" },
+    { name: "Custom Web Applications", icon: Layout, color: "text-[#FF8F00]" },
+    { name: "Dashboards & Data Visualization", icon: BarChart3, color: "text-[#FF8F00]" },
+    { name: "AI Agents & Automation", icon: Bot, color: "text-[#FF8F00]" },
+    { name: "Business Process Automation", icon: Workflow, color: "text-[#FF8F00]" },
+    { name: "Reporting & Analytics Systems", icon: TrendingUp, color: "text-[#FF8F00]" }
   ];
 
   const scrollToSection = (id: string) => {
@@ -83,10 +76,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           <span className="absolute top-2 left-2 text-[#FF8F00]/30 font-mono text-[10px] select-none">+</span>
           <span className="absolute top-2 right-2 text-[#FF8F00]/30 font-mono text-[10px] select-none">+</span>
 
-          <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-3">
-            <BlacksmithForgeIcon className="w-6 h-6" />
+          <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
+            <Layers className="w-4 h-4 text-[#FF8F00] shrink-0" />
             <span>Services I Build</span>
-            <BlacksmithForgeIcon className="w-6 h-6" />
+            <Layers className="w-4 h-4 text-[#FF8F00] shrink-0" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {serviceBadges.map((b, i) => (

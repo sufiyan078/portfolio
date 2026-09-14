@@ -1,34 +1,26 @@
 import React from 'react';
 import {
   Target, MessageSquare, Sparkles, GitBranch, Crown,
-  Crosshair
+  Crosshair, Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake, Bot, TrendingUp
 } from 'lucide-react';
 import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
 import type { ProcessStage, ClientCard } from '../data/profile';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
-import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
-import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
-import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
-import { AnimatedTrendingUpIcon } from './ui/AnimatedTrendingUpIcon';
-import { AnimatedSearchIcon } from './ui/AnimatedSearchIcon';
-import { AnimatedLayersIcon } from './ui/AnimatedLayersIcon';
-import { AnimatedShieldCheckIcon } from './ui/AnimatedShieldCheckIcon';
-import { AnimatedHeartHandshakeIcon } from './ui/AnimatedHeartHandshakeIcon';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
-  Search: AnimatedSearchIcon,
-  Layers: AnimatedLayersIcon,
-  Zap: AnimatedCircuitGearIcon,
-  ShieldCheck: AnimatedShieldCheckIcon,
-  Rocket: AnimatedRocketIcon,
-  HeartHandshake: AnimatedHeartHandshakeIcon,
+  Search,
+  Layers,
+  Zap,
+  ShieldCheck,
+  Rocket,
+  HeartHandshake,
   Target,
-  Bot: AnimatedBotIcon,
+  Bot,
   MessageSquare,
   Sparkles,
-  TrendingUp: AnimatedTrendingUpIcon,
+  TrendingUp,
   GitBranch,
   Crown
 };
@@ -52,7 +44,7 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
 
       {/* Solid Opaque Node Circle (Blocks line behind icon badge completely) */}
       <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#1A1009] border border-[#FF8F00]/50 flex items-center justify-center overflow-hidden p-2 group-hover:bg-[#2A180C] group-hover:border-[#FF8F00] group-hover:shadow-[0_0_16px_rgba(255,143,0,0.4)] transition-all duration-300">
-        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0" />
+        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0 transition-transform duration-300 group-hover:scale-110" />
       </div>
 
       {/* Content */}
@@ -83,7 +75,7 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
       <div className="flex items-start gap-3.5">
         {/* Icon badge */}
         <div className="w-9 h-9 shrink-0 rounded-lg bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center overflow-hidden p-1.5 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_10px_rgba(217,0,0,0.3)] transition-all duration-300">
-          <Icon className="w-4 h-4 text-[#FF4500] shrink-0" />
+          <Icon className="w-4 h-4 text-[#FF4500] shrink-0 transition-transform duration-300 group-hover:scale-110" />
         </div>
 
         {/* Text */}
@@ -112,30 +104,8 @@ export const PlayerProfileSection: React.FC = () => {
 
       {/* ── Section Header ─────────────────────────────── */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <div className="relative inline-flex items-center justify-center">
-            <style>{`
-              @keyframes radar-scan-spin {
-                0% {
-                  transform: rotate(0deg) scale(1);
-                  filter: drop-shadow(0 0 2px rgba(255, 143, 0, 0.4));
-                }
-                50% {
-                  transform: rotate(180deg) scale(1.15);
-                  filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.9));
-                }
-                100% {
-                  transform: rotate(360deg) scale(1);
-                  filter: drop-shadow(0 0 2px rgba(255, 143, 0, 0.4));
-                }
-              }
-              .anim-radar-crosshair {
-                animation: radar-scan-spin 3s linear infinite;
-                transform-origin: center center;
-              }
-            `}</style>
-            <Crosshair className="w-3.5 h-3.5 text-[#FF8F00] anim-radar-crosshair" />
-          </div>
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3 group">
+          <Crosshair className="w-3.5 h-3.5 text-[#FF8F00] transition-transform duration-300 group-hover:scale-110" />
           <span className="text-[#FF8F00] font-bold">BUILDER INTEL</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
@@ -178,8 +148,8 @@ export const PlayerProfileSection: React.FC = () => {
 
             {/* Development Process — RPG Skill Tree */}
             <div className="border-t border-white/10 pt-6">
-              <h4 className="font-mono text-xs text-slate-300 uppercase tracking-widest mb-5 font-bold flex items-center gap-2">
-                <AnimatedLayersIcon className="w-4 h-4 text-[#FF8F00]" />
+              <h4 className="font-mono text-xs text-slate-300 uppercase tracking-widest mb-5 font-bold flex items-center gap-2 group">
+                <Layers className="w-4 h-4 text-[#FF8F00] transition-transform duration-300 group-hover:scale-110" />
                 DEVELOPMENT PROCESS
               </h4>
 
@@ -235,10 +205,10 @@ export const PlayerProfileSection: React.FC = () => {
           </div>
 
           {/* Why Clients Choose Me Card */}
-          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)]">
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)] group">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">
-                <AnimatedShieldCheckIcon className="w-5 h-5" />
+                <ShieldCheck className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
               </div>
               <div>
                 <h3 className="font-heading font-extrabold text-base sm:text-lg text-white tracking-tight">WHY CLIENTS CHOOSE ME</h3>

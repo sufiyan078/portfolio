@@ -1,14 +1,13 @@
 import React from 'react';
 import { ENGINEERING_PRINCIPLES } from '../data/principles';
-import { Wrench, Layers, Target, Compass, CheckCircle2 } from 'lucide-react';
-import { AnimatedCogIcon } from './ui/AnimatedCogIcon';
+import { Wrench, Layers, Target, Compass, CheckCircle2, Cog } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 
 export const EngineeringPrinciplesSection: React.FC = () => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Wrench': return Wrench;
-      case 'Cog': return AnimatedCogIcon;
+      case 'Cog': return Cog;
       case 'CheckCircle2': return CheckCircle2;
       case 'Layers': return Layers;
       case 'Target': return Target;
@@ -20,8 +19,8 @@ export const EngineeringPrinciplesSection: React.FC = () => {
     <section id="principles" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <Compass className="w-3.5 h-3.5 text-[#FF8F00]" />
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3 group">
+          <Compass className="w-3.5 h-3.5 text-[#FF8F00] transition-transform duration-300 group-hover:scale-110" />
           <span className="text-[#FF8F00] font-bold">ENGINEERING PHILOSOPHY</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
@@ -60,7 +59,7 @@ export const EngineeringPrinciplesSection: React.FC = () => {
                 {/* Icon & Title */}
                 <div className="flex items-center gap-3.5 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0 group-hover:scale-110 group-hover:border-[#FF8F00] transition-all">
-                    <IconComp className="w-5 h-5 shrink-0" />
+                    <IconComp className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors leading-tight">
                     {principle.title}

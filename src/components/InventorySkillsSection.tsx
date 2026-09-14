@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { SKILLS } from '../data/skills';
 import { INVENTORY_CATEGORIES } from '../data/inventory';
-import { Package, Cpu, Database, Server, CheckCircle2, Layout, Box } from 'lucide-react';
+import { Package, Cpu, Database, Server, CheckCircle2, Layout, Box, Bot, Zap, BarChart3, Rocket } from 'lucide-react';
 import { getUniversalAudioProps } from '../utils/soundEffects';
-import { AnimatedPackageIcon } from './ui/AnimatedPackageIcon';
-import { AnimatedBotIcon } from './ui/AnimatedBotIcon';
-import { AnimatedChartIcon } from './ui/AnimatedChartIcon';
-import { AnimatedRocketIcon } from './ui/AnimatedRocketIcon';
-import { AnimatedCircuitGearIcon } from './ui/AnimatedCircuitGearIcon';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
 interface InventorySkillsSectionProps {
@@ -32,11 +27,11 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Bot': return AnimatedBotIcon;
-      case 'Zap': return AnimatedCircuitGearIcon;
-      case 'BarChart3': return AnimatedChartIcon;
+      case 'Bot': return Bot;
+      case 'Zap': return Zap;
+      case 'BarChart3': return BarChart3;
       case 'Layout': return Layout;
-      case 'Rocket': return AnimatedRocketIcon;
+      case 'Rocket': return Rocket;
       case 'Server': return Server;
       case 'Database': return Database;
       case 'Cpu': return Cpu;
@@ -180,8 +175,8 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
     <section id="inventory" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
       {/* Section Header */}
       <div className="flex flex-col items-center text-center mb-16">
-        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3">
-          <AnimatedPackageIcon className="w-4 h-4" />
+        <div className="badge-tag border border-[#FF8F00]/40 bg-[#FF8F00]/10 text-[#FF8F00] mb-3 group">
+          <Package className="w-4 h-4 text-[#FF8F00] transition-transform duration-300 group-hover:scale-110" />
           <span className="text-[#FF8F00] font-bold">ABILITIES & LOADOUT</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
@@ -243,7 +238,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   {/* Icon & Title Block */}
                   <div className="flex items-center gap-3 mb-3.5">
                     <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${style.iconBox}`}>
-                      <IconComp className="w-5 h-5" />
+                      <IconComp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <HoverMarqueeText
@@ -320,7 +315,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   {/* Vault Description & Category Title */}
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`w-11 h-11 rounded-xl ${item.bgColor} border border-white/15 flex items-center justify-center ${item.textColor} shrink-0 shadow-inner`}>
-                      <IconComponent className="w-5.5 h-5.5" />
+                      <IconComponent className="w-5.5 h-5.5 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <div>
                       <h3 className="font-heading font-bold text-base sm:text-lg text-white group-hover:text-white transition-colors tracking-tight leading-tight">

@@ -66,7 +66,7 @@ export const QUEST_LOG: Quest[] = [
       "Tailwind CSS"
     ],
     reward: "AI Product Engineering & LLM Integration Experience",
-    status: "COMPLETED"
+    status: "IN PROGRESS"
   },
   {
     id: "quest-01",

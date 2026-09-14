@@ -134,7 +134,7 @@ export const PROJECTS: Project[] = [
     title: "CareerAI — AI Career Assistant",
     tagline: "AI-assisted resume generation, ATS keyword optimization, cover letter creation, and job search application",
     category: "AI",
-    status: "COMPLETED",
+    status: "IN PROGRESS",
     difficulty: "★ ★ ★ ★ ☆",
     description: "An AI-assisted career web application that automates resume creation, ATS compatibility scoring, keyword gap analysis, and cover letter generation. Combining Next.js and the Gemini Flash API with structured prompt schemas, the system provides application materials and job recommendations within a unified workflow.",
     businessProblem: "Job seekers manually format resumes for individual job descriptions, identify missing ATS keywords, and write tailored cover letters from scratch. This manual process limits application volume and leads to inconsistent resume formatting across job submissions.",
