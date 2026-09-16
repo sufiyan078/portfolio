@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Terminal, X, CornerDownLeft } from 'lucide-react';
+import { useModalLayer } from '../hooks/useModalLayer';
+import { Terminal, X, CornerDownLeft } from './ui/RealmIcons';
 import { BUILDER_PROFILE, MISSIONS, BOSS_BATTLES, SKILLS } from '../data/portfolioData';
 import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
 
@@ -28,27 +29,18 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
     }
   ]);
 
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  useModalLayer(isOpen, modalRef);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (isOpen) inputRef.current?.focus({ preventScroll: true });
   }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '`' || e.key === '~') {
-        e.preventDefault();
-        if (isOpen) {
-          onClose();
-        }
-      } else if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape' && isOpen) {
         onClose();
       }
     };
@@ -57,8 +49,9 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [history]);
+    const scroll = scrollRef.current;
+    if (isOpen && scroll) scroll.scrollTop = scroll.scrollHeight;
+  }, [history, isOpen]);
 
   if (!isOpen) return null;
 
@@ -67,7 +60,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
     const cmd = inputVal.trim().toLowerCase();
     if (!cmd) return;
 
-    playCyberSound('terminal');
+    playCyberSound('CARD_CLICK');
 
     let outputNode: React.ReactNode = null;
 
@@ -183,7 +176,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
+    <div ref={modalRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label="CLI Terminal" className="fixed inset-0 z-[1000] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
       <div className="w-full max-w-7xl h-[88vh] max-h-[88vh] flex flex-col rounded-2xl border border-[#FF8F00]/50 bg-[#090503] shadow-[0_0_60px_rgba(0,0,0,0.95),0_0_30px_rgba(255,143,0,0.25)] overflow-hidden relative">
         
         {/* Header Controls */}
@@ -203,7 +196,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
               ONLINE
             </span>
             <button
-              {...getUniversalAudioProps('closeModal', 'hover', onClose)}
+              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', onClose)}
               aria-label="Close terminal window"
               className="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
             >
@@ -213,7 +206,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
         </div>
 
         {/* Terminal Console Output Area */}
-        <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 font-mono text-xs sm:text-sm custom-scrollbar">
+        <div ref={scrollRef} className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 font-mono text-xs sm:text-sm custom-scrollbar">
           {history.map((item, idx) => (
             <div key={idx} className="space-y-2">
               <div className="flex items-center gap-2 text-gray-400">
@@ -223,7 +216,6 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
               <div className="pl-4">{item.output}</div>
             </div>
           ))}
-          <div ref={bottomRef} />
         </div>
 
         {/* Input Prompt Footer */}
@@ -239,7 +231,7 @@ export const InteractiveTerminalModal: React.FC<InteractiveTerminalModalProps> =
           />
           <button
             type="submit"
-            {...getUniversalAudioProps('terminal', 'hover')}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
             className="p-1.5 rounded-lg bg-[#FF8F00]/20 border border-[#FF8F00]/40 text-[#FF8F00] hover:bg-[#FF8F00]/30 transition-colors cursor-pointer shrink-0"
           >
             <CornerDownLeft className="w-4 h-4" />

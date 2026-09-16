@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useIconMotion } from './hooks/useIconMotion';
+import './components/vault/realm-experience.css';
+import './components/portfolio-polish.css';
 import { HUDHeader } from './components/HUDHeader';
 import { BackgroundCanvas } from './components/BackgroundCanvas';
 import { LandingHero } from './components/LandingHero';
@@ -12,10 +15,11 @@ import { QuestLogSection } from './components/QuestLogSection';
 import { ContactSection } from './components/ContactSection';
 import { InteractiveTerminalModal } from './components/InteractiveTerminalModal';
 import { PROFILE } from './data/profile';
-import { Sparkles, Terminal, ArrowUp } from 'lucide-react';
+import { Sparkles, Terminal, ArrowUp } from './components/ui/RealmIcons';
 import { getUniversalAudioProps, playCyberSound } from './utils/soundEffects';
 
 export function App() {
+  useIconMotion();
   const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('profile');
   const [inventoryTab, setInventoryTab] = useState<'abilities' | 'inventory'>('abilities');
@@ -23,9 +27,11 @@ export function App() {
   // CLI ~ key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.repeat || document.getElementById('root')?.inert ||
+        (e.target instanceof HTMLElement && e.target.closest('input, textarea, select, [contenteditable="true"]'))) return;
       if (e.key === '`' || e.key === '~') {
         e.preventDefault();
-        playCyberSound('openModal');
+        playCyberSound('CARD_CLICK');
         setIsTerminalOpen((prev) => !prev);
       }
     };
@@ -64,7 +70,7 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#070B14] text-white selection:bg-[#443199] selection:text-white font-sans">
+    <div className="realm-polish relative min-h-screen bg-[#070B14] text-white selection:bg-[#443199] selection:text-white font-sans">
       {/* Subtle CRT scanline overlay effect */}
       <div className="scanlines" />
 
@@ -136,7 +142,7 @@ export function App() {
             </span>
             <span>|</span>
             <button
-              {...getUniversalAudioProps('openModal', 'hover', () => setIsTerminalOpen(true))}
+              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setIsTerminalOpen(true))}
               className="text-[#FF8F00] hover:underline flex items-center gap-1 cursor-pointer font-bold"
             >
               <Terminal className="w-3.5 h-3.5" />
@@ -144,7 +150,7 @@ export function App() {
             </button>
             <span>|</span>
             <button
-              {...getUniversalAudioProps('click', 'hover', () => window.scrollTo({ top: 0, behavior: 'smooth' }))}
+              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => window.scrollTo({ top: 0, behavior: 'smooth' }))}
               className="text-[#FF8F00] hover:underline flex items-center gap-1 cursor-pointer font-bold"
             >
               <span>TOP</span>

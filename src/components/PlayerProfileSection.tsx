@@ -2,11 +2,12 @@ import React from 'react';
 import {
   Target, MessageSquare, Sparkles, GitBranch, Crown,
   Crosshair, Search, Layers, Zap, ShieldCheck, Rocket, HeartHandshake, Bot, TrendingUp
-} from 'lucide-react';
+} from './ui/RealmIcons';
 import { BUILDER_PROFILE, DEV_PROCESS, CLIENT_REASONS, BUSINESS_HELP_ITEMS } from '../data/profile';
 import type { ProcessStage, ClientCard } from '../data/profile';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
+import { IntelDisclosure } from './ui/IntelDisclosure';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
@@ -26,6 +27,10 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
 };
 
 const resolveIcon = (name: string) => iconMap[name] ?? Target;
+const businessIcons: Record<string, React.FC<{ className?: string }>> = {
+  dashboard: TrendingUp, automate: Zap, 'ai-workflow': Bot,
+  'internal-app': Layers, reports: GitBranch, 'saas-mvp': Rocket,
+};
 
 /* ── Dev Process Stage Node ───────────────────────────────── */
 const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }> = ({ stage, index, total }) => {
@@ -34,7 +39,7 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
 
   return (
     <div
-      {...getUniversalAudioProps('click', 'hover')}
+      {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
       className="relative flex items-start gap-4 group cursor-pointer"
     >
       {/* Vertical connector line */}
@@ -69,7 +74,7 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
 
   return (
     <div
-      {...getUniversalAudioProps('click', 'hover')}
+      {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
       className="p-5 rounded-2xl bg-[#000000]/75 border border-white/10 hover:border-[#D90000]/60 hover:shadow-[0_8px_20px_rgba(217,0,0,0.18)] transition-all duration-200 group cursor-default"
     >
       <div className="flex items-start gap-3.5">
@@ -86,9 +91,9 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
               {card.title}
             </h4>
           </div>
-          <p className="text-xs text-gray-300 leading-relaxed font-sans">
+          <IntelDisclosure label="Read intel">
             {card.description}
-          </p>
+          </IntelDisclosure>
         </div>
       </div>
     </div>
@@ -112,7 +117,7 @@ export const PlayerProfileSection: React.FC = () => {
           HOW I <span className="text-[#FF8F00]">BUILD SOFTWARE</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Structured process, business-first thinking, and AI-accelerated delivery — from discovery to production.
+          From discovery to deployment. A clear path through every quest.
         </p>
       </div>
 
@@ -183,14 +188,15 @@ export const PlayerProfileSection: React.FC = () => {
               {BUSINESS_HELP_ITEMS.map((item) => (
                 <div
                   key={item.id}
-                  {...getUniversalAudioProps('click', 'hover', () => {
+                  {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => {
                     const targetId = item.id === 'saas-mvp' || item.id === 'automate' ? 'contact' : 'missions';
                     const el = document.getElementById(targetId);
                     el?.scrollIntoView({ behavior: 'smooth' });
                   })}
-                  className="p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex items-start gap-3 cursor-pointer"
+                  role="button" tabIndex={0}
+                  className="realm-business-tile p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex flex-col items-start justify-center gap-3 cursor-pointer"
                 >
-                  <span className="font-bold text-[#FF8F00] text-sm shrink-0 mt-0.5 select-none">✓</span>
+                  {React.createElement(businessIcons[item.id] ?? Target, { className: 'w-8 h-8 text-[#FF8F00] shrink-0' })}
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-mono font-medium text-slate-200 group-hover:text-white transition-colors">
                       {item.question}
@@ -204,8 +210,9 @@ export const PlayerProfileSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Why Clients Choose Me Card */}
-          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)] group">
+        </div>
+          {/* Full-width perks prevent a long right column and empty space on the left. */}
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)] group lg:col-span-12">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">
                 <ShieldCheck className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -216,12 +223,13 @@ export const PlayerProfileSection: React.FC = () => {
               </div>
             </div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* How I Work Group */}
-            <div className="mb-6">
+            <div>
               <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
                 <span>HOW I WORK</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {['business-first', 'structured-process', 'ai-accelerated', 'transparent-comms']
                   .map(id => CLIENT_REASONS.find(c => c.id === id))
                   .filter((card): card is NonNullable<typeof card> => Boolean(card))
@@ -236,7 +244,7 @@ export const PlayerProfileSection: React.FC = () => {
               <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
                 <span>WHAT YOU GET</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {['production-ready', 'clean-ux', 'long-term', 'full-ownership']
                   .map(id => CLIENT_REASONS.find(c => c.id === id))
                   .filter((card): card is NonNullable<typeof card> => Boolean(card))

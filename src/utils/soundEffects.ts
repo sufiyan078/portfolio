@@ -15,8 +15,8 @@ export const isSoundEnabled = (): boolean => {
 };
 
 export const getUniversalAudioProps = (
-  clickEffect: SoundEffectType = 'click',
-  hoverEffect: SoundEffectType = 'hover',
+  clickEffect: SoundEffectType = 'CARD_CLICK',
+  hoverEffect: SoundEffectType = 'CARD_HOVER',
   onClickCallback?: (e: React.MouseEvent | React.KeyboardEvent | React.PointerEvent) => void
 ) => {
   return soundManager.getUniversalAudioProps(clickEffect, hoverEffect, onClickCallback);

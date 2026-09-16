@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BOSS_BATTLES, type BossBattle } from '../data/bossBattles';
-import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award, Swords } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, ChevronDown, ChevronUp, Bug, Activity, Award, Swords } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
@@ -64,7 +64,7 @@ export const BossBattlesSection: React.FC = () => {
           ENGINEERING <span className="text-[#FF8F00]">BOSS BATTLES</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Signature engineering problem-solving stories: Problem Context → Investigation → Technical Solution → Outcome.
+          Real production problems. Open a battle to see how it was solved.
         </p>
       </div>
 
@@ -85,19 +85,19 @@ export const BossBattlesSection: React.FC = () => {
             >
               {/* Header Banner */}
               <div
-                {...getUniversalAudioProps('click', 'hover', () => toggleBattle(battle.id))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => toggleBattle(battle.id))}
                 className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 select-none"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-start sm:flex-row sm:items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000] shrink-0">
                     <Bug className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="badge-tag badge-epic text-[10px]">
                         THREAT LEVEL: {battle.threatLevel}
                       </span>
-                      <span className="font-mono text-xs text-gray-400">| {battle.category}</span>
+                      <span className="font-sans text-xs text-gray-400">{battle.category}</span>
                     </div>
                     <h3 className="font-heading font-bold text-lg sm:text-xl text-white hover:text-[#D90000] transition-colors">
                       {battle.bossName}: <span className="text-gray-300 font-normal">{battle.title}</span>
@@ -105,7 +105,7 @@ export const BossBattlesSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 self-end sm:self-auto">
                   <button
                     aria-label={isExpanded ? 'Collapse case study details' : 'Expand case study details'}
                     className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white shrink-0 focus:outline-none cursor-pointer"
@@ -130,7 +130,7 @@ export const BossBattlesSection: React.FC = () => {
                       return (
                         <button
                           key={t.id}
-                          {...getUniversalAudioProps('click', 'hover', () => setTab(battle.id, t.id as BattleTab))}
+                          {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setTab(battle.id, t.id as BattleTab))}
                           className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                             isActive
                               ? 'bg-[#D90000]/25 text-[#FF4500] border border-[#D90000]/70 shadow-[0_0_12px_rgba(217,0,0,0.35)]'

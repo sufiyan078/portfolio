@@ -1,7 +1,14 @@
 import React from 'react';
 import { ENGINEERING_PRINCIPLES } from '../data/principles';
-import { Wrench, Layers, Target, Compass, CheckCircle2, Cog } from 'lucide-react';
+import { Wrench, Layers, Target, Compass, CheckCircle2, Cog } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
+import { IntelDisclosure } from './ui/IntelDisclosure';
+
+const principlePaths = [
+  ['READ', 'TEST', 'EXTEND'], ['REPEAT', 'AUTOMATE', 'RECLAIM'],
+  ['SOURCE', 'VALIDATE', 'TRUST'], ['INGEST', 'PROCESS', 'PRESENT'],
+  ['PROBLEM', 'BUILD', 'IMPACT'],
+];
 
 export const EngineeringPrinciplesSection: React.FC = () => {
   const getIcon = (iconName: string) => {
@@ -27,12 +34,12 @@ export const EngineeringPrinciplesSection: React.FC = () => {
           ENGINEERING <span className="text-[#FF8F00]">APPROACH</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Core principles guiding software architecture, data integrity, and business value delivery.
+          Five rules. Built into every system.
         </p>
       </div>
 
       {/* 5 Approach Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
         {ENGINEERING_PRINCIPLES.map((principle, index) => {
           const IconComp = getIcon(principle.icon);
           const isFullWidthRow = index === 3 || index === 4;
@@ -40,9 +47,9 @@ export const EngineeringPrinciplesSection: React.FC = () => {
           return (
             <div
               key={principle.id}
-              {...getUniversalAudioProps('click', 'hover')}
+              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
               className={`h-full glass-panel p-6 sm:p-7 flex flex-col justify-between group hover:border-[#FF8F00]/60 hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(255,143,0,0.15)] transition-all duration-200 cursor-pointer ${
-                isFullWidthRow && index === 4 ? 'md:col-span-2 lg:col-span-1' : ''
+                isFullWidthRow ? 'lg:col-span-3' : 'lg:col-span-2'
               }`}
             >
               <div>
@@ -67,9 +74,12 @@ export const EngineeringPrinciplesSection: React.FC = () => {
                 </div>
 
                 {/* 2-3 Sentence Engineering Approach Statement */}
-                <p className="text-xs sm:text-sm text-gray-300 font-sans leading-relaxed">
+                <ol className="realm-rule-path" aria-label={`${principle.title} workflow`}>
+                  {principlePaths[index].map(step => <li key={step}>{step}</li>)}
+                </ol>
+                <IntelDisclosure label="Inspect principle">
                   {principle.statement}
-                </p>
+                </IntelDisclosure>
               </div>
 
               {/* Bottom Decorative Footer Line */}

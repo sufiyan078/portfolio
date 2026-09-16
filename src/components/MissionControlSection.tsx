@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { PROJECTS, type Project } from '../data/projects';
-import { Target, CheckCircle2, ChevronRight, ChevronLeft, Layers, FileCode2, ExternalLink, X, Send, Cpu, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Target, CheckCircle2, ChevronRight, ChevronLeft, Layers, FileCode2, ExternalLink, X, Send, Cpu, ShieldCheck, ArrowRight } from './ui/RealmIcons';
 import { getUniversalAudioProps, playCyberSound } from '../utils/soundEffects';
 import { ArchitectureDiagram } from './ui/ArchitectureDiagram';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
 import { DimensionalWarpCanvas } from './DimensionalWarpCanvas';
 import { animate } from 'animejs';
+import { useModalLayer } from '../hooks/useModalLayer';
+import { PortalGate } from './ui/PortalGate';
+import { soundManager } from '../utils/soundManager';
+import { DimensionAtmosphere } from './vault/DimensionAtmosphere';
 
 const getMissionMetaCards = (project: Project) => {
   const cards: { label: string; value: string }[] = [];
@@ -44,10 +48,7 @@ const MetaChipCard: React.FC<{ label: string; value: string }> = ({ label, value
         text={label}
         className="font-mono text-[10px] text-gray-400 uppercase tracking-wider"
       />
-      <HoverMarqueeText
-        text={value}
-        className="font-mono text-xs font-bold text-[#FF8F00] hover:text-amber-300 transition-colors"
-      />
+      <span className="font-sans text-sm leading-snug font-bold text-[#FF8F00] break-words">{value}</span>
     </div>
   );
 };
@@ -56,10 +57,7 @@ const MissionMetricBox: React.FC<{ number: string; caption: string }> = ({ numbe
   return (
     <div className="flex flex-col min-w-0">
       <span className="font-mono text-base font-extrabold text-[#FF8F00]">{number}</span>
-      <HoverMarqueeText
-        text={caption}
-        className="font-mono text-[9px] text-gray-300 uppercase tracking-tight hover:text-white transition-colors"
-      />
+      <span className="font-sans text-xs leading-snug text-gray-300">{caption}</span>
     </div>
   );
 };
@@ -118,10 +116,28 @@ export const MissionControlSection: React.FC = () => {
   const [activeModalTab, setActiveModalTab] = useState<ModalTab>('overview');
   const [activeMissionIndex, setActiveMissionIndex] = useState(0);
   const cardElementsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const warpTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const entrancePortalRef = useRef<HTMLDivElement>(null);
   const exitPortalRef = useRef<HTMLButtonElement>(null);
   const previousScrollYRef = useRef(0);
+  const vaultRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<ReturnType<typeof animate> | null>(null);
+  const contactPendingRef = useRef(false);
+  const hasEnteredRef = useRef(false);
+  const swipeRef = useRef<{ id: number; x: number; y: number } | null>(null);
+  const suppressClickUntil = useRef(0);
+  const vaultOpen = transitionState !== 'PORTFOLIO';
+  useEffect(() => { soundManager.setScene(transitionState); }, [transitionState]);
+  useEffect(() => () => soundManager.setScene('PORTFOLIO'), []);
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (!root) return;
+    const original = root.style.visibility;
+    if (transitionState === 'ENTER_WARP' || transitionState === 'DARK_DIMENSION' || transitionState === 'EXIT_PORTAL') root.style.visibility = 'hidden';
+    return () => { root.style.visibility = original; };
+  }, [transitionState]);
+  useModalLayer(vaultOpen, vaultRef);
+  useModalLayer(!!selectedProject, modalRef);
   const [warpOrigin, setWarpOrigin] = useState<{ x: number; y: number; size: number }>({
     x: 0,
     y: 0,
@@ -130,36 +146,50 @@ export const MissionControlSection: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      if (warpTimeoutRef.current) clearTimeout(warpTimeoutRef.current);
+      tweenRef.current?.cancel();
     };
   }, []);
 
-  // Lock body & html scroll whenever dimensional transition or Dark Dimension is active
+  // Restore scroll only after the portal's scroll lock has been released.
   useEffect(() => {
-    if (transitionState !== 'PORTFOLIO') {
-      const originalBodyOverflow = document.body.style.overflow;
-      const originalHtmlOverflow = document.documentElement.style.overflow;
-      document.body.classList.add('dark-dimension-active');
-      document.documentElement.classList.add('dark-dimension-active');
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-      return () => {
-        document.body.classList.remove('dark-dimension-active');
-        document.documentElement.classList.remove('dark-dimension-active');
-        document.body.style.overflow = originalBodyOverflow;
-        document.documentElement.style.overflow = originalHtmlOverflow;
-      };
-    } else {
-      document.body.classList.remove('dark-dimension-active');
-      document.documentElement.classList.remove('dark-dimension-active');
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+    if (!vaultOpen && contactPendingRef.current) {
+      contactPendingRef.current = false;
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (!vaultOpen && hasEnteredRef.current) {
+      window.scrollTo({ top: previousScrollYRef.current, behavior: 'instant' });
     }
+  }, [vaultOpen]);
+
+  useEffect(() => {
+    if (transitionState !== 'ENTER_WARP' && transitionState !== 'EXIT_WARP') return;
+    const timer = setTimeout(() => setTransitionState(transitionState === 'ENTER_WARP' ? 'DARK_DIMENSION' : 'PORTFOLIO'), 4000);
+    return () => clearTimeout(timer);
   }, [transitionState]);
+
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (!root || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (transitionState !== 'ENTER_PORTAL' && transitionState !== 'EXIT_WARP') return;
+    const originalOrigin = root.style.transformOrigin;
+    root.style.transformOrigin = `${warpOrigin.x}px ${previousScrollYRef.current + warpOrigin.y}px`;
+    const departure = transitionState === 'ENTER_PORTAL';
+    const motion = root.animate(departure ? [
+      { transform: 'scale(1)', filter: 'blur(0px)' },
+      { transform: 'scale(1.06)', filter: 'blur(0px)', offset: 0.45 },
+      { transform: 'scale(1.7)', filter: 'blur(5px)' },
+    ] : [
+      { transform: 'scale(1.25)', filter: 'blur(4px)' },
+      { transform: 'scale(1.12)', filter: 'blur(2px)', offset: 0.65 },
+      { transform: 'scale(1)', filter: 'blur(0px)' },
+    ], { duration: departure ? 1020 : 1716, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+    return () => { motion.cancel(); root.style.transformOrigin = originalOrigin; };
+  }, [transitionState, warpOrigin]);
 
   const handleEnterVault = () => {
     // Guard against re-entrant clicks
     if (transitionState !== 'PORTFOLIO') return;
+    previousScrollYRef.current = window.scrollY;
+    hasEnteredRef.current = true;
 
     // Respect user's prefers-reduced-motion setting
     const prefersReducedMotion =
@@ -190,15 +220,8 @@ export const MissionControlSection: React.FC = () => {
       });
     }
 
-    playCyberSound('openModal');
-    // Step 1: Portal activates and expands from origin to swallow camera (~650ms)
+    // The canvas owns the timing of opening, crossing and arrival.
     setTransitionState('ENTER_PORTAL');
-
-    if (warpTimeoutRef.current) clearTimeout(warpTimeoutRef.current);
-    warpTimeoutRef.current = setTimeout(() => {
-      // Step 2: Handoff into Three.js WebGL fullscreen warp traversal
-      setTransitionState('ENTER_WARP');
-    }, 650);
   };
 
   const handleEnterWarpComplete = useCallback(() => {
@@ -216,29 +239,17 @@ export const MissionControlSection: React.FC = () => {
 
     if (prefersReducedMotion) {
       setTransitionState('PORTFOLIO');
-      if (typeof window !== 'undefined') {
-        window.scrollTo(0, previousScrollYRef.current);
-      }
       return;
     }
 
-    playCyberSound('closeModal');
-    // Step 1: Dark Dimension collapses into the exit warp gate (~350ms)
+    const exit = exitPortalRef.current?.querySelector('[data-gate-state]')?.getBoundingClientRect();
+    if (exit) setWarpOrigin({ x: exit.left + exit.width / 2, y: exit.top + exit.height / 2, size: exit.width });
     setTransitionState('EXIT_PORTAL');
-
-    if (warpTimeoutRef.current) clearTimeout(warpTimeoutRef.current);
-    warpTimeoutRef.current = setTimeout(() => {
-      // Step 2: Reverse dimensional traversal and explosive ejection burst
-      setTransitionState('EXIT_WARP');
-    }, 350);
   }, [transitionState]);
 
   const handleExitWarpComplete = useCallback(() => {
     // Step 3: Return cleanly to the portfolio world and restore previous scroll
     setTransitionState('PORTFOLIO');
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, previousScrollYRef.current);
-    }
   }, []);
 
   // Anime.js Function-Based Tween Animation
@@ -252,7 +263,8 @@ export const MissionControlSection: React.FC = () => {
     const isMobile = screenW < 640;
     const isTablet = screenW < 1024;
 
-    animate(elements, {
+    tweenRef.current?.cancel();
+    tweenRef.current = animate(elements, {
       x: (_target, rawIndex) => {
         const index = rawIndex ?? 0;
         const diff = index - targetIdx;
@@ -292,10 +304,12 @@ export const MissionControlSection: React.FC = () => {
         return diff === 1 ? 0.75 : 0.55;
       },
       duration: (_target, rawIndex) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0;
         const index = rawIndex ?? 0;
         return 950 + Math.abs(index - targetIdx) * 160;
       },
       delay: (_target, rawIndex) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 0;
         const index = rawIndex ?? 0;
         return Math.abs(index - targetIdx) * 75;
       },
@@ -306,13 +320,13 @@ export const MissionControlSection: React.FC = () => {
 
   // Trigger initial function-based tween upon entering the Dark Dimension
   useEffect(() => {
-    if (transitionState === 'DARK_DIMENSION') {
+    if (transitionState === 'DARK_DIMENSION' || transitionState === 'ENTER_WARP') {
       const timer = setTimeout(() => {
         runFunctionBasedTween(activeMissionIndex);
       }, 70);
       return () => clearTimeout(timer);
     }
-  }, [transitionState]);
+  }, [transitionState, activeMissionIndex]);
 
   // Recalculate function-based tween transforms on window resize
   useEffect(() => {
@@ -327,20 +341,21 @@ export const MissionControlSection: React.FC = () => {
   // Keyboard navigation for Missions Archive: Left / Right arrows + ESC to exit/close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLElement && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
       if (e.key === 'Escape') {
         if (selectedProject) {
           setSelectedProject(null);
-        } else if (transitionState === 'DARK_DIMENSION') {
-          handleExitDimension();
         }
       } else if (transitionState === 'DARK_DIMENSION' && !selectedProject) {
         if (e.key === 'ArrowLeft') {
+          e.preventDefault();
           const prevIdx = (activeMissionIndex - 1 + PROJECTS.length) % PROJECTS.length;
-          playCyberSound('hover');
+          playCyberSound('CARD_CLICK');
           runFunctionBasedTween(prevIdx);
         } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
           const nextIdx = (activeMissionIndex + 1) % PROJECTS.length;
-          playCyberSound('hover');
+          playCyberSound('CARD_CLICK');
           runFunctionBasedTween(nextIdx);
         }
       }
@@ -350,13 +365,10 @@ export const MissionControlSection: React.FC = () => {
   }, [selectedProject, transitionState, activeMissionIndex, handleExitDimension]);
 
   const handleInquireClick = () => {
+    contactPendingRef.current = true;
     setSelectedProject(null);
-    const contactEl = document.getElementById('contact');
-    if (contactEl) {
-      setTimeout(() => {
-        contactEl.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
+    // Preserve inquiry navigation, but always return through the physical exit gate.
+    handleExitDimension();
   };
 
   return (
@@ -425,45 +437,7 @@ export const MissionControlSection: React.FC = () => {
                   ref={entrancePortalRef}
                   className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[360px] lg:h-[360px] flex items-center justify-center transition-all duration-300 group-hover/portal:scale-[1.04] group-hover/portal:brightness-110"
                 >
-                  {/* Ambient Outer Aura Glow */}
-                  <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-[#38BDF8]/40 via-[#9333EA]/30 to-[#FF8F00]/25 blur-3xl pointer-events-none transition-all duration-500 opacity-75 group-hover/portal:opacity-100 group-hover/portal:blur-[40px] animate-pulse" />
-
-                  {/* Rotating Celestial Electric Blue Spiral Vortex */}
-                  <div
-                    className="absolute pointer-events-none z-10"
-                    style={{
-                      top: '37.6%',
-                      left: '50.0%',
-                      width: '51%',
-                      height: '51%',
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  >
-                    <img
-                      src="/warp-vortex-celestial.png"
-                      alt=""
-                      className="w-full h-full object-contain pointer-events-none select-none animate-warp-gate-spiral group-hover/portal:animate-warp-spiral-fast mix-blend-screen opacity-95 group-hover/portal:opacity-100 drop-shadow-[0_0_20px_rgba(56,189,248,0.9)]"
-                    />
-                  </div>
-
-                  {/* Pulsing Central Energy Core Sparkle */}
-                  <div
-                    className="absolute pointer-events-none z-10 rounded-full bg-cyan-300/40 blur-lg animate-pulse"
-                    style={{
-                      top: '37.6%',
-                      left: '50.0%',
-                      width: '32%',
-                      height: '32%',
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  />
-
-                  {/* Isolated Celestial Warp Gate (Front View, Transparent Background) */}
-                  <img
-                    src="/warp-gate-celestial-frame.png"
-                    alt="Celestial Mission Vault Warp Gate"
-                    className="w-full h-full object-contain relative z-20 pointer-events-none select-none filter drop-shadow-[0_0_30px_rgba(56,189,248,0.5)] group-hover/portal:drop-shadow-[0_0_45px_rgba(56,189,248,0.8)] transition-all duration-300"
-                  />
+                  <PortalGate active={transitionState === 'PORTFOLIO'} />
                 </div>
               </div>
 
@@ -493,84 +467,29 @@ export const MissionControlSection: React.FC = () => {
       {transitionState !== 'PORTFOLIO' && typeof document !== 'undefined' && createPortal(
         <div
           className="fixed inset-0 w-screen h-screen select-none overflow-hidden"
-          style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 999999, overflow: 'hidden' }}
+          ref={vaultRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Mission Vault"
+          data-vault-state={transitionState}
+          style={{ position: 'fixed', inset: 0, width: '100%', height: '100dvh', zIndex: 1000, overflow: 'hidden' }}
         >
-          {/* STAGE 1: PORTAL ACTIVATION & REAL-ORIGIN EXPANSION BREAKOUT */}
-          {transitionState === 'ENTER_PORTAL' && (
-            <div
-              className="relative w-full h-full overflow-hidden"
-              role="status"
-              aria-live="polite"
-              aria-label="Dimensional portal activating and expanding"
-            >
-              {/* Swallowing backdrop */}
-              <div className="absolute inset-0 animate-warp-backdrop-fast-swallow pointer-events-none" />
-
-              {/* Expanding Portal Surge originating exactly from real gate DOM location */}
-              <div
-                className="absolute pointer-events-none animate-warp-portal-fast-burst"
-                style={{
-                  left: `${warpOrigin.x}px`,
-                  top: `${warpOrigin.y}px`,
-                  width: `${warpOrigin.size}px`,
-                  height: `${warpOrigin.size}px`,
-                }}
-              >
-                {/* Hyper-energized Aura */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#FF8F00] via-[#FBBF24] to-[#38BDF8] blur-2xl opacity-90 animate-ping" />
-
-                {/* Rotating celestial vortex */}
-                <div
-                  className="absolute pointer-events-none z-10"
-                  style={{
-                    top: '37.6%',
-                    left: '50.0%',
-                    width: '51%',
-                    height: '51%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <img
-                    src="/warp-vortex-celestial.png"
-                    alt=""
-                    className="w-full h-full object-contain animate-warp-spiral-fast mix-blend-screen drop-shadow-[0_0_40px_rgba(255,143,0,1)]"
-                  />
-                </div>
-
-                {/* Central Sparkling Energy Core */}
-                <div
-                  className="absolute pointer-events-none z-10 rounded-full bg-amber-200/80 blur-md animate-pulse"
-                  style={{
-                    top: '37.6%',
-                    left: '50.0%',
-                    width: '36%',
-                    height: '36%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
-
-                {/* Celestial Warp Gate Frame */}
-                <img
-                  src="/warp-gate-celestial-frame.png"
-                  alt=""
-                  className="w-full h-full object-contain relative z-20 filter drop-shadow-[0_0_55px_rgba(255,143,0,0.9)]"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* STAGE 2: THREE.JS FULLSCREEN DIMENSIONAL WARP TRAVERSAL */}
-          {transitionState === 'ENTER_WARP' && (
-            <DimensionalWarpCanvas mode="enter" onComplete={handleEnterWarpComplete} />
+          {/* A continuous canvas survives the opening-to-traversal state change. */}
+          {(transitionState === 'ENTER_PORTAL' || transitionState === 'ENTER_WARP' ||
+            transitionState === 'EXIT_PORTAL' || transitionState === 'EXIT_WARP') && (
+            <DimensionalWarpCanvas
+              mode={transitionState.startsWith('ENTER') ? 'enter' : 'exit'}
+              origin={warpOrigin}
+              onTraverse={() => setTransitionState(current => current === 'ENTER_PORTAL' ? 'ENTER_WARP' : current === 'EXIT_PORTAL' ? 'EXIT_WARP' : current)}
+              onComplete={transitionState.startsWith('ENTER') ? handleEnterWarpComplete : handleExitWarpComplete}
+            />
           )}
 
           {/* STAGE 3: FULLSCREEN DARK DIMENSION (Active in DARK_DIMENSION or collapsing in EXIT_PORTAL) */}
-          {(transitionState === 'DARK_DIMENSION' || transitionState === 'EXIT_PORTAL') && (
+          {(transitionState === 'DARK_DIMENSION' || transitionState === 'ENTER_WARP' || transitionState === 'EXIT_PORTAL') && (
             <div
+              inert={transitionState !== 'DARK_DIMENSION'}
               className={`w-full h-full overflow-hidden flex flex-col justify-between bg-[#030712] text-white select-none p-3 sm:p-4 lg:p-6 relative ${
-                transitionState === 'EXIT_PORTAL' ? 'animate-dimension-collapse-to-exit' : 'animate-dimension-enter'
+                transitionState === 'EXIT_PORTAL' ? 'realm-vault-suction' : 'animate-dimension-enter'
               }`}
-              style={{ overflow: 'hidden' }}
+              style={{ overflow: 'hidden', transformOrigin: `${warpOrigin.x}px ${warpOrigin.y}px` }}
             >
               {/* Ancient Sanctuary / Dungeon Ruin Atmospheric Background */}
               <div
@@ -581,6 +500,7 @@ export const MissionControlSection: React.FC = () => {
               />
 
               {/* Atmospheric Depth Vignette & Moonlit Contrast Overlay */}
+              <DimensionAtmosphere />
               <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/15 to-black/85 pointer-events-none z-0" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,rgba(0,0,0,0.65)_100%)] pointer-events-none z-0" />
 
@@ -610,31 +530,7 @@ export const MissionControlSection: React.FC = () => {
                   aria-label="Exit the Dark Dimension through warp gate"
                   title="Exit the Dark Dimension through warp gate"
                 >
-                  {/* Interactive Ancient Portal Graphic */}
-                  <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#FF8F00]/60 to-[#FBBF24]/50 blur-md group-hover/exit-portal:blur-lg group-hover/exit-portal:opacity-100 transition-all opacity-75 animate-pulse" />
-                    <div
-                      className="absolute pointer-events-none z-10"
-                      style={{
-                        top: '37.6%',
-                        left: '50.0%',
-                        width: '46%',
-                        height: '46%',
-                        transform: 'translate(-50%, -50%)',
-                      }}
-                    >
-                      <img
-                        src="/warp-vortex-celestial.png"
-                        alt=""
-                        className="w-full h-full object-contain animate-warp-gate-spiral group-hover/exit-portal:animate-warp-spiral-fast mix-blend-screen"
-                      />
-                    </div>
-                    <img
-                      src="/warp-gate-celestial-frame.png"
-                      alt=""
-                      className="w-full h-full object-contain relative z-20 filter drop-shadow-[0_0_15px_rgba(255,143,0,0.8)] group-hover/exit-portal:scale-105 transition-transform"
-                    />
-                  </div>
+                  <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0"><PortalGate compact active={transitionState === 'DARK_DIMENSION'} /></div>
                   {/* Label */}
                   <div className="flex flex-col text-left">
                     <span className="font-mono text-[9px] text-[#FF8F00] uppercase tracking-widest leading-none font-bold">
@@ -659,7 +555,7 @@ export const MissionControlSection: React.FC = () => {
                         key={currentProj.id}
                         type="button"
                         onClick={() => {
-                          playCyberSound('hover');
+                          playCyberSound('CARD_CLICK');
                           runFunctionBasedTween((activeMissionIndex + 1) % PROJECTS.length);
                         }}
                         className="px-4 py-1.5 rounded-xl font-mono text-xs sm:text-sm font-bold transition-all flex items-center gap-2 border bg-[#FF8F00]/25 border-[#FF8F00] text-white shadow-[0_0_20px_rgba(255,143,0,0.45)] hover:bg-[#FF8F00]/35 hover:shadow-[0_0_30px_rgba(255,143,0,0.65)] cursor-pointer backdrop-blur-md"
@@ -677,19 +573,41 @@ export const MissionControlSection: React.FC = () => {
               </div>
 
               {/* Central Anime.js Function-Based Tween Stage */}
-              <div className="relative z-20 w-full flex-1 flex flex-col items-center justify-center my-auto min-h-0">
-                <div className="relative w-full max-w-6xl h-[510px] sm:h-[530px] md:h-[550px] max-h-[72vh] flex items-center justify-center [perspective:1200px]">
+              <div className="relative z-20 w-full flex-1 flex flex-col items-center min-h-0 overflow-y-auto overflow-x-hidden py-4"
+                style={{ touchAction: 'pan-y' }}
+                onPointerDown={e => {
+                  if (!e.isPrimary || e.button !== 0 || (e.target as Element).closest('button,a')) return;
+                  swipeRef.current = { id: e.pointerId, x: e.clientX, y: e.clientY };
+                  e.currentTarget.setPointerCapture(e.pointerId);
+                }}
+                onPointerCancel={() => { swipeRef.current = null; }}
+                onLostPointerCapture={() => { swipeRef.current = null; }}
+                onPointerUp={e => {
+                  const start = swipeRef.current; swipeRef.current = null;
+                  if (!start || start.id !== e.pointerId) return;
+                  const dx = e.clientX - start.x, dy = e.clientY - start.y;
+                  if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+                  suppressClickUntil.current = performance.now() + 300;
+                  playCyberSound('CARD_CLICK');
+                  runFunctionBasedTween((activeMissionIndex + (dx < 0 ? 1 : PROJECTS.length - 1)) % PROJECTS.length);
+                }}
+                onClickCapture={e => {
+                  if (performance.now() < suppressClickUntil.current) { e.preventDefault(); e.stopPropagation(); }
+                }}
+              >
+                <div className="relative w-full max-w-6xl h-[550px] shrink-0 flex items-center justify-center [perspective:1200px]">
                   {PROJECTS.map((project, index) => {
                     const isCurrent = index === activeMissionIndex;
                     return (
                       <div
                         key={project.id}
+                        onPointerEnter={e => { if (e.pointerType === 'mouse') playCyberSound('CARD_HOVER'); }}
                         ref={(el) => {
                           cardElementsRef.current[index] = el;
                         }}
                         onClick={() => {
                           if (!isCurrent) {
-                            playCyberSound('hover');
+                            playCyberSound('CARD_CLICK');
                             runFunctionBasedTween(index);
                           }
                         }}
@@ -777,9 +695,11 @@ export const MissionControlSection: React.FC = () => {
                             {/* View Mission Details Action Button */}
                             <button
                               type="button"
-                              {...getUniversalAudioProps('openModal', 'hover', (e) => {
+                              tabIndex={isCurrent ? 0 : -1}
+                              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', (e) => {
                                 e.stopPropagation();
                                 setSelectedProject(project);
+                                setActiveModalTab('overview');
                               })}
                               className="relative z-20 w-full mt-1.5 py-2.5 rounded-xl bg-[#FF8F00]/20 border border-[#FF8F00]/60 hover:bg-[#FF8F00]/35 hover:border-[#FF8F00] text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,143,0,0.2)]"
                             >
@@ -799,7 +719,7 @@ export const MissionControlSection: React.FC = () => {
                     type="button"
                     onClick={() => {
                       const prevIdx = (activeMissionIndex - 1 + PROJECTS.length) % PROJECTS.length;
-                      playCyberSound('hover');
+                      playCyberSound('CARD_CLICK');
                       runFunctionBasedTween(prevIdx);
                     }}
                     className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
@@ -816,7 +736,7 @@ export const MissionControlSection: React.FC = () => {
                         key={idx}
                         type="button"
                         onClick={() => {
-                          playCyberSound('hover');
+                          playCyberSound('CARD_CLICK');
                           runFunctionBasedTween(idx);
                         }}
                         className={`h-2 rounded-full transition-all cursor-pointer ${
@@ -833,7 +753,7 @@ export const MissionControlSection: React.FC = () => {
                     type="button"
                     onClick={() => {
                       const nextIdx = (activeMissionIndex + 1) % PROJECTS.length;
-                      playCyberSound('hover');
+                      playCyberSound('CARD_CLICK');
                       runFunctionBasedTween(nextIdx);
                     }}
                     className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
@@ -848,23 +768,20 @@ export const MissionControlSection: React.FC = () => {
               {/* Minimal Bottom Session Telemetry Footer */}
               <div className="relative z-20 w-full max-w-7xl mx-auto pt-3 border-t border-white/10 flex items-center justify-between text-gray-500 font-mono text-[10px] uppercase tracking-wider shrink-0">
                 <span>DIMENSIONAL ARCHIVE // LEVEL 01</span>
-                <span className="hidden sm:inline">USE EXIT WARP PORTAL OR [ESC] TO RETURN</span>
+                <span className="hidden sm:inline">USE THE EXIT WARP GATE TO RETURN</span>
                 <span>SYSTEMS SECURED</span>
               </div>
             </div>
           )}
 
           {/* STAGE 4: THREE.JS FULLSCREEN REVERSE WARP EJECTION */}
-          {transitionState === 'EXIT_WARP' && (
-            <DimensionalWarpCanvas mode="exit" onComplete={handleExitWarpComplete} />
-          )}
         </div>,
         document.body
       )}
 
       {/* Mission Inspection Modal */}
       {selectedProject && createPortal(
-        <div className="fixed inset-0 z-[10001] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="mission-modal-title">
+        <div ref={modalRef} tabIndex={-1} className="fixed inset-0 z-[1010] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="mission-modal-title">
           <div className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/60 shadow-[0_0_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-white/10 pb-6 mb-6">
@@ -877,7 +794,7 @@ export const MissionControlSection: React.FC = () => {
                 <h2 id="mission-modal-title" className="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{selectedProject.title}</h2>
               </div>
               <button
-                {...getUniversalAudioProps('closeModal', 'hover', () => setSelectedProject(null))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setSelectedProject(null))}
                 aria-label="Close modal"
                 title="Close (ESC)"
                 className="p-2.5 rounded-xl bg-white/10 hover:bg-[#FF8F00]/20 border border-white/15 hover:border-[#FF8F00]/50 text-gray-300 hover:text-[#FF8F00] transition-all cursor-pointer flex items-center justify-center"
@@ -887,19 +804,20 @@ export const MissionControlSection: React.FC = () => {
             </div>
 
             {/* Modal Tab Bar */}
-            <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto custom-scrollbar">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 border-b border-white/10 pb-4 mb-6">
               {[
-                { id: 'overview', label: '01 OVERVIEW & BLUEPRINT' },
-                { id: 'results', label: '02 MEASURED BUSINESS ROI' },
-                { id: 'features', label: '03 KEY CAPABILITIES' },
-                { id: 'architecture', label: '04 TECHNICAL ARCHITECTURE' },
+                { id: 'overview', label: '01 OVERVIEW' },
+                { id: 'results', label: '02 RESULTS' },
+                { id: 'features', label: '03 CAPABILITIES' },
+                { id: 'architecture', label: '04 ARCHITECTURE' },
               ].map((tab) => {
                 const isActive = activeModalTab === tab.id;
                 return (
                   <button
                     key={tab.id}
-                    {...getUniversalAudioProps('click', 'hover', () => setActiveModalTab(tab.id as ModalTab))}
-                    className={`px-4 py-2 rounded-xl font-pixel text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-300 focus:outline-none cursor-pointer whitespace-nowrap ${
+                    aria-pressed={isActive}
+                    {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setActiveModalTab(tab.id as ModalTab))}
+                    className={`px-2 py-3 rounded-xl font-pixel text-[8px] sm:text-[10px] font-bold transition-all duration-300 focus:outline-none cursor-pointer ${
                       isActive
                         ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                         : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
@@ -946,8 +864,8 @@ export const MissionControlSection: React.FC = () => {
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                         {selectedProject.preview.kpis.map((kpi, idx) => (
                           <div key={idx} className="p-2.5 rounded-lg bg-[#000000] border border-white/10 text-center min-w-0">
-                            <HoverMarqueeText text={kpi.label} className="font-mono text-[9px] text-gray-400 block" />
-                            <HoverMarqueeText text={kpi.value} className="font-mono text-xs font-bold text-[#FF8F00]" />
+                            <span className="font-sans text-xs text-gray-400 block">{kpi.label}</span>
+                            <span className="font-sans text-sm font-bold text-[#FF8F00] break-words">{kpi.value}</span>
                           </div>
                         ))}
                       </div>
@@ -1085,7 +1003,7 @@ export const MissionControlSection: React.FC = () => {
                       href={selectedProject.liveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      {...getUniversalAudioProps('click', 'hover')}
+                      {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
                       className="btn-primary text-xs py-2.5"
                     >
                       <span>LIVE DEMO</span>
@@ -1097,7 +1015,7 @@ export const MissionControlSection: React.FC = () => {
                       href={selectedProject.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      {...getUniversalAudioProps('click', 'hover')}
+                      {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
                       className="btn-secondary text-xs py-2.5"
                     >
                       <span>CODE REPOSITORY</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, TrendingUp, Layers } from 'lucide-react';
+import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, TrendingUp, Layers } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 
@@ -46,14 +46,14 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
 
         {/* Sub-headline / Vision */}
         <h2 className="font-heading text-base sm:text-xl md:text-2xl font-semibold text-gray-200 mb-8 max-w-3xl px-2">
-          Building Business <span className="text-[#FF8F00]">Software</span> That Saves Time &amp; Makes Money.
+          Business <span className="text-[#FF8F00]">Software.</span> Less busywork. More impact.
         </h2>
 
         {/* Action Buttons: Clean Symmetrical Two-Button Layout */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12 sm:mb-14 w-full max-w-md sm:max-w-none px-4">
           {/* Primary CTA: View Missions */}
           <button
-            {...getUniversalAudioProps('click', 'hover', onPressStart)}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', onPressStart)}
             className="btn-primary font-black-ops tracking-wider w-full sm:w-auto justify-center cursor-pointer shadow-[0_0_25px_rgba(255,143,0,0.35)] hover:shadow-[0_0_35px_rgba(255,143,0,0.6)]"
           >
             <span>Start Mission</span>
@@ -62,7 +62,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
 
           {/* CLI Terminal Launcher */}
           <button
-            {...getUniversalAudioProps('openModal', 'hover', onOpenTerminal)}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', onOpenTerminal)}
             className="btn-secondary font-black-ops tracking-wider w-full sm:w-auto justify-center cursor-pointer"
             title="Open CLI Terminal (Shortcut: ~)"
           >
@@ -86,10 +86,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
               <button
                 key={i}
                 type="button"
-                {...getUniversalAudioProps('click', 'hover', () => scrollToSection('missions'))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => scrollToSection('missions'))}
                 className="p-3 sm:p-3.5 rounded-xl bg-[#000000]/80 border border-white/10 hover:border-[#FF8F00]/60 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(255,143,0,0.18)] hover:bg-[#FF8F00]/10 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center gap-2.5 text-center min-h-[105px]"
               >
-                <b.icon className={`w-5 h-5 ${b.color} group-hover:scale-110 transition-transform duration-300 shrink-0`} />
+                <b.icon className={`w-8 h-8 ${b.color} shrink-0`} />
                 <span className="font-nova text-[11px] sm:text-xs text-gray-200 group-hover:text-white font-semibold leading-snug tracking-normal">
                   {b.name}
                 </span>

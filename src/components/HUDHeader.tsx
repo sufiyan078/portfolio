@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Terminal, Menu, X, Heart } from 'lucide-react';
+import { Volume2, VolumeX, Terminal, Menu, X, Heart } from './ui/RealmIcons';
 import { toggleSound, isSoundEnabled, getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 
@@ -77,18 +77,18 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         {/* Left Side: Gamer Avatar & Level Status Telemetry */}
         <a
           href="#profile"
-          {...getUniversalAudioProps('click', 'hover', (e) => {
+          {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', (e) => {
             e.preventDefault();
             scrollToSection('profile');
           })}
-          className="flex items-center gap-2 sm:gap-2.5 group text-left cursor-pointer focus:outline-none shrink-0"
+          className="flex items-center gap-2 sm:gap-2.5 group text-left cursor-pointer focus:outline-none min-w-0"
         >
           {/* Shield Knight Icon Emblem */}
           <ShieldKnightEmblem className="w-8 h-8 sm:w-9 sm:h-9 transition-transform group-hover:scale-105 shrink-0" />
 
           {/* Player Level & Class Stats Telemetry */}
-          <div className="flex flex-col">
-            <span className="font-heading text-xs sm:text-sm font-bold text-white tracking-wide group-hover:text-[#FF8F00] transition-colors">
+          <div className="flex flex-col min-w-0">
+            <span className="font-heading text-[10px] sm:text-sm truncate font-bold text-white tracking-wide group-hover:text-[#FF8F00] transition-colors">
               SUFIYAN AHMED
             </span>
 
@@ -96,7 +96,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
               <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8.5px] sm:text-[9.5px] bg-[#CD1818]/20 border border-[#CD1818]/50 text-[#FF8F00] font-bold whitespace-nowrap">
                 CLASS: <span className="text-[#FF4500]">BUILDER</span>
               </span>
-              <div className="inline-flex items-center gap-1 whitespace-nowrap">
+              <div className="hidden sm:inline-flex items-center gap-1 whitespace-nowrap">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#08CB00] animate-pulse" />
                 <span className="text-[#FF8F00] font-bold">ONLINE</span>
               </div>
@@ -117,7 +117,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         </a>
 
         {/* Desktop HUD Navigation Menu */}
-        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-[#1F150C]/70 backdrop-blur-xl px-1.5 xl:px-2 py-1 rounded-full border border-white/15 shadow-[0_4px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] shrink-0" aria-label="Main Navigation">
+        <nav className="hidden 2xl:flex items-center gap-0.5 bg-[#1F150C]/70 backdrop-blur-xl px-1.5 py-1 rounded-full border border-white/15 shrink-0" aria-label="Main Navigation">
           {navItems.map((item) => {
             let isActive = activeSection === item.id;
             if (activeSection === 'inventory') {
@@ -127,7 +127,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
             return (
               <button
                 key={item.id}
-                {...getUniversalAudioProps('click', 'hover', () => scrollToSection(item.id))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => scrollToSection(item.id))}
                 aria-label={`Navigate to ${item.label}`}
                 className={`px-2 xl:px-2.5 py-1 rounded-full font-mono text-[8.5px] xl:text-[9.5px] font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                   isActive
@@ -145,7 +145,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           {/* Audio FX Toggle */}
           <button
-            {...getUniversalAudioProps('click', 'hover', handleSoundToggle)}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', handleSoundToggle)}
             aria-label={soundOn ? 'Mute audio effects' : 'Enable audio effects'}
             title={soundOn ? 'Mute Audio FX' : 'Enable Audio FX'}
             className={`px-2.5 py-1.5 rounded-lg border transition-all focus:outline-none cursor-pointer flex items-center gap-1.5 ${
@@ -162,20 +162,22 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
           {/* CLI Terminal Toggle */}
           <button
-            {...getUniversalAudioProps('openModal', 'hover', onOpenTerminal)}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', onOpenTerminal)}
             aria-label="Open CLI Terminal"
             title="Open CLI Terminal (Shortcut: ~)"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#D90000]/20 border border-[#D90000]/50 text-white hover:bg-[#D90000]/35 text-xs font-mono font-bold transition-all focus:outline-none cursor-pointer shadow-[0_0_12px_rgba(217,0,0,0.25)] whitespace-nowrap"
           >
             <Terminal className="w-3.5 h-3.5 text-[#D90000]" />
-            <span className="inline">CLI</span>
+            <span className="hidden sm:inline">CLI</span>
           </button>
 
           {/* Mobile Drawer Button */}
           <button
-            {...getUniversalAudioProps('click', 'hover', () => setMobileMenuOpen(!mobileMenuOpen))}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setMobileMenuOpen(!mobileMenuOpen))}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            className="lg:hidden p-2 rounded-xl border border-white/10 text-white hover:bg-white/5 focus:outline-none cursor-pointer"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            className="2xl:hidden p-2 rounded-xl border border-white/10 text-white hover:bg-white/5 focus:outline-none cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -184,7 +186,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0D0704]/98 border-b border-[#FF8F00]/30 backdrop-blur-2xl px-4 py-5 mt-2 shadow-2xl animate-fadeIn">
+        <div id="mobile-navigation" className="2xl:hidden max-h-[75dvh] overflow-y-auto bg-[#0D0704]/98 border-b border-[#FF8F00]/30 backdrop-blur-2xl px-4 py-5 mt-2 shadow-2xl animate-fadeIn" onKeyDown={e => { if (e.key === 'Escape') { setMobileMenuOpen(false); document.querySelector<HTMLButtonElement>('[aria-controls="mobile-navigation"]')?.focus(); } }}>
           <div className="flex flex-col gap-2">
             {navItems.map((item) => {
               let isActive = activeSection === item.id;
@@ -195,7 +197,7 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
               return (
                 <button
                   key={item.id}
-                  {...getUniversalAudioProps('click', 'hover', () => scrollToSection(item.id))}
+                  {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => scrollToSection(item.id))}
                   className={`text-left px-4 py-3 rounded-xl font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer ${
                     isActive
                       ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/50'

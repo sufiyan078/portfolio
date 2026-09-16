@@ -1,0 +1,63 @@
+/* Opt-in semantic icons. The warrior has no data-icon-kind and is never selected. */
+.realm-semantic-icon { overflow: visible; }
+.realm-icon-signal { animation: realm-scan 5.5s ease-in-out infinite; animation-delay: var(--icon-delay, 0s); animation-play-state: paused; }
+.realm-icon-visible .realm-icon-signal { animation-play-state: running; }
+[inert] .realm-icon-signal { animation-play-state: paused; }
+[data-icon-kind="data"] .realm-icon-signal, [data-icon-kind="web"] .realm-icon-signal {
+  stroke-dasharray: 28; animation-name: realm-data-trace;
+}
+[data-icon-kind="network"] .realm-icon-signal, [data-icon-kind="ai"] .realm-icon-signal { animation-name: realm-network-energy; }
+[data-icon-kind="database"] .realm-icon-signal { animation-name: realm-data-layer; }
+[data-icon-kind="automation"] .realm-icon-signal { animation-name: realm-servo; }
+[data-icon-kind="architecture"] .realm-icon-signal { stroke-dasharray: 36; animation-name: realm-structure; }
+@keyframes realm-scan { 0%,65%,100% { opacity:.65; } 75%,85% { opacity:1; stroke:#ffd393; } }
+@keyframes realm-data-trace { 0%,10% { stroke-dashoffset:28; opacity:.3; } 35%,80% { stroke-dashoffset:0; opacity:1; } 100% { stroke-dashoffset:0; opacity:.3; } }
+@keyframes realm-network-energy { 0%,55%,100% { opacity:.45; } 65% { opacity:1; stroke:#ffd393; } 80% { opacity:.6; } 88% { opacity:1; } }
+@keyframes realm-data-layer { 0%,60%,100% { translate:0 0; opacity:.6; } 72% { translate:0 -1px; opacity:1; } 86% { translate:0 0; opacity:1; } }
+@keyframes realm-servo { 0%,55%,100% { translate:0 0; } 63%,72% { translate:.8px 0; stroke:#ffd393; } 80% { translate:0 0; } }
+@keyframes realm-structure { 0%,15% { stroke-dashoffset:36; opacity:.4; } 45%,80% { stroke-dashoffset:0; opacity:1; } 100% { stroke-dashoffset:0; opacity:.4; } }
+
+.physical-gate { --gate-charge:0; --gate-x:0; --gate-y:0; position:relative; width:100%; height:100%; perspective:750px; contain:layout style; }
+.gate-webgl { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.physical-gate[data-renderer="layered"] .gate-webgl { opacity:0; }
+.physical-gate[data-renderer="webgl"] > :not(canvas) { visibility:hidden; }
+.gate-housing {
+  position:absolute; inset:10% 21% 13%; transform-style:preserve-3d;
+  transform:rotateY(calc(-18deg + var(--gate-x)*5deg)) rotateX(calc(7deg - var(--gate-y)*3deg));
+  border:14px solid #70512e; border-top:19px solid #b18a50; border-bottom:18px solid #3f301f;
+  background:#08090e; box-shadow:inset 0 0 0 4px #1c1916,inset 0 0 0 7px #b4833e,16px 10px 0 #261f1b,20px 13px 0 #0b0c10,0 0 calc(12px + var(--gate-charge)*25px) #ff9c2538;
+}
+.gate-housing::before,.gate-housing::after { content:""; position:absolute; top:-8%; bottom:-9%; width:22%; background:repeating-linear-gradient(0deg,#171719 0 10%,#8e683a 10% 13%,#33291f 13% 18%); border:2px solid #9e7745; box-shadow:6px 4px 0 #101116; z-index:3; }
+.gate-housing::before { left:-32%; transform:rotateY(12deg); }
+.gate-housing::after { right:-32%; transform:rotateY(-12deg); }
+.gate-field { position:absolute; inset:3%; background:repeating-linear-gradient(117deg,transparent 0 14%,#bd712e33 15%,transparent 17%),linear-gradient(135deg,#100e19,#4d291d,#0c0c16); background-size:180% 160%; animation:gate-energy-field 9s ease-in-out infinite alternate; opacity:calc(.22 + var(--gate-charge)*.7); box-shadow:inset 0 0 25px #e19b3944; }
+.gate-shutter { position:absolute; width:48%; top:3%; bottom:3%; background:linear-gradient(125deg,#4e4a42,#1b1d23 24%,#353334 50%,#11131b 70%); border:1px solid #9a713c; box-shadow:inset 4px 0 0 #11141d,inset -3px 0 0 #996b35; transition:translate .35s ease; }
+.gate-shutter::after { content:""; position:absolute; top:8%; bottom:8%; left:50%; width:2px; background:#dda354; opacity:calc(.25 + var(--gate-charge)*.65); box-shadow:0 0 9px #dca440; }
+.gate-shutter-left { left:2%; translate:calc(var(--gate-charge)*-24%) 0; }
+.gate-shutter-right { right:2%; translate:calc(var(--gate-charge)*24%) 0; }
+.gate-foundation { position:absolute; left:15%; right:12%; bottom:3%; height:15%; background:linear-gradient(165deg,#6c5134,#25242a); border:2px solid #88633c; transform:rotateX(50deg) rotateZ(-6deg); box-shadow:0 12px 0 #18191c,0 17px 0 #403323,0 27px 18px #000a; }
+.gate-rivets { position:absolute; inset:-10px; border-left:3px dashed #dfa853; border-right:3px dashed #dfa853; pointer-events:none; }
+.physical-gate-compact .gate-housing { border-width:3px; box-shadow:3px 2px 0 #211a14; inset:6% 23% 12%; }
+.physical-gate-compact .gate-housing::before,.physical-gate-compact .gate-housing::after { border-width:1px; }
+.physical-gate-compact .gate-foundation { box-shadow:0 3px 0 #191715; border-width:1px; }
+.physical-gate-compact .gate-rivets { inset:-2px; border-width:1px; }
+@keyframes gate-energy-field { to { background-position:80% 40%; } }
+.dimensional-crossing { position:absolute; inset:0; z-index:50; overflow:hidden; pointer-events:auto; }
+.realm-vault-suction { animation-duration:884ms; }
+.dimensional-crossing canvas { position:absolute; inset:0; width:100%; height:100%; transform-origin:center; }
+.dimension-atmosphere { position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; --drift-x:0px; --drift-y:0px; }
+.dimension-distance { position:absolute; inset:-3%; background:linear-gradient(110deg,transparent 25%,#bd87400b 26%,transparent 28%,transparent 68%,#bfa0720a 70%,transparent 71%); transform:translate(var(--drift-x),var(--drift-y)); }
+.dimension-fog { position:absolute; width:150%; height:40%; left:-25%; background:radial-gradient(ellipse at 30% 50%,#9f998519,transparent 65%),radial-gradient(ellipse at 75% 60%,#8e9ca914,transparent 55%); filter:blur(18px); animation:dimension-fog-drift 32s ease-in-out infinite alternate; }
+.dimension-fog-back { top:23%; opacity:.7; }
+.dimension-fog-front { bottom:-8%; height:50%; animation-direction:alternate-reverse; animation-duration:24s; opacity:.9; }
+.dimension-fissure { position:absolute; top:28%; left:47%; width:2px; height:18%; background:#d2a76925; box-shadow:0 0 20px 10px #d2973c0b; transform:skew(-12deg); animation:dimension-distant-light 11s ease-in-out infinite; }
+.dimension-mote { position:absolute; width:2px; height:2px; border-radius:50%; background:#c8a76a; box-shadow:0 0 5px #c49338; opacity:.3; animation:dimension-mote-drift 20s linear infinite; }
+@keyframes dimension-fog-drift { from { transform:translate(-6%,3%) scale(1); } to { transform:translate(8%,-4%) scale(1.07); } }
+@keyframes dimension-mote-drift { 0% { translate:-8px 24px; opacity:0; } 20%,70% { opacity:.4; } 100% { translate:14px -65px; opacity:0; } }
+@keyframes dimension-distant-light { 0%,100% { opacity:.2; } 40% { opacity:.7; } 65% { opacity:.35; } }
+@media (max-width:640px) { .dimension-fog { filter:blur(9px); } }
+@media (prefers-reduced-motion:reduce) {
+  .realm-icon-signal,.gate-field,.dimension-fog,.dimension-fissure,.dimension-mote { animation:none!important; }
+  .gate-housing { transform:rotateY(-18deg) rotateX(7deg); }
+  .gate-shutter { transition:none; }
+}

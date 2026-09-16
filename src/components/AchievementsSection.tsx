@@ -5,8 +5,9 @@ import {
   Link, Wrench, Rocket, Bot, BarChart3,
   Cog, TrendingUp, Globe, Timer, Coins,
   Eye, Zap, Gauge
-} from 'lucide-react';
+} from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
+import { IntelDisclosure } from './ui/IntelDisclosure';
 
 export const AchievementsSection: React.FC = () => {
   const getRarityClass = (rarity: string) => {
@@ -45,10 +46,10 @@ export const AchievementsSection: React.FC = () => {
           <span className="text-[#FF8F00] font-bold">ACHIEVEMENTS</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
-          UNLOCKED <span className="text-[#FF8F00]">MILESTONES & CAPABILITIES</span>
+          UNLOCKED <span className="text-[#FF8F00]">CAPABILITIES</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Key engineering capabilities, delivered business software solutions, and client ROI rewards.
+          Explore the collection. Inspect an unlock to learn more.
         </p>
       </div>
 
@@ -82,20 +83,20 @@ export const AchievementsSection: React.FC = () => {
           return (
             <div
               key={ach.id}
-              {...getUniversalAudioProps('click', 'hover')}
+              {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
               className={`glass-panel p-6 flex flex-col justify-between group ${rarityStyle.border} ${rarityStyle.shadow} hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                   <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest">{ach.category}</span>
                   <span className={`badge-tag ${rarityClass} text-[10px] uppercase font-bold`}>
                     {ach.rarity}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 overflow-hidden p-2 group-hover:scale-110 transition-all ${rarityStyle.iconBox}`}>
-                    <IconComp className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                <div className="realm-collectible flex flex-col items-start gap-4 mb-4">
+                  <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center shrink-0 p-3 transition-all ${rarityStyle.iconBox}`}>
+                    <IconComp className="w-9 h-9 shrink-0" />
                   </div>
                   <div>
                     <h3 className={`font-heading font-bold text-base text-white ${rarityStyle.hoverTitle} transition-colors leading-tight`}>
@@ -104,15 +105,15 @@ export const AchievementsSection: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4">
+                <IntelDisclosure label="Inspect capability">
                   {ach.description}
-                </p>
+                </IntelDisclosure>
               </div>
 
               <div className="pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[11px] text-[#10B981]">
                 <span className="flex items-center gap-1 font-bold tracking-wider">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  CAPABILITY UNLOCKED
+                  UNLOCKED
                 </span>
               </div>
             </div>
@@ -147,7 +148,7 @@ export const AchievementsSection: React.FC = () => {
             return (
               <div
                 key={reward.id}
-                {...getUniversalAudioProps('click', 'hover')}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
                 className="p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_10px_20px_rgba(255,143,0,0.22)] transition-all duration-200 flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer group"
               >
                 <div className="w-9 h-9 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] group-hover:scale-110 group-hover:bg-[#FF8F00]/25 transition-all">

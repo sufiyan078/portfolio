@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QUEST_LOG, type Quest } from '../data/timeline';
-import { Flag, Award, ChevronDown, ChevronUp, Layers, CheckCircle2, Target } from 'lucide-react';
+import { Flag, Award, ChevronDown, ChevronUp, Layers, CheckCircle2, Target } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
 
@@ -61,10 +61,10 @@ export const QuestLogSection: React.FC = () => {
           <span className="text-[#FF8F00] font-bold">QUEST LOG</span>
         </div>
         <h2 className="font-heading font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight">
-          CAREER <span className="text-[#FF8F00]">QUEST LOG TIMELINE</span>
+          CAREER <span className="text-[#FF8F00]">QUEST LOG</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; Quest Log tracking major software engineering milestones and career progression.
+          Follow the journey. Open a quest for the full story.
         </p>
       </div>
 
@@ -87,11 +87,11 @@ export const QuestLogSection: React.FC = () => {
 
               {/* Card Banner Header */}
               <div
-                {...getUniversalAudioProps('click', 'hover', () => toggleQuest(quest.id))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => toggleQuest(quest.id))}
                 className="cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 select-none"
               >
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
                     <span className="font-mono text-xs font-bold text-[#FF8F00] px-2.5 py-1 rounded-md bg-[#FF8F00]/15 border border-[#FF8F00]/40">
                       {quest.period}
                     </span>
@@ -124,9 +124,9 @@ export const QuestLogSection: React.FC = () => {
 
               {/* Collapsed Brief View */}
               {!isExpanded && (
-                <p className="text-sm text-gray-300 font-sans leading-relaxed mb-4">
-                  {quest.description}
-                </p>
+                <div className="flex flex-wrap gap-2 mb-4" aria-label="Quest technologies">
+                  {(quest.techLoadout || []).slice(0, 4).map(tech => <span key={tech} className="realm-tech-chip">{tech}</span>)}
+                </div>
               )}
 
               {/* Expanded Quest Detail View with 4 Tabs */}
@@ -144,7 +144,7 @@ export const QuestLogSection: React.FC = () => {
                       return (
                         <button
                           key={t.id}
-                          {...getUniversalAudioProps('click', 'hover', () => setTab(quest.id, t.id as QuestTab))}
+                          {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setTab(quest.id, t.id as QuestTab))}
                           className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold tracking-wider transition-all duration-200 focus:outline-none cursor-pointer whitespace-nowrap ${
                             isActive
                               ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/60 shadow-[0_0_12px_rgba(255,143,0,0.25)]'
@@ -237,7 +237,7 @@ export const QuestLogSection: React.FC = () => {
 
               {/* Bottom Reward Footer when collapsed */}
               {!isExpanded && (
-                <div className="pt-4 border-t border-white/10 flex items-center gap-2 font-mono text-xs text-[#10B981]">
+                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-2 font-mono text-xs text-[#10B981]">
                   <Award className="w-4 h-4 text-[#F59E0B]" />
                   <span className="text-gray-300 font-bold">REWARD:</span>
                   <span className="text-white">{quest.reward}</span>

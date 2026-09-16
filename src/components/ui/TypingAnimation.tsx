@@ -20,9 +20,15 @@ export const TypingAnimation: React.FC<TypingAnimationProps> = ({
     setDisplayedText('');
     setIsTyping(true);
     let index = 0;
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayedText(children);
+      setIsTyping(false);
+      return;
+    }
 
     const timeoutId = setTimeout(() => {
-      const intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
         if (index < children.length) {
           index++;
           setDisplayedText(children.slice(0, index));
@@ -32,10 +38,9 @@ export const TypingAnimation: React.FC<TypingAnimationProps> = ({
         }
       }, duration);
 
-      return () => clearInterval(intervalId);
     }, delay);
 
-    return () => clearTimeout(timeoutId);
+    return () => { clearTimeout(timeoutId); clearInterval(intervalId); };
   }, [children, duration, delay]);
 
   return (

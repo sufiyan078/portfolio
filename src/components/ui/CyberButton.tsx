@@ -39,9 +39,7 @@ export const CyberButton: React.FC<CyberButtonProps> = ({
     outline: 'bg-transparent border border-white/20 text-gray-300 hover:text-white hover:border-white/50 hover:bg-white/5'
   };
 
-  const audioProps = getUniversalAudioProps(
-    'click',
-    'hover',
+  const audioProps = getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER',
     disabled ? undefined : (e) => onClick && onClick(e as React.MouseEvent)
   );
 

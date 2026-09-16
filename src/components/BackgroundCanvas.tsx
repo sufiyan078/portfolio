@@ -494,25 +494,29 @@ export const BackgroundCanvas: React.FC = () => {
 
       drawMountedKnight(warriorX, warriorGroundY);
 
-      if (!document.hidden) {
+      if (!document.hidden && !document.getElementById('root')?.inert) {
         animationFrameId = requestAnimationFrame(render);
       }
     };
 
     const handleVisibilityChange = () => {
-      if (!document.hidden) {
+      if (!document.hidden && !document.getElementById('root')?.inert) {
         cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(render);
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    const overlayObserver = new MutationObserver(handleVisibilityChange);
+    const pageRoot = document.getElementById('root');
+    if (pageRoot) overlayObserver.observe(pageRoot, { attributes: true, attributeFilter: ['inert'] });
     render();
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      overlayObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

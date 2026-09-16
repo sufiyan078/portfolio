@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { SKILLS } from '../data/skills';
 import { INVENTORY_CATEGORIES } from '../data/inventory';
-import { Package, Cpu, Database, Server, CheckCircle2, Layout, Box, Bot, Zap, BarChart3, Rocket } from 'lucide-react';
+import { Package, Cpu, Database, Server, CheckCircle2, Layout, Box, Bot, Zap, BarChart3, Rocket } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { HoverMarqueeText } from './ui/HoverMarqueeText';
+import { IntelDisclosure } from './ui/IntelDisclosure';
 
 interface InventorySkillsSectionProps {
   activeTab?: 'abilities' | 'inventory';
@@ -183,30 +184,30 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
           DEVELOPER <span className="text-[#FF8F00]">ABILITIES & ARSENAL</span>
         </h2>
         <p className="font-mono text-sm text-gray-400 mt-3 max-w-2xl">
-          &gt; High-impact engineering capabilities, specialized technology stacks, and enterprise tools.
+          Choose an ability. Explore the tools behind it.
         </p>
 
         {/* View Toggle Tabs */}
         <div className="flex items-center gap-2 mt-8 p-1.5 rounded-2xl bg-[#000000]/80 border border-white/15 max-w-md w-full">
           <button
-            {...getUniversalAudioProps('click', 'hover', () => handleTabSelect('abilities'))}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => handleTabSelect('abilities'))}
             className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'abilities'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            03 ABILITIES SYSTEM
+            ABILITIES
           </button>
           <button
-            {...getUniversalAudioProps('click', 'hover', () => handleTabSelect('inventory'))}
+            {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => handleTabSelect('inventory'))}
             className={`flex-1 px-4 sm:px-6 py-2.5 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
               activeTab === 'inventory'
                 ? 'bg-[#FF8F00]/20 text-[#FF8F00] border border-[#FF8F00]/80 shadow-[0_0_15px_rgba(255,143,0,0.4)]'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            04 COLLECTIBLE INVENTORY
+            INVENTORY
           </button>
         </div>
       </div>
@@ -221,12 +222,12 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             return (
               <div
                 key={skill.id}
-                {...getUniversalAudioProps('click', 'hover')}
-                className={`glass-panel p-5 sm:p-6 flex flex-col justify-between group border-2 ${style.cardBorder} hover:-translate-y-2 hover:scale-[1.02] ${style.hoverShadow} transition-all duration-300 relative overflow-hidden cursor-pointer min-h-[340px]`}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
+                className={`glass-panel p-5 sm:p-6 flex flex-col justify-between group border-2 ${style.cardBorder} hover:-translate-y-2 hover:scale-[1.02] ${style.hoverShadow} transition-all duration-300 relative overflow-hidden cursor-pointer min-h-[280px]`}
               >
                 <div>
                   {/* Top Bar: Category on left, LVL on right */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="realm-ability-meta flex flex-wrap items-center justify-between gap-2 mb-4">
                     <span className={`font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${style.badge} whitespace-nowrap`}>
                       {skill.category}
                     </span>
@@ -237,8 +238,8 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
 
                   {/* Icon & Title Block */}
                   <div className="flex items-center gap-3 mb-3.5">
-                    <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${style.iconBox}`}>
-                      <IconComp className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                    <div className={`w-14 h-14 rounded-xl border flex items-center justify-center shrink-0 ${style.iconBox}`}>
+                      <IconComp className="w-8 h-8" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <HoverMarqueeText
@@ -253,9 +254,9 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs text-gray-300 font-sans leading-relaxed mb-4 line-clamp-3">
+                  <IntelDisclosure label="Inspect ability">
                     {skill.description}
-                  </p>
+                  </IntelDisclosure>
                 </div>
 
                 {/* Bottom Capability Score & Meter */}
@@ -286,7 +287,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
             return (
               <div
                 key={item.id}
-                {...getUniversalAudioProps('click', 'hover')}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
                 className={`glass-panel p-6 sm:p-7 flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(255,143,0,0.18)] border-2 ${item.borderColor} relative overflow-hidden cursor-pointer min-h-[475px]`}
               >
                 {/* Tactical HUD Corner Crosshairs */}
