@@ -78,9 +78,9 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           <span className="absolute top-2 right-2 text-[#FF8F00]/30 font-mono text-[10px] select-none">+</span>
 
           <div className="text-xs font-pixel text-gray-300 uppercase tracking-widest mb-4 flex items-center justify-center gap-3">
-            <BlacksmithForgeIcon className="w-7 h-7 shrink-0" />
+            <BlacksmithForgeIcon className="w-8 h-8 shrink-0" />
             <span>SERVICES I BUILD</span>
-            <BlacksmithForgeIcon className="w-7 h-7 shrink-0" />
+            <BlacksmithForgeIcon className="w-8 h-8 shrink-0" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {serviceBadges.map((b, i) => (

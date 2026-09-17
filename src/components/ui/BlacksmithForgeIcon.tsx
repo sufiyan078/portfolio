@@ -32,39 +32,56 @@ export const BlacksmithForgeIcon: React.FC<{ className?: string }> = ({ classNam
       }
       @keyframes hammerHeadStrikeLeft {
         0%, 100% { transform: rotate(0deg); }
-        22% { transform: rotate(-22deg); }
-        40% { transform: rotate(26deg); }
-        48% { transform: rotate(18deg); }
-        56% { transform: rotate(24deg); }
-        75% { transform: rotate(0deg); }
+        20% { transform: rotate(-24deg); }
+        38% { transform: rotate(26deg); }
+        45% { transform: rotate(18deg); }
+        54% { transform: rotate(22deg); }
+        72% { transform: rotate(0deg); }
       }
       @keyframes hammerHeadStrikeRight {
         0%, 100% { transform: rotate(0deg); }
-        22% { transform: rotate(22deg); }
-        40% { transform: rotate(-26deg); }
-        48% { transform: rotate(-18deg); }
-        56% { transform: rotate(-24deg); }
-        75% { transform: rotate(0deg); }
+        20% { transform: rotate(24deg); }
+        38% { transform: rotate(-26deg); }
+        45% { transform: rotate(-18deg); }
+        54% { transform: rotate(-22deg); }
+        72% { transform: rotate(0deg); }
       }
 
       /* Bold Visible Impact Spark Burst Animation */
       @keyframes sparkBurstFlash {
-        0%, 36%, 76%, 100% { opacity: 0; transform: scale(0.1); }
-        40% { opacity: 1; transform: scale(0.75); }
-        46% { opacity: 1; transform: scale(1.2) translateY(-2px); }
-        56% { opacity: 0.95; transform: scale(1.35) translateY(-4px); }
-        70% { opacity: 0; transform: scale(1.6) translateY(-6px); }
+        0%, 34%, 78%, 100% {
+          opacity: 0;
+          transform: scale(0.2);
+        }
+        38% {
+          opacity: 1;
+          transform: scale(0.7);
+        }
+        44% {
+          opacity: 1;
+          transform: scale(1.15) translateY(-2px);
+          filter: drop-shadow(0 0 3px #FFE082);
+        }
+        56% {
+          opacity: 0.95;
+          transform: scale(1.3) translateY(-4px);
+          filter: drop-shadow(0 0 2px #FFD540);
+        }
+        70% {
+          opacity: 0;
+          transform: scale(1.5) translateY(-6px);
+        }
       }
 
       .animated-outer-flame { transform-origin: 32px 24px; animation: forgeFlameFlicker 0.45s ease-in-out infinite; }
       .animated-inner-flame { transform-origin: 32px 22px; animation: forgeCoreFlicker 0.35s ease-in-out infinite alternate; }
       .forge-spark-1 { animation: forgeSparkLeft 1.2s ease-out infinite; }
       .forge-spark-2 { animation: forgeSparkRight 1.4s ease-out 0.5s infinite; }
-      .animated-hammer-left { transform-origin: 22px 34px; animation: hammerHeadStrikeLeft 1.5s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
-      .animated-hammer-right { transform-origin: 42px 34px; animation: hammerHeadStrikeRight 1.5s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+      .animated-hammer-left { transform-origin: 22px 34px; animation: hammerHeadStrikeLeft 1.4s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+      .animated-hammer-right { transform-origin: 42px 34px; animation: hammerHeadStrikeRight 1.4s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
 
-      .impact-spark-group-left { transform-origin: 39px 36px; animation: sparkBurstFlash 1.5s ease-out infinite; }
-      .impact-spark-group-right { transform-origin: 25px 36px; animation: sparkBurstFlash 1.5s ease-out infinite; }
+      .impact-spark-group-left { transform-origin: 39px 36px; animation: sparkBurstFlash 1.4s ease-out infinite; }
+      .impact-spark-group-right { transform-origin: 25px 36px; animation: sparkBurstFlash 1.4s ease-out infinite; }
     `}</style>
 
     {/* Flying Ember Sparks from Fire */}
