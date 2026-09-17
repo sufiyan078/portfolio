@@ -43,6 +43,66 @@ export const BackgroundCanvas: React.FC = () => {
       });
     }
 
+    // Small Pixel-Art Turf Grass on Walkable Terrain
+    // Natural sparse patches with recognizable pixel-art turf clusters and irregular spacing
+    const grassTufts: Array<{
+      normX: number;
+      normY: number;
+      type: number;
+      speed: number;
+      phase: number;
+      swayAmount: number;
+      hasHighlight: boolean;
+    }> = [];
+
+    // Natural patch centers across the landscape with wide open terrain between them
+    const patchCenters = [0.04, 0.11, 0.22, 0.36, 0.47, 0.59, 0.71, 0.82, 0.93];
+
+    let tuftSeed = 101;
+    const nextRandom = () => {
+      tuftSeed = (tuftSeed * 16807) % 2147483647;
+      return (tuftSeed - 1) / 2147483646;
+    };
+
+    patchCenters.forEach((center, pIdx) => {
+      // Each natural patch contains 2 to 3 associated tufts (varied shapes/depths)
+      const tuftsInPatch = 2 + (pIdx % 2);
+      for (let j = 0; j < tuftsInPatch; j++) {
+        const offset = j === 0 ? 0 : (nextRandom() - 0.5) * 0.036;
+        const normX = Math.max(0.015, Math.min(0.985, center + offset));
+        const normY = 0.10 + nextRandom() * 0.78;
+        // Anchor tuft (j === 0): prominent 8-10px cluster (Type 3) on ~3 patches, recognizable 3-4 blade tuft (Type 1) on others
+        // Companion tufts (j > 0): small subtle sprigs (Type 0) or sprouts (Type 2)
+        let type = 0;
+        if (j === 0) {
+          type = (pIdx % 3 === 1) ? 3 : 1;
+        } else {
+          type = nextRandom() < 0.65 ? 0 : 2;
+        }
+        const speed = 0.85 + nextRandom() * 0.5;
+        const phase = nextRandom() * Math.PI * 2;
+        const swayAmount = 0.8 + nextRandom() * 0.6; // subtle sway 0.8px - 1.4px
+        // Bright tips are exceptionally rare: only on the 3 prominent clusters
+        const hasHighlight = (type === 3 && j === 0);
+
+        grassTufts.push({ normX, normY, type, speed, phase, swayAmount, hasHighlight });
+      }
+    });
+
+    // Solitary accent tufts in wider open stretches to ensure natural irregular rhythm
+    const solitarySpots = [0.17, 0.29, 0.53, 0.65, 0.77, 0.88];
+    for (const spot of solitarySpots) {
+      const normX = spot + (nextRandom() - 0.5) * 0.02;
+      const normY = 0.15 + nextRandom() * 0.72;
+      const type = nextRandom() < 0.6 ? 0 : 2; // small sprig or subtle sprout
+      const speed = 0.9 + nextRandom() * 0.45;
+      const phase = nextRandom() * Math.PI * 2;
+      const swayAmount = 0.8 + nextRandom() * 0.5;
+      const hasHighlight = false; // solitary tufts stay completely muted
+
+      grassTufts.push({ normX, normY, type, speed, phase, swayAmount, hasHighlight });
+    }
+
     // Moving Clouds Effect (15 continuous animated drifting clouds across sky)
     const clouds = [
       { x: width * -0.05, y: height * 0.04, speed: 0.48, scale: 6.5, opacity: 0.92 },
@@ -211,8 +271,8 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.closePath();
       ctx.fill();
 
-      // 10. Foreground Low Dark Ground Layer
-      ctx.fillStyle = '#070A10';
+      // 10. Background Silhouette Ground Layer (under trees)
+      ctx.fillStyle = '#0A0F17';
       ctx.beginPath();
       ctx.moveTo(0, height);
       ctx.lineTo(0, height * 0.80);
@@ -275,19 +335,197 @@ export const BackgroundCanvas: React.FC = () => {
       drawPineTree(width * 0.89, height * 0.75, 48, 28);
       drawPineTree(width * 0.94, height * 0.76, 38, 22);
 
-      // 8. Bottom Foreground Shadow Bar
-      ctx.fillStyle = '#020305';
-      ctx.fillRect(0, height * 0.94, width, height * 0.06);
+      // Pixel scale for pixel-art terrain, vegetation, and warrior
+      const p = 2;
 
-      // 9. Mounted Knight on Horseback (scroll-driven left → right)
+      // 8. Walkable Terrain (Natural foreground landscape occupying ~14-17% of viewport depth, independent contour)
+      const getGroundTopY = (x: number) => {
+        const t = x / width;
+        // Independent, shallow, gently undulating foreground contour (NOT derived from mountain silhouettes)
+        return height * (0.848 + Math.sin(t * Math.PI * 1.6 + 0.4) * 0.012 + Math.cos(t * Math.PI * 3.1) * 0.006);
+      };
+
+      const groundGrad = ctx.createLinearGradient(0, height * 0.84, 0, height);
+      groundGrad.addColorStop(0, '#162335'); // Crisp night slate surface
+      groundGrad.addColorStop(0.3, '#131D2C');
+      groundGrad.addColorStop(0.68, '#0F1622');
+      groundGrad.addColorStop(1, '#070B12'); // Deep grounding base
+      ctx.fillStyle = groundGrad;
+
+      ctx.beginPath();
+      ctx.moveTo(0, height);
+      ctx.lineTo(0, getGroundTopY(0));
+      for (let stepX = 16; stepX <= width; stepX += 16) {
+        ctx.lineTo(stepX, getGroundTopY(stepX));
+      }
+      ctx.lineTo(width, getGroundTopY(width));
+      ctx.lineTo(width, height);
+      ctx.closePath();
+      ctx.fill();
+
+      // Subtle terrain strata bands for natural pixel-art ground depth
+      ctx.fillStyle = 'rgba(11, 17, 26, 0.45)';
+      ctx.fillRect(0, height * 0.90, width, height * 0.02);
+      ctx.fillStyle = 'rgba(6, 10, 16, 0.65)';
+      ctx.fillRect(0, height * 0.965, width, height * 0.035);
+
+      // Subtle pixel-art stepped rim defining the land's top boundary
+      const rimStep = 6;
+      for (let rx = 0; rx < width; rx += rimStep) {
+        const ry = Math.floor(getGroundTopY(rx) / p) * p;
+        ctx.fillStyle = '#26374D';
+        ctx.fillRect(rx, ry, rimStep, p);
+        ctx.fillStyle = '#1A2738';
+        ctx.fillRect(rx, ry + p, rimStep, p);
+      }
+
+      // 9. Small Wind-Swept Pixel-Art Turf Grass Tufts
+      const drawGrassTuft = (
+        gx: number,
+        gy: number,
+        type: number,
+        sway: number,
+        isDistant: boolean,
+        hasHighlight: boolean
+      ) => {
+        // Natural night grass colors: muted, non-glowing, clearly subordinate to warrior and UI
+        const baseColor = isDistant ? '#122419' : '#152A1D';
+        const bladeColor = isDistant ? '#1C3E2C' : '#224C37';
+        const tipColor = isDistant ? '#26533B' : '#2D5F45';
+        // Rare subtle moonlit glint only on highlighted tufts (soft, non-neon)
+        const topTipColor = hasHighlight ? (isDistant ? '#32684B' : '#397855') : tipColor;
+        const swayHalf = Math.floor(sway * 0.5);
+
+        switch (type) {
+          case 0: // Small 2-3 blade sprig (~6-8px tall)
+            // Grounded root base
+            ctx.fillStyle = baseColor;
+            ctx.fillRect(gx - p, gy - p, 2 * p, p);
+            // Left blade (curves outward left, 6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - p, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx - 2 * p + swayHalf, gy - 3 * p, p, p);
+            // Right blade (taller, sways gently with wind, 8px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx, gy - 2 * p, p, p);
+            ctx.fillRect(gx + swayHalf, gy - 3 * p, p, p);
+            ctx.fillStyle = topTipColor;
+            ctx.fillRect(gx + p + sway, gy - 4 * p, p, p);
+            break;
+
+          case 1: // 3-4 blade recognizable tuft (~7-8px tall)
+            // Grounded root base (6px wide)
+            ctx.fillStyle = baseColor;
+            ctx.fillRect(gx - p, gy - p, 3 * p, p);
+            // Left outer blade (6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - 2 * p, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx - 2 * p + swayHalf, gy - 3 * p, p, p);
+            // Left-center blade (8px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - p, gy - 2 * p, p, p);
+            ctx.fillRect(gx - p + swayHalf, gy - 3 * p, p, p);
+            ctx.fillStyle = topTipColor;
+            ctx.fillRect(gx - p + sway, gy - 4 * p, p, p);
+            // Right-center blade (6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx + swayHalf, gy - 3 * p, p, p);
+            // Right outer blade (6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx + p, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx + 2 * p + sway, gy - 3 * p, p, p);
+            break;
+
+          case 2: // Small 2-blade sprout (~4-6px tall)
+            // Grounded root base (4px wide)
+            ctx.fillStyle = baseColor;
+            ctx.fillRect(gx - p, gy - p, 2 * p, p);
+            // Left short blade (4px)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - p, gy - 2 * p, p, p);
+            // Right blade (6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx + sway, gy - 3 * p, p, p);
+            break;
+
+          case 3: // Prominent 4-blade clump (~8-10px tall - occasional recognizable cluster)
+          default:
+            // Wide solid root base (8px wide)
+            ctx.fillStyle = baseColor;
+            ctx.fillRect(gx - 2 * p, gy - p, 4 * p, p);
+            // Far left blade (6px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - 2 * p, gy - 2 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx - 3 * p + swayHalf, gy - 3 * p, p, p);
+            // Inner left blade (8px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx - p, gy - 2 * p, p, p);
+            ctx.fillRect(gx - p + swayHalf, gy - 3 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx - p + sway, gy - 4 * p, p, p);
+            // Tall center blade (10px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx, gy - 2 * p, p, p);
+            ctx.fillRect(gx, gy - 3 * p, p, p);
+            ctx.fillRect(gx + swayHalf, gy - 4 * p, p, p);
+            ctx.fillStyle = topTipColor;
+            ctx.fillRect(gx + sway, gy - 5 * p, p, p);
+            // Right blade (8px tall)
+            ctx.fillStyle = bladeColor;
+            ctx.fillRect(gx + p, gy - 2 * p, p, p);
+            ctx.fillRect(gx + 2 * p + swayHalf, gy - 3 * p, p, p);
+            ctx.fillStyle = tipColor;
+            ctx.fillRect(gx + 2 * p + sway, gy - 4 * p, p, p);
+            break;
+        }
+      };
+
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const windTime = Date.now() * 0.0018;
+
+      for (const tuft of grassTufts) {
+        const gx = Math.floor(tuft.normX * width);
+        const topY = getGroundTopY(gx);
+        const gy = Math.floor((topY + tuft.normY * (height * 0.98 - topY)) / p) * p;
+
+        let sway = 0;
+        if (!prefersReducedMotion) {
+          const tuftPhase = tuft.phase + windTime * tuft.speed + tuft.normX * 8.0;
+          const wave = Math.sin(tuftPhase) * 0.68 + Math.sin(tuftPhase * 0.42 + 0.6) * 0.32;
+          sway = Math.round(Math.max(0, wave * tuft.swayAmount));
+        }
+
+        const isDistant = tuft.normY < 0.35;
+        drawGrassTuft(gx, gy, tuft.type, sway, isDistant, tuft.hasHighlight);
+      }
+
+      // 10. Mounted Knight on Horseback (scroll-driven left → right)
       const warriorGroundY = height * 0.91;
       const startX = width * 0.02;
       const endX = width * 0.94;
       const warriorX = startX + (endX - startX) * scrollProgress;
-      const p = 2; // pixel size
       const frame = Math.floor(Date.now() / 200) % 4; // 4-frame gallop animation
 
       const drawMountedKnight = (cx: number, cy: number) => {
+        // === WARRIOR CONTACT SHADOW ===
+        // Subtle pixel-art grounding shadow beneath the horse hooves
+        ctx.fillStyle = 'rgba(2, 4, 8, 0.45)';
+        ctx.fillRect(cx - 10 * p, cy + 4 * p, 20 * p, 2 * p);
+        ctx.fillStyle = 'rgba(1, 2, 5, 0.65)';
+        ctx.fillRect(cx - 7 * p, cy + 4 * p, 5 * p, p);
+        ctx.fillRect(cx + 3 * p, cy + 4 * p, 5 * p, p);
+
         // === HORSE ===
         // Horse body (brown)
         ctx.fillStyle = '#A0652A';
