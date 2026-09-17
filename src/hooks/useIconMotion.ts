@@ -1,40 +1,10 @@
 import { useEffect } from 'react';
 
-/** Animate visible SVG icons in 3D, while strictly safeguarding ShieldKnightEmblem and warrior artwork. */
+/** Staggers smooth continuous floating animation across SVG icons, safeguarding ShieldKnightEmblem. */
 export function useIconMotion() {
   useEffect(() => {
     const icons = new Set<SVGSVGElement>();
     const selector = 'svg';
-    let frame = 0, active: SVGSVGElement[] = [];
-
-    const resetTilt = () => {
-      active.forEach(svg => {
-        svg.style.removeProperty('--icon-x');
-        svg.style.removeProperty('--icon-y');
-      });
-      active = [];
-    };
-
-    const pointer = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const target = (event.target as Element).closest?.('button,a,summary,.glass-panel,.cyber-card,.realm-business-tile,[role="button"],.group');
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        resetTilt();
-        if (!target) return;
-        const r = target.getBoundingClientRect();
-        const x = Math.max(-1, Math.min(1, (event.clientX - r.left) / r.width * 2 - 1));
-        const y = Math.max(-1, Math.min(1, (event.clientY - r.top) / r.height * 2 - 1));
-        active = [...target.querySelectorAll<SVGSVGElement>('.realm-semantic-icon, .realm-depth-icon, svg.lucide')].filter(isEligibleIcon);
-        active.forEach(svg => {
-          svg.style.setProperty('--icon-x', `${-y * 12}deg`);
-          svg.style.setProperty('--icon-y', `${x * 16}deg`);
-        });
-      });
-    };
-
-    document.addEventListener('pointermove', pointer, { passive: true });
-    window.addEventListener('blur', resetTilt);
 
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
@@ -78,7 +48,7 @@ export function useIconMotion() {
 
         if (icons.has(svg) || !isEligibleIcon(svg)) continue;
 
-        svg.style.setProperty('--icon-delay', `${-(icons.size % 12) * 0.45}s`);
+        svg.style.setProperty('--icon-delay', `${-(icons.size % 8) * 0.38}s`);
         svg.classList.add('realm-depth-icon');
         icons.add(svg);
         observer.observe(svg);
@@ -99,10 +69,6 @@ export function useIconMotion() {
     return () => {
       mutations.disconnect();
       observer.disconnect();
-      cancelAnimationFrame(frame);
-      resetTilt();
-      document.removeEventListener('pointermove', pointer);
-      window.removeEventListener('blur', resetTilt);
       icons.forEach(svg => {
         svg.classList.remove('realm-depth-icon', 'realm-icon-visible');
         svg.style.removeProperty('--icon-delay');

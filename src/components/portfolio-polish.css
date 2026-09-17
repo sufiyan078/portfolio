@@ -55,8 +55,8 @@
 .realm-polish footer > div > div { flex-wrap:wrap; justify-content:center; text-align:center; }
 
 /* ══════════════════════════════════════════════════════════════════ */
-/* 3D ICON REPEATED ANIMATION ENGINE                                 */
-/* Prominent, continuous, multi-axis 3D gyroscopic float & tilt      */
+/* SVG ICONS CONTINUOUS REPEATED MOVING ANIMATION ENGINE              */
+/* Smooth, clean, repeated floating & moving motion (No 3D/pop)       */
 /* ══════════════════════════════════════════════════════════════════ */
 
 /* Target all semantic icons, lucide icons, and depth icons directly */
@@ -66,91 +66,80 @@
 .badge-tag svg:not([viewBox="0 0 100 100"]):not(.no-3d),
 .realm-business-tile svg:not([viewBox="0 0 100 100"]):not(.no-3d) {
   display: inline-block !important;
-  transform-style: preserve-3d !important;
   transform-origin: center center !important;
   will-change: transform, filter !important;
-  animation: realm-3d-loop 3.2s ease-in-out infinite !important;
+  animation: realm-icon-float 3s ease-in-out infinite !important;
   animation-delay: var(--icon-delay, 0s) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
 }
 
-/* Category-specific 3D movements for variety */
+/* Category-specific smooth moving animations */
 .realm-semantic-icon[data-icon-kind="cloud"],
 .realm-depth-icon[data-icon-kind="cloud"] {
-  animation-name: realm-3d-rocket-float !important;
-  animation-duration: 2.8s !important;
+  animation-name: realm-icon-rocket-float !important;
+  animation-duration: 2.6s !important;
 }
 
 .realm-semantic-icon[data-icon-kind="ai"],
 .realm-depth-icon[data-icon-kind="ai"],
 .realm-semantic-icon[data-icon-kind="automation"],
 .realm-depth-icon[data-icon-kind="automation"] {
-  animation-name: realm-3d-scan-float !important;
-  animation-duration: 3.4s !important;
+  animation-name: realm-icon-pulse-float !important;
+  animation-duration: 3.2s !important;
 }
 
 .realm-semantic-icon[data-icon-kind="combat"],
 .realm-depth-icon[data-icon-kind="combat"] {
-  animation-name: realm-3d-heroic-pulse !important;
-  animation-duration: 3s !important;
+  animation-name: realm-icon-sway-float !important;
+  animation-duration: 2.8s !important;
 }
 
-/* Core 3D Gyroscope / Wobble Float Animation */
-@keyframes realm-3d-loop {
-  0% {
-    transform: perspective(350px) rotateX(calc(18deg + var(--icon-x, 0deg))) rotateY(calc(-22deg + var(--icon-y, 0deg))) translateZ(4px) translateY(0px);
-    filter: drop-shadow(-3px 5px 6px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 4px rgba(255, 143, 0, 0.3));
+/* Core Smooth Floating Moving Animation (Clean vertical bobbing, No 3D) */
+@keyframes realm-icon-float {
+  0%, 100% {
+    transform: translateY(0px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  }
+  50% {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 5px rgba(255, 143, 0, 0.25));
+  }
+}
+
+/* Rocket / Cloud Ascending Flight Movement */
+@keyframes realm-icon-rocket-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  }
+  50% {
+    transform: translateY(-5px) translateX(1.5px);
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.35));
+  }
+}
+
+/* AI / Automation Pulsing Float Movement */
+@keyframes realm-icon-pulse-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  }
+  50% {
+    transform: translateY(-3.5px) scale(1.04);
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 6px rgba(0, 243, 255, 0.35));
+  }
+}
+
+/* Combat / Heroic Gentle Sway Movement */
+@keyframes realm-icon-sway-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
   25% {
-    transform: perspective(350px) rotateX(calc(-14deg + var(--icon-x, 0deg))) rotateY(calc(-10deg + var(--icon-y, 0deg))) translateZ(12px) translateY(-4px);
-    filter: drop-shadow(-1px 7px 9px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 8px rgba(255, 143, 0, 0.5));
-  }
-  50% {
-    transform: perspective(350px) rotateX(calc(16deg + var(--icon-x, 0deg))) rotateY(calc(22deg + var(--icon-y, 0deg))) translateZ(6px) translateY(-2px);
-    filter: drop-shadow(4px 6px 7px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 5px rgba(217, 0, 0, 0.4));
+    transform: translateY(-2px) rotate(-2deg);
   }
   75% {
-    transform: perspective(350px) rotateX(calc(-16deg + var(--icon-x, 0deg))) rotateY(calc(12deg + var(--icon-y, 0deg))) translateZ(15px) translateY(-6px);
-    filter: drop-shadow(2px 8px 11px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 10px rgba(255, 143, 0, 0.55));
-  }
-  100% {
-    transform: perspective(350px) rotateX(calc(18deg + var(--icon-x, 0deg))) rotateY(calc(-22deg + var(--icon-y, 0deg))) translateZ(4px) translateY(0px);
-    filter: drop-shadow(-3px 5px 6px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 4px rgba(255, 143, 0, 0.3));
-  }
-}
-
-/* Rocket / Cloud 3D Ascending Flight */
-@keyframes realm-3d-rocket-float {
-  0%, 100% {
-    transform: perspective(350px) rotateX(22deg) rotateY(-18deg) rotateZ(-6deg) translateZ(4px) translateY(1px);
-    filter: drop-shadow(-2px 4px 6px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 5px rgba(255, 143, 0, 0.4));
-  }
-  50% {
-    transform: perspective(350px) rotateX(-12deg) rotateY(16deg) rotateZ(6deg) translateZ(16px) translateY(-7px);
-    filter: drop-shadow(3px 8px 12px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 12px rgba(255, 69, 0, 0.7));
-  }
-}
-
-/* AI / Scanning 3D Yaw & Perspective Search */
-@keyframes realm-3d-scan-float {
-  0%, 100% {
-    transform: perspective(350px) rotateY(-28deg) rotateX(12deg) translateZ(6px) translateY(-1px);
-    filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 6px rgba(255, 143, 0, 0.45));
-  }
-  50% {
-    transform: perspective(350px) rotateY(28deg) rotateX(-10deg) translateZ(14px) translateY(-5px);
-    filter: drop-shadow(4px 7px 10px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
-  }
-}
-
-/* Combat / Heroic Stance 3D Dynamic Tilt */
-@keyframes realm-3d-heroic-pulse {
-  0%, 100% {
-    transform: perspective(350px) rotateX(15deg) rotateY(-20deg) scale(1) translateZ(4px);
-    filter: drop-shadow(-2px 5px 6px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px rgba(217, 0, 0, 0.4));
-  }
-  50% {
-    transform: perspective(350px) rotateX(-18deg) rotateY(20deg) scale(1.08) translateZ(14px) translateY(-4px);
-    filter: drop-shadow(3px 7px 10px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 69, 0, 0.7));
+    transform: translateY(-4px) rotate(2deg);
   }
 }
 
@@ -160,10 +149,10 @@
 }
 @keyframes realm-signal-pulse {
   0% { stroke-opacity: 0.55; filter: drop-shadow(0 0 1px currentColor); }
-  100% { stroke-opacity: 1; filter: drop-shadow(0 0 6px currentColor); }
+  100% { stroke-opacity: 1; filter: drop-shadow(0 0 5px currentColor); }
 }
 
-/* High-impact 3D Hover elevation when hovering over cards, buttons, or icons */
+/* Gentle, smooth hover feedback without aggressive 3D popping */
 .group:hover .realm-semantic-icon,
 .group:hover .realm-depth-icon,
 button:hover .realm-semantic-icon,
@@ -173,9 +162,9 @@ a:hover .realm-depth-icon,
 .realm-business-tile:hover svg,
 .realm-semantic-icon:hover,
 .realm-depth-icon:hover {
-  transform: perspective(350px) rotateX(-16deg) rotateY(24deg) translateZ(20px) translateY(-7px) scale(1.2) !important;
-  filter: drop-shadow(0 0 14px rgba(255, 143, 0, 0.8)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.9)) !important;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease !important;
+  transform: translateY(-3px) !important;
+  filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6)) !important;
+  transition: transform 0.25s ease-out, filter 0.25s ease-out !important;
 }
 
 /* ── CRITICAL EXCLUSION: ShieldKnightEmblem & warrior artwork MUST remain 100% untouched ── */
