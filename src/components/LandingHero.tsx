@@ -1,7 +1,8 @@
 import React from 'react';
-import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, TrendingUp, Layers } from './ui/RealmIcons';
+import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, TrendingUp } from './ui/RealmIcons';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
+import { BlacksmithForgeIcon } from './ui/BlacksmithForgeIcon';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -76,10 +77,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
           <span className="absolute top-2 left-2 text-[#FF8F00]/30 font-mono text-[10px] select-none">+</span>
           <span className="absolute top-2 right-2 text-[#FF8F00]/30 font-mono text-[10px] select-none">+</span>
 
-          <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
-            <Layers className="w-4 h-4 text-[#FF8F00] shrink-0" />
-            <span>Services I Build</span>
-            <Layers className="w-4 h-4 text-[#FF8F00] shrink-0" />
+          <div className="text-xs font-pixel text-gray-300 uppercase tracking-widest mb-4 flex items-center justify-center gap-3">
+            <BlacksmithForgeIcon className="w-7 h-7 shrink-0" />
+            <span>SERVICES I BUILD</span>
+            <BlacksmithForgeIcon className="w-7 h-7 shrink-0" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {serviceBadges.map((b, i) => (
