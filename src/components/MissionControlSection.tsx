@@ -56,8 +56,8 @@ const MetaChipCard: React.FC<{ label: string; value: string }> = ({ label, value
 const MissionMetricBox: React.FC<{ number: string; caption: string }> = ({ number, caption }) => {
   return (
     <div className="flex flex-col min-w-0">
-      <span className="font-mono text-base font-extrabold text-[#FF8F00]">{number}</span>
-      <span className="font-sans text-xs leading-snug text-gray-300">{caption}</span>
+      <span className="font-mono text-sm sm:text-base font-extrabold text-[#FF8F00] leading-tight">{number}</span>
+      <span className="font-sans text-[10px] sm:text-xs leading-tight text-gray-300 mt-0.5">{caption}</span>
     </div>
   );
 };
@@ -328,6 +328,17 @@ export const MissionControlSection: React.FC = () => {
     }
   }, [transitionState, activeMissionIndex]);
 
+  // Lock body scroll while in the Dark Dimension
+  useEffect(() => {
+    if (transitionState !== 'PORTFOLIO') {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [transitionState]);
+
   // Recalculate function-based tween transforms on window resize
   useEffect(() => {
     if (transitionState !== 'DARK_DIMENSION') return;
@@ -486,7 +497,7 @@ export const MissionControlSection: React.FC = () => {
           {(transitionState === 'DARK_DIMENSION' || transitionState === 'ENTER_WARP' || transitionState === 'EXIT_PORTAL') && (
             <div
               inert={transitionState !== 'DARK_DIMENSION'}
-              className={`w-full h-full overflow-hidden flex flex-col justify-between bg-[#030712] text-white select-none p-3 sm:p-4 lg:p-6 relative ${
+              className={`w-full h-full max-h-[100dvh] overflow-hidden flex flex-col justify-between bg-[#030712] text-white select-none p-2 sm:p-3 md:p-4 relative ${
                 transitionState === 'EXIT_PORTAL' ? 'realm-vault-suction' : 'animate-dimension-enter'
               }`}
               style={{ overflow: 'hidden', transformOrigin: `${warpOrigin.x}px ${warpOrigin.y}px` }}
@@ -514,38 +525,38 @@ export const MissionControlSection: React.FC = () => {
               </div>
 
               {/* Viewport Cybernetic Corner Brackets */}
-              <div className="fixed top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-[#FF8F00]/60 pointer-events-none z-30" />
-              <div className="fixed top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-[#FF8F00]/60 pointer-events-none z-30" />
-              <div className="fixed bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-[#FF8F00]/60 pointer-events-none z-30" />
-              <div className="fixed bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-[#FF8F00]/60 pointer-events-none z-30" />
+              <div className="fixed top-2.5 left-2.5 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 border-[#FF8F00]/60 pointer-events-none z-30" />
+              <div className="fixed top-2.5 right-2.5 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-r-2 border-[#FF8F00]/60 pointer-events-none z-30" />
+              <div className="fixed bottom-2.5 left-2.5 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-l-2 border-[#FF8F00]/60 pointer-events-none z-30" />
+              <div className="fixed bottom-2.5 right-2.5 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 border-[#FF8F00]/60 pointer-events-none z-30" />
 
               {/* Dimension Top Bar: Interactive Exit Warp Portal */}
-              <div className="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-end pb-3 border-b border-white/10 shrink-0">
+              <div className="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-end pb-2 sm:pb-2.5 border-b border-white/10 shrink-0">
                 {/* THE EXIT WARP GATE (Thematic Interactive Gateway Back to Portfolio) */}
                 <button
                   ref={exitPortalRef}
                   type="button"
                   onClick={handleExitDimension}
-                  className="group/exit-portal flex items-center gap-2.5 sm:gap-3 p-1.5 sm:p-2 pr-3.5 sm:pr-4.5 rounded-2xl bg-black/85 border border-[#FF8F00]/50 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 transition-all duration-300 cursor-pointer shadow-[0_0_25px_rgba(255,143,0,0.3)] hover:shadow-[0_0_40px_rgba(255,143,0,0.65)] focus:outline-none backdrop-blur-md"
+                  className="group/exit-portal flex items-center gap-2 sm:gap-2.5 p-1 sm:p-1.5 pr-3 sm:pr-4 rounded-2xl bg-black/85 border border-[#FF8F00]/50 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 transition-all duration-300 cursor-pointer shadow-[0_0_25px_rgba(255,143,0,0.3)] hover:shadow-[0_0_40px_rgba(255,143,0,0.65)] focus:outline-none backdrop-blur-md"
                   aria-label="Exit the Dark Dimension through warp gate"
                   title="Exit the Dark Dimension through warp gate"
                 >
-                  <div className="relative w-11 h-11 sm:w-12 sm:h-12 shrink-0"><PortalGate compact active={transitionState === 'DARK_DIMENSION'} /></div>
+                  <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0"><PortalGate compact active={transitionState === 'DARK_DIMENSION'} /></div>
                   {/* Label */}
                   <div className="flex flex-col text-left">
-                    <span className="font-mono text-[9px] text-[#FF8F00] uppercase tracking-widest leading-none font-bold">
+                    <span className="font-mono text-[8px] sm:text-[9px] text-[#FF8F00] uppercase tracking-widest leading-none font-bold">
                       EXIT WARP GATE
                     </span>
-                    <span className="font-mono text-xs font-bold text-white group-hover/exit-portal:text-amber-200 transition-colors tracking-wide flex items-center gap-1.5 mt-0.5">
+                    <span className="font-mono text-[11px] sm:text-xs font-bold text-white group-hover/exit-portal:text-amber-200 transition-colors tracking-wide flex items-center gap-1 mt-0.5">
                       <span>DEPART TO PORTFOLIO</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/exit-portal:translate-x-1 transition-transform text-[#FF8F00]" />
+                      <ArrowRight className="w-3 h-3 group-hover/exit-portal:translate-x-1 transition-transform text-[#FF8F00]" />
                     </span>
                   </div>
                 </button>
               </div>
 
               {/* Active Selected Mission Indicator */}
-              <div className="relative z-20 flex flex-col items-center text-center my-2 sm:my-3 shrink-0">
+              <div className="relative z-20 flex flex-col items-center text-center my-1 sm:my-1.5 shrink-0">
                 <div className="flex items-center justify-center">
                   {(() => {
                     const currentProj = PROJECTS[activeMissionIndex];
@@ -558,7 +569,7 @@ export const MissionControlSection: React.FC = () => {
                           playCyberSound('CARD_CLICK');
                           runFunctionBasedTween((activeMissionIndex + 1) % PROJECTS.length);
                         }}
-                        className="px-4 py-1.5 rounded-xl font-mono text-xs sm:text-sm font-bold transition-all flex items-center gap-2 border bg-[#FF8F00]/25 border-[#FF8F00] text-white shadow-[0_0_20px_rgba(255,143,0,0.45)] hover:bg-[#FF8F00]/35 hover:shadow-[0_0_30px_rgba(255,143,0,0.65)] cursor-pointer backdrop-blur-md"
+                        className="px-3 sm:px-4 py-1 rounded-xl font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center gap-2 border bg-[#FF8F00]/25 border-[#FF8F00] text-white shadow-[0_0_20px_rgba(255,143,0,0.45)] hover:bg-[#FF8F00]/35 hover:shadow-[0_0_30px_rgba(255,143,0,0.65)] cursor-pointer backdrop-blur-md"
                         title="Click to cycle to next mission"
                       >
                         <span className="w-2 h-2 rounded-full bg-[#FF8F00] animate-pulse" />
@@ -573,8 +584,8 @@ export const MissionControlSection: React.FC = () => {
               </div>
 
               {/* Central Anime.js Function-Based Tween Stage */}
-              <div className="relative z-20 w-full flex-1 flex flex-col items-center min-h-0 overflow-y-auto overflow-x-hidden py-4"
-                style={{ touchAction: 'pan-y' }}
+              <div className="relative z-20 w-full flex-1 flex flex-col items-center justify-center min-h-0 overflow-hidden py-1 sm:py-2"
+                style={{ touchAction: 'none' }}
                 onPointerDown={e => {
                   if (!e.isPrimary || e.button !== 0 || (e.target as Element).closest('button,a')) return;
                   swipeRef.current = { id: e.pointerId, x: e.clientX, y: e.clientY };
@@ -595,7 +606,7 @@ export const MissionControlSection: React.FC = () => {
                   if (performance.now() < suppressClickUntil.current) { e.preventDefault(); e.stopPropagation(); }
                 }}
               >
-                <div className="relative w-full max-w-6xl h-[550px] shrink-0 flex items-center justify-center [perspective:1200px]">
+                <div className="relative w-full max-w-5xl h-[clamp(340px,54vh,490px)] shrink-0 flex items-center justify-center [perspective:1200px]">
                   {PROJECTS.map((project, index) => {
                     const isCurrent = index === activeMissionIndex;
                     return (
@@ -611,7 +622,7 @@ export const MissionControlSection: React.FC = () => {
                             runFunctionBasedTween(index);
                           }
                         }}
-                        className={`absolute w-[90vw] max-w-[340px] sm:max-w-[365px] md:max-w-[375px] h-full transition-shadow duration-300 ${
+                        className={`absolute w-[88vw] max-w-[310px] sm:max-w-[340px] md:max-w-[360px] h-full transition-shadow duration-300 ${
                           isCurrent
                             ? 'cursor-default shadow-[0_0_40px_rgba(255,143,0,0.35),0_20px_50px_rgba(0,0,0,0.85)]'
                             : 'cursor-pointer hover:brightness-110 shadow-[0_15px_35px_rgba(0,0,0,0.8)]'
@@ -624,30 +635,30 @@ export const MissionControlSection: React.FC = () => {
                       >
                         {/* Wooden Card Body matching Screenshot 2 aesthetic */}
                         <div
-                          className="w-full h-full min-h-0 p-4 sm:p-5 flex flex-col justify-between group rounded-2xl relative overflow-hidden text-left"
+                          className="w-full h-full min-h-0 p-3 sm:p-3.5 md:p-4 flex flex-col justify-between group rounded-2xl relative overflow-hidden text-left"
                           style={woodCardStyle}
                         >
                           <VinesOverlay />
 
                           {/* Subtle Wing Hint Label for non-active cards */}
                           {!isCurrent && (
-                            <div className="absolute top-3.5 right-3.5 z-30 pointer-events-none">
-                              <span className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-black/80 border border-[#FF8F00]/50 text-[#FF8F00]">
+                            <div className="absolute top-2.5 right-2.5 z-30 pointer-events-none">
+                              <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-black/80 border border-[#FF8F00]/50 text-[#FF8F00]">
                                 CLICK TO FOCUS
                               </span>
                             </div>
                           )}
 
-                          <div className="relative z-20 flex-1 flex flex-col justify-between">
-                            <div>
+                          <div className="relative z-20 flex-1 min-h-0 flex flex-col justify-between">
+                            <div className="min-h-0 flex flex-col">
                               {/* Mission Header Badges */}
-                              <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
-                                <span className="font-mono text-xs font-bold text-[#FF8F00] tracking-widest flex items-center gap-1.5">
+                              <div className="flex items-center justify-between gap-2 mb-1 sm:mb-1.5 shrink-0">
+                                <span className="font-mono text-[11px] sm:text-xs font-bold text-[#FF8F00] tracking-widest flex items-center gap-1.5">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#FF8F00] animate-pulse" />
                                   {project.missionNumber}
                                 </span>
                                 <span
-                                  className={`badge-tag text-[10px] font-mono font-bold ${
+                                  className={`badge-tag text-[9px] sm:text-[10px] font-mono font-bold py-0.5 px-2 ${
                                     project.status === 'IN PROGRESS' ? 'badge-warning' : 'badge-success'
                                   }`}
                                 >
@@ -656,18 +667,18 @@ export const MissionControlSection: React.FC = () => {
                               </div>
 
                               {/* Mission Title */}
-                              <h3 className="font-heading font-extrabold text-lg sm:text-xl text-white group-hover:text-[#FF8F00] transition-colors mb-1.5 tracking-tight leading-snug">
+                              <h3 className="font-heading font-extrabold text-sm sm:text-base md:text-lg text-white group-hover:text-[#FF8F00] transition-colors mb-1 tracking-tight leading-snug shrink-0 line-clamp-1 sm:line-clamp-2">
                                 {project.title}
                               </h3>
 
                               {/* Tagline */}
-                              <p className="text-[11px] sm:text-xs text-gray-200 mb-2.5 sm:mb-3 font-sans leading-relaxed">
+                              <p className="text-[10px] sm:text-[11px] text-gray-200 mb-1.5 sm:mb-2 font-sans leading-relaxed line-clamp-2 shrink-0">
                                 {project.tagline}
                               </p>
 
                               {/* Key Impact Stats Bar */}
                               {project.metrics && project.metrics.length > 0 && (
-                                <div className="grid grid-cols-2 gap-2 mb-2.5 sm:mb-3 p-2 sm:p-2.5 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/40 shadow-inner">
+                                <div className="grid grid-cols-2 gap-1.5 mb-1.5 sm:mb-2 p-1.5 sm:p-2 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/40 shadow-inner shrink-0">
                                   {project.metrics.slice(0, 2).map((m, idx) => (
                                     <MissionMetricBox key={idx} number={m.number} caption={m.caption} />
                                   ))}
@@ -675,15 +686,15 @@ export const MissionControlSection: React.FC = () => {
                               )}
 
                               {/* Technology Loadout Tags */}
-                              <div className="mb-2 sm:mb-2.5">
-                                <span className="font-mono text-[9px] sm:text-[10px] text-gray-300 block mb-1 uppercase tracking-wider font-bold">
+                              <div className="mb-1.5 sm:mb-2 shrink-0">
+                                <span className="font-mono text-[8px] sm:text-[9px] text-gray-300 block mb-1 uppercase tracking-wider font-bold">
                                   TECH ARSENAL
                                 </span>
-                                <div className="flex flex-wrap gap-1 sm:gap-1.5">
-                                  {project.technologyLoadout.slice(0, 5).map((tech, i) => (
+                                <div className="flex flex-wrap gap-1">
+                                  {project.technologyLoadout.slice(0, 4).map((tech, i) => (
                                     <span
                                       key={i}
-                                      className="font-mono text-[9px] sm:text-[10px] px-2 py-0.5 rounded-md bg-[#000000]/85 border border-white/15 text-gray-200 font-medium"
+                                      className="font-mono text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-md bg-[#000000]/85 border border-white/15 text-gray-200 font-medium"
                                     >
                                       {tech}
                                     </span>
@@ -701,10 +712,10 @@ export const MissionControlSection: React.FC = () => {
                                 setSelectedProject(project);
                                 setActiveModalTab('overview');
                               })}
-                              className="relative z-20 w-full mt-1.5 py-2.5 rounded-xl bg-[#FF8F00]/20 border border-[#FF8F00]/60 hover:bg-[#FF8F00]/35 hover:border-[#FF8F00] text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,143,0,0.2)]"
+                              className="relative z-20 w-full mt-auto py-2 sm:py-2.5 rounded-xl bg-[#FF8F00]/20 border border-[#FF8F00]/60 hover:bg-[#FF8F00]/35 hover:border-[#FF8F00] text-white font-mono text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,143,0,0.2)] shrink-0"
                             >
-                              <span>INSPECT MISSION SPECIFICATION</span>
-                              <ChevronRight className="w-4 h-4 text-[#FF8F00] group-hover:translate-x-1 transition-transform" />
+                              <span>INSPECT MISSION</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-[#FF8F00] group-hover:translate-x-1 transition-transform shrink-0" />
                             </button>
                           </div>
                         </div>
@@ -714,7 +725,7 @@ export const MissionControlSection: React.FC = () => {
                 </div>
 
                 {/* Bottom Navigation Controls */}
-                <div className="flex items-center justify-between w-full max-w-md mx-auto mt-2.5 sm:mt-3 px-4 z-20 shrink-0">
+                <div className="flex items-center justify-between w-full max-w-md mx-auto mt-1 sm:mt-2 px-4 z-20 shrink-0">
                   <button
                     type="button"
                     onClick={() => {
@@ -722,10 +733,10 @@ export const MissionControlSection: React.FC = () => {
                       playCyberSound('CARD_CLICK');
                       runFunctionBasedTween(prevIdx);
                     }}
-                    className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-[11px] sm:text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
                     aria-label="Previous Mission"
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">PREV</span>
                   </button>
 
@@ -739,10 +750,10 @@ export const MissionControlSection: React.FC = () => {
                           playCyberSound('CARD_CLICK');
                           runFunctionBasedTween(idx);
                         }}
-                        className={`h-2 rounded-full transition-all cursor-pointer ${
+                        className={`h-1.5 sm:h-2 rounded-full transition-all cursor-pointer ${
                           idx === activeMissionIndex
-                            ? 'w-6 bg-[#FF8F00] shadow-[0_0_12px_#FF8F00]'
-                            : 'w-2 bg-white/20 hover:bg-white/50'
+                            ? 'w-5 sm:w-6 bg-[#FF8F00] shadow-[0_0_12px_#FF8F00]'
+                            : 'w-1.5 sm:w-2 bg-white/20 hover:bg-white/50'
                         }`}
                         aria-label={`Go to mission ${idx + 1}`}
                       />
@@ -756,17 +767,17 @@ export const MissionControlSection: React.FC = () => {
                       playCyberSound('CARD_CLICK');
                       runFunctionBasedTween(nextIdx);
                     }}
-                    className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1 rounded-xl bg-black/70 border border-[#FF8F00]/40 hover:border-[#FF8F00] hover:bg-[#FF8F00]/20 text-[#FF8F00] hover:text-white transition-all cursor-pointer flex items-center gap-1 font-mono text-[11px] sm:text-xs shadow-[0_0_12px_rgba(255,143,0,0.2)]"
                     aria-label="Next Mission"
                   >
                     <span className="hidden sm:inline">NEXT</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
 
               {/* Minimal Bottom Session Telemetry Footer */}
-              <div className="relative z-20 w-full max-w-7xl mx-auto pt-3 border-t border-white/10 flex items-center justify-between text-gray-500 font-mono text-[10px] uppercase tracking-wider shrink-0">
+              <div className="relative z-20 w-full max-w-7xl mx-auto pt-1.5 sm:pt-2 border-t border-white/10 flex items-center justify-between text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-wider shrink-0">
                 <span>DIMENSIONAL ARCHIVE // LEVEL 01</span>
                 <span className="hidden sm:inline">USE THE EXIT WARP GATE TO RETURN</span>
                 <span>SYSTEMS SECURED</span>
