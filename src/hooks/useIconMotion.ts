@@ -25,10 +25,10 @@ export function useIconMotion() {
         const r = target.getBoundingClientRect();
         const x = Math.max(-1, Math.min(1, (event.clientX - r.left) / r.width * 2 - 1));
         const y = Math.max(-1, Math.min(1, (event.clientY - r.top) / r.height * 2 - 1));
-        active = [...target.querySelectorAll<SVGSVGElement>('.realm-depth-icon')];
+        active = [...target.querySelectorAll<SVGSVGElement>('.realm-semantic-icon, .realm-depth-icon, svg.lucide')].filter(isEligibleIcon);
         active.forEach(svg => {
-          svg.style.setProperty('--icon-x', `${-y * 10}deg`);
-          svg.style.setProperty('--icon-y', `${x * 14}deg`);
+          svg.style.setProperty('--icon-x', `${-y * 12}deg`);
+          svg.style.setProperty('--icon-y', `${x * 16}deg`);
         });
       });
     };
