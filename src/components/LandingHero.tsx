@@ -89,7 +89,13 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
                 {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => scrollToSection('missions'))}
                 className="p-3 sm:p-3.5 rounded-xl bg-[#000000]/80 border border-white/10 hover:border-[#FF8F00]/60 hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(255,143,0,0.18)] hover:bg-[#FF8F00]/10 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center gap-2.5 text-center min-h-[105px]"
               >
-                <b.icon className={`w-8 h-8 ${b.color} shrink-0 realm-animated-icon`} />
+                <b.icon
+                  className={`w-8 h-8 ${b.color} shrink-0 realm-animated-icon`}
+                  style={{
+                    animationDuration: `${2.7 + (i % 3) * 0.35}s`,
+                    animationDelay: `${-(i * 0.48)}s`,
+                  }}
+                />
                 <span className="font-nova text-[11px] sm:text-xs text-gray-200 group-hover:text-white font-semibold leading-snug tracking-normal">
                   {b.name}
                 </span>

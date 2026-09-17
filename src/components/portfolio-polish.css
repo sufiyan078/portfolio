@@ -68,9 +68,13 @@
   display: inline-block !important;
   transform-origin: center center !important;
   will-change: transform, filter !important;
-  animation: realm-icon-float 3s ease-in-out infinite !important;
-  animation-delay: var(--icon-delay, 0s) !important;
+  animation-name: realm-icon-float !important;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out !important;
+  animation-iteration-count: infinite !important;
+  animation-delay: var(--icon-delay, 0s);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
 }
 
 /* Core Smooth Floating Moving Animation (Clean vertical bobbing, No 3D) */
@@ -85,12 +89,10 @@
   }
 }
 
-/* Hover feedback on these specific animated icons */
-.group:hover .realm-animated-icon,
-.realm-animated-icon:hover {
-  transform: translateY(-3px) !important;
-  filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6)) !important;
-  transition: transform 0.25s ease-out, filter 0.25s ease-out !important;
+/* Subtle glow enhancement on hover without overriding transform (animation keeps running uninterrupted) */
+.group:hover .realm-animated-icon {
+  filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+  transition: filter 0.25s ease-out;
 }
 
 /* ── ALL OTHER SVG ICONS ARE COMPLETELY FIXED WITH ZERO ANIMATION ── */

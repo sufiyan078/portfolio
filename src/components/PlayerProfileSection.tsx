@@ -26,8 +26,10 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
   Crown
 };
 
-const resolveIcon = (name: string) => iconMap[name] ?? Target;
-const businessIcons: Record<string, React.FC<{ className?: string }>> = {
+const resolveIcon = (name: string): React.ComponentType<{ className?: string; style?: React.CSSProperties }> =>
+  (iconMap[name] ?? Target) as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+
+const businessIcons: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   dashboard: TrendingUp, automate: Zap, 'ai-workflow': Bot,
   'internal-app': Layers, reports: GitBranch, 'saas-mvp': Rocket,
 };
@@ -36,6 +38,8 @@ const businessIcons: Record<string, React.FC<{ className?: string }>> = {
 const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }> = ({ stage, index, total }) => {
   const Icon = resolveIcon(stage.icon);
   const isLast = index === total - 1;
+  const duration = 2.7 + (index % 3) * 0.35;
+  const delay = -(index * 0.55);
 
   return (
     <div
@@ -49,7 +53,13 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
 
       {/* Solid Opaque Node Circle (Blocks line behind icon badge completely) */}
       <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#1A1009] border border-[#FF8F00]/50 flex items-center justify-center p-2 group-hover:bg-[#2A180C] group-hover:border-[#FF8F00] group-hover:shadow-[0_0_16px_rgba(255,143,0,0.4)] transition-all duration-300">
-        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0 realm-animated-icon" />
+        <Icon
+          className="w-5 h-5 text-[#FF8F00] shrink-0 realm-animated-icon"
+          style={{
+            animationDuration: `${duration}s`,
+            animationDelay: `${delay}s`,
+          }}
+        />
       </div>
 
       {/* Content */}
@@ -69,8 +79,10 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
 };
 
 /* ── Client Reason Card ───────────────────────────────────── */
-const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
+const ReasonCard: React.FC<{ card: ClientCard; index?: number }> = ({ card, index = 0 }) => {
   const Icon = resolveIcon(card.icon);
+  const duration = 2.6 + (index % 4) * 0.3;
+  const delay = -(index * 0.45);
 
   return (
     <div
@@ -80,7 +92,13 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
       <div className="flex items-start gap-3.5 flex-1">
         {/* Icon badge */}
         <div className="w-10 h-10 shrink-0 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center p-2 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_12px_rgba(217,0,0,0.4)] transition-all duration-300">
-          <Icon className="w-5 h-5 text-[#FF4500] shrink-0 realm-animated-icon" />
+          <Icon
+            className="w-5 h-5 text-[#FF4500] shrink-0 realm-animated-icon"
+            style={{
+              animationDuration: `${duration}s`,
+              animationDelay: `${delay}s`,
+            }}
+          />
         </div>
 
         {/* Text */}
@@ -185,7 +203,7 @@ export const PlayerProfileSection: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {BUSINESS_HELP_ITEMS.map((item) => (
+              {BUSINESS_HELP_ITEMS.map((item, idx) => (
                 <div
                   key={item.id}
                   {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => {
@@ -196,7 +214,13 @@ export const PlayerProfileSection: React.FC = () => {
                   role="button" tabIndex={0}
                   className="realm-business-tile p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex flex-col items-start justify-center gap-3 cursor-pointer"
                 >
-                  {React.createElement(businessIcons[item.id] ?? Target, { className: 'w-8 h-8 text-[#FF8F00] shrink-0 realm-animated-icon' })}
+                  {React.createElement(businessIcons[item.id] ?? Target, {
+                    className: 'w-8 h-8 text-[#FF8F00] shrink-0 realm-animated-icon',
+                    style: {
+                      animationDuration: `${2.8 + (idx % 3) * 0.4}s`,
+                      animationDelay: `${-(idx * 0.52)}s`,
+                    },
+                  })}
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-mono font-medium text-slate-200 group-hover:text-white transition-colors">
                       {item.question}
@@ -212,8 +236,8 @@ export const PlayerProfileSection: React.FC = () => {
 
         </div>
           {/* Full-width perks prevent a long right column and empty space on the left. */}
-          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)] group lg:col-span-12">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="glass-panel p-6 sm:p-8 border-2 border-[#D90000]/30 shadow-[0_0_30px_rgba(217,0,0,0.12)] lg:col-span-12">
+            <div className="flex items-center gap-3 mb-6 group cursor-default">
               <div className="w-10 h-10 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000]">
                 <ShieldCheck className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
               </div>
@@ -237,8 +261,8 @@ export const PlayerProfileSection: React.FC = () => {
                   {['business-first', 'structured-process', 'ai-accelerated', 'transparent-comms']
                     .map(id => CLIENT_REASONS.find(c => c.id === id))
                     .filter((card): card is NonNullable<typeof card> => Boolean(card))
-                    .map((card) => (
-                      <ReasonCard key={card.id} card={card} />
+                    .map((card, idx) => (
+                      <ReasonCard key={card.id} card={card} index={idx} />
                     ))}
                 </div>
               </div>
@@ -256,8 +280,8 @@ export const PlayerProfileSection: React.FC = () => {
                   {['production-ready', 'clean-ux', 'long-term', 'full-ownership']
                     .map(id => CLIENT_REASONS.find(c => c.id === id))
                     .filter((card): card is NonNullable<typeof card> => Boolean(card))
-                    .map((card) => (
-                      <ReasonCard key={card.id} card={card} />
+                    .map((card, idx) => (
+                      <ReasonCard key={card.id} card={card} index={idx + 4} />
                     ))}
                 </div>
               </div>

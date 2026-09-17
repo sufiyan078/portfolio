@@ -17,7 +17,9 @@ export function useIconMotion() {
           continue;
         }
         if (icons.has(svg)) continue;
-        svg.style.setProperty('--icon-delay', `${-(icons.size % 8) * 0.38}s`);
+        if (!svg.style.animationDelay) {
+          svg.style.setProperty('--icon-delay', `${-(icons.size % 8) * 0.38}s`);
+        }
         icons.add(svg);
       }
     };
