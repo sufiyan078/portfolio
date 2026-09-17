@@ -62,12 +62,23 @@ export function DimensionalWarpCanvas({ mode, origin, onTraverse, onComplete }: 
           ctx.lineTo(x + size * .2, y + size * 1.4); ctx.lineTo(x - size * .8, y + size * .2); ctx.closePath(); ctx.fill(); ctx.stroke();
         }
         if (p < 0.34) {
-          const opening = Math.min(1, approach * 1.4), cx = w / 2, cy = h / 2;
-          ctx.fillStyle = '#59432d'; ctx.strokeStyle = '#d99a47'; ctx.lineWidth = 9;
-          ctx.beginPath(); ctx.moveTo(cx-w*.2,cy+h*.36);ctx.lineTo(cx-w*.2,cy-h*.25);ctx.lineTo(cx-w*.13,cy-h*.36);ctx.lineTo(cx+w*.13,cy-h*.36);ctx.lineTo(cx+w*.2,cy-h*.25);ctx.lineTo(cx+w*.2,cy+h*.36);ctx.stroke();
-          ctx.fillStyle = '#15171e';
-          ctx.fillRect(cx-w*.18-w*.18*opening,cy-h*.31,w*.18,h*.65);
-          ctx.fillRect(cx+w*.18*opening,cy-h*.31,w*.18,h*.65);
+          const cx = w / 2, cy = h / 2, radius = Math.min(w,h)*.32;
+          ctx.fillStyle = '#081625'; ctx.beginPath(); ctx.arc(cx,cy,radius,0,Math.PI*2); ctx.fill();
+          for(let stone=0;stone<20;stone++) {
+            const a=stone*Math.PI/10;
+            ctx.strokeStyle=stone%3 ? '#514b40' : '#8c7147'; ctx.lineWidth=radius*.17;
+            ctx.beginPath();ctx.arc(cx,cy,radius,a+.025,a+Math.PI/10-.025);ctx.stroke();
+          }
+          ctx.strokeStyle='#6fb5d6';ctx.lineWidth=1.5;
+          for(let arm=0;arm<7;arm++) {
+            ctx.beginPath();
+            for(let step=0;step<60;step++) {
+              const u=step/60,r=radius*.9*(1-u),a=arm*Math.PI*2/7+u*4-now*.0004;
+              const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;
+              if(step===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+            }
+            ctx.stroke();
+          }
         }
       }
       if (p >= 1) finish(); else frame = requestAnimationFrame(render);

@@ -69,6 +69,6 @@ export function PortalGate({ active = true, compact = false }: { active?: boolea
     return () => { alive = false; cancelAnimationFrame(frame); size.disconnect(); canvas.removeEventListener('webglcontextlost', lost); scene?.dispose(); canvas.remove(); };
   }, [active, visible, compact]);
   return <div ref={hostRef} className={`physical-gate ${compact ? 'physical-gate-compact' : ''}`} data-gate-state={active ? state : 'DORMANT'} data-renderer={rendererReady ? 'webgl' : 'layered'} role="img" aria-label="Physical dimensional gate">
-    <div className="gate-foundation" /><div className="gate-housing"><div className="gate-field" /><div className="gate-shutter gate-shutter-left" /><div className="gate-shutter gate-shutter-right" /><div className="gate-rivets" /></div>
+    <div className="gate-foundation" /><div className="gate-housing"><div className="gate-field" /><div className="gate-rivets" /></div>
   </div>;
 }

@@ -8,7 +8,7 @@ export function createGateScene(canvas: HTMLCanvasElement, traversal = false) {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 250);
   const machine = new THREE.Group(); scene.add(machine);
-  const bronze = new THREE.MeshStandardMaterial({ color: '#60452b', metalness: 0.65, roughness: 0.38 });
+  const bronze = new THREE.MeshStandardMaterial({ color: '#45433e', metalness: 0.4, roughness: 0.72 });
   const dark = new THREE.MeshStandardMaterial({ color: '#17191e', metalness: 0.7, roughness: 0.48 });
   const trim = new THREE.MeshStandardMaterial({ color: '#b5884f', metalness: 0.8, roughness: 0.32 });
   const energy = new THREE.MeshStandardMaterial({ color: '#ffc06a', emissive: '#ff850f', emissiveIntensity: 0.8 });
@@ -19,55 +19,101 @@ export function createGateScene(canvas: HTMLCanvasElement, traversal = false) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
     mesh.position.set(x, y, z); machine.add(mesh); return mesh;
   }
-  // Bevelled octagonal bulkhead with an actual hole, thickness and recessed lining.
-  const frame = new THREE.Shape();
-  frame.moveTo(-2.7, -3.4); frame.lineTo(2.7, -3.4); frame.lineTo(2.7, 2.35); frame.lineTo(1.65, 3.4);
-  frame.lineTo(-1.65, 3.4); frame.lineTo(-2.7, 2.35); frame.closePath();
-  const hole = new THREE.Path();
-  hole.moveTo(-1.75, -2.65); hole.lineTo(-1.75, 1.9); hole.lineTo(-1.05, 2.65);
-  hole.lineTo(1.05, 2.65); hole.lineTo(1.75, 1.9); hole.lineTo(1.75, -2.65); hole.closePath(); frame.holes.push(hole);
-  const archGeometry = new THREE.ExtrudeGeometry(frame, { depth: 0.7, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: 0.09, bevelThickness: 0.09 });
-  for (let i = 0; i < 3; i++) {
-    const arch = new THREE.Mesh(archGeometry, i === 1 ? trim : bronze);
-    arch.position.z = -i * 0.65; arch.scale.setScalar(1 + i * 0.06); machine.add(arch);
+  // Individual bevelled masonry blocks surround a recessed, living aperture.
+  function segment(inner: number, outer: number, a: number, b: number, depth: number, material: THREE.Material) {
+    const shape = new THREE.Shape();
+    shape.absarc(0, 0, outer, a, b, false);
+    shape.absarc(0, 0, inner, b, a, true); shape.closePath();
+    const geometry = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelSegments: 1, steps: 1, bevelSize: .035, bevelThickness: .035, curveSegments: 5 });
+    const mesh = new THREE.Mesh(geometry, material); machine.add(mesh); return mesh;
+  }
+  const runeMaterial = new THREE.LineBasicMaterial({ color: '#ffc77a', transparent: true, opacity: .7 });
+  const runePoints: THREE.Vector3[] = [];
+  for (let i = 0; i < 20; i++) {
+    const angle = i * Math.PI / 10;
+    const stone = segment(2.5, 3.18, angle + .022, angle + Math.PI / 10 - .022, .62, bronze);
+    stone.position.z = -.18 + Math.sin(i * 3.1) * .035;
+    const inset = segment(2.68, 2.99, angle + .054, angle + Math.PI / 10 - .054, .035, dark); inset.position.z = .49;
+    const mid = angle + Math.PI / 20;
+    const glyph = [[-.08,-.12],[.08,-.02],[-.08,.08],[.07,.14],[0,-.12],[0,.14]];
+    for (const [x,y] of glyph) runePoints.push(new THREE.Vector3(Math.cos(mid)*(2.83+y)-Math.sin(mid)*x, Math.sin(mid)*(2.83+y)+Math.cos(mid)*x, .59));
+  }
+  machine.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(runePoints), runeMaterial));
+  for (const [radius, thickness, z, material] of [[2.48,.065,.44,trim],[3.19,.08,.1,dark],[2.44,.09,-.35,dark],[2.4,.045,-.64,energy]] as const) {
+    const lip = new THREE.Mesh(new THREE.TorusGeometry(radius, thickness, 6, 80), material); lip.position.z=z; machine.add(lip);
   }
   for (const side of [-1, 1]) {
-    box(0.7, 5.1, 1.5, side * 3.05, -0.65, -0.45, dark);
-    for (let i = 0; i < 6; i++) {
-      const tooth = box(0.84, 0.25, 1.75, side * 3.05, i * 0.8 - 2.9, -0.35, bronze); tooth.rotation.z = side * 0.1;
-      box(0.12, 0.35, 0.09, side * 2.65, i * 0.78 - 2.55, 0.84, energy);
+    const support = box(.66, 1.65, 1.15, side*2.45, -2.63, -.15, bronze); support.rotation.z = side*-.22;
+    box(1.35,.25,1.75,side*2.6,-3.49,.12,dark);
+    box(1.12,.2,1.5,side*2.6,-3.27,.12,trim);
+    for (let j=0;j<3;j++) {
+      const brace=box(.09,1.05,.09,side*2.45+(j-1)*.17,-2.65,.47,trim); brace.rotation.z=side*-.22;
     }
-    box(0.09, 3.5, 0.12, side * 1.99, -0.25, 0.85, energy);
   }
-  box(7.7, 0.36, 4.2, 0, -3.85, 0.3, dark);
-  box(6.8, 0.3, 3.4, 0, -3.55, 0.3, bronze);
-  box(3.8, 0.1, 0.08, 0, -3.35, 1.5, energy);
-  const left = box(1.65, 5.15, 0.4, -0.88, -0.08, 0.22, dark);
-  const right = box(1.65, 5.15, 0.4, 0.88, -0.08, 0.22, dark);
-  for (const shutter of [left, right]) {
-    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(shutter.geometry), new THREE.LineBasicMaterial({ color: '#a37842' })); shutter.add(edge);
+  for (let i=0;i<9;i++) {
+    const angle = i*Math.PI/8;
+    const spike = new THREE.Mesh(new THREE.ConeGeometry(i===4?.18:.12,i===4?.76:.42,4),bronze);
+    spike.position.set(Math.cos(angle)*3.25, Math.sin(angle)*3.25,.2); spike.rotation.z=angle-Math.PI/2; machine.add(spike);
+  }
+  for (let i=0;i<3;i++) box(3.9-i*.45,.14,1.35-i*.2,0,-3.55+i*.14,1.1-i*.32,bronze);
+  for (let i=0;i<4;i++) {
+    const angle=i*Math.PI/2;
+    const boss=new THREE.Mesh(new THREE.CylinderGeometry(.22,.28,.2,8),trim); boss.rotation.x=Math.PI/2;
+    boss.position.set(Math.cos(angle)*2.88,Math.sin(angle)*2.88,.68); machine.add(boss);
+    const jewel=new THREE.Mesh(new THREE.OctahedronGeometry(.12),energy); jewel.position.copy(boss.position); jewel.position.z=.83; machine.add(jewel);
   }
   const surfaceMaterial = new THREE.ShaderMaterial({
-    uniforms: { time: { value: 0 }, charge: { value: 0 } }, transparent: true, side: THREE.DoubleSide,
+    uniforms: { time: { value: 0 }, charge: { value: 0 } }, side: THREE.DoubleSide,
     vertexShader: 'varying vec2 uvPoint; void main(){uvPoint=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
     fragmentShader: `
       varying vec2 uvPoint; uniform float time; uniform float charge;
+      float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+      float noise(vec2 p){vec2 i=floor(p),f=fract(p); f=f*f*(3.-2.*f); return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+      float fbm(vec2 p){float n=0.,a=.5; for(int i=0;i<4;i++){n+=noise(p)*a;p=mat2(.8,-.6,.6,.8)*p*2.1+2.7;a*=.5;}return n;}
       void main(){
-        vec2 p=uvPoint*2.0-1.0;
-        float veins=sin(p.x*13.0+sin(p.y*9.0+time)*1.8+time*.7)*sin(p.y*17.0-p.x*4.0-time*.9);
-        float fracture=pow(abs(veins),14.0);
-        float edge=pow(abs(p.x),7.0)+pow(abs(p.y),7.0);
-        vec3 c=mix(vec3(.012,.009,.018),vec3(.9,.34,.045),fracture*(.18+charge*.65)+edge*.22);
-        gl_FragColor=vec4(c,.95);
+        vec2 p=(uvPoint-.5)*2.; float r=length(p); float t=time*(.13+charge*.17);
+        float bend=3.3/(r+.32)-t;
+        vec2 q=mat2(cos(bend),-sin(bend),sin(bend),cos(bend))*p;
+        float mist=fbm(q*5.+vec2(t*.2,-t*.3));
+        float whorl=fbm(q*10.+mist*2.8);
+        float filaments=pow(max(0.,1.-abs(whorl-.5)*6.),5.);
+        float arm=pow(.5+.5*sin(atan(q.y,q.x)*3.+mist*3.),3.);
+        float rim=exp(-abs(r-.94)*45.);
+        float heart=exp(-length(p-vec2(.015,-.025))*20.);
+        float depth=smoothstep(.04,.55,r);
+        vec3 c=mix(vec3(.008,.014,.033),vec3(.024,.13,.23),mist*depth);
+        c+=vec3(.12,.58,.9)*(filaments*.75+arm*.3)*depth*(.7+charge*.65);
+        c+=vec3(.14,.55,.75)*rim*(.28+charge*.5);
+        c+=vec3(.85,.94,1.)*heart*(.55+charge);
+        c+=vec3(.48,.2,.045)*pow(arm,3.)*mist*.23;
+        gl_FragColor=vec4(c,1.);
       }`,
   });
-  const surface = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 5.25), surfaceMaterial); surface.position.z = -0.4; machine.add(surface);
+  const surface = new THREE.Mesh(new THREE.CircleGeometry(2.42, 80), surfaceMaterial); surface.position.z=-.66; machine.add(surface);
+  const filaments = new THREE.Group(); machine.add(filaments);
+  const filamentMaterial = new THREE.MeshBasicMaterial({color:'#69c9f3',transparent:true,opacity:.24,depthWrite:false,blending:THREE.AdditiveBlending});
+  for(let i=0;i<7;i++) {
+    const points: THREE.Vector3[]=[];
+    for(let j=0;j<=64;j++) { const u=j/64, angle=i*Math.PI*2/7+u*3.4, radius=2.35*(1-u*.93); points.push(new THREE.Vector3(Math.cos(angle)*radius,Math.sin(angle)*radius,-.55-u*.06)); }
+    filaments.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),64,.009,3,false),filamentMaterial));
+  }
   const dustGeometry = new THREE.BufferGeometry(), positions = new Float32Array(150 * 3);
   for (let i = 0; i < 150; i++) { positions[i * 3] = Math.sin(i * 7.1) * 4.4; positions[i * 3 + 1] = Math.cos(i * 3.3) * 4; positions[i * 3 + 2] = -1 + (i % 11) / 4; }
   dustGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   const dust = new THREE.Points(dustGeometry, new THREE.PointsMaterial({ color: '#dcb16c', size: 0.035, transparent: true, opacity: 0.55 })); scene.add(dust);
   const corridor = new THREE.Group(); scene.add(corridor); corridor.visible = traversal;
   if (traversal) {
+    // Long irregular currents provide continuous depth instead of repeated tunnel rings.
+    const currentMaterial = new THREE.MeshBasicMaterial({ color: '#3585bd', transparent: true, opacity: .32, blending: THREE.AdditiveBlending, depthWrite: false });
+    for (let i = 0; i < 9; i++) {
+      const points: THREE.Vector3[] = [];
+      for (let j = 0; j <= 140; j++) {
+        const a = i * Math.PI * 2 / 9 + j * .048;
+        const r = 3.5 + Math.sin(j * .11 + i) * .38;
+        points.push(new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r, -j - 3));
+      }
+      corridor.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 180, .025 + (i % 3) * .014, 4, false), currentMaterial));
+    }
     const rockGeometry = new THREE.IcosahedronGeometry(1, 0);
     const rockMaterial = new THREE.MeshStandardMaterial({ color: '#171822', roughness: 0.9, metalness: 0.25 });
     for (let i = 0; i < 120; i++) {
@@ -88,12 +134,13 @@ export function createGateScene(canvas: HTMLCanvasElement, traversal = false) {
     render(time: number, charge: number, nx = 0, ny = 0, travel = -1, exit = false) {
       if (disposed) return;
       surfaceMaterial.uniforms.time.value = time; surfaceMaterial.uniforms.charge.value = charge;
-      const open = travel < 0 ? charge * 0.35 : Math.min(1, travel / 0.28);
-      left.position.x = -0.88 - open * 2; right.position.x = 0.88 + open * 2;
+      filaments.rotation.z = -time * (.06 + charge * .08);
+      filamentMaterial.opacity = .12 + charge * .22;
+      runeMaterial.opacity = .4 + charge * .6;
       energy.emissiveIntensity = 0.45 + charge * 1.6; rim.intensity = 15 + charge * 20;
       dust.rotation.z = Math.sin(time * 0.15) * 0.05;
       if (travel < 0) {
-        camera.position.set(7 + nx * 1.5, 3.7 - ny * 0.7, 14.5);
+        camera.position.set(1.4 + nx * .8, 1.2 - ny * .5, 11.6 / Math.min(1, camera.aspect));
         camera.lookAt(0, -0.25, 0); scene.background = null;
       } else {
         scene.background = travel < 0.34 ? null : new THREE.Color('#03030a');
@@ -102,11 +149,11 @@ export function createGateScene(canvas: HTMLCanvasElement, traversal = false) {
         corridor.rotation.y = exit && crossing > 0 ? Math.PI : 0;
         machine.position.z = exit && crossing > 0 ? 135 : 0;
         machine.rotation.y = exit && crossing > 0 ? Math.PI : 0;
-        camera.position.set((1 - approach) * 7 + Math.sin(crossing * Math.PI) * 0.8, (1 - approach) * 3.7, crossing > 0 ? (exit ? distance * 160 : -distance * 120) : 14.5 * (1 - approach));
+        camera.position.set((1 - approach) * 1.4 + Math.sin(crossing * Math.PI) * 0.8, (1 - approach) * 1.2, crossing > 0 ? (exit ? distance * 160 : -distance * 120) : 11.6 * (1 - approach));
         camera.lookAt(camera.position.x * 0.3, 0, camera.position.z + (exit && crossing > 0 ? 8 : -8));
         camera.rotation.z += Math.sin(crossing * Math.PI) * (exit ? -0.16 : 0.09);
         camera.fov = 42 + Math.sin(crossing * Math.PI) * (exit ? 38 : 28); camera.updateProjectionMatrix();
-        surface.visible = travel < 0.3; dust.visible = travel < 0.34;
+        surface.visible = travel < 0.3; filaments.visible = travel < 0.3; dust.visible = travel < 0.34;
         rim.position.copy(camera.position); rim.position.z -= 2; rim.intensity = 40;
       }
       renderer.render(scene, camera);
