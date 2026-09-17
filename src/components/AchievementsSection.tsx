@@ -149,7 +149,7 @@ export const AchievementsSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {CLIENT_REWARDS.map((reward) => {
+          {CLIENT_REWARDS.map((reward, rewardIdx) => {
             const RewardIcon = getIcon(reward.icon);
             return (
               <div
@@ -158,7 +158,13 @@ export const AchievementsSection: React.FC = () => {
                 className="p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_10px_20px_rgba(255,143,0,0.22)] transition-all duration-200 flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer group"
               >
                 <div className="w-9 h-9 rounded-lg bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] group-hover:scale-110 group-hover:bg-[#FF8F00]/25 transition-all">
-                  <RewardIcon className="w-4.5 h-4.5 transition-transform duration-300 group-hover:scale-110" />
+                  <RewardIcon
+                    className="w-4.5 h-4.5 shrink-0 realm-animated-icon"
+                    style={{
+                      animationDuration: `${2.5 + (rewardIdx % 3) * 0.4}s`,
+                      animationDelay: `${-(rewardIdx * 0.45)}s`,
+                    }}
+                  />
                 </div>
                 <span className="font-mono text-xs font-semibold text-slate-200 group-hover:text-white transition-colors">{reward.label}</span>
               </div>

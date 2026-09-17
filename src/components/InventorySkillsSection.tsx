@@ -322,7 +322,13 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   {/* Vault Description & Category Title */}
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`w-11 h-11 rounded-xl ${item.bgColor} border border-white/15 flex items-center justify-center ${item.textColor} shrink-0 shadow-inner`}>
-                      <IconComponent className="w-5.5 h-5.5 transition-transform duration-300 group-hover:scale-110" />
+                      <IconComponent
+                        className="w-5.5 h-5.5 shrink-0 realm-animated-icon"
+                        style={{
+                          animationDuration: `${2.6 + (categoryIdx % 3) * 0.35}s`,
+                          animationDelay: `${-(categoryIdx * 0.5)}s`,
+                        }}
+                      />
                     </div>
                     <div>
                       <h3 className="font-heading font-bold text-base sm:text-lg text-white group-hover:text-white transition-colors tracking-tight leading-tight">
