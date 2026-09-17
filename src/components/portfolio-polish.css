@@ -55,43 +55,22 @@
 .realm-polish footer > div > div { flex-wrap:wrap; justify-content:center; text-align:center; }
 
 /* ══════════════════════════════════════════════════════════════════ */
-/* SVG ICONS CONTINUOUS REPEATED MOVING ANIMATION ENGINE              */
-/* Smooth, clean, repeated floating & moving motion (No 3D/pop)       */
+/* SPECIFIC SVG ICONS CONTINUOUS MOVING ANIMATION ENGINE              */
+/* Strictly applied ONLY to the 4 featured sections:                 */
+/* 1. Development Process Stage Nodes                                */
+/* 2. Services I Build Badges                                        */
+/* 3. How I Can Help Your Business Tiles                             */
+/* 4. Why Clients Choose Me Cards                                    */
+/* ALL OTHER SVG ICONS ACROSS THE ENTIRE SITE ARE FIXED (NO ANIMATION)*/
 /* ══════════════════════════════════════════════════════════════════ */
 
-/* Target all semantic icons, lucide icons, and depth icons directly */
-.realm-semantic-icon,
-.realm-depth-icon,
-.glass-panel svg:not([viewBox="0 0 100 100"]):not(.no-3d),
-.badge-tag svg:not([viewBox="0 0 100 100"]):not(.no-3d),
-.realm-business-tile svg:not([viewBox="0 0 100 100"]):not(.no-3d) {
+.realm-animated-icon {
   display: inline-block !important;
   transform-origin: center center !important;
   will-change: transform, filter !important;
   animation: realm-icon-float 3s ease-in-out infinite !important;
   animation-delay: var(--icon-delay, 0s) !important;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
-}
-
-/* Category-specific smooth moving animations */
-.realm-semantic-icon[data-icon-kind="cloud"],
-.realm-depth-icon[data-icon-kind="cloud"] {
-  animation-name: realm-icon-rocket-float !important;
-  animation-duration: 2.6s !important;
-}
-
-.realm-semantic-icon[data-icon-kind="ai"],
-.realm-depth-icon[data-icon-kind="ai"],
-.realm-semantic-icon[data-icon-kind="automation"],
-.realm-depth-icon[data-icon-kind="automation"] {
-  animation-name: realm-icon-pulse-float !important;
-  animation-duration: 3.2s !important;
-}
-
-.realm-semantic-icon[data-icon-kind="combat"],
-.realm-depth-icon[data-icon-kind="combat"] {
-  animation-name: realm-icon-sway-float !important;
-  animation-duration: 2.8s !important;
 }
 
 /* Core Smooth Floating Moving Animation (Clean vertical bobbing, No 3D) */
@@ -102,80 +81,23 @@
   }
   50% {
     transform: translateY(-4px);
-    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 5px rgba(255, 143, 0, 0.25));
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 5px rgba(255, 143, 0, 0.3));
   }
 }
 
-/* Rocket / Cloud Ascending Flight Movement */
-@keyframes realm-icon-rocket-float {
-  0%, 100% {
-    transform: translateY(0px) translateX(0px);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
-  }
-  50% {
-    transform: translateY(-5px) translateX(1.5px);
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.35));
-  }
-}
-
-/* AI / Automation Pulsing Float Movement */
-@keyframes realm-icon-pulse-float {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
-  }
-  50% {
-    transform: translateY(-3.5px) scale(1.04);
-    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 6px rgba(0, 243, 255, 0.35));
-  }
-}
-
-/* Combat / Heroic Gentle Sway Movement */
-@keyframes realm-icon-sway-float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-2px) rotate(-2deg);
-  }
-  75% {
-    transform: translateY(-4px) rotate(2deg);
-  }
-}
-
-/* Pulsing Signal Highlights on Semantic Icons */
-.realm-icon-signal {
-  animation: realm-signal-pulse 1.8s ease-in-out infinite alternate !important;
-}
-@keyframes realm-signal-pulse {
-  0% { stroke-opacity: 0.55; filter: drop-shadow(0 0 1px currentColor); }
-  100% { stroke-opacity: 1; filter: drop-shadow(0 0 5px currentColor); }
-}
-
-/* Gentle, smooth hover feedback without aggressive 3D popping */
-.group:hover .realm-semantic-icon,
-.group:hover .realm-depth-icon,
-button:hover .realm-semantic-icon,
-button:hover .realm-depth-icon,
-a:hover .realm-semantic-icon,
-a:hover .realm-depth-icon,
-.realm-business-tile:hover svg,
-.realm-semantic-icon:hover,
-.realm-depth-icon:hover {
+/* Hover feedback on these specific animated icons */
+.group:hover .realm-animated-icon,
+.realm-animated-icon:hover {
   transform: translateY(-3px) !important;
   filter: drop-shadow(0 0 8px rgba(255, 143, 0, 0.6)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6)) !important;
   transition: transform 0.25s ease-out, filter 0.25s ease-out !important;
 }
 
-/* ── CRITICAL EXCLUSION: ShieldKnightEmblem & warrior artwork MUST remain 100% untouched ── */
-svg[viewBox="0 0 100 100"],
-.shield-knight-emblem,
-.shield-knight-emblem *,
-.realm-intel-btn svg,
-.no-3d {
+/* ── ALL OTHER SVG ICONS ARE COMPLETELY FIXED WITH ZERO ANIMATION ── */
+svg:not(.realm-animated-icon),
+svg:not(.realm-animated-icon) * {
   animation: none !important;
   transform: none !important;
-  filter: none !important;
 }
 
 @media(max-width:639px) {

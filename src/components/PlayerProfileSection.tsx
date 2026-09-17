@@ -48,8 +48,8 @@ const StageNode: React.FC<{ stage: ProcessStage; index: number; total: number }>
       )}
 
       {/* Solid Opaque Node Circle (Blocks line behind icon badge completely) */}
-      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#1A1009] border border-[#FF8F00]/50 flex items-center justify-center p-2 group-hover:bg-[#2A180C] group-hover:border-[#FF8F00] group-hover:shadow-[0_0_16px_rgba(255,143,0,0.4)] transition-all duration-300" style={{ perspective: '400px' }}>
-        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0" />
+      <div className="relative z-10 w-10 h-10 shrink-0 rounded-xl bg-[#1A1009] border border-[#FF8F00]/50 flex items-center justify-center p-2 group-hover:bg-[#2A180C] group-hover:border-[#FF8F00] group-hover:shadow-[0_0_16px_rgba(255,143,0,0.4)] transition-all duration-300">
+        <Icon className="w-5 h-5 text-[#FF8F00] shrink-0 realm-animated-icon" />
       </div>
 
       {/* Content */}
@@ -79,8 +79,8 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
     >
       <div className="flex items-start gap-3.5 flex-1">
         {/* Icon badge */}
-        <div className="w-10 h-10 shrink-0 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center p-2 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_12px_rgba(217,0,0,0.4)] transition-all duration-300" style={{ perspective: '400px' }}>
-          <Icon className="w-5 h-5 text-[#FF4500] shrink-0" />
+        <div className="w-10 h-10 shrink-0 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center p-2 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_12px_rgba(217,0,0,0.4)] transition-all duration-300">
+          <Icon className="w-5 h-5 text-[#FF4500] shrink-0 realm-animated-icon" />
         </div>
 
         {/* Text */}
@@ -196,7 +196,7 @@ export const PlayerProfileSection: React.FC = () => {
                   role="button" tabIndex={0}
                   className="realm-business-tile p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex flex-col items-start justify-center gap-3 cursor-pointer"
                 >
-                  {React.createElement(businessIcons[item.id] ?? Target, { className: 'w-8 h-8 text-[#FF8F00] shrink-0' })}
+                  {React.createElement(businessIcons[item.id] ?? Target, { className: 'w-8 h-8 text-[#FF8F00] shrink-0 realm-animated-icon' })}
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-mono font-medium text-slate-200 group-hover:text-white transition-colors">
                       {item.question}
