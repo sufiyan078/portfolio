@@ -75,19 +75,19 @@ const ReasonCard: React.FC<{ card: ClientCard }> = ({ card }) => {
   return (
     <div
       {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}
-      className="p-5 rounded-2xl bg-[#000000]/75 border border-white/10 hover:border-[#D90000]/60 hover:shadow-[0_8px_20px_rgba(217,0,0,0.18)] transition-all duration-200 group cursor-default"
+      className="h-full flex flex-col justify-between p-5 rounded-2xl bg-[#000000]/80 border border-white/10 hover:border-[#D90000] hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_12px_28px_rgba(217,0,0,0.32)] transition-all duration-200 group cursor-pointer relative z-0 hover:z-10"
     >
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start gap-3.5 flex-1">
         {/* Icon badge */}
-        <div className="w-9 h-9 shrink-0 rounded-lg bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center overflow-hidden p-1.5 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_10px_rgba(217,0,0,0.3)] transition-all duration-300">
-          <Icon className="w-4 h-4 text-[#FF4500] shrink-0 transition-transform duration-300 group-hover:scale-110" />
+        <div className="w-10 h-10 shrink-0 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center overflow-hidden p-2 group-hover:bg-[#D90000]/25 group-hover:border-[#D90000] group-hover:shadow-[0_0_12px_rgba(217,0,0,0.4)] transition-all duration-300">
+          <Icon className="w-5 h-5 text-[#FF4500] shrink-0 transition-transform duration-300 group-hover:scale-110" />
         </div>
 
         {/* Text */}
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[9px] text-[#FF4500] font-bold">✔</span>
-            <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FF4500] transition-colors">
+        <div className="min-w-0 flex-1 flex flex-col justify-between h-full">
+          <div className="flex items-start gap-2 mb-2 min-h-[40px]">
+            <span className="font-mono text-[10px] text-[#FF4500] font-bold shrink-0 mt-0.5 select-none">✔</span>
+            <h4 className="font-heading text-sm font-bold text-white group-hover:text-[#FF4500] transition-colors leading-snug">
               {card.title}
             </h4>
           </div>
@@ -223,37 +223,45 @@ export const PlayerProfileSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* How I Work Group */}
-            <div>
-              <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
-                <span>HOW I WORK</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* How I Work Group */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3 pb-3 mb-4 border-b border-[#D90000]/25">
+                  <div className="badge-tag border border-[#D90000]/50 bg-[#D90000]/15 text-[#FF4500] text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md">
+                    <span>HOW I WORK</span>
+                  </div>
+                  <span className="font-mono text-[11px] text-gray-400">Process & Execution Standards</span>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#D90000]/30 to-transparent" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                  {['business-first', 'structured-process', 'ai-accelerated', 'transparent-comms']
+                    .map(id => CLIENT_REASONS.find(c => c.id === id))
+                    .filter((card): card is NonNullable<typeof card> => Boolean(card))
+                    .map((card) => (
+                      <ReasonCard key={card.id} card={card} />
+                    ))}
+                </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {['business-first', 'structured-process', 'ai-accelerated', 'transparent-comms']
-                  .map(id => CLIENT_REASONS.find(c => c.id === id))
-                  .filter((card): card is NonNullable<typeof card> => Boolean(card))
-                  .map((card) => (
-                    <ReasonCard key={card.id} card={card} />
-                  ))}
-              </div>
-            </div>
 
-            {/* What You Get Group */}
-            <div>
-              <div className="badge-tag border border-[#D90000]/40 bg-[#D90000]/15 text-[#FF4500] text-[10px] font-bold tracking-widest uppercase mb-3">
-                <span>WHAT YOU GET</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {['production-ready', 'clean-ux', 'long-term', 'full-ownership']
-                  .map(id => CLIENT_REASONS.find(c => c.id === id))
-                  .filter((card): card is NonNullable<typeof card> => Boolean(card))
-                  .map((card) => (
-                    <ReasonCard key={card.id} card={card} />
-                  ))}
+              {/* What You Get Group */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3 pb-3 mb-4 border-b border-[#FF8F00]/25">
+                  <div className="badge-tag border border-[#FF8F00]/50 bg-[#FF8F00]/15 text-[#FF8F00] text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md">
+                    <span>WHAT YOU GET</span>
+                  </div>
+                  <span className="font-mono text-[11px] text-gray-400">Deliverables & System Guarantees</span>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#FF8F00]/30 to-transparent" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                  {['production-ready', 'clean-ux', 'long-term', 'full-ownership']
+                    .map(id => CLIENT_REASONS.find(c => c.id === id))
+                    .filter((card): card is NonNullable<typeof card> => Boolean(card))
+                    .map((card) => (
+                      <ReasonCard key={card.id} card={card} />
+                    ))}
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
