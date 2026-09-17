@@ -20,7 +20,7 @@ export const BossBattleCard: React.FC<BossBattleCardProps> = ({ battle, defaultE
       >
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-[#ff2a6d]/15 border border-[#ff2a6d]/40 flex items-center justify-center text-[#ff2a6d] shrink-0">
-            <Bug className="w-6 h-6 animate-pulse" />
+            <Bug className="w-6 h-6 shrink-0 realm-animated-icon" />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">

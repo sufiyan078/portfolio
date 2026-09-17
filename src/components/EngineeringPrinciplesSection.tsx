@@ -66,7 +66,13 @@ export const EngineeringPrinciplesSection: React.FC = () => {
                 {/* Icon & Title */}
                 <div className="flex items-center gap-3.5 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-[#FF8F00]/15 border border-[#FF8F00]/40 flex items-center justify-center text-[#FF8F00] shrink-0 group-hover:scale-110 group-hover:border-[#FF8F00] transition-all">
-                    <IconComp className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                    <IconComp
+                      className="w-5 h-5 shrink-0 realm-animated-icon"
+                      style={{
+                        animationDuration: `${2.6 + (index % 3) * 0.4}s`,
+                        animationDelay: `${-(index * 0.5)}s`,
+                      }}
+                    />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-white group-hover:text-[#FF8F00] transition-colors leading-tight">
                     {principle.title}

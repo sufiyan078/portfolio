@@ -70,7 +70,7 @@ export const BossBattlesSection: React.FC = () => {
 
       {/* Production Case Studies List */}
       <div className="space-y-6">
-        {BOSS_BATTLES.map((battle) => {
+        {BOSS_BATTLES.map((battle, index) => {
           const isExpanded = expandedBattleId === battle.id;
           const currentTab = activeTabs[battle.id] || 'overview';
           const metaCards = getBossMetaCards(battle);
@@ -90,7 +90,13 @@ export const BossBattlesSection: React.FC = () => {
               >
                 <div className="flex flex-col items-start sm:flex-row sm:items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#D90000]/15 border border-[#D90000]/40 flex items-center justify-center text-[#D90000] shrink-0">
-                    <Bug className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
+                    <Bug
+                      className="w-6 h-6 shrink-0 realm-animated-icon"
+                      style={{
+                        animationDuration: `${2.8 + (index % 3) * 0.35}s`,
+                        animationDelay: `${-(index * 0.5)}s`,
+                      }}
+                    />
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2 mb-1">

@@ -55,7 +55,7 @@ export const AchievementsSection: React.FC = () => {
 
       {/* 8 Capability Achievement Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {ACHIEVEMENTS.map((ach) => {
+        {ACHIEVEMENTS.map((ach, index) => {
           const rarityClass = getRarityClass(ach.rarity);
           const IconComp = getIcon(ach.icon);
 
@@ -96,7 +96,13 @@ export const AchievementsSection: React.FC = () => {
 
                 <div className="realm-collectible flex flex-col items-start gap-4 mb-4">
                   <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center shrink-0 p-3 transition-all ${rarityStyle.iconBox}`}>
-                    <IconComp className="w-9 h-9 shrink-0" />
+                    <IconComp
+                      className="w-9 h-9 shrink-0 realm-animated-icon"
+                      style={{
+                        animationDuration: `${2.6 + (index % 4) * 0.3}s`,
+                        animationDelay: `${-(index * 0.45)}s`,
+                      }}
+                    />
                   </div>
                   <div>
                     <h3 className={`font-heading font-bold text-base text-white ${rarityStyle.hoverTitle} transition-colors leading-tight`}>

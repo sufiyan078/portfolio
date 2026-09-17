@@ -215,7 +215,7 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
       {/* Abilities View - 8 Distinctly Color-Coded Builder Capability Cards */}
       {activeTab === 'abilities' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SKILLS.map((skill) => {
+          {SKILLS.map((skill, index) => {
             const IconComp = getIcon(skill.iconName);
             const style = getCategoryStyle(skill.category);
 
@@ -239,7 +239,13 @@ export const InventorySkillsSection: React.FC<InventorySkillsSectionProps> = ({
                   {/* Icon & Title Block */}
                   <div className="flex items-center gap-3 mb-3.5">
                     <div className={`w-14 h-14 rounded-xl border flex items-center justify-center shrink-0 ${style.iconBox}`}>
-                      <IconComp className="w-8 h-8" />
+                      <IconComp
+                        className="w-8 h-8 shrink-0 realm-animated-icon"
+                        style={{
+                          animationDuration: `${2.6 + (index % 4) * 0.3}s`,
+                          animationDelay: `${-(index * 0.45)}s`,
+                        }}
+                      />
                     </div>
                     <div className="min-w-0 flex-1">
                       <HoverMarqueeText
