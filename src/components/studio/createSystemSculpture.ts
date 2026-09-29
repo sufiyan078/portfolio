@@ -17,7 +17,7 @@ function pose(i: number, phase: number): Pose {
 /** A single instanced sculpture. Frames run only while the view is changing. */
 export function createSystemSculpture(host: HTMLElement) {
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 760 ? 1.25 : 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.35;
   renderer.domElement.setAttribute('aria-hidden', 'true');

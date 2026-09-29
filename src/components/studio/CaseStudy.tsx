@@ -6,6 +6,7 @@ import { useScrollTimeline } from '../story/useScrollTimeline';
 import { ProjectVisual } from './ProjectVisual';
 import { CaseTransformation } from './CaseTransformation';
 import { projectPresentation, type ProjectId } from './projectPresentation';
+import { TechIconsRow } from './TechIconsRow';
 
 function CaseSystem({ id }: { id: ProjectId }) {
   const stage = useRef<HTMLDivElement>(null), track = useRef<HTMLDivElement>(null);
@@ -41,7 +42,7 @@ export default function CaseStudy({ id, onClose, onContact }: { id: ProjectId; o
   },[onClose]);
   return createPortal(<div className={`case-study theme-${presentation.theme}`} ref={modal} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="case-title" data-story-scroll-root>
     <header className="case-nav"><button onClick={onClose}>← Back to selected work</button><span>SUFIYAN AHMED / CASE STUDY</span><button onClick={onContact}>Discuss a similar project ↗</button></header>
-    <div className="case-intro section-pad"><span className="eyebrow">{presentation.client} / {project.status === 'COMPLETED' ? 'COMPLETED' : 'IN DEVELOPMENT'}</span><h1 id="case-title">{presentation.title}</h1><p>{project.title}</p><div className="case-tags">{project.technologyLoadout.map(tech=><span key={tech}>{tech}</span>)}</div></div>
+    <div className="case-intro section-pad"><span className="eyebrow">{presentation.client} / {project.status === 'COMPLETED' ? 'COMPLETED' : 'IN DEVELOPMENT'}</span><h1 id="case-title">{presentation.title}</h1><p>{project.title}</p><TechIconsRow items={project.technologyLoadout} /></div>
     <ProjectVisual id={id}/>
     <section className="case-context section-pad"><div><span className="eyebrow">01 / THE PROBLEM</span><h2>{presentation.principle}</h2></div><div><p className="case-lead">{project.businessProblem}</p><h3>Context</h3><p>{project.description}</p><h3>The approach</h3><p>{presentation.approach}</p></div></section>
     <section className="case-architecture section-pad"><div className="section-marker"><span>02 / FOLLOW THE SYSTEM</span><span>FROM INPUT TO OUTCOME</span></div><CaseSystem id={id}/><details className="architecture-reference"><summary>Explore the complete architecture <span>+</span></summary><ol>{project.architecture.nodes.map((node,index)=><li key={node.name}><span>{String(index+1).padStart(2, '0')}</span><strong>{node.name}</strong><small>{node.type}</small></li>)}</ol><p>{project.architecture.description}</p></details></section>
