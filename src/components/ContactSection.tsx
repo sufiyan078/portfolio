@@ -7,7 +7,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 
-export const ContactSection: React.FC = () => {
+export const ContactSection: React.FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [toastMessage, setToastMessage] = useState<string>('');
 
@@ -61,7 +61,7 @@ export const ContactSection: React.FC = () => {
   )}`;
 
   return (
-    <section id="contact" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
+    <section id="contact" className={`${embedded ? 'contact-embedded ' : ''}py-24 px-4 max-w-7xl mx-auto relative font-sans`}>
       {/* Toast Notification */}
       {toastMessage && (
         <div role="status" className="fixed bottom-6 right-4 left-4 sm:left-auto sm:max-w-md z-50 px-4 py-2.5 rounded-xl bg-[#10B981] text-black font-sans text-sm font-bold shadow-lg animate-fadeIn flex items-center gap-2">

@@ -8,6 +8,7 @@ import type { ProcessStage, ClientCard } from '../data/profile';
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
 import { IntelDisclosure } from './ui/IntelDisclosure';
+import { revealStoryTarget } from './story/navigation';
 
 /* ── Icon resolver ────────────────────────────────────────── */
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
@@ -208,8 +209,7 @@ export const PlayerProfileSection: React.FC = () => {
                   key={item.id}
                   {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => {
                     const targetId = item.id === 'saas-mvp' || item.id === 'automate' ? 'contact' : 'missions';
-                    const el = document.getElementById(targetId);
-                    el?.scrollIntoView({ behavior: 'smooth' });
+                    revealStoryTarget(targetId);
                   })}
                   role="button" tabIndex={0}
                   className="realm-business-tile p-4 rounded-xl bg-[#000000]/80 border border-[#FF8F00]/30 hover:border-[#FF8F00] hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(255,143,0,0.22)] transition-all duration-200 group flex flex-col items-start justify-center gap-3 cursor-pointer"

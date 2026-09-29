@@ -1,9 +1,9 @@
 /* Existing typefaces and palette; calmer spacing, readable cards and opt-in icon depth. */
-.realm-polish main > section:not(#hero) { padding-block:clamp(3.5rem,7vw,5rem); }
-.realm-polish main > section > div:has(> h2) { margin-bottom:2.5rem; }
+.realm-polish :is(main,.story-chapter-content) > section:not(#hero):not(.story-prologue) { padding-block:clamp(3.5rem,7vw,5rem); }
+.realm-polish :is(main,.story-chapter-content) > section > div:has(> h2) { margin-bottom:2.5rem; }
 .realm-polish h2,.realm-polish h3 { text-wrap:balance; }
-.realm-polish main > section > div > h2 { max-width:900px; line-height:1.2; }
-.realm-polish main > section > div > p { line-height:1.7; max-width:650px; }
+.realm-polish :is(main,.story-chapter-content) > section > div > h2 { max-width:900px; line-height:1.2; }
+.realm-polish :is(main,.story-chapter-content) > section > div > p { line-height:1.7; max-width:650px; }
 .realm-polish .grid > * { min-width:0; }
 .realm-polish #profile > .grid > div:nth-child(2) > .glass-panel { height:100%; display:flex; flex-direction:column; }
 .realm-polish #profile > .grid > div:nth-child(2) > .glass-panel > .grid { flex:1; grid-auto-rows:1fr; }
@@ -96,14 +96,14 @@
 }
 
 /* ── ALL OTHER SVG ICONS ARE COMPLETELY FIXED WITH ZERO ANIMATION ── */
-svg:not(.realm-animated-icon),
-svg:not(.realm-animated-icon) * {
+svg:not(.realm-animated-icon):not(.story-map),
+svg:not(.realm-animated-icon):not(.story-map) * {
   animation: none !important;
   transform: none !important;
 }
 
 @media(max-width:639px) {
-  .realm-polish main > section > div > h2 { font-size:clamp(25px,7.5vw,32px); }
+  .realm-polish :is(main,.story-chapter-content) > section > div > h2 { font-size:clamp(25px,7.5vw,32px); }
   .realm-polish #contact > .grid > div { padding:20px; }
   .realm-polish #contact .contact-email { font-family:inherit; }
   .realm-polish #quest-log > .relative { margin-left:8px; padding-left:22px; }

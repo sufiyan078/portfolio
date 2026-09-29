@@ -3,6 +3,7 @@ import { ArrowRight, Terminal, Globe, Layout, BarChart3, Bot, Workflow, Trending
 import { getUniversalAudioProps } from '../utils/soundEffects';
 import { TypingAnimation } from './ui/TypingAnimation';
 import { BlacksmithForgeIcon } from './ui/BlacksmithForgeIcon';
+import { revealStoryTarget } from './story/navigation';
 
 interface LandingHeroProps {
   onPressStart: () => void;
@@ -20,10 +21,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
   ];
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    revealStoryTarget(id);
   };
 
   return (
@@ -32,6 +30,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1A2A4A]/30 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto z-10 flex flex-col items-center w-full">
+        <div className="story-boot"><span /> SYSTEM ONLINE / SCROLL TO EXPLORE THE REALM</div>
+        <div className="story-boot-sequence" aria-hidden="true"><span>01 / INITIALIZE</span><span>02 / ENTER THE REALM</span><span>03 / EXPLORE</span><i /></div>
         
         {/* Main Hero Headline Section */}
         <div className="mb-4 flex flex-col items-center w-full">
@@ -41,14 +41,15 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             </span>
           </div>
           <h1 className="font-black-ops text-[28px] sm:text-[44px] md:text-[54px] font-extrabold tracking-normal leading-[1.15] max-w-4xl text-transparent bg-clip-text bg-gradient-to-r from-[#D90000] via-[#FF3B30] to-[#FF4500] drop-shadow-[0_2px_18px_rgba(217,0,0,0.4)] px-2">
-            YOU'VE ENTERED SUFIYAN'S WORLD.
+            SUFIYAN AHMED
           </h1>
         </div>
 
         {/* Sub-headline / Vision */}
         <h2 className="font-heading text-base sm:text-xl md:text-2xl font-semibold text-gray-200 mb-8 max-w-3xl px-2">
-          Business <span className="text-[#FF8F00]">Software.</span> Less busywork. More impact.
+          Full Stack Engineer <span className="text-[#FF8F00]">& System Architect</span>
         </h2>
+        <p className="text-sm sm:text-base text-gray-300 max-w-xl mb-8 leading-relaxed">I build data-driven software, automation systems, dashboards and AI-powered products.</p>
 
         {/* Action Buttons: Clean Symmetrical Two-Button Layout */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12 sm:mb-14 w-full max-w-md sm:max-w-none px-4">
@@ -57,7 +58,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onPressStart, onOpenTe
             {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', onPressStart)}
             className="btn-primary font-black-ops tracking-wider w-full sm:w-auto justify-center cursor-pointer shadow-[0_0_25px_rgba(255,143,0,0.35)] hover:shadow-[0_0_35px_rgba(255,143,0,0.6)]"
           >
-            <span>Start Mission</span>
+            <span>Explore the Realm</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 

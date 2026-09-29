@@ -491,6 +491,9 @@ body.dark-dimension-active {
 
 section[id] { scroll-margin-top: 90px; }
 
+/* Clip artwork without creating a second scroll container for the storyboard. */
+html, body { overflow-x: clip; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -498,4 +501,5 @@ section[id] { scroll-margin-top: 90px; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
 }

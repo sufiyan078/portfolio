@@ -14,6 +14,11 @@ export const BackgroundCanvas: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
     let scrollProgress = 0;
+    let worldProgress = 0;
+    let timelineProgress: number | null = null;
+    const followTimeline = (event: Event) => { timelineProgress = (event as CustomEvent<number>).detail; };
+    window.addEventListener('realm:timeline', followTimeline);
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const handleResize = () => {
       if (!canvas) return;
@@ -29,6 +34,7 @@ export const BackgroundCanvas: React.FC = () => {
       scrollProgress = docHeight > 0 ? window.scrollY / docHeight : 0;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     // Stars in dark sky
     const starCount = 60;
@@ -124,6 +130,9 @@ export const BackgroundCanvas: React.FC = () => {
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
+      // The same landscape travels with the story; foreground artwork remains untouched.
+      worldProgress += ((timelineProgress ?? scrollProgress) - worldProgress) * .08;
+      const travel = motionPreference.matches ? 0 : worldProgress;
 
       // 1. Dark Atmospheric Monochrome Sky Background
       const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
@@ -131,6 +140,11 @@ export const BackgroundCanvas: React.FC = () => {
       skyGrad.addColorStop(0.5, '#111724');
       skyGrad.addColorStop(1, '#05070B');
       ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, width, height);
+      const journeyLight = ctx.createLinearGradient(0, 0, width, height);
+      journeyLight.addColorStop(0, `rgba(47, 73, 115, ${.08 + travel * .12})`);
+      journeyLight.addColorStop(1, `rgba(140, 83, 30, ${travel * .16})`);
+      ctx.fillStyle = journeyLight;
       ctx.fillRect(0, 0, width, height);
 
       // 2. Twinkling Sky Stars
@@ -162,8 +176,8 @@ export const BackgroundCanvas: React.FC = () => {
         for (const line of cloudLines) {
           ctx.fillStyle = line.color;
           ctx.fillRect(
-            c.x + line.dx * p,
-            c.y + line.dy * p,
+            c.x + line.dx * p - travel * 45,
+            c.y + line.dy * p - travel * 12,
             line.w * p,
             p
           );
@@ -172,8 +186,8 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.globalAlpha = 1.0;
 
       // 4. Moon Orb (Right side horizon)
-      const sunX = width * 0.72;
-      const sunY = height * 0.40;
+      const sunX = width * (0.72 - travel * .18);
+      const sunY = height * (0.40 - travel * .09);
       const sunR = Math.min(width, height) * 0.08;
 
       // Large ambient moonlight wash on the sky (drawn before mountains)
@@ -203,6 +217,9 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fill();
 
       // 5. Far Distant Mountain Range (Layer 1)
+      ctx.save();
+      ctx.translate(-width * .06 * travel, -height * .025 * travel);
+      ctx.scale(1 + travel * .08, 1 + travel * .025);
       ctx.fillStyle = '#131A26';
       ctx.beginPath();
       ctx.moveTo(0, height);
@@ -285,6 +302,10 @@ export const BackgroundCanvas: React.FC = () => {
       ctx.fill();
 
       // Helper functions for drawing dark silhouettes of trees
+      ctx.restore();
+      ctx.save();
+      ctx.translate(-width * .1 * travel, 0);
+      ctx.scale(1 + travel * .16, 1);
       const drawPineTree = (tx: number, ty: number, tHeight: number, tWidth: number) => {
         ctx.fillStyle = '#04060A';
         // Tier 1 (top)
@@ -334,6 +355,7 @@ export const BackgroundCanvas: React.FC = () => {
       drawPineTree(width * 0.83, height * 0.74, 52, 30);
       drawPineTree(width * 0.89, height * 0.75, 48, 28);
       drawPineTree(width * 0.94, height * 0.76, 38, 22);
+      ctx.restore();
 
       // Pixel scale for pixel-art terrain, vegetation, and warrior
       const p = 2;
@@ -514,7 +536,9 @@ export const BackgroundCanvas: React.FC = () => {
       const warriorGroundY = height * 0.91;
       const startX = width * 0.02;
       const endX = width * 0.94;
-      const warriorX = startX + (endX - startX) * scrollProgress;
+      // The warrior anchors the arrival and gate approach, then holds the landscape.
+      const journeyPosition = timelineProgress === null ? scrollProgress : Math.min(.54, worldProgress * 1.05);
+      const warriorX = startX + (endX - startX) * journeyPosition;
       const frame = Math.floor(Date.now() / 200) % 4; // 4-frame gallop animation
 
       const drawMountedKnight = (cx: number, cy: number) => {
@@ -753,6 +777,7 @@ export const BackgroundCanvas: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('realm:timeline', followTimeline);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       overlayObserver.disconnect();
       cancelAnimationFrame(animationFrameId);

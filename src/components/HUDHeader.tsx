@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Terminal, Menu, X, Heart } from './ui/RealmIcons';
 import { toggleSound, isSoundEnabled, getUniversalAudioProps } from '../utils/soundEffects';
 import { ShieldKnightEmblem } from './ui/ShieldKnightEmblem';
+import { revealStoryTarget } from './story/navigation';
 
 interface HUDHeaderProps {
   onOpenTerminal: () => void;
@@ -44,26 +45,17 @@ export const HUDHeader: React.FC<HUDHeaderProps> = ({ onOpenTerminal, activeSect
 
     if (id === 'abilities') {
       if (onSelectNavTab) onSelectNavTab('abilities');
-      const element = document.getElementById('inventory');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      revealStoryTarget('inventory');
       return;
     }
 
     if (id === 'inventory') {
       if (onSelectNavTab) onSelectNavTab('inventory');
-      const element = document.getElementById('inventory');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      revealStoryTarget('inventory');
       return;
     }
 
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    revealStoryTarget(id);
   };
 
   return (

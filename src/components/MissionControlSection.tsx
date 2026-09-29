@@ -11,6 +11,7 @@ import { useModalLayer } from '../hooks/useModalLayer';
 import { PortalGate } from './ui/PortalGate';
 import { soundManager } from '../utils/soundManager';
 import { DimensionAtmosphere } from './vault/DimensionAtmosphere';
+import { MissionStory } from './story/SystemStory';
 
 const getMissionMetaCards = (project: Project) => {
   const cards: { label: string; value: string }[] = [];
@@ -100,7 +101,7 @@ const VinesOverlay: React.FC = () => (
   </svg>
 );
 
-type ModalTab = 'overview' | 'architecture' | 'features' | 'results';
+type ModalTab = 'story' | 'overview' | 'architecture' | 'features' | 'results';
 
 export type TransitionState =
   | 'PORTFOLIO'
@@ -110,13 +111,20 @@ export type TransitionState =
   | 'EXIT_PORTAL'
   | 'EXIT_WARP';
 
-export const MissionControlSection: React.FC = () => {
+export const MissionControlSection: React.FC<{ embedded?: boolean; activeInStory?: boolean }> = ({ embedded = false, activeInStory = true }) => {
   const [transitionState, setTransitionState] = useState<TransitionState>('PORTFOLIO');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeModalTab, setActiveModalTab] = useState<ModalTab>('overview');
+  const [returningFromMission, setReturningFromMission] = useState(false);
+  useEffect(() => {
+    if (!returningFromMission) return;
+    const timer = setTimeout(() => { setSelectedProject(null); setReturningFromMission(false); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 320);
+    return () => clearTimeout(timer);
+  }, [returningFromMission]);
+  const [activeModalTab, setActiveModalTab] = useState<ModalTab>('story');
   const [activeMissionIndex, setActiveMissionIndex] = useState(0);
   const cardElementsRef = useRef<(HTMLDivElement | null)[]>([]);
   const entrancePortalRef = useRef<HTMLDivElement>(null);
+  const gatePointer = useRef<{ x: number; y: number; cancelled: boolean } | null>(null);
   const exitPortalRef = useRef<HTMLButtonElement>(null);
   const previousScrollYRef = useRef(0);
   const vaultRef = useRef<HTMLDivElement>(null);
@@ -328,16 +336,8 @@ export const MissionControlSection: React.FC = () => {
     }
   }, [transitionState, activeMissionIndex]);
 
-  // Lock body scroll while in the Dark Dimension
-  useEffect(() => {
-    if (transitionState !== 'PORTFOLIO') {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = originalOverflow;
-      };
-    }
-  }, [transitionState]);
+  // useModalLayer owns the vault's scroll lock, including nested inspection modals.
+  // A second effect here would capture "hidden" and restore it after the vault closes.
 
   // Recalculate function-based tween transforms on window resize
   useEffect(() => {
@@ -383,7 +383,7 @@ export const MissionControlSection: React.FC = () => {
   };
 
   return (
-    <section id="missions" className="py-24 px-4 max-w-7xl mx-auto relative font-sans">
+    <section id={embedded ? undefined : 'missions'} className={embedded ? 'mission-entrance-embedded' : 'py-24 px-4 max-w-7xl mx-auto relative font-sans'}>
       {/* ── 1. PORTFOLIO WORLD — WOODEN MISSION VAULT ENTRANCE ── */}
       <div className="w-full flex flex-col items-center">
         {/* Section Header */}
@@ -429,14 +429,23 @@ export const MissionControlSection: React.FC = () => {
               <div
                 role="button"
                 tabIndex={0}
+                onPointerDown={(e) => { gatePointer.current = { x: e.clientX, y: e.clientY, cancelled: false }; }}
+                onPointerMove={(e) => {
+                  const start = gatePointer.current;
+                  if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 10) start.cancelled = true;
+                }}
+                onPointerCancel={() => { if (gatePointer.current) gatePointer.current.cancelled = true; }}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (e.detail !== 0 && gatePointer.current?.cancelled) return;
+                  gatePointer.current = null;
                   handleEnterVault();
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     e.stopPropagation();
+                    if (e.repeat) return;
                     handleEnterVault();
                   }
                 }}
@@ -448,7 +457,7 @@ export const MissionControlSection: React.FC = () => {
                   ref={entrancePortalRef}
                   className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[360px] lg:h-[360px] flex items-center justify-center transition-all duration-300 group-hover/portal:scale-[1.04] group-hover/portal:brightness-110"
                 >
-                  <PortalGate active={transitionState === 'PORTFOLIO'} />
+                  <PortalGate active={transitionState === 'PORTFOLIO' && activeInStory} />
                 </div>
               </div>
 
@@ -710,7 +719,7 @@ export const MissionControlSection: React.FC = () => {
                               {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', (e) => {
                                 e.stopPropagation();
                                 setSelectedProject(project);
-                                setActiveModalTab('overview');
+                                setActiveModalTab('story');
                               })}
                               className="relative z-20 w-full mt-auto py-2 sm:py-2.5 rounded-xl bg-[#FF8F00]/20 border border-[#FF8F00]/60 hover:bg-[#FF8F00]/35 hover:border-[#FF8F00] text-white font-mono text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-[0_0_15px_rgba(255,143,0,0.2)] shrink-0"
                             >
@@ -792,8 +801,9 @@ export const MissionControlSection: React.FC = () => {
 
       {/* Mission Inspection Modal */}
       {selectedProject && createPortal(
-        <div ref={modalRef} tabIndex={-1} className="fixed inset-0 z-[1010] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn" role="dialog" aria-modal="true" aria-labelledby="mission-modal-title">
-          <div className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/60 shadow-[0_0_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
+        <div ref={modalRef} tabIndex={-1} className={`fixed inset-0 z-[1010] bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 font-sans animate-fadeIn ${returningFromMission ? 'realm-mission-returning' : ''}`} role="dialog" aria-modal="true" aria-labelledby="mission-modal-title">
+          <div data-story-scroll-root className="glass-panel w-full max-w-7xl h-[88vh] max-h-[88vh] overflow-y-auto p-5 sm:p-8 md:p-10 border-2 border-[#FF8F00]/60 shadow-[0_0_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,143,0,0.3)] relative rounded-2xl custom-scrollbar">
+            <div className="mission-story-return"><button {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setReturningFromMission(true))}>← Return to Mission Vault</button></div>
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-white/10 pb-6 mb-6">
               <div>
@@ -805,7 +815,7 @@ export const MissionControlSection: React.FC = () => {
                 <h2 id="mission-modal-title" className="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{selectedProject.title}</h2>
               </div>
               <button
-                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setSelectedProject(null))}
+                {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER', () => setReturningFromMission(true))}
                 aria-label="Close modal"
                 title="Close (ESC)"
                 className="p-2.5 rounded-xl bg-white/10 hover:bg-[#FF8F00]/20 border border-white/15 hover:border-[#FF8F00]/50 text-gray-300 hover:text-[#FF8F00] transition-all cursor-pointer flex items-center justify-center"
@@ -815,8 +825,9 @@ export const MissionControlSection: React.FC = () => {
             </div>
 
             {/* Modal Tab Bar */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 border-b border-white/10 pb-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 border-b border-white/10 pb-4 mb-6">
               {[
+                { id: 'story', label: 'SCROLL THE SYSTEM' },
                 { id: 'overview', label: '01 OVERVIEW' },
                 { id: 'results', label: '02 RESULTS' },
                 { id: 'features', label: '03 CAPABILITIES' },
@@ -841,6 +852,7 @@ export const MissionControlSection: React.FC = () => {
             </div>
 
             <div className="space-y-8 text-sm">
+              {activeModalTab === 'story' && <MissionStory key={selectedProject.id} project={selectedProject} onReturn={() => setReturningFromMission(true)} />}
               {/* Tab 1: Overview */}
               {activeModalTab === 'overview' && (
                 <div className="space-y-6 animate-fadeIn">

@@ -27,7 +27,7 @@ export function useModalLayer(active: boolean, ref: RefObject<HTMLDivElement | n
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     const focusable = () => Array.from(node.querySelectorAll<HTMLElement>(
-      'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
+      'button:not(:disabled), a[href], summary, input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
     )).filter(el => el.getClientRects().length && !el.closest('[inert]'));
     node.focus({ preventScroll: true });
     const trap = (event: KeyboardEvent) => {
