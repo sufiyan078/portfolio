@@ -7,39 +7,168 @@ type Sculpture = ReturnType<typeof createSystemSculpture>;
 
 export function SystemLens({ onInteract }: { onInteract: () => void }) {
   const host = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const engine = useRef<Sculpture | null>(null);
-  const selected = useRef(0);
-  const manual = useRef(false);
-  const [step,setStep] = useState(0);
+  const currentStep = useRef(0);
+  const [step, setStep] = useState(0);
+  const timerRef = useRef<number | null>(null);
+  const isHovered = useRef(false);
+  const isVisible = useRef(true);
+
+  // Transition to a specific step
+  const navigateToStep = (nextIndex: number) => {
+    const fromIndex = currentStep.current;
+    if (fromIndex === nextIndex) return;
+
+    // Moving from Result (4) to Input (0): phase 5 smoothly wraps forward into Input
+    const targetPhase = fromIndex === 4 && nextIndex === 0 ? 5 : nextIndex;
+    engine.current?.setPhase(targetPhase);
+    currentStep.current = nextIndex;
+    setStep(nextIndex);
+  };
+
+  // Schedule auto-advance to next step
+  const scheduleAdvance = (delayMs = 3600) => {
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => {
+      if (isHovered.current || !isVisible.current || document.hidden) {
+        scheduleAdvance(1200);
+        return;
+      }
+      const nextIndex = (currentStep.current + 1) % steps.length;
+      navigateToStep(nextIndex);
+      scheduleAdvance(3600);
+    }, delayMs);
+  };
+
   useEffect(() => {
     const element = host.current;
-    if(!element) return;
-    let cancelled = false, frame = 0;
+    const container = containerRef.current;
+    if (!element || !container) return;
+
+    let cancelled = false;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
-    const render = () => {
-      frame=0;
-      if(manual.current || preference.matches || document.hidden || element.closest('[inert]')) return;
-      const hero=element.closest('.studio-hero');
-      if(!hero)return;
-      const value=Math.max(0,Math.min(4,-hero.getBoundingClientRect().top/(hero.clientHeight*.8)*4));
-      if(value===selected.current)return;
-      selected.current=value;engine.current?.setPhase(value);setStep(Math.round(value));
+
+    void import('./createSystemSculpture')
+      .then(({ createSystemSculpture }) => {
+        if (cancelled) return;
+        engine.current = createSystemSculpture(element);
+        engine.current.setPhase(0);
+      })
+      .catch(() => {
+        element.dataset.renderer = 'fallback';
+      });
+
+    // Start auto-advance after initial dwell on Input
+    if (!preference.matches) {
+      scheduleAdvance(3600);
+    }
+
+    // Pause when hero is scrolled out of viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible.current = entry.isIntersecting;
+        if (entry.isIntersecting && !preference.matches) {
+          scheduleAdvance(2600);
+        } else if (timerRef.current) {
+          window.clearTimeout(timerRef.current);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(container);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (timerRef.current) window.clearTimeout(timerRef.current);
+      } else if (isVisible.current && !preference.matches) {
+        scheduleAdvance(2500);
+      }
     };
-    const schedule = () => {if(!frame)frame=requestAnimationFrame(render);};
-    void import('./createSystemSculpture').then(({createSystemSculpture})=>{
-      if(cancelled)return;
-      engine.current=createSystemSculpture(element);engine.current.setPhase(selected.current);
-    }).catch(()=>{element.dataset.renderer='fallback';});
-    window.addEventListener('scroll',schedule,{passive:true});
-    window.addEventListener('resize',schedule);
-    return ()=>{cancelled=true;cancelAnimationFrame(frame);engine.current?.dispose();engine.current=null;window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);};
-  },[]);
-  return <div className="system-lens" data-step={step}>
-    <div className="sculpture-caption"><span>THE SYSTEM LENS</span><span>FORM / 0{step+1}</span></div>
-    <div className="sculpture-stage" ref={host} aria-hidden="true" onPointerMove={event=>{if(event.pointerType==='touch')return;const rect=event.currentTarget.getBoundingClientRect();engine.current?.setPointer((event.clientX-rect.left)/rect.width*2-1,(event.clientY-rect.top)/rect.height*2-1);}} onPointerLeave={()=>engine.current?.setPointer(0,0)} onPointerCancel={()=>engine.current?.setPointer(0,0)}>
-      <div className="sculpture-fallback">{Array.from({length:32},(_,i)=><i key={i} style={{'--rib':i} as CSSProperties}/>)}</div>
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      cancelled = true;
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      engine.current?.dispose();
+      engine.current = null;
+    };
+  }, []);
+
+  const handleStepClick = (index: number) => {
+    navigateToStep(index);
+    onInteract();
+    // Allow user to dwell on their selected step for 5 seconds before resuming auto-advance
+    scheduleAdvance(5000);
+  };
+
+  const handlePointerEnter = () => {
+    isHovered.current = true;
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+  };
+
+  const handlePointerLeave = () => {
+    isHovered.current = false;
+    engine.current?.setPointer(0, 0);
+    scheduleAdvance(3400);
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="system-lens"
+      data-step={step}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+    >
+      <div className="sculpture-caption">
+        <span>THE SYSTEM LENS</span>
+        <span>FORM / 0{step + 1}</span>
+      </div>
+
+      <div
+        className="sculpture-stage"
+        ref={host}
+        aria-hidden="true"
+        onPointerMove={(event) => {
+          if (event.pointerType === 'touch') return;
+          const rect = event.currentTarget.getBoundingClientRect();
+          engine.current?.setPointer(
+            ((event.clientX - rect.left) / rect.width) * 2 - 1,
+            ((event.clientY - rect.top) / rect.height) * 2 - 1
+          );
+        }}
+        onPointerCancel={() => engine.current?.setPointer(0, 0)}
+      >
+        <div className="sculpture-fallback">
+          {Array.from({ length: 32 }, (_, i) => (
+            <i key={i} style={{ '--rib': i } as CSSProperties} />
+          ))}
+        </div>
+      </div>
+
+      <div
+        className="lens-controls"
+        role="group"
+        aria-label="Explore the system transformation"
+      >
+        {steps.map((label, index) => (
+          <button
+            key={label}
+            aria-pressed={step === index}
+            onClick={() => handleStepClick(index)}
+          >
+            <span>0{index + 1}</span>
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <p key={step} className="lens-description lens-note-animate" aria-live="polite">
+        {notes[step]}
+      </p>
     </div>
-    <div className="lens-controls" role="group" aria-label="Explore the system transformation">{steps.map((label,index)=><button key={label} aria-pressed={step===index} onClick={()=>{manual.current=true;selected.current=index;engine.current?.setPhase(index);setStep(index);onInteract();}}><span>0{index+1}</span>{label}</button>)}</div>
-    <p className="lens-description" aria-live="polite">{notes[step]}</p>
-  </div>;
+  );
 }
