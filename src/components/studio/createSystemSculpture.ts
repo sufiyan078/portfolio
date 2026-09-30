@@ -49,7 +49,7 @@ export function createSystemSculpture(host: HTMLElement) {
   const draw = () => {
     frame = 0;
     if (!canDraw()) { host.dataset.motion = 'paused'; return; }
-    current = motion.matches ? target : THREE.MathUtils.lerp(current, target, .058);
+    current = motion.matches ? target : THREE.MathUtils.lerp(current, target, .09);
     px = motion.matches ? 0 : THREE.MathUtils.lerp(px, tx, .08);
     py = motion.matches ? 0 : THREE.MathUtils.lerp(py, ty, .08);
     if (Math.abs(current - target) < .0015) {

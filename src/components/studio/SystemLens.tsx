@@ -12,7 +12,6 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
   const currentStep = useRef(0);
   const [step, setStep] = useState(0);
   const timerRef = useRef<number | null>(null);
-  const isHovered = useRef(false);
   const isVisible = useRef(true);
 
   // Transition to a specific step
@@ -27,17 +26,17 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
     setStep(nextIndex);
   };
 
-  // Schedule auto-advance to next step
-  const scheduleAdvance = (delayMs = 3600) => {
+  // Schedule auto-advance to next step (brisk 2000ms pace)
+  const scheduleAdvance = (delayMs = 2000) => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => {
-      if (isHovered.current || !isVisible.current || document.hidden) {
-        scheduleAdvance(1200);
+      if (!isVisible.current || document.hidden) {
+        scheduleAdvance(800);
         return;
       }
       const nextIndex = (currentStep.current + 1) % steps.length;
       navigateToStep(nextIndex);
-      scheduleAdvance(3600);
+      scheduleAdvance(2000);
     }, delayMs);
   };
 
@@ -59,17 +58,17 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
         element.dataset.renderer = 'fallback';
       });
 
-    // Start auto-advance after initial dwell on Input
+    // Start auto-advance after initial 2s dwell on Input
     if (!preference.matches) {
-      scheduleAdvance(3600);
+      scheduleAdvance(2000);
     }
 
-    // Pause when hero is scrolled out of viewport
+    // Pause only when hero is completely scrolled out of viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible.current = entry.isIntersecting;
         if (entry.isIntersecting && !preference.matches) {
-          scheduleAdvance(2600);
+          scheduleAdvance(1600);
         } else if (timerRef.current) {
           window.clearTimeout(timerRef.current);
         }
@@ -82,7 +81,7 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
       if (document.hidden) {
         if (timerRef.current) window.clearTimeout(timerRef.current);
       } else if (isVisible.current && !preference.matches) {
-        scheduleAdvance(2500);
+        scheduleAdvance(1600);
       }
     };
     document.addEventListener('visibilitychange', onVisibilityChange);
@@ -100,19 +99,8 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
   const handleStepClick = (index: number) => {
     navigateToStep(index);
     onInteract();
-    // Allow user to dwell on their selected step for 5 seconds before resuming auto-advance
-    scheduleAdvance(5000);
-  };
-
-  const handlePointerEnter = () => {
-    isHovered.current = true;
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-  };
-
-  const handlePointerLeave = () => {
-    isHovered.current = false;
-    engine.current?.setPointer(0, 0);
-    scheduleAdvance(3400);
+    // Continue the quick auto-advance from the newly chosen step
+    scheduleAdvance(2400);
   };
 
   return (
@@ -120,8 +108,6 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
       ref={containerRef}
       className="system-lens"
       data-step={step}
-      onPointerEnter={handlePointerEnter}
-      onPointerLeave={handlePointerLeave}
     >
       <div className="sculpture-caption">
         <span>THE SYSTEM LENS</span>
@@ -140,6 +126,7 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
             ((event.clientY - rect.top) / rect.height) * 2 - 1
           );
         }}
+        onPointerLeave={() => engine.current?.setPointer(0, 0)}
         onPointerCancel={() => engine.current?.setPointer(0, 0)}
       >
         <div className="sculpture-fallback">

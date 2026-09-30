@@ -69,7 +69,9 @@ em { letter-spacing:-.035em; }
 .manifesto-bottom { display:flex; justify-content:space-between; gap:40px; padding-top:45px; margin-top:45px; border-top:1px solid var(--line); }
 .manifesto-bottom>span { font:10px var(--font-label); text-transform:uppercase; }
 .manifesto-bottom p { max-width:390px; font-size:14px; color:var(--muted); line-height:1.8; }
-.selected-work { padding-top:35px; }
+.selected-work { padding-top:60px; }
+.section-marker>span:first-child { font-weight:700; letter-spacing:.08em; }
+.selected-work>.section-marker { border-top:1px solid #B38F6F; padding-top:20px; }
 .work-heading { margin-bottom:65px; align-items:end; }
 .work-heading h2 em { color:var(--accent); }
 .work-heading>p { max-width:330px; }
