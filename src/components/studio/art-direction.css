@@ -1,4 +1,12 @@
 /* Art direction: sculptural systems, oversized editorial type, project-specific worlds. */
+@font-face {
+  font-family: 'Nura';
+  src: url('/fonts/Nura-Bold.woff2') format('woff2'),
+       url('/fonts/Nura-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 :root { --paper:#F2EFE7; --ink:#0C1E29; --muted:#48252F; --line:#B38F6F; --accent:#8B004A; --lime:#FFFBD4; --sage:#CAE8E8; --stone:#FAAE62; --lilac:#E5BDDF; --gutter:clamp(24px,5.5vw,110px); }
 body { background:var(--paper); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; }
 svg { shape-rendering:geometricPrecision; }
@@ -80,7 +88,7 @@ em { letter-spacing:-.035em; }
 .visual-mission-02 { background:#E5BDDF; color:#48252F; }
 .visual-grid { background-image:linear-gradient(#FFFBD407 1px,transparent 1px),linear-gradient(90deg,#FFFBD407 1px,transparent 1px); background-size:80px 80px; }
 .project-art-title { position:absolute; top:5%; left:5%; z-index:1; }
-.project-art-title>span { display:block; font-size:clamp(65px,9vw,150px); font-weight:600; letter-spacing:-.075em; line-height:.95; }
+.project-art-title>span { font-family:'Nura', var(--font-body), sans-serif; display:block; font-size:clamp(65px,9vw,150px); font-weight:700; letter-spacing:-.03em; line-height:.95; }
 .project-art-title>small { display:block; font:9px var(--font-label); letter-spacing:.12em; margin-top:18px; }
 .project-art-orbit { position:absolute; width:76%; height:140%; border:1px solid #FFFBD423; border-radius:50%; right:-6%; top:-26%; transform:rotate(-30deg); pointer-events:none; }
 .visual-mission-02 .project-art-orbit { border-color:#5E775E28; }
