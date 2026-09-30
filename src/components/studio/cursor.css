@@ -1,4 +1,4 @@
-/* Mecha XYZ inspired custom cursor styling */
+/* Mecha XYZ inspired custom cursor with dynamic alphabet & background color switching */
 
 @media (pointer: fine) {
   body,
@@ -19,7 +19,7 @@
   position: fixed;
   inset: 0;
   z-index: 2147483647;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
 .mecha-cursor-host.is-hidden {
@@ -30,66 +30,46 @@
   opacity: 1;
 }
 
-.cursor-wrap {
-  z-index: 2147483647;
-  pointer-events: none;
-  mix-blend-mode: exclusion;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: fixed;
-  inset: 0;
-  will-change: transform;
-}
-
-.cursor-wrap.not-blend {
-  mix-blend-mode: normal;
-}
-
-/* Default state: minimalist 8x8px square dot with exclusion blend */
+/* Default state: minimalist 8x8px square dot */
 .custom-cursor.art {
-  pointer-events: none;
-  background-color: #ffffff;
-  border-radius: 1px;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 8px;
   height: 8px;
-  display: flex;
-  position: relative;
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2147483647;
   opacity: 0;
-  transform: scale(0.4);
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+  will-change: transform, background-color, box-shadow;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.12s ease,
+              box-shadow 0.12s ease;
 }
 
 .custom-cursor.art.is-active {
   opacity: 1;
-  transform: scale(1);
 }
 
 /* Cyber hand cursor on interactive elements */
 .hand-cursor {
-  position: absolute;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
   width: 20px;
   height: 25px;
   margin-top: 14px;
   margin-left: 8px;
   opacity: 0;
-  transform: scale(0.6);
   pointer-events: none;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.28));
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+  will-change: transform, filter;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.12s ease;
 }
 
 .hand-cursor.is-active {
   opacity: 1;
-  transform: scale(1);
 }
 
 .hand-cursor img {
@@ -99,30 +79,31 @@
   object-fit: contain;
 }
 
-/* Directional 45-degree arrow badge for forward/external links */
+/* Directional 45-degree arrow badge */
 .arrow-cursor {
-  position: absolute;
-  z-index: 11;
-  width: 30px;
-  height: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: #0c1e29;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: scale(0.6);
   pointer-events: none;
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+  will-change: transform, background-color, color, border-color;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.12s ease,
+              color 0.12s ease,
+              border-color 0.12s ease;
 }
 
 .arrow-cursor.is-active {
   opacity: 1;
-  transform: scale(1);
 }
 
 .arrow-cursor svg {
@@ -135,5 +116,8 @@
 @media (pointer: coarse), (hover: none) {
   .mecha-cursor-host {
     display: none !important;
+  }
+  body, a, button, summary {
+    cursor: auto !important;
   }
 }
