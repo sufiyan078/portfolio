@@ -28,7 +28,7 @@ function caseFromHash(): ProjectId | null {
 export function StudioPage() {
   const [menuOpen,setMenuOpen] = useState(false);
   const [activeCase,setActiveCase] = useState<ProjectId|null>(caseFromHash);
-  const [openTechCategory, setOpenTechCategory] = useState<string | null>('inv-ai');
+  const [openTechCategory, setOpenTechCategory] = useState<string | null>(null);
   const [soundOn,setSoundOn] = useState(false);
   const [soundNotice,setSoundNotice] = useState('');
   const audio = useRef<typeof import('../../utils/soundManager')['soundManager'] | null>(null);
