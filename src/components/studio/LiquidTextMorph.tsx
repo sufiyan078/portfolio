@@ -15,8 +15,8 @@ const DEFAULT_STATEMENTS = [
 
 export const LiquidTextMorph: React.FC<LiquidTextMorphProps> = ({
   statements = DEFAULT_STATEMENTS,
-  morphTime = 1.4,
-  cooldownTime = 2.6,
+  morphTime = 0.95,
+  cooldownTime = 2.2,
   className = ''
 }) => {
   const text1Ref = useRef<HTMLSpanElement>(null);

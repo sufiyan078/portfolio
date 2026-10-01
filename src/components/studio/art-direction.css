@@ -7,6 +7,22 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Ancola';
+  src: url('/fonts/Ancola-Regular.woff2') format('woff2'),
+       url('/fonts/Ancola-Regular.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ancola';
+  src: url('/fonts/Ancola-Italic.woff2') format('woff2'),
+       url('/fonts/Ancola-Italic.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
 :root { --paper:#F2EFE7; --ink:#0C1E29; --muted:#48252F; --line:#B38F6F; --accent:#8B004A; --lime:#FFFBD4; --sage:#CAE8E8; --stone:#FAAE62; --lilac:#E5BDDF; --gutter:clamp(24px,5.5vw,110px); }
 body { background:var(--paper); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; }
 svg { shape-rendering:geometricPrecision; }
@@ -34,11 +50,11 @@ em { letter-spacing:-.035em; }
 .hero-copy { padding-block:35px; }
 .hero-kicker { display:block; color:#CAE8E8; font-family:var(--font-label); font-size:10px; letter-spacing:.12em; margin-bottom:30px; }
 .hero-copy h1 {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: clamp(64px, 7.8vw, 126px);
-  line-height: 0.99;
-  letter-spacing: -0.075em;
+  font-family: 'Ancola', var(--font-body), sans-serif;
+  font-weight: 400;
+  font-size: clamp(52px, 6.8vw, 114px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   color: #F2EFE7;
   position: relative;
   z-index: 2;
@@ -46,17 +62,18 @@ em { letter-spacing:-.035em; }
 }
 .hero-copy h1 em,
 .liquid-morph-stage em {
-  font-family: var(--font-editorial);
+  font-family: 'Ancola', var(--font-body), sans-serif;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   color: #FAAE62;
-  font-size: 1.15em;
+  font-size: 1em;
 }
 .liquid-morph-stage {
   position: relative;
   display: inline-block;
   width: 100%;
+  font-family: 'Ancola', var(--font-body), sans-serif;
 }
 .liquid-morph-filter-def {
   position: absolute;
