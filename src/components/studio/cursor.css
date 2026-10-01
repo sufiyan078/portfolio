@@ -30,7 +30,7 @@
   opacity: 1;
 }
 
-/* Default state: minimalist 8x8px square dot */
+/* Default state: minimalist 8x8px square dot with hardware difference blending */
 .custom-cursor.art {
   position: fixed;
   top: 0;
@@ -40,11 +40,11 @@
   border-radius: 1px;
   pointer-events: none;
   z-index: 2147483647;
+  background-color: #ffffff;
+  mix-blend-mode: difference;
   opacity: 0;
-  will-change: transform, background-color, box-shadow;
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.12s ease,
-              box-shadow 0.12s ease;
+  will-change: transform;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .custom-cursor.art.is-active {
@@ -65,7 +65,7 @@
   pointer-events: none;
   will-change: transform, filter;
   transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.12s ease;
+              filter 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hand-cursor.is-active {
@@ -97,9 +97,9 @@
   pointer-events: none;
   will-change: transform, background-color, color, border-color;
   transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.12s ease,
-              color 0.12s ease,
-              border-color 0.12s ease;
+              background-color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .arrow-cursor.is-active {
