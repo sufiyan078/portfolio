@@ -9,6 +9,7 @@ import { ProjectContact } from './ProjectContact';
 import { projectOrder, projectPresentation, type ProjectId } from './projectPresentation';
 import { TypewriterText } from './TypewriterText';
 import { ProcessSection } from './ProcessSection';
+import { LiquidTextMorph } from './LiquidTextMorph';
 const CaseStudy = lazy(() => import('./CaseStudy'));
 const baseTitle = 'Sufiyan Ahmed — Independent Engineer · Web, Data & AI';
 const navItems = [['work','Work'],['services','Services'],['process','Process'],['about','About']];
@@ -84,7 +85,7 @@ export function StudioPage() {
     <main id="main" ref={main}>
       <section id="top" className="studio-hero section-pad">
         <div className="hero-meta"><span>SUFIYAN AHMED / INDEPENDENT ENGINEERING</span><span>WEB / DATA / AUTOMATION / AI</span></div>
-        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1>Complexity,<br/>meet <em>clarity.</em></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work">View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span>↗</span></a></div></div><SystemLens onInteract={play}/></div>
+        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work">View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span>↗</span></a></div></div><SystemLens onInteract={play}/></div>
         <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work">Scroll to discover <span>↓</span></a></div>
       </section>
       <section className="studio-manifesto section-pad" aria-label="Engineering approach"><span className="eyebrow">THE IDEA BEHIND THE WORK</span><p>Make the complex<br/><span className="manifesto-outline">understandable.</span><br/>Make the useful <em>beautiful.</em></p><div className="manifesto-bottom"><span>Data → insight. Ideas → products.</span><p>I connect thoughtful interfaces with the engineering beneath them. So your software doesn’t just work. It makes work better.</p></div></section>

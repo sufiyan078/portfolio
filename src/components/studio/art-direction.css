@@ -33,8 +33,82 @@ em { letter-spacing:-.035em; }
 .hero-layout { grid-template-columns:1.1fr 1fr; gap:0; margin:10px 0 5px; flex:1; align-items:center; }
 .hero-copy { padding-block:35px; }
 .hero-kicker { display:block; color:#CAE8E8; font-family:var(--font-label); font-size:10px; letter-spacing:.12em; margin-bottom:30px; }
-.hero-copy h1 { font-size:clamp(64px,7.8vw,126px); line-height:.99; letter-spacing:-.075em; position:relative; z-index:2; }
-.hero-copy h1 em { color:#FAAE62; font-size:1.15em; font-weight:400; }
+.hero-copy h1 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(64px, 7.8vw, 126px);
+  line-height: 0.99;
+  letter-spacing: -0.075em;
+  color: #F2EFE7;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+.hero-copy h1 em,
+.liquid-morph-stage em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  color: #FAAE62;
+  font-size: 1.15em;
+}
+.liquid-morph-stage {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.liquid-morph-filter-def {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.liquid-morph-sizer {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  display: grid;
+  grid-template-areas: 'overlap';
+}
+.liquid-morph-sizer-item {
+  grid-area: overlap;
+  white-space: nowrap;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+.liquid-morph-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  filter: url(#liquid-text-threshold);
+  -webkit-filter: url(#liquid-text-threshold);
+  will-change: filter;
+}
+.liquid-morph-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  white-space: nowrap;
+  user-select: none;
+  color: #F2EFE7;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  will-change: filter, opacity;
+  transform: translateZ(0);
+}
 .hero-copy>p { color:#F2EFE7; margin-top:35px; font-size:15px; max-width:390px; }
 .hero-actions { margin-top:30px; gap:25px; }
 .hero-actions .button { background:#FFFBD4; color:#0C1E29; border-color:#FFFBD4; font-size:12px; }
