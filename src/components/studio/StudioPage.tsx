@@ -11,9 +11,10 @@ import { TypewriterText } from './TypewriterText';
 import { ProcessSection } from './ProcessSection';
 import { LiquidTextMorph } from './LiquidTextMorph';
 import { TechIconsRow } from './TechIconsRow';
+import { FloatingNavBar } from './FloatingNavBar';
+import { HeaderClock, HeaderLang } from './HeaderMeta';
 const CaseStudy = lazy(() => import('./CaseStudy'));
 const baseTitle = 'Sufiyan Ahmed — Independent Engineer · Web, Data & AI';
-const navItems = [['work','Work'],['services','Services'],['process','Process'],['about','About']];
 const services = [
   ['Web applications','Software built around how you work.','Internal tools, client portals and SaaS products with thoughtful interfaces, authentication and a dependable data layer.','React / Next.js / TypeScript'],
   ['Data & analytics','Make your information useful.','Excel ingestion, interactive dashboards and reporting systems that turn scattered data into a clear operational picture.','SheetJS / Python / Power BI'],
@@ -26,7 +27,6 @@ function caseFromHash(): ProjectId | null {
 }
 
 export function StudioPage() {
-  const [menuOpen,setMenuOpen] = useState(false);
   const [activeCase,setActiveCase] = useState<ProjectId|null>(caseFromHash);
   const [openTechCategory, setOpenTechCategory] = useState<string | null>(null);
   const [soundOn,setSoundOn] = useState(false);
@@ -57,11 +57,10 @@ export function StudioPage() {
   };
   useEffect(() => {
     const hash = () => setActiveCase(caseFromHash());
-    const key = (event: KeyboardEvent) => { if(event.key==='Escape') setMenuOpen(false); };
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     const motion = () => { if(preference.matches) { if(audio.current?.isSoundEnabled()) audio.current.toggleSound(); setSoundOn(false); } };
-    window.addEventListener('hashchange',hash); window.addEventListener('keydown',key); preference.addEventListener('change',motion);
-    return () => { window.removeEventListener('hashchange',hash); window.removeEventListener('keydown',key); preference.removeEventListener('change',motion); audio.current?.setScene('PORTFOLIO'); };
+    window.addEventListener('hashchange',hash); preference.addEventListener('change',motion);
+    return () => { window.removeEventListener('hashchange',hash); preference.removeEventListener('change',motion); audio.current?.setScene('PORTFOLIO'); };
   },[]);
   useEffect(() => {
     document.title = activeCase ? `${projectPresentation[activeCase].shortName} — Sufiyan Ahmed` : baseTitle;
@@ -83,7 +82,23 @@ export function StudioPage() {
   },[]);
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="studio-header"><a className="wordmark" href="#top" aria-label="Sufiyan Ahmed home"><span className="identity-mark" aria-hidden="true">s/a.</span><span className="identity-name">Sufiyan Ahmed<small>INDEPENDENT ENGINEER</small></span></a><nav aria-label="Main navigation" className={menuOpen?'is-open':''} id="main-navigation">{navItems.map(([id,label])=><a key={id} href={`#${id}`} onClick={()=>setMenuOpen(false)}>{label}</a>)}<a className="header-cta" href="#contact" onClick={()=>setMenuOpen(false)}>Start a project <span>↗</span></a></nav><button className="menu-toggle" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={()=>setMenuOpen(value=>!value)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'−':'+'}</span></button></header>
+    <header className="studio-header">
+      <a className="wordmark" href="#top" aria-label="Sufiyan Ahmed home">
+        <span className="identity-mark" aria-hidden="true">s/a.</span>
+        <span className="identity-name">Sufiyan Ahmed<small>INDEPENDENT ENGINEER</small></span>
+      </a>
+
+      {/* 1. Time in the exact middle of the header */}
+      <HeaderClock />
+
+      {/* 2. Language option placed between Time and Start a project */}
+      <div className="header-right-group">
+        <HeaderLang />
+        <nav aria-label="Main navigation">
+          <a className="header-cta" href="#contact">Start a project <span>↗</span></a>
+        </nav>
+      </div>
+    </header>
     <main id="main" ref={main}>
       <section id="top" className="studio-hero section-pad">
         <div className="hero-meta"><span>SUFIYAN AHMED / INDEPENDENT ENGINEERING</span><span>WEB / DATA / AUTOMATION / AI</span></div>
@@ -103,6 +118,7 @@ export function StudioPage() {
       <ProjectContact/>
     </main>
     <footer className="studio-footer"><a className="wordmark" href="#top">sufiyan ahmed<span>↗</span></a><span>Independent engineering. Thoughtfully built.</span><div><button aria-pressed={soundOn} onClick={()=>void toggleAudio()}>Sound {soundOn?'on':'off'}</button><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div><span className="sr-only" role="status">{soundNotice}</span></footer>
+    <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} />
     {activeCase&&<Suspense fallback={<div className="case-loading" role="status"><p>Opening case study…</p><button onClick={closeCase}>Back to work</button></div>}><CaseStudy key={activeCase} id={activeCase} onClose={closeCase} onContact={()=>{contactPending.current=true;closeCase();}}/></Suspense>}
   </>;
 }
