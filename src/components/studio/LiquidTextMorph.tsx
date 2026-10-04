@@ -46,7 +46,17 @@ export const LiquidTextMorph: React.FC<LiquidTextMorphProps> = ({
     let time = performance.now();
     let morph = 0;
     let cooldown = cooldownTime;
-    let animId: number;
+    let animId = 0;
+    let dwellTimer = 0;
+    const phone = window.matchMedia('(max-width: 640px)').matches;
+    let visible = true;
+    let disposed = false;
+    const cancelPhoneFrame = () => {
+      cancelAnimationFrame(animId);
+      window.clearTimeout(dwellTimer);
+      animId = 0;
+      dwellTimer = 0;
+    };
 
     const setContent = () => {
       const current = statements[textIndex % statements.length];
@@ -68,6 +78,8 @@ export const LiquidTextMorph: React.FC<LiquidTextMorphProps> = ({
     setContent();
 
     const animate = (now: number) => {
+      animId = 0;
+      if (phone && (disposed || !visible || document.hidden)) return;
       const dt = (now - time) / 1000;
       time = now;
 
@@ -102,13 +114,47 @@ export const LiquidTextMorph: React.FC<LiquidTextMorphProps> = ({
         }
       }
 
-      animId = requestAnimationFrame(animate);
+      if (phone && cooldown > 0) {
+        // Keep the readable dwell without rendering unchanged filtered text
+        // on every phone frame. The same liquid morph runs during transitions.
+        dwellTimer = window.setTimeout(() => {
+          dwellTimer = 0;
+          cooldown = 0;
+          time = performance.now();
+          if (!disposed && visible && !document.hidden) animId = requestAnimationFrame(animate);
+        }, cooldown * 1000);
+      } else {
+        animId = requestAnimationFrame(animate);
+      }
     };
 
+    const resumePhone = () => {
+      cancelPhoneFrame();
+      if (!disposed && visible && !document.hidden) {
+        time = performance.now();
+        animId = requestAnimationFrame(animate);
+      }
+    };
+    const phoneObserver = phone ? new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      resumePhone();
+    }) : null;
+    const stage = text1Ref.current?.closest('.liquid-morph-stage');
+    if (phoneObserver && stage) phoneObserver.observe(stage);
+    if (phone) {
+      document.addEventListener('visibilitychange', resumePhone);
+      window.addEventListener('pageshow', resumePhone);
+    }
     animId = requestAnimationFrame(animate);
 
     return () => {
-      if (animId) cancelAnimationFrame(animId);
+      disposed = true;
+      cancelPhoneFrame();
+      phoneObserver?.disconnect();
+      if (phone) {
+        document.removeEventListener('visibilitychange', resumePhone);
+        window.removeEventListener('pageshow', resumePhone);
+      }
     };
   }, [statements, morphTime, cooldownTime]);
 

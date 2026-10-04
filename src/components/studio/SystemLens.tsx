@@ -47,12 +47,14 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
 
     let cancelled = false;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const phone = matchMedia('(max-width: 640px)').matches;
 
     void import('./createSystemSculpture')
       .then(({ createSystemSculpture }) => {
         if (cancelled) return;
         engine.current = createSystemSculpture(element);
-        engine.current.setPhase(0);
+        // Phone timers can advance before Three.js finishes downloading.
+        engine.current.setPhase(phone ? currentStep.current : 0);
       })
       .catch(() => {
         element.dataset.renderer = 'fallback';
@@ -73,9 +75,10 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
           window.clearTimeout(timerRef.current);
         }
       },
-      { threshold: 0.15 }
+      { threshold: phone ? 0 : 0.15 }
     );
-    observer.observe(container);
+    // Phone controls can be below the fold while the object is in view.
+    observer.observe(phone ? element : container);
 
     const onVisibilityChange = () => {
       if (document.hidden) {
@@ -85,12 +88,14 @@ export function SystemLens({ onInteract }: { onInteract: () => void }) {
       }
     };
     document.addEventListener('visibilitychange', onVisibilityChange);
+    if (phone) window.addEventListener('pageshow', onVisibilityChange);
 
     return () => {
       cancelled = true;
       if (timerRef.current) window.clearTimeout(timerRef.current);
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibilityChange);
+      if (phone) window.removeEventListener('pageshow', onVisibilityChange);
       engine.current?.dispose();
       engine.current = null;
     };
