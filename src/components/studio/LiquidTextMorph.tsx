@@ -113,7 +113,7 @@ export const LiquidTextMorph: React.FC<LiquidTextMorphProps> = ({
   }, [statements, morphTime, cooldownTime]);
 
   return (
-    <div className={`liquid-morph-stage ${className}`} aria-live="polite">
+    <div translate="no" className={`liquid-morph-stage notranslate ${className}`} aria-live="polite">
       {/* SVG Threshold Filter for Liquid Melting Effect */}
       <svg
         className="liquid-morph-filter-def"

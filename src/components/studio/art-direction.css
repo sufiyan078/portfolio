@@ -40,9 +40,7 @@ em { letter-spacing:-.035em; }
 
 /* Header Meta: Current Time & Any-Language Translation (inspired by dontmatter.eu) */
 .header-clock {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  font-variant-numeric: tabular-nums;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
   font-size: 13px;
   font-weight: 500;
@@ -147,7 +145,7 @@ body {
   top: 0px !important;
   position: static !important;
 }
-.skiptranslate:not(.header-lang-custom) {
+body > .skiptranslate {
   display: none !important;
 }
 .goog-tooltip,
@@ -514,9 +512,9 @@ body {
   .studio-header { height:76px; }
   .identity-mark { font-size:31px; }
   .identity-name { font-size:12px; }
-  .header-clock { display:none; }
+  .header-clock { display:block; }
   .header-right-group { gap:12px; }
-  .lang-tab { display:none; }
+  .lang-tab { display:block; }
   .lang-select { font-size:11px; padding-right:10px; }
   .studio-header nav { position:static; display:flex !important; background:transparent; padding:0; border:none; flex-direction:row; align-items:center; }
   .studio-header nav>.header-cta { margin-left:0; padding:10px 16px; font-size:11px; gap:8px; }
@@ -1339,3 +1337,44 @@ body {
   }
 }
 
+/* In-flow metadata: no overlap, and visible clock/languages on mobile. */
+.studio-header { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); height:auto; min-height:90px; gap:8px 20px; padding-block:12px; }
+.header-clock { margin:0; font-size:12px; justify-self:center; }
+.header-right-group { gap:24px; justify-self:end; }
+.header-lang { gap:12px; }
+.header-lang .lang-tab,.header-lang .lang-select { min-height:44px; }
+.header-lang .lang-select { max-width:145px; }
+.header-language-wrap { position:relative; }
+.translation-notice { position:absolute; right:0; top:100%; width:250px; font:11px/1.5 var(--font-body); background:var(--paper); box-shadow:0 4px 15px #0C1E2926; padding:10px 14px; z-index:60; }
+.translation-notice:empty { display:none; }
+.lang-select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+@media(max-width:1100px) {
+  .studio-header { display:grid; grid-template-columns:1fr auto; gap:0 16px; }
+  .studio-header>.wordmark { grid-column:1; grid-row:1; }
+  .header-clock { grid-column:1; grid-row:2; margin:0; justify-self:start; }
+  .header-right-group { display:contents; }
+  .header-right-group>nav { grid-column:2; grid-row:1; }
+  .header-language-wrap { grid-column:2; grid-row:2; }
+  .header-lang { justify-content:flex-end; }
+  .studio-header nav>.header-cta { margin:0; }
+}
+@media(max-width:480px) {
+  .studio-header { padding:12px 16px 6px; gap:0 8px; }
+  .studio-header>.wordmark { gap:8px; }
+  .identity-name { font-size:11px; }
+  .identity-name small { font-size:6px; }
+  .studio-header nav>.header-cta { padding:10px 12px; font-size:10px; gap:8px; }
+  .header-clock { grid-column:1 / -1; grid-row:2; justify-self:center; text-align:center; font-size:11px; padding-top:8px; }
+  .header-language-wrap { grid-column:1 / -1; grid-row:3; }
+  .header-lang { justify-content:center; gap:18px; }
+  .header-lang .lang-tab,.header-lang .lang-select { font-size:10px; }
+  html { scroll-padding-top:145px; }
+  section[id] { scroll-margin-top:145px; }
+}
+html:not([lang="en"]) .work-caption h3,
+html:not([lang="en"]) .section-heading h2,
+html:not([lang="en"]) .contact-intro h2 { overflow-wrap:anywhere; }
+.studio-header nav>.header-cta { min-height:44px; }
+@media(max-width:1100px) { .header-right-group>nav { justify-content:flex-end; } }
+/* Current Google widget progress overlay must not cover the original UI. */
+body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }

@@ -70,6 +70,7 @@ export function TypewriterText({
   return (
     <span
       ref={containerRef}
+      translate="no"
       className={`typewriter-container ${className}`}
       aria-label={text}
     >

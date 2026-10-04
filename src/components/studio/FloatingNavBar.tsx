@@ -121,7 +121,7 @@ export const FloatingNavBar: React.FC<FloatingNavBarProps> = ({
   if (activeCase) {
     const presentation = projectPresentation[activeCase];
     return (
-      <nav className="floating-nav" aria-label="Case study navigation">
+      <nav className="floating-nav notranslate" translate="no" aria-label="Case study navigation">
         <div className="floating-nav__container is-case-active">
           <div
             ref={progressRef}
@@ -147,7 +147,7 @@ export const FloatingNavBar: React.FC<FloatingNavBarProps> = ({
   }
 
   return (
-    <nav className="floating-nav" aria-label="Floating section navigation">
+    <nav className="floating-nav notranslate" translate="no" aria-label="Floating section navigation">
       <div className="floating-nav__container">
         {/* Scroll Progress Fill Layer (Tracks scroll position from 0 to 1) */}
         <div
