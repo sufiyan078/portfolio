@@ -1379,6 +1379,39 @@ html:not([lang="en"]) .contact-intro h2 { overflow-wrap:anywhere; }
 /* Current Google widget progress overlay must not cover the original UI. */
 body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
 
+/* Phone polish: existing palette and composition, with stronger visual depth. */
+@media (max-width:640px) {
+  .studio-hero {
+    background-image:radial-gradient(ellipse at 100% 0%,#C8774026,transparent 52%),radial-gradient(ellipse at 0% 85%,#CAE8E817,transparent 50%);
+    border-color:#B38F6F66;
+    box-shadow:inset 0 1px 0 #FFFBD426,0 8px 24px #0C1E2914;
+  }
+  .hero-kicker { color:#FAAE62; }
+  .hero-actions .button { box-shadow:inset 0 1px 0 #F2EFE7,0 5px 18px #00000033; }
+  .sculpture-stage { background-image:radial-gradient(ellipse at center,#CAE8E814,transparent 66%); }
+  .lens-controls button[aria-pressed='true'] { background:linear-gradient(#FAAE621A,transparent); }
+  .selected-work>.section-marker>span:first-child,
+  .studio-services>.section-marker>span:first-child,
+  .studio-about>.section-marker>span:first-child { color:#8B004A; }
+  .work-visual-link { box-shadow:0 10px 24px #0C1E291A,inset 0 0 0 1px #B38F6F33; }
+  .work-caption .work-discipline { color:#8B004A; }
+  .case-link>span:not(.sr-only) { background:#8B004A; border-color:#8B004A; color:#FFFBD4; }
+  .studio-services { background-image:linear-gradient(135deg,#F2EFE700,#FAAE621A); }
+  .service-list summary>b { background:#8B004A; border-color:#8B004A; color:#FFFBD4; }
+  .service-list summary:hover>b { color:#FFFBD4; }
+  .about-art {
+    background-image:radial-gradient(ellipse at 0% 0%,#FFFBD480,transparent 70%);
+    box-shadow:inset 0 0 0 1px #5E775E33;
+  }
+  .floating-nav__container {
+    background:#0C1E29E6;
+    box-shadow:inset 0 1px 0 #CAE8E859,0 8px 24px #00000033;
+  }
+  .floating-nav__progress { background-color:#8B004A59; }
+  .floating-nav__link,.floating-nav__back-btn,.floating-nav__case-title { color:#FFFBD4; }
+  .floating-nav__link.is-active { color:#FAAE62; }
+}
+
 /* Phone header: retain every control in two compact, aligned rows. */
 @media (max-width:640px) {
   .studio-header { min-height:0; padding:6px 16px; gap:0 8px; }
