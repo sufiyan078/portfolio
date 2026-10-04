@@ -1378,3 +1378,55 @@ html:not([lang="en"]) .contact-intro h2 { overflow-wrap:anywhere; }
 @media(max-width:1100px) { .header-right-group>nav { justify-content:flex-end; } }
 /* Current Google widget progress overlay must not cover the original UI. */
 body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
+
+/* Responsive fit only: preserve the approved desktop composition and motion. */
+@media (min-width:761px) and (max-width:1100px) {
+  /* The headline's intrinsic width otherwise compresses the lens controls. */
+  .studio-hero { height:auto; max-height:none; }
+  .hero-layout { grid-template-columns:minmax(0,1fr); }
+  .hero-copy { min-width:0; }
+  .system-lens { width:100%; max-width:570px; margin:25px auto 15px; }
+  /* Two fields cannot display their selected values inside the tablet column. */
+  .form-pair { grid-template-columns:1fr; gap:0; }
+  .audit-interface aside strong { font-size:min(24px,2.5vw); }
+  .audit-interface aside strong span { display:block; }
+  .work-feature .visual-mission-02,.work-feature .visual-mission-03,
+  .case-study>.visual-mission-02,.case-study>.visual-mission-03 { height:640px; }
+}
+@media (max-width:1100px) {
+  /* Intrinsic content height keeps report and resume labels inside their panels. */
+  .report-sheet,.career-paper { min-height:max-content; }
+}
+@media (min-width:901px) and (max-width:1100px) {
+  /* Account for the existing two-row tablet header. */
+  .studio-process-stage { top:127px; height:calc(100svh - 127px); }
+}
+@media (max-width:760px) {
+  /* Fit the longest animated phrase without changing its two-line composition. */
+  .hero-copy h1 { font-size:min(87px,calc((100vw - 76px) / 9.4)); }
+  .project-art-title>span { font-size:min(65px,calc((100vw - 76px) / 6.2)); }
+  /* Wrapped icon rows can place a long tooltip against either viewport edge. */
+  .tech-icon-tooltip { width:max-content; max-width:86px; white-space:normal; overflow-wrap:anywhere; }
+  /* Percentage row gaps overflow an auto-height grid once its columns stack. */
+  .about-layout { row-gap:40px; }
+  /* Reserve the existing footnote strip below the rotated CareerAI panels. */
+  .career-composition { inset:30% 8% 17%; }
+  .report-composition { inset:30% 6% 14%; }
+  .work-feature .visual-mission-02,.work-feature .visual-mission-03,
+  .case-study>.visual-mission-02,.case-study>.visual-mission-03 { height:520px; }
+  .audit-interface aside strong { font-size:clamp(10px,3vw,20px); }
+  .audit-interface aside strong span { display:block; }
+  .case-study>.project-visual .audit-interface { translate:0 0; }
+}
+@media (max-width:640px) {
+  .floating-nav { bottom:calc(16px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width:374px) {
+  /* Keep "applications" inside the case-study heading at 320px. */
+  .theme-lilac .case-intro h1 { font-size:min(49px,calc((100vw - 64px) / 5.5)); }
+  .career-analysis h4 { font-size:21px; }
+}
+@media (pointer:coarse) and (min-width:761px) and (max-width:1100px) {
+  /* Prevent iOS from zooming the page when a tablet form field receives focus. */
+  .contact-form-wrap input,.contact-form-wrap select,.contact-form-wrap textarea { font-size:16px; }
+}
