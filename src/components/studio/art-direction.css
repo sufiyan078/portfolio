@@ -1379,6 +1379,18 @@ html:not([lang="en"]) .contact-intro h2 { overflow-wrap:anywhere; }
 /* Current Google widget progress overlay must not cover the original UI. */
 body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
 
+/* Phone header: retain every control in two compact, aligned rows. */
+@media (max-width:640px) {
+  .studio-header { min-height:0; padding:6px 16px; gap:0 8px; }
+  .studio-header .identity-mark { line-height:1; }
+  .studio-header nav>.header-cta { align-items:center; justify-content:center; line-height:1.2; }
+  .header-clock { grid-column:1; grid-row:2; justify-self:start; padding-top:0; }
+  .header-language-wrap { grid-column:2; grid-row:2; justify-self:end; min-width:0; }
+  .header-lang { justify-content:flex-end; gap:8px; }
+  html { scroll-padding-top:105px; }
+  section[id] { scroll-margin-top:105px; }
+}
+
 /* Keep the original text glyph and its layout outside phone-sized viewports. */
 .phone-arrow-glyph { display:contents; }
 @media (max-width:640px) {
