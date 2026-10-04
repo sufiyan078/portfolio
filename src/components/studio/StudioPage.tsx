@@ -36,6 +36,25 @@ export function StudioPage() {
   const returnScroll = useRef<number|null>(null);
   const contactPending = useRef(false);
   const main = useRef<HTMLElement>(null);
+  const header = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const element = header.current;
+    if (!element) return;
+    const phone = matchMedia('(max-width: 640px)');
+    const update = () => element.classList.toggle('phone-glass-scrolled', phone.matches && scrollY > 16);
+    const sync = () => {
+      window.removeEventListener('scroll', update);
+      if (phone.matches) window.addEventListener('scroll', update, { passive: true });
+      update();
+    };
+    sync();
+    phone.addEventListener('change', sync);
+    return () => {
+      window.removeEventListener('scroll', update);
+      phone.removeEventListener('change', sync);
+      element.classList.remove('phone-glass-scrolled');
+    };
+  }, []);
   const play = () => { if(soundOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) audio.current?.playSound('CARD_CLICK'); };
   const toggleAudio = async () => {
     if (soundOn) { if(audio.current?.isSoundEnabled()) audio.current.toggleSound(); setSoundOn(false); return; }
@@ -83,7 +102,7 @@ export function StudioPage() {
   },[]);
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="studio-header">
+    <header className="studio-header" ref={header}>
       <a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed home">
         <span className="identity-mark" aria-hidden="true">s/a.</span>
         <span className="identity-name">Sufiyan Ahmed<small>INDEPENDENT ENGINEER</small></span>

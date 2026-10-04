@@ -1391,6 +1391,32 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   section[id] { scroll-margin-top:105px; }
 }
 
+/* Phone-only glass surfaces; retain the original header at the page top. */
+@media (max-width:640px) {
+  .studio-header.phone-glass-scrolled {
+    background-color:#F2EFE7D9;
+    background-image:linear-gradient(135deg,#FFFBD433,#CAE8E81A 55%,#F2EFE726);
+    backdrop-filter:blur(18px) saturate(135%);
+    -webkit-backdrop-filter:blur(18px) saturate(135%);
+    border-bottom-color:#B38F6F66;
+    box-shadow:inset 0 1px 0 #FFFBD499,inset 0 -1px 0 #FFFBD440,0 4px 18px #0C1E2914;
+  }
+  .contact-form-wrap form>button.button-light[type='submit'] {
+    background-color:#CAE8E824;
+    background-image:linear-gradient(135deg,#FFFBD433,#CAE8E80D 55%,#FFFBD41A);
+    color:#FFFBD4;
+    border-color:#FFFBD466;
+    backdrop-filter:blur(12px) saturate(120%);
+    -webkit-backdrop-filter:blur(12px) saturate(120%);
+    box-shadow:inset 0 1px 0 #FFFBD480,inset 0 -1px 0 #CAE8E833,0 4px 14px #00000026;
+  }
+  .contact-form-wrap form>button.button-light[type='submit']:hover {
+    background-color:#CAE8E833;
+    color:#FFFBD4;
+    border-color:#FFFBD499;
+  }
+}
+
 /* Keep the original text glyph and its layout outside phone-sized viewports. */
 .phone-arrow-glyph { display:contents; }
 @media (max-width:640px) {
