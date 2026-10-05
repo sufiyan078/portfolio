@@ -1,6 +1,6 @@
-import { memo } from 'react';
+import { memo, useId } from 'react';
 
-function getIconSvg(name: string) {
+function getIconSvg(name: string, iconId: string) {
   const normalized = name.toLowerCase();
 
   // 1. AI & Intelligent Systems
@@ -8,13 +8,13 @@ function getIconSvg(name: string) {
     return (
       <svg width="24" height="24" viewBox="0 0 24 24">
         <defs>
-          <linearGradient id="gemini-brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`${iconId}-gemini-brand-grad`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1BA1E3"/>
             <stop offset="50%" stopColor="#5B7FE8"/>
             <stop offset="100%" stopColor="#9B72CB"/>
           </linearGradient>
         </defs>
-        <path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill="url(#gemini-brand-grad)"/>
+        <path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill={`url(#${iconId}-gemini-brand-grad)`}/>
       </svg>
     );
   }
@@ -97,14 +97,14 @@ function getIconSvg(name: string) {
     return (
       <svg width="24" height="24" viewBox="0 0 128 128">
         <circle cx="64" cy="64" r="64" fill="#000000"/>
-        <path fill="url(#next-brand-g1)" d="M106.317 112.014 49.167 38.4H38.4v51.179h8.614V49.34l52.54 67.646a64.384 64.384 0 0 0 6.763-4.972Z"/>
-        <path fill="url(#next-brand-g2)" d="M81.778 38.4h8.533v51.2h-8.533z"/>
+        <path fill={`url(#${iconId}-next-brand-g1)`} d="M106.317 112.014 49.167 38.4H38.4v51.179h8.614V49.34l52.54 67.646a64.384 64.384 0 0 0 6.763-4.972Z"/>
+        <path fill={`url(#${iconId}-next-brand-g2)`} d="M81.778 38.4h8.533v51.2h-8.533z"/>
         <defs>
-          <linearGradient id="next-brand-g1" x1="77.513" x2="102.778" y1="82.844" y2="114.133" gradientUnits="userSpaceOnUse">
+          <linearGradient id={`${iconId}-next-brand-g1`} x1="77.513" x2="102.778" y1="82.844" y2="114.133" gradientUnits="userSpaceOnUse">
             <stop stopColor="#FFF"/>
             <stop offset="1" stopColor="#FFF" stopOpacity="0"/>
           </linearGradient>
-          <linearGradient id="next-brand-g2" x1="86.044" x2="85.901" y1="38.4" y2="75.999" gradientUnits="userSpaceOnUse">
+          <linearGradient id={`${iconId}-next-brand-g2`} x1="86.044" x2="85.901" y1="38.4" y2="75.999" gradientUnits="userSpaceOnUse">
             <stop stopColor="#FFF"/>
             <stop offset="1" stopColor="#FFF" stopOpacity="0"/>
           </linearGradient>
@@ -177,12 +177,12 @@ function getIconSvg(name: string) {
     return (
       <svg width="24" height="24" viewBox="0 0 128 128">
         <defs>
-          <linearGradient id="supa-brand-a" x1="53.974" x2="94.163" y1="54.974" y2="71.829" gradientTransform="translate(29.387 60.096) scale(1.1436)" gradientUnits="userSpaceOnUse">
+          <linearGradient id={`${iconId}-supa-brand-a`} x1="53.974" x2="94.163" y1="54.974" y2="71.829" gradientTransform="translate(29.387 60.096) scale(1.1436)" gradientUnits="userSpaceOnUse">
             <stop offset="0" stopColor="#249361"/>
             <stop offset="1" stopColor="#3ecf8e"/>
           </linearGradient>
         </defs>
-        <path fill="url(#supa-brand-a)" d="M102.24 186.21c-3.267 4.117-9.904 1.862-9.977-3.397l-1.156-76.906h51.715c9.365 0 14.587 10.817 8.763 18.149z" transform="translate(-27.722 -60.338)"/>
+        <path fill={`url(#${iconId}-supa-brand-a)`} d="M102.24 186.21c-3.267 4.117-9.904 1.862-9.977-3.397l-1.156-76.906h51.715c9.365 0 14.587 10.817 8.763 18.149z" transform="translate(-27.722 -60.338)"/>
         <path fill="#3ecf8e" d="M53.484 2.128c3.267-4.117 9.905-1.862 9.977 3.396l.508 76.907H12.902c-9.365 0-14.587-10.817-8.764-18.149z"/>
       </svg>
     );
@@ -270,17 +270,17 @@ function getIconSvg(name: string) {
     return (
       <svg width="24" height="24" viewBox="0 0 128 128">
         <defs>
-          <linearGradient id="python-brand-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
+          <linearGradient id={`${iconId}-python-brand-a`} gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
             <stop offset="0" stopColor="#5A9FD4"/>
             <stop offset="1" stopColor="#306998"/>
           </linearGradient>
-          <linearGradient id="python-brand-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
+          <linearGradient id={`${iconId}-python-brand-b`} gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
             <stop offset="0" stopColor="#FFD43B"/>
             <stop offset="1" stopColor="#FFE873"/>
           </linearGradient>
         </defs>
-        <path fill="url(#python-brand-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"/>
-        <path fill="url(#python-brand-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"/>
+        <path fill={`url(#${iconId}-python-brand-a)`} d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"/>
+        <path fill={`url(#${iconId}-python-brand-b)`} d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"/>
       </svg>
     );
   }
@@ -303,23 +303,23 @@ function getIconSvg(name: string) {
     return (
       <svg width="24" height="24" viewBox="0 0 630 630">
         <defs>
-          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="pbi-g1">
+          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id={`${iconId}-pbi-g1`}>
             <stop stopColor="#EBBB14" offset="0%"/>
             <stop stopColor="#B25400" offset="100%"/>
           </linearGradient>
-          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="pbi-g2">
+          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id={`${iconId}-pbi-g2`}>
             <stop stopColor="#F9E583" offset="0%"/>
             <stop stopColor="#DE9800" offset="100%"/>
           </linearGradient>
-          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="pbi-g3">
+          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id={`${iconId}-pbi-g3`}>
             <stop stopColor="#F9E68B" offset="0%"/>
             <stop stopColor="#F3CD32" offset="100%"/>
           </linearGradient>
         </defs>
         <g transform="translate(77.5, 0)">
-          <rect fill="url(#pbi-g1)" x="256" y="0" width="219" height="630" rx="26"/>
-          <path d="M346,604 L346,630 L320,630 L153,630 C138.64,630 127,618.36 127,604 L127,183 C127,168.64 138.64,157 153,157 L320,157 C334.36,157 346,168.64 346,183 L346,604 Z" fill="url(#pbi-g2)"/>
-          <path d="M219,604 L219,630 L193,630 L26,630 C11.64,630 0,618.36 0,604 L0,341 C0,326.64 11.64,315 26,315 L193,315 C207.36,315 219,326.64 219,341 L219,604 Z" fill="url(#pbi-g3)"/>
+          <rect fill={`url(#${iconId}-pbi-g1)`} x="256" y="0" width="219" height="630" rx="26"/>
+          <path d="M346,604 L346,630 L320,630 L153,630 C138.64,630 127,618.36 127,604 L127,183 C127,168.64 138.64,157 153,157 L320,157 C334.36,157 346,168.64 346,183 L346,604 Z" fill={`url(#${iconId}-pbi-g2)`}/>
+          <path d="M219,604 L219,630 L193,630 L26,630 C11.64,630 0,618.36 0,604 L0,341 C0,326.64 11.64,315 26,315 L193,315 C207.36,315 219,326.64 219,341 L219,604 Z" fill={`url(#${iconId}-pbi-g3)`}/>
         </g>
       </svg>
     );
@@ -482,11 +482,12 @@ export const TechIconsRow = memo(function TechIconsRow({
   className?: string;
 }) {
   // Deduplicate items
+  const iconPrefix = useId().replace(/:/g, "");
   const uniqueItems = Array.from(new Set(items));
 
   return (
     <div className={`tech-icons-row ${className}`} role="list" aria-label="Technologies and tools used">
-      {uniqueItems.map(item => (
+      {uniqueItems.map((item, index) => (
         <div
           key={item}
           className="tech-icon-chip"
@@ -495,7 +496,7 @@ export const TechIconsRow = memo(function TechIconsRow({
           aria-label={item}
         >
           <div className="tech-icon-glyph">
-            {getIconSvg(item)}
+            {getIconSvg(item, `${iconPrefix}-${index}`)}
           </div>
           <span className="tech-icon-tooltip" role="tooltip">
             {item}

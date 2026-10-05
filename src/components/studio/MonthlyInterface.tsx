@@ -17,7 +17,8 @@ export function MonthlyInterface({ compact = false }: { compact?: boolean }) {
   return <div className={`monthly-interface ${compact ? 'is-compact' : ''}`}>
     <header><strong>GAS · INV <span>Inventory aging dashboard</span></strong><small>Upload · My Data · Export</small></header>
     <div className="monthly-filters"><span>Division / All divisions</span><span>Organization / All</span><span>Metric / Inventory value</span></div>
-    <div className="monthly-view-controls" aria-label="Documented dashboard perspectives">
+    {!compact && <p className="monthly-view-hint" id={`${panelId}-hint`}>Select a view below to explore its details.</p>}
+    <div className="monthly-view-controls" aria-label="Documented dashboard perspectives" aria-describedby={compact ? undefined : `${panelId}-hint`}>
       {views.map((item, i) => compact ? <span key={item.name} data-active={i === 0}>{item.name}</span> : <button key={item.name} type="button" aria-pressed={active === i} aria-controls={panelId} onClick={() => setActive(i)}>{item.name}</button>)}
     </div>
     <div className="monthly-measures">{['Total inventory', 'Slow moving', 'At risk', 'Total provision'].map(label => <div key={label}><small>{label}</small><strong>—</strong><span>Value withheld</span></div>)}</div>
