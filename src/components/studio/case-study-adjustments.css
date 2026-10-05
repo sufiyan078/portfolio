@@ -1,0 +1,35 @@
+/* Alignment and easing for the existing scroll-driven system layers. */
+.case-study .case-transformation .flow-input,
+.case-study .case-transformation .flow-core,
+.case-study .case-transformation .flow-output {
+  left:50%;
+  width:88%;
+  transition:transform 180ms ease-out, opacity 180ms ease-out;
+}
+.case-study .case-transformation .flow-input {
+  transform:translateX(-50%) translateY(calc(var(--system-progress, 0) * -20px)) rotateY(-12deg);
+}
+.case-study .case-transformation .flow-input>div {
+  transform:none;
+}
+.case-study .case-transformation .flow-core {
+  transform:translateX(-50%) translateY(calc(40px - var(--system-progress, 0) * 60px)) rotateY(-8deg);
+}
+.case-study .case-transformation .flow-output {
+  transform:translateX(-50%) translateY(calc(85px - var(--system-progress, 0) * 85px)) rotateY(calc(-15deg + var(--system-progress, 0) * 15deg));
+}
+.case-study .case-live-button { margin-top:24px; text-decoration:none; }
+.case-study .case-live-button:focus-visible { outline:2px solid #8B004A; outline-offset:4px; }
+@media(max-width:760px) {
+  .case-study .case-transformation .flow-input,
+  .case-study .case-transformation .flow-core,
+  .case-study .case-transformation .flow-output { width:94%; }
+}
+@media(max-height:740px),(prefers-reduced-motion:reduce) {
+  .case-study .case-transformation .flow-output { transform:translateX(-50%); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .case-study .case-transformation .flow-input,
+  .case-study .case-transformation .flow-core,
+  .case-study .case-transformation .flow-output { transition:none; }
+}

@@ -24,7 +24,12 @@
 .monthly-interface>footer { padding:12px 20px; color:#CAE8E8; border-top:1px solid #CAE8E833; font:8px/1.5 var(--font-label); }
 .monthly-product-tour .section-heading h2 { margin-top:18px; }
 .monthly-access { margin-bottom:60px; }
-.monthly-access img { display:block; width:100%; height:auto; border-radius:8px; }
+.monthly-access-schematic { padding:40px; background:#0C1E29; color:#CAE8E8; border:1px solid #5E775E; border-radius:8px; }
+.monthly-access-schematic ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; list-style:none; margin:45px 0; padding:0; }
+.monthly-access-schematic li { min-width:0; padding:24px 0; border-top:1px solid #FAAE62; border-bottom:1px solid #CAE8E840; }
+.monthly-access-schematic small { display:block; font:9px/1.6 var(--font-label); color:#FAAE62; }
+.monthly-access-schematic strong { display:block; font-size:clamp(18px,2vw,28px); line-height:1.3; font-weight:500; margin-top:18px; }
+.monthly-access-schematic>span { font:9px/1.6 var(--font-label); color:#CAE8E8; }
 .monthly-access figcaption { color:#48252F; font-size:13px; padding-top:16px; max-width:75ch; }
 .monthly-access figcaption strong { display:block; color:#0C1E29; margin-bottom:4px; }
 .monthly-tour-story { display:grid; grid-template-columns:.75fr 1.25fr; gap:50px; align-items:start; }
@@ -65,5 +70,8 @@
  .monthly-interface.is-compact>header { padding:8px 12px; }
  .monthly-interface.is-compact .monthly-view-controls { padding-top:10px; gap:4px; }
  .monthly-access { margin-bottom:35px; }
+ .monthly-access-schematic { padding:24px; }
+ .monthly-access-schematic ol { grid-template-columns:1fr; gap:12px; margin:24px 0; }
+ .monthly-access-schematic li { padding:16px 0; }
  .visual-mission-01>.monthly-interface { top:30%; left:6%; right:6%; bottom:13%; }
 }
