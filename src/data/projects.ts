@@ -44,89 +44,157 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "mission-01",
-    missionNumber: "MISSION 01",
-    title: "Monthly Inventory Audit Dashboard",
-    tagline: "Automated inventory analysis converting monthly Excel workbooks into interactive visual audit dashboards for GAS (GAS Arabian Services)",
-    category: "Analytics",
-    status: "COMPLETED",
-    difficulty: "★ ★ ★ ★ ★",
-    description: "A browser-based monthly inventory audit application built for GAS (GAS Arabian Services) to convert manual spreadsheet reviews into visual dashboards. The system ingests monthly Excel workbooks, normalizes inventory data, calculates audit KPIs, and presents division and supplier breakdowns through interactive dashboards—allowing auditors to review stock data without manual spreadsheet filtering.",
-    businessProblem: "Every month, auditors at GAS (GAS Arabian Services) manually reviewed large inventory valuation Excel workbooks. Filtering rows, checking formulas, and inspecting spreadsheets cell-by-cell consumed significant time and increased the risk of human oversight during recurring monthly audits.",
-    whyItMattered: "Why it mattered: It turned time-consuming spreadsheet filtering into instant visual audit dashboards, allowing auditors to focus on variance inspection rather than manual file processing.",
-    architecture: {
-      nodes: [
-        { name: "React + TypeScript Application", type: "Frontend Client Dashboard" },
-        { name: "Firebase Authentication", type: "Google Sign-In Access Control" },
-        { name: "Monthly Excel Ingestion", type: "File Processing Boundary" },
-        { name: "SheetJS Workbook Parser", type: "Local Data Parsing Engine" },
-        { name: "Data Cleaning & Normalization", type: "Sanitization Layer" },
-        { name: "Audit KPI Calculation", type: "Metrics & Valuation Engine" },
-        { name: "Interactive Dashboard", type: "Charts, Tables & Filters" }
+    "id": "mission-01",
+    "missionNumber": "MISSION 01",
+    "title": "Monthly Inventory Visualization — GAS Inventory Analytics",
+    "tagline": "From multi-division ERP workbooks to governed inventory-aging analysis and executive reporting for GAS Arabian Services.",
+    "category": "Analytics",
+    "status": "COMPLETED",
+    "difficulty": "★ ★ ★ ★ ★",
+    "description": "An inventory-aging and business intelligence webapp for GAS Arabian Services, built with Next.js and React. Approved users upload monthly ERP Excel workbooks or reopen saved datasets. The system maps inconsistent headers, normalizes inventory records, recovers missing supplier names, and calculates aging, risk and provision measures. Organization, supplier, division, item and provision views share cascading filters. Dataset history is stored in Cloud Firestore; executive reports are generated in the browser.",
+    "businessProblem": "Monthly ERP exports spread inventory across worksheets with inconsistent headers, merged cells, subtotals and incomplete supplier fields. Finance and supply-chain teams needed a consistent way to review aging stock, supplier concentration and provision exposure without repeatedly merging spreadsheets or circulating conflicting copies.",
+    "whyItMattered": "A governed analysis workflow connects the source workbook, inventory rules, detailed ledger and management reports, helping teams inspect exposure and trace calculations back to inventory records.",
+    "architecture": {
+      "nodes": [
+        {
+          "name": "Next.js + React",
+          "type": "Application and interface"
+        },
+        {
+          "name": "Firebase Authentication + approval lifecycle",
+          "type": "Google sign-in and governed access"
+        },
+        {
+          "name": "SheetJS workbook ingestion",
+          "type": "Multi-sheet parsing and dynamic header aliases"
+        },
+        {
+          "name": "Normalization + supplier recovery",
+          "type": "Two-pass description-based heuristic"
+        },
+        {
+          "name": "Inventory calculation model",
+          "type": "Aging, risk, provision and aggregate measures"
+        },
+        {
+          "name": "Cloud Firestore + LZ-String",
+          "type": "Compressed dataset storage and history"
+        },
+        {
+          "name": "Cascading filters + analytical views",
+          "type": "Organization, supplier, division, items and provision"
+        },
+        {
+          "name": "Browser-generated reports",
+          "type": "Excel, PDF and PowerPoint outputs"
+        }
       ],
-      description: "React + TypeScript Application → Firebase Authentication (Google Sign-In) → Monthly Excel Upload → SheetJS Workbook Parser → Data Cleaning & Normalization → Audit KPI Calculation → Interactive Dashboard (Charts, Tables, Filters)."
+      "description": "Approved Google sign-in → upload or reopen a saved workbook dataset → SheetJS parsing and header mapping → normalization and supplier recovery → inventory calculations → filtered analytical views → browser-generated reports. Compressed datasets are saved in Cloud Firestore for later retrieval; local parsing does not mean that data never reaches cloud storage."
     },
-    features: [
-      "Secure login using Firebase Authentication (Google Sign-In)",
-      "Upload monthly inventory valuation Excel workbooks",
-      "Parse Excel files locally using SheetJS",
-      "Clean and normalize imported inventory data",
-      "Calculate monthly audit KPIs",
-      "Interactive dashboards",
-      "Division-wise visualizations",
-      "Supplier analysis",
-      "Search and filtering",
-      "Responsive dashboard for auditors"
+    "features": [
+      "Google sign-in with domain checks and administrator-reviewed pending, approved or rejected access",
+      "Multi-sheet Excel ingestion with dynamic header aliases and division/sheet selection",
+      "Data normalization and two-pass recovery of missing supplier names from descriptions",
+      "Inventory value, quantity, slow-moving stock, at-risk stock and provision analysis",
+      "Granular aging distributions, stacked aging charts, risk heatmaps and rule-based diagnostic insights",
+      "Organization, supplier, division, all-items and provision perspectives",
+      "Cascading division, organization and metric filters that update the analytical view",
+      "Searchable, sortable and paginated ledgers with value/quantity toggles and risk badges",
+      "Compressed cloud dataset history through My Data",
+      "Browser-generated Excel workbooks, landscape PDF reports and PowerPoint presentations",
+      "Dark/light theme, fullscreen mode and access/audit governance"
     ],
-    technologyLoadout: [
+    "technologyLoadout": [
+      "Next.js",
       "React",
-      "TypeScript",
       "Tailwind CSS",
       "Firebase Authentication",
-      "Google Sign-In",
+      "Cloud Firestore",
+      "Firebase Hosting",
       "SheetJS (xlsx)",
-      "Git"
+      "LZ-String",
+      "Recharts / SVG",
+      "jsPDF",
+      "html2canvas",
+      "PptxGenJS"
     ],
-    challenges: [
+    "challenges": [
       {
-        issue: "Large Monthly Workbook Ingestion Latency: Processing monthly inventory spreadsheets with extensive row counts caused brief UI thread freezing.",
-        investigation: "SheetJS parsing and data sanitization were running synchronously in a single execution block.",
-        solution: "Structured chunked dataset parsing to maintain smooth 60fps UI responsiveness during file uploads."
+        "issue": "Inconsistent workbook schemas",
+        "investigation": "ERP worksheets used irregular header positions, field names, merged cells and subtotals; fixed column indexes could not reliably identify the inventory fields.",
+        "solution": "Scan early worksheet rows with a dynamic alias dictionary, map inventory fields, and normalize records before calculating analytics."
       },
       {
-        issue: "Audit Count Zero Normalization: Valid zero-quantity stock items evaluated as empty unentered fields.",
-        investigation: "Data cleaning logic treated numerical 0 stock counts identically to missing cell values.",
-        solution: "Engineered explicit type-checking to distinguish numerical 0 inventory counts from missing cells."
+        "issue": "Incomplete supplier information",
+        "investigation": "Blank or placeholder supplier fields concealed concentration and aging exposure.",
+        "solution": "Use a two-pass heuristic: build a description-to-supplier mapping from populated records, then match tokenized descriptions in incomplete rows. This is rule-based recovery, not AI inference."
+      },
+      {
+        "issue": "Persisting large monthly datasets",
+        "investigation": "Inventory JSON could exceed the Firestore document-size boundary.",
+        "solution": "Compress datasets with LZ-String before cloud persistence and restore them through My Data. Keep dataset access aligned with the approved-user lifecycle."
+      },
+      {
+        "issue": "Transparent aging and provision calculations",
+        "investigation": "Manual formulas and separate reporting copies made financial exposure harder to reconcile.",
+        "solution": "Apply the documented business rules consistently: half of the value in the five-to-seven-year band plus the full value beyond seven years contributes to the provision amount. Use the resulting analysis in dashboards and browser-generated reports."
       }
     ],
-    outcome: [
-      "Automated monthly inventory analysis, converting uploaded Excel files into interactive dashboards",
-      "Streamlined monthly valuation reviews by visualizing division and supplier stock performance",
-      "Eliminated repetitive manual data formatting and formula recalculation across monthly workbooks",
-      "Accelerated identification of stock discrepancies and slow-moving inventory",
-      "Maintained data privacy through 100% local browser-based file processing with zero server uploads",
-      "Ensured consistent KPI calculation rules across recurring monthly audit cycles"
+    "outcome": [
+      "Delivered a deployed, access-controlled inventory analytics webapp for GAS Arabian Services",
+      "Connected workbook ingestion, inventory normalization, aging analysis and executive reporting",
+      "Made organization, supplier, division, item-level and provision perspectives available in one workflow",
+      "Enabled approved users to reopen saved monthly datasets rather than repeatedly upload the same workbook",
+      "Provided traceable provision rules and rule-based diagnostics alongside searchable analytical ledgers",
+      "Delivered Excel, PDF and PowerPoint outputs without publishing confidential inventory values in this case study"
     ],
-    lessonsLearned: [
-      "Local in-browser spreadsheet parsing with SheetJS protects sensitive audit data while eliminating server processing dependencies.",
-      "Clear visual dashboards dramatically simplify recurring monthly auditing workflows compared to raw spreadsheet reviews."
+    "lessonsLearned": [
+      "Spreadsheet analytics needs schema adaptation and supplier-data cleanup before visual presentation.",
+      "Browser-based parsing and cloud persistence are separate responsibilities; access governance must cover stored datasets as well as sign-in.",
+      "Explicit inventory rules, traceable ledgers and consistent reporting matter more than unverified speed or savings claims."
     ],
-    metrics: [
-      { number: "100%", caption: "Client-Side In-Browser Privacy" },
-      { number: "-80%", caption: "Monthly Audit Inspection Time" },
-      { number: "60fps", caption: "Smooth UI Processing Large Sheets" }
+    "metrics": [
+      {
+        "number": "Governed",
+        "caption": "Approved-user access"
+      },
+      {
+        "number": "Traceable",
+        "caption": "Inventory rules and ledgers"
+      },
+      {
+        "number": "Reusable",
+        "caption": "Cloud dataset history"
+      }
     ],
-    preview: {
-      headline: "Interactive Inventory Audit Portal",
-      type: "GAS Arabian Services Enterprise Tool",
-      metrics: ["Zero Server Uploads", "Instant KPI Calculation", "Multi-Supplier Breakdown"],
-      kpis: [
-        { label: "PARSER LATENCY", value: "< 120ms" },
-        { label: "DATA ACCURACY", value: "100.0%" },
-        { label: "SECURITY PROTOCOL", value: "LOCAL SHEETJS" },
-        { label: "AUDIT STATUS", value: "VERIFIED" }
+    "preview": {
+      "headline": "Inventory aging, risk and reporting in one workflow",
+      "type": "GAS Arabian Services Inventory Analytics",
+      "metrics": [
+        "Governed access",
+        "Cloud dataset history",
+        "Multi-format reporting"
+      ],
+      "kpis": [
+        {
+          "label": "INGESTION",
+          "value": "Multi-sheet Excel"
+        },
+        {
+          "label": "ANALYTICS",
+          "value": "Aging and provision"
+        },
+        {
+          "label": "STORAGE",
+          "value": "Cloud Firestore"
+        },
+        {
+          "label": "REPORTING",
+          "value": "Excel / PDF / PPT"
+        }
       ]
-    }
+    },
+    "liveUrl": "https://data-visualisation-9de39.web.app"
   },
   {
     id: "mission-02",
@@ -220,99 +288,163 @@ export const PROJECTS: Project[] = [
     }
   },
   {
-    id: "mission-03",
-    missionNumber: "MISSION 03",
-    title: "Quarterly Inventory Analytics & Reporting Portal",
-    tagline: "Excel-driven quarterly inventory analytics, business rule validation, and automated report generation built for GAS (GAS Arabian Services)",
-    category: "Analytics",
-    status: "COMPLETED",
-    difficulty: "★ ★ ★ ★ ★",
-    description: "A quarterly inventory analytics and reporting application built for GAS (GAS Arabian Services) to process raw Excel workbooks into visual dashboards and management reports. Operating on a single-source shared report model, the application maintains data consistency across live dashboards, PDF reports, and PowerPoint slide decks.",
-    businessProblem: "Quarterly inventory audits at GAS (GAS Arabian Services) required validating spreadsheet rows, calculating metrics across multiple files, and manually copying numbers into management slide decks and PDF documents. This manual workflow introduced data discrepancies between spreadsheets and final presentations.",
-    whyItMattered: "Why it mattered: It established a single source of truth for inventory metrics, guaranteeing that dashboards, PDF documents, and PowerPoint slide decks always present identical audit numbers.",
-    architecture: {
-      nodes: [
-        { name: "User Authentication", type: "Firebase Authentication" },
-        { name: "Quarterly Excel Upload", type: "File Ingestion Layer" },
-        { name: "SheetJS Workbook Parser", type: "Excel Processing Engine" },
-        { name: "Data Validation & Normalization", type: "Cleaning & Sanitization" },
-        { name: "Business Rule Engine", type: "Rule-Based Validation" },
-        { name: "KPI Calculation Engine", type: "Metrics & Aggregation" },
-        { name: "Interactive Analytics Dashboard", type: "Charts, Tables & Filters" },
-        { name: "Shared Report Model", type: "Consistent Data Layer" },
-        { name: "Professional PDF Export", type: "html2canvas + jsPDF" },
-        { name: "PowerPoint Export", type: "pptxgenjs" }
+    "id": "mission-03",
+    "missionNumber": "MISSION 03",
+    "title": "Quarterly Inventory Visualization — Analytics & Reporting Portal",
+    "tagline": "A governed stock-take workflow from multi-sheet Excel reconciliation to evidence-backed executive reporting for GAS Arabian Services.",
+    "category": "Analytics",
+    "status": "COMPLETED",
+    "difficulty": "★ ★ ★ ★ ★",
+    "description": "A quarterly inventory intelligence and audit reconciliation portal for GAS Arabian Services, built with Next.js and React. Auditors move through upload, validation, dashboard analysis, pre-report preparation and report generation. Browser-side processing normalizes multi-sheet Excel records and applies deterministic calculations for count differences, shortages, excess stock, aging and provision exposure. Evidence, report design and preparer/checker/approver sign-off connect the analysis to PDF, editable PowerPoint and Excel deliverables. Firebase supports authentication, structured audit metadata, summaries and archives.",
+    "businessProblem": "Quarterly stock-take records and ERP ledgers arrived in inconsistent spreadsheets with missing supplier fields, duplicate references, subtotal rows and summary tabs. Teams needed to reconcile physical counts against book records, investigate discrepancies, attach supporting evidence and prepare consistent management reports with a clear review and approval trail.",
+    "whyItMattered": "The portal connects validation, reconciliation, investigation, evidence and sign-off in one audit workflow rather than treating report generation as a separate manual exercise.",
+    "architecture": {
+      "nodes": [
+        {
+          "name": "Next.js + React portal",
+          "type": "Browser interface and staged audit workflow"
+        },
+        {
+          "name": "Firebase Authentication + roles",
+          "type": "Google sign-in, domain authorization and role-based access"
+        },
+        {
+          "name": "SheetJS ingestion + alias mapping",
+          "type": "Multi-sheet extraction and summary-tab exclusion"
+        },
+        {
+          "name": "Data profiling + validation",
+          "type": "Duplicate flags, supplier resolution and pre-calculation checks"
+        },
+        {
+          "name": "Deterministic reconciliation model",
+          "type": "Physical/book differences, shortage, excess, aging and provision"
+        },
+        {
+          "name": "Analytical dashboard + item ledger",
+          "type": "Division, supplier, issue, status, risk and text filters"
+        },
+        {
+          "name": "Pre-report + evidence + sign-off",
+          "type": "Cover design, session evidence, review and approval lock"
+        },
+        {
+          "name": "Browser document generation",
+          "type": "PDF, editable PowerPoint and Excel reconciliation"
+        },
+        {
+          "name": "Firestore metadata + audit archives",
+          "type": "Compressed summaries, historical records and audit events"
+        }
       ],
-      description: "User Authentication (Firebase) → Quarterly Excel Upload → SheetJS Workbook Parser → Data Validation & Normalization → Business Rule Engine → KPI Calculation Engine → Interactive Analytics Dashboard → Shared Report Model → Professional PDF Export → PowerPoint Export."
+      "description": "Authenticate → parse multi-sheet stock-take workbooks → profile and validate normalized records → calculate deterministic reconciliation measures → investigate filtered dashboard and ledger views → prepare narrative, evidence and sign-off → generate PDF, PowerPoint and Excel deliverables. Raw files and photo evidence are handled within the browser session; structured metadata and calculation summaries are persisted in Firestore. The same calculated model supports analysis and reporting."
     },
-    features: [
-      "Secure user authentication with Firebase Authentication",
-      "Upload quarterly inventory valuation Excel workbooks",
-      "Browser-based Excel parsing using SheetJS",
-      "Automated validation and normalization of uploaded inventory data",
-      "Rule-based KPI calculation engine",
-      "Interactive dashboards with inventory KPIs, charts, and analytical tables",
-      "Division and supplier performance analysis",
-      "Executive PDF report generation",
-      "PowerPoint report export",
-      "Shared report model ensuring dashboard, PDF, and PowerPoint consistency"
+    "features": [
+      "Google sign-in with domain authorization and Administrator, Auditor and Viewer roles",
+      "Staged upload, validation, dashboard, pre-report and reporting journey",
+      "Multi-sheet workbook parsing with header aliases, operational-sheet selection and summary-tab exclusion",
+      "Data profiling, duplicate-reference flags and supplier fallback resolution",
+      "Deterministic physical-count reconciliation, shortage/excess analysis, aging and provision rules",
+      "Executive overview, division performance, supplier performance, financial risk and item-level investigation",
+      "Organization, supplier, issue category, audit status, risk-level and text-search filters",
+      "Paginated item ledger with discrepancy categories and physical-count remark tagging",
+      "Pre-report cover designer, theme presets, executive commentary and live document preview",
+      "Session-based evidence appendix and supplier evidence with browser-side image compression",
+      "Prepared, checked and approved sign-off fields with an approval lock",
+      "Executive PDF packages, editable PowerPoint presentations and Excel reconciliation exports",
+      "Historical audit archives, role administration and append-only audit event records"
     ],
-    technologyLoadout: [
+    "technologyLoadout": [
       "Next.js",
       "React",
-      "TypeScript",
       "Tailwind CSS",
       "Firebase Authentication",
-      "Firestore",
+      "Cloud Firestore",
+      "Firebase Hosting",
       "SheetJS (xlsx)",
-      "html2canvas",
+      "Custom SVG",
+      "LZ-String",
       "jsPDF",
-      "pptxgenjs",
-      "Git"
+      "html2canvas",
+      "PptxGenJS"
     ],
-    challenges: [
+    "challenges": [
       {
-        issue: "Dashboard, PDF, and PowerPoint exports displayed inconsistent KPI values and formatting.",
-        investigation: "Each export path independently recalculated metrics from raw data, introducing rounding and aggregation discrepancies.",
-        solution: "Designed a shared report model that calculates all KPIs once and feeds the same data structure to dashboards, PDF, and PowerPoint exports."
+        "issue": "Irregular spreadsheets and subtotal pollution",
+        "investigation": "Stock-take workbooks mixed naming conventions, incomplete fields, summary tabs and subtotal rows with operational records.",
+        "solution": "Map header aliases to a normalized schema, exclude summary tabs, profile duplicate references and resolve supplier metadata before the calculation stage."
       },
       {
-        issue: "Complex Excel workbooks with inconsistent formatting caused parsing failures during quarterly uploads.",
-        investigation: "SheetJS returned mixed types for cells that contained formulas, merged ranges, or whitespace-padded values.",
-        solution: "Built a normalization pipeline with explicit type coercion, empty-cell handling, and merged-range expansion before data enters the validation layer."
+        "issue": "Reconciliation before presentation",
+        "investigation": "Physical counts and ERP quantities needed consistent interpretation across item, division and supplier views.",
+        "solution": "Apply deterministic count-difference, shortage, excess, aging and provision calculations to validated records. Keep unverified items distinguishable and expose discrepancy categories in the ledger."
       },
       {
-        issue: "Uploaded workbook totals did not reconcile with calculated KPI summaries.",
-        investigation: "Source workbooks contained pre-calculated subtotals that diverged from row-level re-aggregation due to hidden rows and filtered records.",
-        solution: "Implemented reconciliation checks comparing uploaded subtotals against recalculated values, flagging discrepancies for auditor review."
+        "issue": "Connecting evidence to the report workflow",
+        "investigation": "Financial discrepancies alone did not explain warehouse conditions, count-sheet issues or the review responsibility.",
+        "solution": "Add a pre-report workspace for cover design, commentary, evidence appendices and supplier evidence. Compress session images in the browser and capture prepared, checked and approved sign-off fields."
+      },
+      {
+        "issue": "Governed reporting with browser-side processing",
+        "investigation": "The portal needed export generation, audit history and access control while minimizing server-side computational work.",
+        "solution": "Generate PDF, editable PowerPoint and Excel deliverables in the browser. Persist compressed structured metadata and calculation summaries in Firestore, with role-based access, approval state and audit events."
       }
     ],
-    outcome: [
-      "Automated quarterly inventory analytics and KPI calculations directly from uploaded Excel workbooks",
-      "Generated PDF audit reports and PowerPoint slide decks directly from processed spreadsheet data",
-      "Reduced manual presentation preparation effort by generating slide decks and PDFs automatically",
-      "Eliminated metric discrepancies across dashboards, PDFs, and slide decks via a shared report model",
-      "Improved audit accuracy through rule-based data validation and automated subtotal reconciliation"
+    "outcome": [
+      "Delivered an integrated quarterly stock-take reconciliation and reporting workflow",
+      "Connected data validation to division, supplier, financial-risk and item-level investigation",
+      "Brought document design, evidence preparation and formal review into the same audit journey",
+      "Produced executive PDF packages, editable presentations and Excel reconciliation workbooks",
+      "Provided historical audit records and role-based governance around reporting",
+      "Kept client values, identifiers, account details and evidence out of the public portfolio"
     ],
-    lessonsLearned: [
-      "A shared report model that decouples calculation from presentation eliminates cross-format inconsistencies in multi-output reporting systems.",
-      "Deterministic report layouts require explicit control over data flow — allowing each export to independently compute metrics guarantees divergence."
+    "lessonsLearned": [
+      "Validation and subtotal exclusion must happen before reconciliation; charts cannot compensate for polluted source records.",
+      "An audit deliverable needs evidence, methodology and review responsibility alongside calculated measures.",
+      "Browser-side computation and cloud metadata storage are complementary boundaries, not a promise of zero data transfer.",
+      "A calculated model should drive both investigation and exports without separate copies of audit logic."
     ],
-    metrics: [
-      { number: "100%", caption: "Data Sync Across Dashboard, PDF & PPTX" },
-      { number: "-85%", caption: "Quarterly Executive Slide Prep Effort" },
-      { number: "3x", caption: "Export Formats from Single Source Model" }
+    "metrics": [
+      {
+        "number": "Validated",
+        "caption": "Before calculation"
+      },
+      {
+        "number": "Reviewed",
+        "caption": "Evidence and sign-off"
+      },
+      {
+        "number": "Traceable",
+        "caption": "Reports and archives"
+      }
     ],
-    preview: {
-      headline: "Quarterly Executive BI & Report Portal",
-      type: "GAS Arabian Services Single-Source Portal",
-      metrics: ["Shared Report Model", "One-Click PPTX Export", "Executive PDF Engine"],
-      kpis: [
-        { label: "CONSISTENCY RATE", value: "100% RECONCILED" },
-        { label: "REPORT FORMATS", value: "DASHBOARD / PDF / PPTX" },
-        { label: "ENGINE TYPE", value: "BUSINESS RULE ENGINE" },
-        { label: "OUTPUT DRIFT", value: "ZERO TOLERANCE" }
+    "preview": {
+      "headline": "From stock-take records to a reviewed audit package",
+      "type": "GAS Arabian Services Quarterly Inventory Portal",
+      "metrics": [
+        "Deterministic reconciliation",
+        "Evidence and sign-off",
+        "PDF / PowerPoint / Excel"
+      ],
+      "kpis": [
+        {
+          "label": "WORKFLOW",
+          "value": "Upload to report"
+        },
+        {
+          "label": "CALCULATIONS",
+          "value": "Rule-driven"
+        },
+        {
+          "label": "GOVERNANCE",
+          "value": "Roles and sign-off"
+        },
+        {
+          "label": "DELIVERABLES",
+          "value": "PDF / PPTX / XLSX"
+        }
       ]
-    }
+    },
+    "liveUrl": "https://inv-analytics-portal-58f8e.web.app"
   }
 ];

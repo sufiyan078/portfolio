@@ -18,25 +18,15 @@ export const QUEST_LOG: Quest[] = [
     title: "Quarterly Inventory Analytics & Reporting Portal",
     role: "Full Stack Engineer & System Architect",
     questType: "Main Quest",
-    description: "Engineered an enterprise Excel-driven inventory analytics platform with SheetJS parsing, business rule validation, KPI calculation, and a shared report model powering consistent dashboards, PDF, and PowerPoint exports.",
+    description: "Built the GAS quarterly inventory portal from Excel validation and deterministic stock-take reconciliation through filtered investigation, evidence preparation, sign-off and browser-generated PDF, PowerPoint and Excel deliverables, with role-based access and historical audit records.",
     deliverables: [
-      "Shared Report Model synchronizing Dashboard, PDF and PowerPoint exports",
-      "Robust client-side SheetJS ingestion pipeline with subtotal reconciliation",
-      "Automated business rule validation flagging zero-quantity edge cases",
-      "Executive PDF generation using html2canvas and jsPDF",
-      "PowerPoint presentation export engine via pptxgenjs"
+      "Multi-sheet ingestion, header normalization and validation profiling",
+      "Deterministic stock-count reconciliation and discrepancy investigation",
+      "Pre-report design, evidence appendices and prepared/checked/approved sign-off",
+      "Browser-generated PDF, editable PowerPoint and Excel reconciliation",
+      "Role-based access, structured cloud audit records and archives"
     ],
-    techLoadout: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "SheetJS (xlsx)",
-      "html2canvas",
-      "jsPDF",
-      "pptxgenjs",
-      "Firebase"
-    ],
+    techLoadout: ["Next.js", "React", "SheetJS (xlsx)", "Firebase", "LZ-String", "jsPDF", "html2canvas", "PptxGenJS"],
     reward: "Enterprise Reporting Engine & Multi-Format Export Architecture",
     status: "COMPLETED"
   },
@@ -71,26 +61,17 @@ export const QUEST_LOG: Quest[] = [
   {
     id: "quest-01",
     period: "2026",
-    title: "Monthly Inventory Audit Dashboard",
+    title: "Monthly Inventory Visualization — GAS Inventory Analytics",
     role: "Full Stack Developer",
     questType: "Main Quest",
-    description: "Developed a browser-based audit visualization tool for GAS that converts uploaded monthly Excel inventory workbooks into interactive dashboards with Firebase Authentication, SheetJS parsing, data normalization, and KPI analytics.",
+    description: "Built the GAS inventory-aging analytics webapp with Next.js and React: governed Google sign-in, multi-sheet Excel parsing, supplier recovery, aging and provision rules, filtered analytical views, compressed Firestore dataset history, and browser-generated reports.",
     deliverables: [
-      "100% in-browser spreadsheet parser protecting sensitive enterprise data",
-      "Chunked parsing algorithm preventing UI freeze on large workbooks",
-      "Division and supplier inventory breakdown charts and analytical tables",
-      "Automated stock variance and slow-moving item identification",
-      "Secure Google Sign-In access control via Firebase Authentication"
+      "Dynamic Excel header mapping and two-pass supplier recovery",
+      "Organization, supplier, division, item and provision analysis",
+      "Compressed cloud dataset history and approved-user access",
+      "Browser-generated Excel, PDF and PowerPoint reports"
     ],
-    techLoadout: [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "SheetJS (xlsx)",
-      "Firebase Auth",
-      "Google Sign-In",
-      "Chart UI"
-    ],
+    techLoadout: ["Next.js", "React", "SheetJS (xlsx)", "Firebase Auth", "Firestore", "LZ-String", "jsPDF", "PptxGenJS"],
     reward: "Excel Processing & Audit Dashboard Engineering",
     status: "COMPLETED"
   }

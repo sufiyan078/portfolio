@@ -2,10 +2,10 @@
 export const projectPresentation = {
   'mission-01': {
     slug: 'monthly-inventory', client: 'Enterprise Client', theme: 'sage',
-    title: 'A clearer picture of inventory.', shortName: 'Monthly inventory audit',
-    summary: 'From monthly Excel workbooks to a private, browser-based audit dashboard. Less spreadsheet handling. More room for the work that matters.',
-    discipline: 'Data systems / Web application', principle: 'Keep sensitive data where it belongs.',
-    approach: 'Parse and normalize workbooks locally, distinguish zero counts from missing values, and turn the validated model into interactive audit KPIs.',
+    title: 'A clearer picture of inventory.', shortName: 'Monthly inventory visualization',
+    summary: 'From multi-division Excel exports to inventory aging, risk and provision analysis. Governed dataset history and executive reports connect the whole workflow.',
+    discipline: 'Inventory analytics / Business intelligence', principle: 'Make inventory exposure understandable.',
+    approach: 'Map irregular workbook schemas, normalize records and recover missing suppliers before applying explicit inventory rules. Connect the analysis to cascading filters, approved-user cloud dataset history, and Excel, PDF and PowerPoint reports.',
   },
   'mission-02': {
     slug: 'career-ai', client: 'CareerAI', theme: 'lilac',
@@ -16,10 +16,10 @@ export const projectPresentation = {
   },
   'mission-03': {
     slug: 'quarterly-reporting', client: 'Enterprise Client', theme: 'stone',
-    title: 'One model. Every report.', shortName: 'Quarterly inventory intelligence',
-    summary: 'An inventory intelligence system that connects validated Excel data to dashboards, PDF reports and PowerPoint. One source of truth across every output.',
-    discipline: 'Business intelligence / Automation', principle: 'Calculate once. Communicate consistently.',
-    approach: 'Normalize and reconcile source workbooks, apply explicit business rules, and calculate a shared report model before rendering any output.',
+    title: 'One model. Every report.', shortName: 'Quarterly inventory visualization',
+    summary: 'A quarterly stock-take workflow connecting Excel validation, reconciliation, discrepancy investigation, evidence and sign-off to executive reports.',
+    discipline: 'Audit reconciliation / Reporting', principle: 'Validate. Reconcile. Review.',
+    approach: 'Normalize workbook schemas, exclude summary tabs and profile records before deterministic stock-count reconciliation. Connect filtered investigation to evidence, report design and sign-off, then generate PDF, editable PowerPoint and Excel deliverables from the calculated model.',
   },
 } as const;
 export type ProjectId = keyof typeof projectPresentation;
