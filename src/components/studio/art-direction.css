@@ -1599,3 +1599,71 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   /* Prevent iOS from zooming the page when a tablet form field receives focus. */
   .contact-form-wrap input,.contact-form-wrap select,.contact-form-wrap textarea { font-size:16px; }
 }
+
+/* The two annotated phone buttons and the existing experience disclosure. */
+@media (max-width:640px) {
+  .hero-actions .button,
+  .contact-form-wrap form>button.button-light[type='submit'] {
+    position:relative;
+    background-color:#CAE8E824;
+    background-image:linear-gradient(135deg,#FFFBD433,#CAE8E80D 55%,#FFFBD41A);
+    color:#FFFBD4;
+    border-color:#FFFBD440;
+    backdrop-filter:blur(12px) saturate(120%);
+    -webkit-backdrop-filter:blur(12px) saturate(120%);
+    box-shadow:inset 0 1px 0 #FFFBD466,inset 0 -1px 0 #CAE8E826,-2px -1px 9px #CAE8E81A,2px 2px 9px #FAAE621A,0 4px 14px #00000026;
+  }
+  .hero-actions .button::before,
+  .contact-form-wrap form>button.button-light[type='submit']::before {
+    content:'';
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    padding:1px;
+    background:linear-gradient(135deg,#CAE8E880,#FFFBD426 45%,#FAAE6266);
+    -webkit-mask:linear-gradient(#000000 0 0) content-box,linear-gradient(#000000 0 0);
+    mask:linear-gradient(#000000 0 0) content-box,linear-gradient(#000000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+  }
+  .hero-actions .button:hover,
+  .contact-form-wrap form>button.button-light[type='submit']:hover {
+    background-color:#CAE8E833;
+    background-image:linear-gradient(135deg,#FFFBD433,#CAE8E80D 55%,#FFFBD41A);
+    color:#FFFBD4;
+    border-color:#FFFBD466;
+  }
+  .experience-disclosure {
+    border-color:#8B004A66;
+    background:linear-gradient(135deg,#CAE8E840,#FFFBD433);
+  }
+  .experience-disclosure>summary {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 38px;
+    align-items:center;
+    gap:6px 12px;
+    padding-inline:14px;
+    font-weight:600;
+    color:#8B004A;
+  }
+  .experience-disclosure .laptop-experience-cue {
+    display:block;
+    grid-column:1;
+    grid-row:2;
+    color:#48252F;
+    font:9px/1.5 var(--font-label);
+  }
+  .experience-disclosure>summary>span {
+    display:grid;
+    grid-column:2;
+    grid-row:1 / span 2;
+    place-items:center;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #8B004A66;
+    background:#F2EFE780;
+  }
+  .experience-disclosure>div { padding-inline:14px; }
+}
