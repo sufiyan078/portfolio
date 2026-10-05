@@ -127,7 +127,7 @@ export function CustomCursor() {
     let entered = false;
     let animId: number;
 
-    const SELECTOR = 'a, button, [role="button"], summary, input, select, textarea, .hoverable';
+    const SELECTOR = 'a, button, [role="button"], [role="tab"], [role="option"], [role="menuitem"], [role="checkbox"], [role="radio"], [role="switch"], summary, input, select, textarea, label, .hoverable';
 
     const updateColor = (x: number, y: number) => {
       const color = getCursorColorAt(x, y);
@@ -182,17 +182,17 @@ export function CustomCursor() {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
+      const hoverTarget = target.closest(SELECTOR);
+      if (hoverTarget) {
+        setMode('hand');
+        return;
+      }
+
       const arrowTarget = target.closest(
         '[hover-arrow], [data-cursor="arrow"], .case-link, .header-cta, .hero-actions a, .work-visual-link'
       );
       if (arrowTarget) {
         setMode('arrow');
-        return;
-      }
-
-      const hoverTarget = target.closest(SELECTOR);
-      if (hoverTarget) {
-        setMode('hand');
         return;
       }
 
@@ -206,17 +206,17 @@ export function CustomCursor() {
         return;
       }
 
+      const hoverTarget = related.closest(SELECTOR);
+      if (hoverTarget) {
+        setMode('hand');
+        return;
+      }
+
       const arrowTarget = related.closest(
         '[hover-arrow], [data-cursor="arrow"], .case-link, .header-cta, .hero-actions a, .work-visual-link'
       );
       if (arrowTarget) {
         setMode('arrow');
-        return;
-      }
-
-      const hoverTarget = related.closest(SELECTOR);
-      if (hoverTarget) {
-        setMode('hand');
         return;
       }
 

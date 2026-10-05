@@ -172,6 +172,7 @@ export function ProcessSection() {
                 );
               })}
             </ol>
+            <p className="laptop-process-scroll-cue">Scroll to explore each step <span aria-hidden="true">↓</span></p>
           </div>
         </div>
       </div>

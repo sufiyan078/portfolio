@@ -41,18 +41,24 @@ export function StudioPage() {
     const element = header.current;
     if (!element) return;
     const phone = matchMedia('(max-width: 640px)');
-    const update = () => element.classList.toggle('phone-glass-scrolled', phone.matches && scrollY > 16);
+    const laptop = matchMedia('(min-width: 1101px)');
+    const update = () => {
+      element.classList.toggle('phone-glass-scrolled', phone.matches && scrollY > 16);
+      element.classList.toggle('laptop-glass-scrolled', laptop.matches && scrollY > 16);
+    };
     const sync = () => {
       window.removeEventListener('scroll', update);
-      if (phone.matches) window.addEventListener('scroll', update, { passive: true });
+      if (phone.matches || laptop.matches) window.addEventListener('scroll', update, { passive: true });
       update();
     };
     sync();
     phone.addEventListener('change', sync);
+    laptop.addEventListener('change', sync);
     return () => {
       window.removeEventListener('scroll', update);
       phone.removeEventListener('change', sync);
-      element.classList.remove('phone-glass-scrolled');
+      laptop.removeEventListener('change', sync);
+      element.classList.remove('phone-glass-scrolled', 'laptop-glass-scrolled');
     };
   }, []);
   const play = () => { if(soundOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) audio.current?.playSound('CARD_CLICK'); };
@@ -132,7 +138,7 @@ export function StudioPage() {
       <section id="services" className="studio-services section-pad"><div className="section-marker"><span><TypewriterText text="02 / WHAT I CAN HELP WITH"/></span><span>FROM THE FIRST QUESTION TO THE WORKING PRODUCT</span></div><div className="section-heading"><h2>Your next chapter.<br/><em>Built together.</em></h2><p>You don’t need to arrive with a technical specification. A messy workflow, an underused dataset or an idea worth testing is a good starting point.</p></div><div className="service-list">{services.map(([title,lead,copy,tools],index)=><details key={title}><summary><span>0{index+1}</span><h3>{title}</h3><p>{lead}</p><b aria-hidden="true">+</b></summary><div className="service-detail"><div className="service-detail-left"><p>{copy}</p><a href="#contact">Let’s discuss it <ArrowGlyph/></a></div><div className="service-detail-right"><TechIconsRow items={tools.split(' / ').map(t=>t.trim())} className="service-tech-icons" /></div></div></details>)}</div></section>
       <ProcessSection />
       <section id="about" className="studio-about section-pad"><div className="section-marker"><span><TypewriterText text="04 / THE PERSON BEHIND THE WORK"/></span><span className="notranslate" translate="no">SUFIYAN AHMED</span></div><div className="about-layout"><div className="about-statement"><div className="about-art" aria-hidden="true"><span className="about-art-label">THE PERSON / THE PRACTICE</span><span className="about-monogram notranslate" translate="no">sa.</span><span className="about-art-footer">A curious mind.<br/>An engineering approach.</span><i/><i/><i/></div><h2>I like making<br/>complex things<br/><em>make sense.</em></h2></div><div className="about-copy"><p className="large-copy">{PLAYER_PROFILE.bio}</p><p>My work brings together full-stack engineering, data analysis and automation. I care about what happens after a feature ships: whether people can understand it, use it and keep building on it.</p><p>For me, the interface and the system are part of the same problem. Both should make the next step clearer.</p><a className="text-link" href="#contact">Work with me <ArrowGlyph/></a><div className="about-principles">{PLAYER_PROFILE.philosophy.slice(0,3).map(item=><div key={item.number}><span>{item.number}</span><strong>{item.title}</strong><p>{item.text}</p></div>)}</div></div></div>
-        <details className="experience-disclosure"><summary>Project experience <span><ArrowGlyph/></span></summary><div>{QUEST_LOG.map(item=><article key={item.id}><span>{item.period}</span><div><h3>{item.title}</h3><strong>{item.role}</strong><p>{item.description}</p></div></article>)}</div></details>
+        <details className="experience-disclosure"><summary>Project experience <small className="laptop-experience-cue">Explore roles &amp; projects</small><span><ArrowGlyph/></span></summary><div>{QUEST_LOG.map(item=><article key={item.id}><span>{item.period}</span><div><h3>{item.title}</h3><strong>{item.role}</strong><p>{item.description}</p></div></article>)}</div></details>
         <div className="technology-block"><div><span className="eyebrow">THE RIGHT TOOLS FOR THE WORK</span><h3>Technical range.<br/>Practical application.</h3></div><div className="technology-groups">{INVENTORY_CATEGORIES.map(group=><details key={group.id} open={openTechCategory === group.id} onToggle={e=>{const isNowOpen = (e.currentTarget as HTMLDetailsElement).open; if(isNowOpen) setOpenTechCategory(group.id); else if(openTechCategory === group.id) setOpenTechCategory(null);}}><summary>{group.name}<span>+</span></summary><div className="technology-group-drawer"><TechIconsRow items={group.techList}/></div></details>)}</div></div>
       </section>
       <ProjectContact/>
