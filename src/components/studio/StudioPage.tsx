@@ -31,7 +31,6 @@ export function StudioPage() {
   const [activeCase,setActiveCase] = useState<ProjectId|null>(caseFromHash);
   const [openTechCategory, setOpenTechCategory] = useState<string | null>(null);
   const [soundOn,setSoundOn] = useState(false);
-  const [soundNotice,setSoundNotice] = useState('');
   const audio = useRef<typeof import('../../utils/soundManager')['soundManager'] | null>(null);
   const returnScroll = useRef<number|null>(null);
   const contactPending = useRef(false);
@@ -62,17 +61,6 @@ export function StudioPage() {
     };
   }, []);
   const play = () => { if(soundOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) audio.current?.playSound('CARD_CLICK'); };
-  const toggleAudio = async () => {
-    if (soundOn) { if(audio.current?.isSoundEnabled()) audio.current.toggleSound(); setSoundOn(false); return; }
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches) { setSoundNotice('Sound remains off with reduced motion enabled.'); return; }
-    audio.current ??= (await import('../../utils/soundManager')).soundManager;
-    audio.current.setVolume(.12);
-    if(!audio.current.isSoundEnabled()) audio.current.toggleSound();
-    await audio.current.unlock();
-    const ready = audio.current.getDiagnostics().contextState === 'running';
-    setSoundOn(ready); setSoundNotice(ready ? 'Subtle interaction sound enabled.' : 'Audio could not start. Try again to enable it.');
-    if(ready) audio.current.playSound('CARD_CLICK');
-  };
   const closeCase = useCallback(() => {
     if(returnScroll.current === null && !contactPending.current) returnScroll.current = Math.max(0, (document.getElementById('work')?.getBoundingClientRect().top ?? 0) + scrollY - 90);
     history.replaceState(null,'',`${location.pathname}${location.search}#${contactPending.current ? 'contact' : 'work'}`);
@@ -143,7 +131,7 @@ export function StudioPage() {
       </section>
       <ProjectContact/>
     </main>
-    <footer className="studio-footer"><a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed — back to top">Sufiyan Ahmed<span aria-hidden="true"><ArrowGlyph/></span></a><span>Independent engineering. Thoughtfully built.</span><div><button aria-pressed={soundOn} onClick={()=>void toggleAudio()}>Sound {soundOn?'on':'off'}</button><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div><span className="sr-only" role="status">{soundNotice}</span></footer>
+    <footer className="studio-footer"><a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed — back to top">Sufiyan Ahmed<span aria-hidden="true"><ArrowGlyph/></span></a><span>Independent engineering. Thoughtfully built.</span><div><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div></footer>
     <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} />
     {activeCase&&<Suspense fallback={<div className="case-loading" role="status"><p>Opening case study…</p><button onClick={closeCase}>Back to work</button></div>}><CaseStudy key={activeCase} id={activeCase} onClose={closeCase} onContact={()=>{contactPending.current=true;closeCase();}}/></Suspense>}
   </>;

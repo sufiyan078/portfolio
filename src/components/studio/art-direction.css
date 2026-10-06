@@ -1667,3 +1667,59 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   }
   .experience-disclosure>div { padding-inline:14px; }
 }
+
+/* Exact laptop header CTA background transition, reused without changing the reference. */
+.hero-actions .button,
+.contact-form-wrap form>button.button-light[type='submit'] {
+  background-color:#0C1E29D9;
+  background-image:linear-gradient(135deg,#CAE8E826,#FFFBD407 55%,#CAE8E814);
+  background-size:auto;
+  color:#FFFBD4;
+  border-color:#FFFBD466;
+  backdrop-filter:blur(12px) saturate(120%);
+  -webkit-backdrop-filter:blur(12px) saturate(120%);
+  box-shadow:inset 0 1px 0 #CAE8E866,inset 0 -1px 0 #FFFBD426,0 4px 14px #0C1E2926;
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.hero-actions .button:is(:hover,:focus-visible,:active),
+.contact-form-wrap form>button.button-light[type='submit']:is(:hover,:focus-visible,:active) {
+  background-color:#0C1E29F2;
+  background-image:linear-gradient(135deg,#CAE8E826,#FFFBD407 55%,#CAE8E814);
+  color:#FFFBD4;
+  border-color:#FFFBD499;
+}
+.work-visual-link .project-view-affordance {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:44px;
+  background:linear-gradient(135deg,#FFFBD433,#CAE8E814 55%,#FFFBD426);
+  border-color:#FFFBD480;
+  backdrop-filter:blur(12px) saturate(135%);
+  -webkit-backdrop-filter:blur(12px) saturate(135%);
+  box-shadow:inset 0 1px 0 #FFFBD480,inset 0 -1px 0 #CAE8E833,0 4px 14px #0C1E2926;
+  transition:background-color .2s,border-color .2s,box-shadow .2s;
+}
+.work-visual-link:is(:hover,:focus-visible,:active) .project-view-affordance {
+  background-color:#FFFBD426;
+  border-color:#FFFBD4B3;
+  box-shadow:inset 0 1px 0 #FFFBD499,0 5px 18px #0C1E2933;
+}
+.work-visual-link .visual-mission-02 .project-view-affordance {
+  border-color:#48252F40;
+}
+@media (max-width:760px) {
+  .work-visual-link .project-view-affordance {
+    top:auto;
+    bottom:48px;
+    right:6%;
+    font-size:10px;
+    padding:10px 14px;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero-actions .button:is(:hover,:focus-visible,:active),
+  .contact-form-wrap form>button.button-light[type='submit']:is(:hover,:focus-visible,:active) {
+    transition:none;
+  }
+}
