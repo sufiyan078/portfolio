@@ -133,42 +133,47 @@ export function StudioPage() {
         </div>
         <div className="section-heading work-heading">
           <h2>Proof, in<br/><em>practice.</em></h2>
-          <div className="work-heading-right">
-            <p>From the spreadsheet to the interface.<br/>A selection of applications that turn complex workflows into clear, usable software.</p>
-          </div>
+          <p>From the spreadsheet to the interface.<br/>A selection of applications that turn complex workflows into clear, usable software.</p>
         </div>
 
         {!isWorkExpanded ? (
-          <div 
-            className="work-collapsed-card" 
-            onClick={() => setIsWorkExpanded(true)} 
-            role="button" 
-            tabIndex={0} 
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
-            aria-label="Expand selected work to view projects"
-          >
-            <div className="work-collapsed-prompt-row">
-              <span className="work-reference-prompt">
+          <div className="work-collapsed-wrapper">
+            <div className="work-hero-prompt-wrap">
+              <button 
+                type="button"
+                className="work-reference-prompt"
+                onClick={() => setIsWorkExpanded(true)}
+                aria-expanded={false}
+              >
                 <span>Need a website, app, AI tool or reports? See all our services</span>
                 <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
-              </span>
-              <div className="work-collapsed-cta">
-                <span>Explore 4 Systems</span>
-                <span className="work-expand-circle" aria-hidden="true">+</span>
-              </div>
+              </button>
             </div>
 
-            <div className="work-collapsed-divider" aria-hidden="true" />
-
-            <div className="work-collapsed-footer-row">
-              <div className="work-collapsed-badges">
-                <span className="work-count-badge">4 Featured Systems</span>
-                <span className="work-preview-item">Enterprise Analytics</span>
-                <span className="work-preview-item">Audit Portal</span>
-                <span className="work-preview-item">CareerAI</span>
-                <span className="work-preview-item">Apparel Store</span>
+            <div 
+              className="work-collapsed-card" 
+              onClick={() => setIsWorkExpanded(true)} 
+              role="button" 
+              tabIndex={0} 
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
+              aria-label="Expand selected work to view projects"
+            >
+              <div className="work-collapsed-header">
+                <div className="work-collapsed-badges">
+                  <span className="work-count-badge">4 Featured Systems</span>
+                  <span className="work-preview-item">Enterprise Analytics</span>
+                  <span className="work-preview-item">Audit Portal</span>
+                  <span className="work-preview-item">CareerAI</span>
+                  <span className="work-preview-item">Apparel Store</span>
+                </div>
+                <div className="work-collapsed-cta">
+                  <span>Click to view work</span>
+                  <span className="work-expand-circle" aria-hidden="true">+</span>
+                </div>
               </div>
-              <p className="work-collapsed-hint">Click anywhere to reveal interactive architectures & case studies.</p>
+              <div className="work-collapsed-body">
+                <p>From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
+              </div>
             </div>
           </div>
         ) : (

@@ -389,27 +389,9 @@ body > .skiptranslate {
   }
 }
 .selected-work>.section-marker { border-top:1px solid #B38F6F; padding-top:20px; }
-.section-heading {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(32px, 4.5vw, 64px);
-  align-items: start;
-  margin-bottom: 45px;
-}
-.section-heading h2 {
-  margin: 0;
-  line-height: 1.05;
-}
-.section-heading h2 em { color:var(--accent); }
-.section-heading>p,
-.section-heading .work-heading-right p {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.8;
-  margin: 0;
-  max-width: 440px;
-  padding-top: 10px;
-}
+.work-heading { margin-bottom:45px; align-items:end; }
+.work-heading h2 em { color:var(--accent); }
+.work-heading>p { max-width:330px; }
 
 /* Work Reference Prompt — Styled to match portfolio typography & palette */
 .work-hero-prompt-wrap {
@@ -455,46 +437,30 @@ body > .skiptranslate {
   border-bottom-color: rgba(12, 30, 41, 0.2);
 }
 
-/* Selected Work Collapsible Unified Card */
+/* Selected Work Collapsible Card & Controls */
 .work-collapsed-card {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  display: block;
   width: 100%;
   text-align: left;
-  background: rgba(250, 248, 243, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #FAF8F3;
   border: 1px solid rgba(179, 143, 111, 0.35);
-  border-radius: 14px;
-  padding: 26px 30px;
-  margin: 0 0 20px 0;
+  border-radius: 16px;
+  padding: 32px 36px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(12, 30, 41, 0.04);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+  box-shadow: 0 8px 28px rgba(12, 30, 41, 0.05);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.25s ease;
   user-select: none;
 }
 .work-collapsed-card:hover,
 .work-collapsed-card:focus-visible {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: rgba(179, 143, 111, 0.65);
-  box-shadow: 0 12px 32px rgba(12, 30, 41, 0.08);
+  box-shadow: 0 16px 40px rgba(12, 30, 41, 0.1);
   outline: none;
 }
-.work-collapsed-prompt-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.work-collapsed-divider {
-  height: 1px;
-  background: rgba(179, 143, 111, 0.2);
-  width: 100%;
-  margin: 0;
-}
-.work-collapsed-footer-row {
+.work-collapsed-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -504,28 +470,28 @@ body > .skiptranslate {
 .work-collapsed-badges {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 .work-count-badge {
   background: var(--ink);
   color: #FFFBD4;
-  font-family: var(--font-body);
+  font-family: var(--font-label);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 5px 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
   border-radius: 9999px;
-  text-transform: none;
+  text-transform: uppercase;
 }
 .work-preview-item {
   background: rgba(179, 143, 111, 0.12);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 11.5px;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  padding: 4px 11px;
+  letter-spacing: 0.04em;
+  padding: 5px 12px;
   border-radius: 9999px;
   border: 1px solid rgba(179, 143, 111, 0.22);
 }
@@ -533,33 +499,37 @@ body > .skiptranslate {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 13px;
+  color: var(--accent);
+  font-size: 13.5px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 .work-expand-circle {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--accent);
   color: #FFFBD4;
   display: grid;
   place-items: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1;
   transition: transform 0.25s ease, background 0.2s ease;
 }
 .work-collapsed-card:hover .work-expand-circle {
-  transform: scale(1.08);
+  transform: scale(1.08) translateY(1px);
 }
-.work-collapsed-hint {
-  font-size: 13px;
+.work-collapsed-body {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(179, 143, 111, 0.2);
+}
+.work-collapsed-body p {
   color: var(--muted);
-  line-height: 1.5;
-  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  max-width: 75ch;
 }
 .work-expanded-controls {
   display: flex;
