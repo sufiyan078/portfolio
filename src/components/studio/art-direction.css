@@ -325,55 +325,58 @@ body > .skiptranslate {
 .section-marker>span:first-child:not(.section-pill) { font-weight:700; letter-spacing:.08em; }
 .section-marker { align-items:center; }
 
-/* Section Highlight Pill Badge — Reference-matched design */
+/* Section Highlight Pill Badge — Harmonized with Portfolio Editorial System */
 .section-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  padding: 7px 20px;
-  min-height: 34px;
+  gap: 8px;
+  padding: 6px 18px;
+  min-height: 32px;
   border-radius: 9999px;
-  background: #FFFFFF;
-  color: #0C4233 !important; /* Reference exact dark pine/forest green rgb(12, 66, 51) */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 13.5px;
+  background: rgba(12, 30, 41, 0.05);
+  color: var(--ink) !important;
+  font-family: var(--font-body);
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.2;
-  text-transform: none; /* Title-case like reference screenshot */
-  border: 1px solid rgba(12, 30, 41, 0.09);
-  box-shadow: 0 2px 6px rgba(12, 30, 41, 0.05), 0 1px 2px rgba(12, 30, 41, 0.02);
+  text-transform: none;
+  border: 1px solid rgba(179, 143, 111, 0.35);
+  box-shadow: none;
   white-space: nowrap;
   user-select: none;
   flex-shrink: 0;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.2s ease;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .section-pill:hover {
   transform: translateY(-1px);
-  background: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(12, 30, 41, 0.09);
+  background: var(--ink);
+  color: #FFFBD4 !important;
+  border-color: var(--ink);
 }
 .studio-process-stage .section-pill,
 .studio-contact .section-pill {
-  background: #FFFFFF;
-  color: #0C4233 !important;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 251, 212, 0.07);
+  color: #FFFBD4 !important;
+  border: 1px solid rgba(179, 143, 111, 0.35);
+  box-shadow: none;
 }
 .studio-process-stage .section-pill:hover,
 .studio-contact .section-pill:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  background: rgba(255, 251, 212, 0.16);
+  color: #FFFBD4 !important;
+  border-color: #FAAE62;
 }
 .section-pill-wrap {
   margin-bottom: 22px;
 }
 @media (max-width: 768px) {
   .section-pill {
-    padding: 5px 15px;
+    padding: 5px 14px;
     font-size: 12px;
-    min-height: 30px;
+    min-height: 28px;
   }
 }
 .selected-work>.section-marker { border-top:1px solid #B38F6F; padding-top:20px; }
