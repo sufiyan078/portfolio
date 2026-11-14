@@ -158,21 +158,12 @@ export function StudioPage() {
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
               aria-label="Expand selected work to view projects"
             >
-              <div className="work-collapsed-header">
-                <div className="work-collapsed-badges">
-                  <span className="work-count-badge">4 Featured Systems</span>
-                  <span className="work-preview-item">Enterprise Analytics</span>
-                  <span className="work-preview-item">Audit Portal</span>
-                  <span className="work-preview-item">CareerAI</span>
-                  <span className="work-preview-item">Apparel Store</span>
-                </div>
+              <div className="work-collapsed-content">
+                <p className="work-collapsed-text">From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
                 <div className="work-collapsed-cta">
                   <span>Click to view work</span>
                   <span className="work-expand-circle" aria-hidden="true">+</span>
                 </div>
-              </div>
-              <div className="work-collapsed-body">
-                <p>From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
               </div>
             </div>
           </div>
