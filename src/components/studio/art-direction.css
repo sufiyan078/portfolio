@@ -1533,13 +1533,6 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
     background-image:radial-gradient(ellipse at 0% 0%,#FFFBD480,transparent 70%);
     box-shadow:inset 0 0 0 1px #5E775E33;
   }
-  .floating-nav__container {
-    background:#0C1E29E6;
-    box-shadow:inset 0 1px 0 #CAE8E859,0 8px 24px #00000033;
-  }
-  .floating-nav__progress { background-color:#8B004A59; }
-  .floating-nav__link,.floating-nav__back-btn,.floating-nav__case-title { color:#FFFBD4; }
-  .floating-nav__link.is-active { color:#FAAE62; }
 }
 
 /* Phone header: retain every control in two compact, aligned rows. */
