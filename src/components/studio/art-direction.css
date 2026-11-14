@@ -56,10 +56,10 @@ em { letter-spacing:-.035em; }
   width: fit-content;
   display: inline-flex;
   align-items: center;
-  gap: 32px;
+  gap: 14px;
   letter-spacing: 0;
-  padding-left: clamp(44px, 4.5vw, 60px);
-  padding-right: clamp(60px, 6vw, 84px);
+  padding-left: var(--gutter);
+  padding-right: 54px;
   background: var(--paper);
   border-bottom-right-radius: 24px;
   transition: background 0.25s ease;
@@ -78,9 +78,9 @@ em { letter-spacing:-.035em; }
 .studio-header .wordmark::before {
   display: none;
 }
-.identity-mark { font-size:38px; font-weight:600; letter-spacing:-.12em; color:var(--accent); padding-right:2px; line-height:1; }
-.identity-name { font-size:16px; font-weight:600; letter-spacing:-.02em; line-height:1.35; white-space:nowrap; }
-.identity-name small { display:block; font-family:var(--font-label); font-size:8px; font-weight:400; letter-spacing:.07em; margin-top:3px; }
+.identity-mark { font-size:35px; font-weight:600; letter-spacing:-.12em; color:var(--accent); padding-right:5px; }
+.identity-name { font-size:14px; font-weight:600; letter-spacing:-.02em; line-height:1.4; }
+.identity-name small { display:block; font-family:var(--font-label); font-size:7px; font-weight:400; letter-spacing:.06em; margin-top:4px; }
 .studio-header nav { gap:28px; }
 
 /* Continuous pulse animation for the header "Start a project" CTA across all devices */
@@ -1797,9 +1797,9 @@ body > .skiptranslate {
     justify-self: start;
     width: fit-content;
     min-height: 58px;
-    gap: 20px;
-    padding-left: clamp(24px, 3vw, 40px);
-    padding-right: clamp(40px, 4vw, 60px);
+    gap: 12px;
+    padding-left: var(--gutter);
+    padding-right: 36px;
     border-bottom-right-radius: 18px;
   }
   .studio-header::before {
