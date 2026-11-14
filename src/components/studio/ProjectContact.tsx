@@ -1,7 +1,6 @@
 import { ArrowGlyph } from './ArrowGlyph';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { contactEmail, createContactDraft, type ProjectBrief } from './contactDraft';
-import { TypewriterText } from './TypewriterText';
 
 export function ProjectContact() {
   const [values, setValues] = useState<ProjectBrief>({ name: '', email: '', category: 'Custom Web Application', budget: 'Other / Flexible', brief: '' });
@@ -26,7 +25,7 @@ export function ProjectContact() {
     catch { setMessage('Clipboard unavailable. You can select and copy the text instead.'); }
   };
   return <section id="contact" className="studio-contact section-pad">
-    <div className="section-marker"><span><TypewriterText text="06 / LET’S TALK"/></span><span>A GOOD PLACE TO START</span></div>
+    <div className="section-marker"><span className="section-pill">Contact</span><span>A GOOD PLACE TO START</span></div>
     <div className="contact-layout"><div className="contact-intro"><h2>Have a problem<br/><em>worth solving?</em></h2><p>Tell me what you’re trying to build, automate or improve. We can start with the problem.</p><a className="contact-email notranslate" translate="no" href={`mailto:${contactEmail}`}>{contactEmail} <span><ArrowGlyph/></span></a><button className="text-link" onClick={() => void copy(contactEmail, 'Email address copied.')}>Copy email address</button><div className="contact-networks"><a href="https://linkedin.com/in/sufiyan-ahmed-66baa91b3" target="_blank" rel="noreferrer">LinkedIn <ArrowGlyph/></a><a href="https://github.com/sufiyan078" target="_blank" rel="noreferrer">GitHub <ArrowGlyph/></a></div></div>
       <div className="contact-form-wrap">{!ready ? <form onSubmit={prepare} aria-label="Project inquiry">
         <div className="form-title"><h3>A little about your project.</h3><span>01 / BRIEF</span></div>

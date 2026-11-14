@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
 import { useScrollTimeline } from '../story/useScrollTimeline';
-import { TypewriterText } from './TypewriterText';
 
 export const PROCESS_STEPS = [
   ['Understand', 'Start with the right problem.', 'Clarify the people, workflow, constraints and what a useful outcome looks like.'],
@@ -65,7 +64,7 @@ export function ProcessSection() {
     <section id="process" className="studio-process-track" ref={trackRef}>
       <div className="studio-process-stage">
         <div className="section-marker">
-          <span><TypewriterText text="03 / HOW I WORK" /></span>
+          <span className="section-pill">How I Work</span>
           <span>CLARITY AT EVERY STEP</span>
         </div>
 

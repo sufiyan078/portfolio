@@ -334,7 +334,60 @@ body > .skiptranslate {
 .manifesto-bottom>span { font:10px var(--font-label); text-transform:uppercase; }
 .manifesto-bottom p { max-width:390px; font-size:14px; color:var(--muted); line-height:1.8; }
 .selected-work { padding-top:60px; }
-.section-marker>span:first-child { font-weight:700; letter-spacing:.08em; }
+.section-marker>span:first-child:not(.section-pill) { font-weight:700; letter-spacing:.08em; }
+.section-marker { align-items:center; }
+
+/* Section Highlight Pill Badge — Reference-matched design */
+.section-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 20px;
+  min-height: 34px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  color: #0C4233 !important; /* Reference exact dark pine/forest green rgb(12, 66, 51) */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-transform: none; /* Title-case like reference screenshot */
+  border: 1px solid rgba(12, 30, 41, 0.09);
+  box-shadow: 0 2px 6px rgba(12, 30, 41, 0.05), 0 1px 2px rgba(12, 30, 41, 0.02);
+  white-space: nowrap;
+  user-select: none;
+  flex-shrink: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background 0.2s ease;
+}
+.section-pill:hover {
+  transform: translateY(-1px);
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(12, 30, 41, 0.09);
+}
+.studio-process-stage .section-pill,
+.studio-contact .section-pill {
+  background: #FFFFFF;
+  color: #0C4233 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.studio-process-stage .section-pill:hover,
+.studio-contact .section-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+.section-pill-wrap {
+  margin-bottom: 22px;
+}
+@media (max-width: 768px) {
+  .section-pill {
+    padding: 5px 15px;
+    font-size: 12px;
+    min-height: 30px;
+  }
+}
 .selected-work>.section-marker { border-top:1px solid #B38F6F; padding-top:20px; }
 .work-heading { margin-bottom:65px; align-items:end; }
 .work-heading h2 em { color:var(--accent); }
@@ -1690,9 +1743,9 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   .hero-actions .button { box-shadow:inset 0 1px 0 #F2EFE7,0 5px 18px #00000033; }
   .sculpture-stage { background-image:radial-gradient(ellipse at center,#CAE8E814,transparent 66%); }
   .lens-controls button[aria-pressed='true'] { background:linear-gradient(#FAAE621A,transparent); }
-  .selected-work>.section-marker>span:first-child,
-  .studio-services>.section-marker>span:first-child,
-  .studio-about>.section-marker>span:first-child { color:#8B004A; }
+  .selected-work>.section-marker>span:first-child:not(.section-pill),
+  .studio-services>.section-marker>span:first-child:not(.section-pill),
+  .studio-about>.section-marker>span:first-child:not(.section-pill) { color:#8B004A; }
   .work-visual-link { box-shadow:0 10px 24px #0C1E291A,inset 0 0 0 1px #B38F6F33; }
   .work-caption .work-discipline { color:#8B004A; }
   .case-link>span:not(.sr-only) { background:#8B004A; border-color:#8B004A; color:#FFFBD4; }
