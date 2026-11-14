@@ -35,8 +35,62 @@ em { letter-spacing:-.035em; }
 .identity-name { font-size:14px; font-weight:600; letter-spacing:-.02em; line-height:1.4; }
 .identity-name small { display:block; font-family:var(--font-label); font-size:7px; font-weight:400; letter-spacing:.06em; margin-top:4px; }
 .studio-header nav { gap:28px; }
-.studio-header nav>.header-cta { background:var(--ink); color:#FFFBD4; border:0; border-radius:30px; padding:13px 20px; box-shadow:0 2px 8px rgba(12,30,41,0.12); transition:background .2s,transform .2s,box-shadow .2s; }
-.studio-header nav>.header-cta:hover { background:var(--accent); transform:translateY(-1px); box-shadow:0 4px 14px rgba(139,0,74,0.25); }
+
+/* Pulse / Heartbeat animation exclusively for this header "Start a project" CTA across all devices */
+@keyframes headerHeartbeatPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(12, 30, 41, 0.15), 0 0 0 0 rgba(12, 30, 41, 0.35);
+  }
+  14% {
+    transform: scale(1.055);
+    box-shadow: 0 4px 16px rgba(12, 30, 41, 0.25), 0 0 0 4px rgba(12, 30, 41, 0.2);
+  }
+  28% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(12, 30, 41, 0.15), 0 0 0 8px rgba(12, 30, 41, 0);
+  }
+  42% {
+    transform: scale(1.035);
+    box-shadow: 0 3px 12px rgba(12, 30, 41, 0.22), 0 0 0 3px rgba(12, 30, 41, 0.12);
+  }
+  56% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(12, 30, 41, 0.15), 0 0 0 6px rgba(12, 30, 41, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(12, 30, 41, 0.15), 0 0 0 0 rgba(12, 30, 41, 0);
+  }
+}
+
+.studio-header nav>.header-cta {
+  background: var(--ink);
+  color: #FFFBD4;
+  border: 0;
+  border-radius: 30px;
+  padding: 13px 20px;
+  box-shadow: 0 2px 8px rgba(12, 30, 41, 0.12);
+  transform-origin: center center;
+  animation: headerHeartbeatPulse 2.2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  will-change: transform, box-shadow;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+.studio-header nav>.header-cta:hover {
+  background: var(--accent);
+  animation-play-state: paused;
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 14px rgba(139, 0, 74, 0.28);
+}
+.studio-header nav>.header-cta:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px rgba(12, 30, 41, 0.2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-header nav>.header-cta {
+    animation: none;
+  }
+}
 
 /* Header Meta: Current Time & Any-Language Translation (inspired by dontmatter.eu) */
 .header-clock {
