@@ -171,7 +171,8 @@ export function StudioPage() {
                   document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Minimize work ▲
+                <span>Collapse work</span>
+                <span aria-hidden="true">▲</span>
               </button>
             </div>
 
