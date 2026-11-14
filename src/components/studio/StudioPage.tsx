@@ -125,9 +125,9 @@ export function StudioPage() {
             className="section-pill" 
             style={{ cursor: 'pointer' }}
             onClick={() => setIsWorkExpanded(prev => !prev)}
-            title={isWorkExpanded ? "Click to minimize work" : "Click to view work"}
+            title="Selected Work"
           >
-            Selected Work {isWorkExpanded ? '▲' : '▼'}
+            Selected Work
           </span>
           <span>FOUR SYSTEMS · REAL BUSINESS PROBLEMS</span>
         </div>
@@ -146,7 +146,7 @@ export function StudioPage() {
                 aria-expanded={false}
               >
                 <span>Need a website, app, AI tool or reports? See all our services</span>
-                <span className="prompt-arrow" aria-hidden="true">↗</span>
+                <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
               </button>
             </div>
 
