@@ -115,20 +115,13 @@ export function StudioPage() {
     <main id="main" ref={main}>
       <section id="top" className="studio-hero section-pad">
         <div className="hero-meta"><span>SUFIYAN AHMED / INDEPENDENT ENGINEERING</span><span>WEB / DATA / AUTOMATION / AI</span></div>
-        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work" onClick={() => setIsWorkExpanded(true)}>View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span><ArrowGlyph/></span></a></div></div><SystemLens onInteract={play}/></div>
-        <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work" onClick={() => setIsWorkExpanded(true)}>Scroll to discover <span>↓</span></a></div>
+        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work">View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span><ArrowGlyph/></span></a></div></div><SystemLens onInteract={play}/></div>
+        <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work">Scroll to discover <span>↓</span></a></div>
       </section>
       <section className="studio-manifesto section-pad" aria-label="Engineering approach"><div className="section-pill-wrap"><span className="section-pill">Philosophy</span></div><p>Make the complex<br/><span className="manifesto-outline">understandable.</span><br/>Make the useful <em>beautiful.</em></p><div className="manifesto-bottom"><span>Data → insight. Ideas → products.</span><p>I connect thoughtful interfaces with the engineering beneath them. So your software doesn’t just work. It makes work better.</p></div></section>
       <section id="work" className="selected-work section-pad">
         <div className="section-marker">
-          <span 
-            className="section-pill" 
-            style={{ cursor: 'pointer' }}
-            onClick={() => setIsWorkExpanded(prev => !prev)}
-            title="Selected Work"
-          >
-            Selected Work
-          </span>
+          <span className="section-pill">Selected Work</span>
           <span>FOUR SYSTEMS · REAL BUSINESS PROBLEMS</span>
         </div>
         <div className="section-heading work-heading">
@@ -201,7 +194,7 @@ export function StudioPage() {
       <ProjectContact/>
     </main>
     <footer className="studio-footer"><a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed — back to top">Sufiyan Ahmed<span aria-hidden="true"><ArrowGlyph/></span></a><span>Independent engineering. Thoughtfully built.</span><div><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div></footer>
-    <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} onNavigate={id => { if (id === 'work') setIsWorkExpanded(true); }} />
+    <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} />
     {activeCase&&<Suspense fallback={<div className="case-loading" role="status"><p>Opening case study…</p><button onClick={closeCase}>Back to work</button></div>}><CaseStudy key={activeCase} id={activeCase} onClose={closeCase} onContact={()=>{contactPending.current=true;closeCase();}}/></Suspense>}
   </>;
 }
