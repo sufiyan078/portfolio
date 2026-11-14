@@ -129,46 +129,28 @@ export function StudioPage() {
           <p>From the spreadsheet to the interface.<br/>A selection of applications that turn complex workflows into clear, usable software.</p>
         </div>
 
-        {!isWorkExpanded ? (
-          <div className="work-collapsed-wrapper">
-            <div className="work-hero-prompt-wrap">
-              <button 
-                type="button"
-                className="work-reference-prompt"
-                onClick={() => setIsWorkExpanded(true)}
-                aria-expanded={false}
-              >
-                <span>Need a website, app, AI tool or reports? See all our services</span>
-                <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="work-expanded-content" id="work-projects-list">
-            <div className="work-expanded-controls">
-              <button 
-                type="button"
-                className="work-reference-prompt is-active"
-                onClick={() => {
-                  document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <span>Need a website, app, AI tool or reports? See all our services</span>
-                <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
-              </button>
-              <button 
-                type="button" 
-                className="work-minimize-btn"
-                onClick={() => {
-                  setIsWorkExpanded(false);
-                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <span>Collapse work</span>
-                <span aria-hidden="true">▲</span>
-              </button>
-            </div>
+        <div className="work-hero-prompt-wrap">
+          <button 
+            type="button"
+            className="work-reference-prompt"
+            onClick={() => {
+              if (isWorkExpanded) {
+                setIsWorkExpanded(false);
+                document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                setIsWorkExpanded(true);
+              }
+            }}
+            aria-expanded={isWorkExpanded}
+            aria-controls="work-projects-list"
+          >
+            <span>Need a website, app, AI tool or reports? See all our services</span>
+            <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
+          </button>
+        </div>
 
+        {isWorkExpanded && (
+          <div className="work-expanded-content" id="work-projects-list">
             {projectOrder.map((id,index)=>{const project=PROJECTS.find(item=>item.id===id)!;const presentation=projectPresentation[id];return <article key={id} className={`work-feature theme-${presentation.theme} is-visible`} data-reveal><a className="work-visual-link" href={`#case/${presentation.slug}`} aria-label={`View ${presentation.shortName} case study`} onClick={event=>{event.preventDefault();openCase(id);}}><ProjectVisual id={id}/></a><div className="work-caption"><div className="work-meta"><span>0{index+1} / {presentation.client}</span><span>{project.status==='COMPLETED'?'Completed':'In development'}</span></div><h3>{presentation.title}</h3><p>{presentation.summary}</p><span className="work-discipline">{presentation.discipline}</span><a href={`#case/${presentation.slug}`} className="case-link" onClick={event=>{event.preventDefault();openCase(id);}}>Explore case study <span aria-hidden="true"><ArrowGlyph/></span><span className="sr-only">: {presentation.shortName}</span></a></div></article>;})}
 
             <div className="work-collapse-bottom">
