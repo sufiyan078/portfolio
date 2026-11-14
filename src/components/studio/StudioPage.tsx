@@ -137,35 +137,59 @@ export function StudioPage() {
         </div>
 
         {!isWorkExpanded ? (
-          <div 
-            className="work-collapsed-card" 
-            onClick={() => setIsWorkExpanded(true)} 
-            role="button" 
-            tabIndex={0} 
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
-            aria-label="Expand selected work to view projects"
-          >
-            <div className="work-collapsed-header">
-              <div className="work-collapsed-badges">
-                <span className="work-count-badge">4 Featured Systems</span>
-                <span className="work-preview-item">Enterprise Analytics</span>
-                <span className="work-preview-item">Audit Portal</span>
-                <span className="work-preview-item">CareerAI</span>
-                <span className="work-preview-item">Apparel Store</span>
-              </div>
-              <div className="work-collapsed-cta">
-                <span>Click to view work</span>
-                <span className="work-expand-circle" aria-hidden="true">+</span>
-              </div>
+          <div className="work-collapsed-wrapper">
+            <div className="work-hero-prompt-wrap">
+              <button 
+                type="button"
+                className="work-reference-prompt"
+                onClick={() => setIsWorkExpanded(true)}
+                aria-expanded={false}
+              >
+                <span>Need a website, app, AI tool or reports? See all our services</span>
+                <span className="prompt-arrow" aria-hidden="true">↗</span>
+              </button>
             </div>
-            <div className="work-collapsed-body">
-              <p>From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
+
+            <div 
+              className="work-collapsed-card" 
+              onClick={() => setIsWorkExpanded(true)} 
+              role="button" 
+              tabIndex={0} 
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
+              aria-label="Expand selected work to view projects"
+            >
+              <div className="work-collapsed-header">
+                <div className="work-collapsed-badges">
+                  <span className="work-count-badge">4 Featured Systems</span>
+                  <span className="work-preview-item">Enterprise Analytics</span>
+                  <span className="work-preview-item">Audit Portal</span>
+                  <span className="work-preview-item">CareerAI</span>
+                  <span className="work-preview-item">Apparel Store</span>
+                </div>
+                <div className="work-collapsed-cta">
+                  <span>Click to view work</span>
+                  <span className="work-expand-circle" aria-hidden="true">+</span>
+                </div>
+              </div>
+              <div className="work-collapsed-body">
+                <p>From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
+              </div>
             </div>
           </div>
         ) : (
           <div className="work-expanded-content" id="work-projects-list">
             <div className="work-expanded-controls">
-              <span className="work-expanded-count">Showing 4 case studies</span>
+              <button 
+                type="button"
+                className="work-reference-prompt is-active"
+                onClick={() => {
+                  setIsWorkExpanded(false);
+                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <span>Need a website, app, AI tool or reports? See all our services</span>
+                <span className="prompt-arrow" aria-hidden="true">▲</span>
+              </button>
               <button 
                 type="button" 
                 className="work-minimize-btn"
