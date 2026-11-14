@@ -15,7 +15,7 @@ export function MonthlyInterface({ compact = false }: { compact?: boolean }) {
   const panelId = useId();
   const view = views[active];
   return <div className={`monthly-interface ${compact ? 'is-compact' : ''}`}>
-    <header><strong>GAS · INV <span>Inventory aging dashboard</span></strong><small>Upload · My Data · Export</small></header>
+    <header><strong>ERP · INV <span>Inventory aging dashboard</span></strong><small>Upload · My Data · Export</small></header>
     <div className="monthly-filters"><span>Division / All divisions</span><span>Organization / All</span><span>Metric / Inventory value</span></div>
     {!compact && <p className="monthly-view-hint" id={`${panelId}-hint`}>Select a view below to explore its details.</p>}
     <div className="monthly-view-controls" aria-label="Documented dashboard perspectives" aria-describedby={compact ? undefined : `${panelId}-hint`}>

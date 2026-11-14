@@ -17,8 +17,10 @@ const getMissionMetaCards = (project: Project) => {
   const cards: { label: string; value: string }[] = [];
 
   // Client
-  if (project.tagline.includes("GAS (GAS Arabian Services)") || project.description.includes("GAS")) {
-    cards.push({ label: 'CLIENT', value: 'GAS (GAS Arabian Services)' });
+  if (project.id === 'mission-01' || project.id === 'mission-03') {
+    cards.push({ label: 'CLIENT', value: 'Enterprise Client' });
+  } else if (project.id === 'mission-04') {
+    cards.push({ label: 'CLIENT', value: 'Apparel Label' });
   } else {
     cards.push({ label: 'PLATFORM', value: 'Production SaaS' });
   }
@@ -31,6 +33,7 @@ const getMissionMetaCards = (project: Project) => {
   if (project.id === 'mission-01') typeVal = 'Monthly Audit Platform';
   else if (project.id === 'mission-02') typeVal = 'AI Career Platform';
   else if (project.id === 'mission-03') typeVal = 'Analytics Portal';
+  else if (project.id === 'mission-04') typeVal = 'E-Commerce Store';
   cards.push({ label: 'TYPE', value: typeVal });
 
   // Category

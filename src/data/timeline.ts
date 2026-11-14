@@ -13,12 +13,30 @@ export interface Quest {
 
 export const QUEST_LOG: Quest[] = [
   {
+    id: "quest-04",
+    period: "2026",
+    title: "Direct-to-Consumer Apparel Store",
+    role: "Lead Full Stack & Store Architect",
+    questType: "Main Quest",
+    description: "Architected a complete mobile-first online store for an emerging men's apparel brand, engineered around fit confidence, fabric weight transparency in GSM, centimeter size specifications, India-wide checkout, and 14 dedicated trust and policy workflows.",
+    deliverables: [
+      "Mobile-first product architecture and measured size guide engine (cm)",
+      "Fabric weight transparency (GSM) and model fit specifications",
+      "'Shop your size' inventory availability filtering",
+      "UPI, Card, Net Banking, and Cash on Delivery payment integration",
+      "14 dedicated customer trust, size assistance, and exchange policy pages"
+    ],
+    techLoadout: ["Liquid", "JavaScript", "HTML5", "CSS3", "Payment Gateways", "Responsive Design"],
+    reward: "E-Commerce Architecture & Conversion-Focused Store Systems",
+    status: "COMPLETED"
+  },
+  {
     id: "quest-03",
     period: "2026",
     title: "Quarterly Inventory Analytics & Reporting Portal",
     role: "Full Stack Engineer & System Architect",
     questType: "Main Quest",
-    description: "Built the GAS quarterly inventory portal from Excel validation and deterministic stock-take reconciliation through filtered investigation, evidence preparation, sign-off and browser-generated PDF, PowerPoint and Excel deliverables, with role-based access and historical audit records.",
+    description: "Built the quarterly inventory portal from Excel validation and deterministic stock-take reconciliation through filtered investigation, evidence preparation, sign-off and browser-generated PDF, PowerPoint and Excel deliverables, with role-based access and historical audit records.",
     deliverables: [
       "Multi-sheet ingestion, header normalization and validation profiling",
       "Deterministic stock-count reconciliation and discrepancy investigation",
@@ -61,10 +79,10 @@ export const QUEST_LOG: Quest[] = [
   {
     id: "quest-01",
     period: "2026",
-    title: "Monthly Inventory Visualization — GAS Inventory Analytics",
+    title: "Monthly Inventory Visualization — Enterprise Inventory Analytics",
     role: "Full Stack Developer",
     questType: "Main Quest",
-    description: "Built the GAS inventory-aging analytics webapp with Next.js and React: governed Google sign-in, multi-sheet Excel parsing, supplier recovery, aging and provision rules, filtered analytical views, compressed Firestore dataset history, and browser-generated reports.",
+    description: "Built the enterprise inventory-aging analytics webapp with Next.js and React: governed Google sign-in, multi-sheet Excel parsing, supplier recovery, aging and provision rules, filtered analytical views, compressed Firestore dataset history, and browser-generated reports.",
     deliverables: [
       "Dynamic Excel header mapping and two-pass supplier recovery",
       "Organization, supplier, division, item and provision analysis",

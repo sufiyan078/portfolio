@@ -46,12 +46,12 @@ export const PROJECTS: Project[] = [
   {
     "id": "mission-01",
     "missionNumber": "MISSION 01",
-    "title": "Monthly Inventory Visualization — GAS Inventory Analytics",
-    "tagline": "From multi-division ERP workbooks to governed inventory-aging analysis and executive reporting for GAS Arabian Services.",
+    "title": "Monthly Inventory Visualization — Enterprise Inventory Analytics",
+    "tagline": "From multi-division ERP workbooks to governed inventory-aging analysis and executive reporting for an enterprise industrial client.",
     "category": "Analytics",
     "status": "COMPLETED",
     "difficulty": "★ ★ ★ ★ ★",
-    "description": "An inventory-aging and business intelligence webapp for GAS Arabian Services, built with Next.js and React. Approved users upload monthly ERP Excel workbooks or reopen saved datasets. The system maps inconsistent headers, normalizes inventory records, recovers missing supplier names, and calculates aging, risk and provision measures. Organization, supplier, division, item and provision views share cascading filters. Dataset history is stored in Cloud Firestore; executive reports are generated in the browser.",
+    "description": "An inventory-aging and business intelligence webapp for an enterprise industrial services firm, built with Next.js and React. Approved users upload monthly ERP Excel workbooks or reopen saved datasets. The system maps inconsistent headers, normalizes inventory records, recovers missing supplier names, and calculates aging, risk and provision measures. Organization, supplier, division, item and provision views share cascading filters. Dataset history is stored in Cloud Firestore; executive reports are generated in the browser.",
     "businessProblem": "Monthly ERP exports spread inventory across worksheets with inconsistent headers, merged cells, subtotals and incomplete supplier fields. Finance and supply-chain teams needed a consistent way to review aging stock, supplier concentration and provision exposure without repeatedly merging spreadsheets or circulating conflicting copies.",
     "whyItMattered": "A governed analysis workflow connects the source workbook, inventory rules, detailed ledger and management reports, helping teams inspect exposure and trace calculations back to inventory records.",
     "architecture": {
@@ -141,7 +141,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     "outcome": [
-      "Delivered a deployed, access-controlled inventory analytics webapp for GAS Arabian Services",
+      "Delivered a deployed, access-controlled inventory analytics webapp for an enterprise industrial client",
       "Connected workbook ingestion, inventory normalization, aging analysis and executive reporting",
       "Made organization, supplier, division, item-level and provision perspectives available in one workflow",
       "Enabled approved users to reopen saved monthly datasets rather than repeatedly upload the same workbook",
@@ -169,7 +169,7 @@ export const PROJECTS: Project[] = [
     ],
     "preview": {
       "headline": "Inventory aging, risk and reporting in one workflow",
-      "type": "GAS Arabian Services Inventory Analytics",
+      "type": "Enterprise Inventory Analytics",
       "metrics": [
         "Governed access",
         "Cloud dataset history",
@@ -291,11 +291,11 @@ export const PROJECTS: Project[] = [
     "id": "mission-03",
     "missionNumber": "MISSION 03",
     "title": "Quarterly Inventory Visualization — Analytics & Reporting Portal",
-    "tagline": "A governed stock-take workflow from multi-sheet Excel reconciliation to evidence-backed executive reporting for GAS Arabian Services.",
+    "tagline": "A governed stock-take workflow from multi-sheet Excel reconciliation to evidence-backed executive reporting for an enterprise industrial client.",
     "category": "Analytics",
     "status": "COMPLETED",
     "difficulty": "★ ★ ★ ★ ★",
-    "description": "A quarterly inventory intelligence and audit reconciliation portal for GAS Arabian Services, built with Next.js and React. Auditors move through upload, validation, dashboard analysis, pre-report preparation and report generation. Browser-side processing normalizes multi-sheet Excel records and applies deterministic calculations for count differences, shortages, excess stock, aging and provision exposure. Evidence, report design and preparer/checker/approver sign-off connect the analysis to PDF, editable PowerPoint and Excel deliverables. Firebase supports authentication, structured audit metadata, summaries and archives.",
+    "description": "A quarterly inventory intelligence and audit reconciliation portal for an enterprise industrial services firm, built with Next.js and React. Auditors move through upload, validation, dashboard analysis, pre-report preparation and report generation. Browser-side processing normalizes multi-sheet Excel records and applies deterministic calculations for count differences, shortages, excess stock, aging and provision exposure. Evidence, report design and preparer/checker/approver sign-off connect the analysis to PDF, editable PowerPoint and Excel deliverables. Firebase supports authentication, structured audit metadata, summaries and archives.",
     "businessProblem": "Quarterly stock-take records and ERP ledgers arrived in inconsistent spreadsheets with missing supplier fields, duplicate references, subtotal rows and summary tabs. Teams needed to reconcile physical counts against book records, investigate discrepancies, attach supporting evidence and prepare consistent management reports with a clear review and approval trail.",
     "whyItMattered": "The portal connects validation, reconciliation, investigation, evidence and sign-off in one audit workflow rather than treating report generation as a separate manual exercise.",
     "architecture": {
@@ -420,7 +420,7 @@ export const PROJECTS: Project[] = [
     ],
     "preview": {
       "headline": "From stock-take records to a reviewed audit package",
-      "type": "GAS Arabian Services Quarterly Inventory Portal",
+      "type": "Enterprise Quarterly Inventory Portal",
       "metrics": [
         "Deterministic reconciliation",
         "Evidence and sign-off",
@@ -450,12 +450,12 @@ export const PROJECTS: Project[] = [
   {
     "id": "mission-04",
     "missionNumber": "MISSION 04",
-    "title": "Blak Root — Online Store Built Around Fit, Fabric and Trust",
-    "tagline": "A complete, mobile-first online store for a men's clothing brand, answering every shopper's doubts before they have to ask.",
+    "title": "Direct-to-Consumer Apparel Store — Built Around Fit, Fabric and Trust",
+    "tagline": "A complete, mobile-first online store for an emerging men's clothing brand, answering every shopper's doubts before they have to ask.",
     "category": "Full Stack",
     "status": "COMPLETED",
     "difficulty": "★ ★ ★ ★ ☆",
-    "description": "A complete online store for Blak Root, an Indian men's clothing brand with a range of 30+ products across tees, shirts, knitwear, hoodies, jackets, jeans, trousers, joggers, shorts and accessories (priced ₹599 to ₹5,499). Built mobile-first around three core buyer questions: will it fit, is the fabric good quality, and can I swap it? The store features measured size charts in centimeters, upfront fabric weights in GSM, model fit notes, 'Shop your size' inventory filtering, 14 dedicated trust, policy and help pages, and checkout with UPI, cards, net banking and Cash on Delivery across India.",
+    "description": "A complete online store for an emerging men's clothing label with a range of 30+ products across tees, shirts, knitwear, hoodies, jackets, jeans, trousers, joggers, shorts and accessories (priced ₹599 to ₹5,499). Built mobile-first around three core buyer questions: will it fit, is the fabric good quality, and can I swap it? The store features measured size charts in centimeters, upfront fabric weights in GSM, model fit notes, 'Shop your size' inventory filtering, 14 dedicated trust, policy and help pages, and checkout with UPI, cards, net banking and Cash on Delivery across India.",
     "businessProblem": "For an emerging clothing brand, shoppers hesitate because they cannot physically touch the fabric, worry about whether sizing will match their build, and fear complicated exchange processes. Without upfront answers to fit, fabric quality, and return safety, first-time visitors leave without ordering.",
     "whyItMattered": "People do not buy from a brand they do not trust. Every section of this store was engineered to proactively remove hesitation before the customer has to ask—putting measured dimensions, fabric weights, easy exchanges, and trusted Indian payment methods right from the first scroll.",
     "architecture": {
@@ -538,7 +538,7 @@ export const PROJECTS: Project[] = [
       {
         "issue": "Establishing credibility for an unknown new brand",
         "investigation": "Shoppers and payment gateway compliance teams both require verifiable policies and clear operational infrastructure before transacting with a newly launched brand.",
-        "solution": "Built 14 dedicated supporting pages across Help (Track Order, Shipping, Returns, Size Guide, FAQs, Contact), Brand Story (Our Story, Why Blak Root, Fabric & Craft, Garment Care), and Legal (Privacy, Terms, Refund, Shipping Policies) with transparent support hours."
+        "solution": "Built 14 dedicated supporting pages across Help (Track Order, Shipping, Returns, Size Guide, FAQs, Contact), Brand Story (Our Story, Brand Philosophy, Fabric & Craft, Garment Care), and Legal (Privacy, Terms, Refund, Shipping Policies) with transparent support hours."
       }
     ],
     "outcome": [
@@ -569,7 +569,7 @@ export const PROJECTS: Project[] = [
     ],
     "preview": {
       "headline": "A store built around fit, fabric and trust",
-      "type": "Blak Root — Men's Clothing Store",
+      "type": "Direct-to-Consumer Apparel Store",
       "metrics": [
         "Mobile-first store",
         "30+ apparel products",
@@ -593,7 +593,6 @@ export const PROJECTS: Project[] = [
           "value": "14 Trust Pages"
         }
       ]
-    },
-    "liveUrl": "https://juncqy-bq.myshopify.com"
+    }
   }
 ];
