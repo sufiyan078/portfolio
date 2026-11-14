@@ -169,7 +169,7 @@ export function StudioPage() {
       </div>
     </header>
     <main id="main" ref={main}>
-      <section id="top" className="studio-hero section-pad">
+      <section id="top" className="studio-hero">
         <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work">View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span><ArrowGlyph/></span></a></div></div><SystemLens onInteract={play}/></div>
         <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work">Scroll to discover <span>↓</span></a></div>
       </section>
