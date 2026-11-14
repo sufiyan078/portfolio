@@ -28,6 +28,7 @@ function caseFromHash(): ProjectId | null {
 export function StudioPage() {
   const [activeCase,setActiveCase] = useState<ProjectId|null>(caseFromHash);
   const [openTechCategory, setOpenTechCategory] = useState<string | null>(null);
+  const [isWorkExpanded, setIsWorkExpanded] = useState(false);
   const [soundOn,setSoundOn] = useState(false);
   const audio = useRef<typeof import('../../utils/soundManager')['soundManager'] | null>(null);
   const returnScroll = useRef<number|null>(null);
@@ -114,12 +115,85 @@ export function StudioPage() {
     <main id="main" ref={main}>
       <section id="top" className="studio-hero section-pad">
         <div className="hero-meta"><span>SUFIYAN AHMED / INDEPENDENT ENGINEERING</span><span>WEB / DATA / AUTOMATION / AI</span></div>
-        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work">View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span><ArrowGlyph/></span></a></div></div><SystemLens onInteract={play}/></div>
-        <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work">Scroll to discover <span>↓</span></a></div>
+        <div className="hero-layout"><div className="hero-copy"><span className="hero-kicker">THOUGHTFULLY ENGINEERED.</span><h1><LiquidTextMorph statements={['Complexity,<br/>meet <em>clarity.</em>', 'Ambition,<br/>meet <em>momentum.</em>', 'Ideas,<br/>meet <em>execution.</em>']} /></h1><p>I’m Sufiyan Ahmed, a full-stack engineer building web applications, data systems and AI tools that make business work better.</p><div className="hero-actions"><a className="button" href="#work" onClick={() => setIsWorkExpanded(true)}>View selected work <span>↓</span></a><a className="text-link" href="#contact">Start a project <span><ArrowGlyph/></span></a></div></div><SystemLens onInteract={play}/></div>
+        <div className="hero-bottom"><span>ENGINEERING / DESIGN THINKING / REAL-WORLD IMPACT</span><a href="#work" onClick={() => setIsWorkExpanded(true)}>Scroll to discover <span>↓</span></a></div>
       </section>
       <section className="studio-manifesto section-pad" aria-label="Engineering approach"><div className="section-pill-wrap"><span className="section-pill">Philosophy</span></div><p>Make the complex<br/><span className="manifesto-outline">understandable.</span><br/>Make the useful <em>beautiful.</em></p><div className="manifesto-bottom"><span>Data → insight. Ideas → products.</span><p>I connect thoughtful interfaces with the engineering beneath them. So your software doesn’t just work. It makes work better.</p></div></section>
-      <section id="work" className="selected-work section-pad"><div className="section-marker"><span className="section-pill">Selected Work</span><span>FOUR SYSTEMS · REAL BUSINESS PROBLEMS</span></div><div className="section-heading work-heading"><h2>Proof, in<br/><em>practice.</em></h2><p>From the spreadsheet to the interface.<br/>A selection of applications that turn complex workflows into clear, usable software.</p></div>
-        {projectOrder.map((id,index)=>{const project=PROJECTS.find(item=>item.id===id)!;const presentation=projectPresentation[id];return <article key={id} className={`work-feature theme-${presentation.theme}`} data-reveal><a className="work-visual-link" href={`#case/${presentation.slug}`} aria-label={`View ${presentation.shortName} case study`} onClick={event=>{event.preventDefault();openCase(id);}}><ProjectVisual id={id}/></a><div className="work-caption"><div className="work-meta"><span>0{index+1} / {presentation.client}</span><span>{project.status==='COMPLETED'?'Completed':'In development'}</span></div><h3>{presentation.title}</h3><p>{presentation.summary}</p><span className="work-discipline">{presentation.discipline}</span><a href={`#case/${presentation.slug}`} className="case-link" onClick={event=>{event.preventDefault();openCase(id);}}>Explore case study <span aria-hidden="true"><ArrowGlyph/></span><span className="sr-only">: {presentation.shortName}</span></a></div></article>;})}
+      <section id="work" className="selected-work section-pad">
+        <div className="section-marker">
+          <span 
+            className="section-pill" 
+            style={{ cursor: 'pointer' }}
+            onClick={() => setIsWorkExpanded(prev => !prev)}
+            title={isWorkExpanded ? "Click to minimize work" : "Click to view work"}
+          >
+            Selected Work {isWorkExpanded ? '▲' : '▼'}
+          </span>
+          <span>FOUR SYSTEMS · REAL BUSINESS PROBLEMS</span>
+        </div>
+        <div className="section-heading work-heading">
+          <h2>Proof, in<br/><em>practice.</em></h2>
+          <p>From the spreadsheet to the interface.<br/>A selection of applications that turn complex workflows into clear, usable software.</p>
+        </div>
+
+        {!isWorkExpanded ? (
+          <div 
+            className="work-collapsed-card" 
+            onClick={() => setIsWorkExpanded(true)} 
+            role="button" 
+            tabIndex={0} 
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
+            aria-label="Expand selected work to view projects"
+          >
+            <div className="work-collapsed-header">
+              <div className="work-collapsed-badges">
+                <span className="work-count-badge">4 Featured Systems</span>
+                <span className="work-preview-item">Enterprise Analytics</span>
+                <span className="work-preview-item">Audit Portal</span>
+                <span className="work-preview-item">CareerAI</span>
+                <span className="work-preview-item">Apparel Store</span>
+              </div>
+              <div className="work-collapsed-cta">
+                <span>Click to view work</span>
+                <span className="work-expand-circle" aria-hidden="true">+</span>
+              </div>
+            </div>
+            <div className="work-collapsed-body">
+              <p>From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="work-expanded-content" id="work-projects-list">
+            <div className="work-expanded-controls">
+              <span className="work-expanded-count">Showing 4 case studies</span>
+              <button 
+                type="button" 
+                className="work-minimize-btn"
+                onClick={() => {
+                  setIsWorkExpanded(false);
+                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Minimize work ▲
+              </button>
+            </div>
+
+            {projectOrder.map((id,index)=>{const project=PROJECTS.find(item=>item.id===id)!;const presentation=projectPresentation[id];return <article key={id} className={`work-feature theme-${presentation.theme} is-visible`} data-reveal><a className="work-visual-link" href={`#case/${presentation.slug}`} aria-label={`View ${presentation.shortName} case study`} onClick={event=>{event.preventDefault();openCase(id);}}><ProjectVisual id={id}/></a><div className="work-caption"><div className="work-meta"><span>0{index+1} / {presentation.client}</span><span>{project.status==='COMPLETED'?'Completed':'In development'}</span></div><h3>{presentation.title}</h3><p>{presentation.summary}</p><span className="work-discipline">{presentation.discipline}</span><a href={`#case/${presentation.slug}`} className="case-link" onClick={event=>{event.preventDefault();openCase(id);}}>Explore case study <span aria-hidden="true"><ArrowGlyph/></span><span className="sr-only">: {presentation.shortName}</span></a></div></article>;})}
+
+            <div className="work-collapse-bottom">
+              <button 
+                type="button" 
+                className="work-minimize-btn-large"
+                onClick={() => {
+                  setIsWorkExpanded(false);
+                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Minimize selected work <span>▲</span>
+              </button>
+            </div>
+          </div>
+        )}
       </section>
       <section id="services" className="studio-services section-pad"><div className="section-marker"><span className="section-pill">Services</span><span>FROM THE FIRST QUESTION TO THE WORKING PRODUCT</span></div><div className="section-heading"><h2>Your next chapter.<br/><em>Built together.</em></h2><p>You don’t need to arrive with a technical specification. A messy workflow, an underused dataset or an idea worth testing is a good starting point.</p></div><div className="service-list">{services.map(([title,lead,copy,tools],index)=><details key={title}><summary><span>0{index+1}</span><h3>{title}</h3><p>{lead}</p><b aria-hidden="true">+</b></summary><div className="service-detail"><div className="service-detail-left"><p>{copy}</p><a href="#contact">Let’s discuss it <ArrowGlyph/></a></div><div className="service-detail-right"><TechIconsRow items={tools.split(' / ').map(t=>t.trim())} className="service-tech-icons" /></div></div></details>)}</div></section>
       <ProcessSection />
@@ -129,7 +203,7 @@ export function StudioPage() {
       <ProjectContact/>
     </main>
     <footer className="studio-footer"><a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed — back to top">Sufiyan Ahmed<span aria-hidden="true"><ArrowGlyph/></span></a><span>Independent engineering. Thoughtfully built.</span><div><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div></footer>
-    <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} />
+    <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} onNavigate={id => { if (id === 'work') setIsWorkExpanded(true); }} />
     {activeCase&&<Suspense fallback={<div className="case-loading" role="status"><p>Opening case study…</p><button onClick={closeCase}>Back to work</button></div>}><CaseStudy key={activeCase} id={activeCase} onClose={closeCase} onContact={()=>{contactPending.current=true;closeCase();}}/></Suspense>}
   </>;
 }
