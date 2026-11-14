@@ -59,7 +59,7 @@ em { letter-spacing:-.035em; }
   gap: 14px;
   letter-spacing: 0;
   padding-left: var(--gutter);
-  padding-right: 58px;
+  padding-right: 172px;
   background: var(--paper);
   border-bottom-right-radius: 24px;
   transition: background 0.25s ease;
@@ -1798,7 +1798,7 @@ body > .skiptranslate {
     width: fit-content;
     min-height: 58px;
     padding-left: var(--gutter);
-    padding-right: 36px;
+    padding-right: 80px;
     border-bottom-right-radius: 18px;
   }
   .studio-header::before {
