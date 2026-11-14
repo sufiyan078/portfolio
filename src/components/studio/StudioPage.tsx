@@ -149,23 +149,6 @@ export function StudioPage() {
                 <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
               </button>
             </div>
-
-            <div 
-              className="work-collapsed-card" 
-              onClick={() => setIsWorkExpanded(true)} 
-              role="button" 
-              tabIndex={0} 
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsWorkExpanded(true); } }}
-              aria-label="Expand selected work to view projects"
-            >
-              <div className="work-collapsed-content">
-                <p className="work-collapsed-text">From multi-division ERP reconciliation to streaming AI and mobile-first retail systems. Click anywhere to reveal the interactive architectures and case studies.</p>
-                <div className="work-collapsed-cta">
-                  <span>Click to view work</span>
-                  <span className="work-expand-circle" aria-hidden="true">+</span>
-                </div>
-              </div>
-            </div>
           </div>
         ) : (
           <div className="work-expanded-content" id="work-projects-list">
@@ -174,12 +157,11 @@ export function StudioPage() {
                 type="button"
                 className="work-reference-prompt is-active"
                 onClick={() => {
-                  setIsWorkExpanded(false);
-                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                  document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 <span>Need a website, app, AI tool or reports? See all our services</span>
-                <span className="prompt-arrow" aria-hidden="true">▲</span>
+                <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
               </button>
               <button 
                 type="button" 
