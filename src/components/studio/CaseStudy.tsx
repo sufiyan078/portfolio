@@ -31,12 +31,18 @@ function CaseSystem({ id }: { id: ProjectId }) {
     ['Logic', 'Explicit inventory-aging and provision rules produce risk measures and diagnostic insights.'],
     ['Application', 'Cascading filters connect organization, supplier, division, item and provision perspectives.'],
     ['The result', 'Compressed Firestore dataset history and browser-generated Excel, PDF and PowerPoint reports.'],
-  ] : [
+  ] : id === 'mission-03' ? [
     ['The inputs', 'Authorized auditors upload multi-sheet physical stock-take and ERP workbooks.'],
     ['Structure', 'Header aliases, summary-sheet exclusion, supplier fallback and validation profiling prepare the records.'],
     ['Reconciliation', 'Deterministic rules identify count differences, shortages, excess stock, aging and provision exposure.'],
     ['Review', 'Dashboard investigation connects to cover design, evidence appendices and prepared, checked and approved sign-off.'],
     ['The result', 'Reviewed PDF, editable PowerPoint and Excel deliverables, with structured cloud audit records and historical archives.'],
+  ] : [
+    ['The buyer doubts', 'Online shoppers hesitate over fit accuracy, fabric quality, and exchange friction.'],
+    ['Specification', 'Measured centimeter charts, model dimensions, and upfront GSM fabric weights answer questions before asking.'],
+    ['Catalogue', 'Curated edits, occasion browsing, and "Shop your size" filters show only in-stock inventory.'],
+    ['Indian checkout', 'UPI, cards, net banking, and Cash on Delivery, with free shipping over ₹1,999 to nudge online prepayment.'],
+    ['The result', 'A complete, mobile-first store for 30+ products backed by 14 trust, policy, and compliance pages.'],
   ];
   return <div className="case-system-track" ref={track}><div className="case-system-stage" ref={stage}>
     <div className="case-system-caption"><span className="eyebrow">SYSTEM LENS / 0{step+1}</span><h3>{captions[step][0]}</h3><p>{captions[step][1]}</p><span className="scroll-instruction">Scroll to follow the system ↓</span></div>

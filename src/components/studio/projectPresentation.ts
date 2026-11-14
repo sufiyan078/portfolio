@@ -21,6 +21,13 @@ export const projectPresentation = {
     discipline: 'Audit reconciliation / Reporting', principle: 'Validate. Reconcile. Review.',
     approach: 'Normalize workbook schemas, exclude summary tabs and profile records before deterministic stock-count reconciliation. Connect filtered investigation to evidence, report design and sign-off, then generate PDF, editable PowerPoint and Excel deliverables from the calculated model.',
   },
+  'mission-04': {
+    slug: 'blak-root', client: 'Blak Root', theme: 'ink',
+    title: 'Built around fit, fabric and trust.', shortName: 'Blak Root clothing store',
+    summary: 'A complete online store for a new clothing brand, built to answer the three questions every shopper asks: will it fit, is it good quality, and can I swap it?',
+    discipline: 'Store Architecture / Product Systems', principle: 'Answer doubts before the customer asks.',
+    approach: 'Structure every section around fit confidence, fabric weight in GSM, transparent exchanges, and frictionless Indian checkout with UPI and Cash on Delivery.',
+  },
 } as const;
 export type ProjectId = keyof typeof projectPresentation;
-export const projectOrder: ProjectId[] = ['mission-01', 'mission-03', 'mission-02'];
+export const projectOrder: ProjectId[] = ['mission-01', 'mission-03', 'mission-02', 'mission-04'];

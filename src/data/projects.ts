@@ -446,5 +446,154 @@ export const PROJECTS: Project[] = [
       ]
     },
     "liveUrl": "https://inv-analytics-portal-58f8e.web.app"
+  },
+  {
+    "id": "mission-04",
+    "missionNumber": "MISSION 04",
+    "title": "Blak Root — Online Store Built Around Fit, Fabric and Trust",
+    "tagline": "A complete, mobile-first online store for a men's clothing brand, answering every shopper's doubts before they have to ask.",
+    "category": "Full Stack",
+    "status": "COMPLETED",
+    "difficulty": "★ ★ ★ ★ ☆",
+    "description": "A complete online store for Blak Root, an Indian men's clothing brand with a range of 30+ products across tees, shirts, knitwear, hoodies, jackets, jeans, trousers, joggers, shorts and accessories (priced ₹599 to ₹5,499). Built mobile-first around three core buyer questions: will it fit, is the fabric good quality, and can I swap it? The store features measured size charts in centimeters, upfront fabric weights in GSM, model fit notes, 'Shop your size' inventory filtering, 14 dedicated trust, policy and help pages, and checkout with UPI, cards, net banking and Cash on Delivery across India.",
+    "businessProblem": "For an emerging clothing brand, shoppers hesitate because they cannot physically touch the fabric, worry about whether sizing will match their build, and fear complicated exchange processes. Without upfront answers to fit, fabric quality, and return safety, first-time visitors leave without ordering.",
+    "whyItMattered": "People do not buy from a brand they do not trust. Every section of this store was engineered to proactively remove hesitation before the customer has to ask—putting measured dimensions, fabric weights, easy exchanges, and trusted Indian payment methods right from the first scroll.",
+    "architecture": {
+      "nodes": [
+        {
+          "name": "Mobile-first store structure",
+          "type": "Responsive layout, sticky bag bar and bottom navigation"
+        },
+        {
+          "name": "First-scroll trust engine",
+          "type": "Top announcement strip, four promises and curated edits"
+        },
+        {
+          "name": "Catalogue discovery & filtering",
+          "type": "Category browsing, occasion edits and 'Shop your size' logic"
+        },
+        {
+          "name": "Product detail architecture",
+          "type": "GSM fabric weights, cm size tables, model sizing and care guides"
+        },
+        {
+          "name": "Indian payments layer",
+          "type": "UPI, Visa, Mastercard, RuPay, net banking, wallets and Cash on Delivery"
+        },
+        {
+          "name": "Prepaid shipping incentive",
+          "type": "Free shipping over ₹1,999 threshold reducing COD reliance"
+        },
+        {
+          "name": "14 Trust & policy pages",
+          "type": "Order tracking, shipping, exchanges, size guide, terms and brand story"
+        },
+        {
+          "name": "Fulfillment & dispatch workflow",
+          "type": "24-hour dispatch, metro delivery in 2-4 days and 15-day exchanges"
+        }
+      ],
+      "description": "Visitor arrives on mobile storefront → First-scroll top strip answers shipping, exchange and COD questions → Category and occasion browsing or 'Shop your size' filter → Rich product details with exact GSM weight, fit note and cm measurements → Frictionless Indian checkout (UPI / Cards / COD) with free-shipping prepaid incentive → Automated order tracking and 15-day exchange support."
+    },
+    "features": [
+      "Mobile-first storefront planned section-by-section to establish brand trust within the first scroll",
+      "Product detail pages with measured size charts in cm (chest, length, shoulder, sleeve), model height and sizing, and fit guidance",
+      "Upfront fabric cards detailing exact fabric weight in GSM, material composition, and plain-language care instructions",
+      "'Shop your size' feature allowing shoppers to pick their size once and view only in-stock inventory",
+      "Multiple Indian payment methods: UPI, Visa, Mastercard, RuPay, net banking, wallets, and Cash on Delivery",
+      "Prepaid order incentive with free shipping on prepaid orders over ₹1,999 to encourage digital payments over COD",
+      "Clear delivery promises: dispatch within 24 hours, 2–4 working days to metro cities, and 4–7 days elsewhere",
+      "Frictionless exchange guarantee: straightforward size or colour swaps within 15 days highlighted across every page",
+      "Curated edits (Heavyweight, Utility) and occasion-based shopping (office, weekend, evening, travel)",
+      "Sticky 'Add to bag' bar on product pages and Quick Add with size selection directly on collection grids",
+      "Dedicated order tracking page and complete customer account portal with saved items wishlist",
+      "14 comprehensive trust, legal, and help pages ensuring consumer transparency and payment processor approval"
+    ],
+    "technologyLoadout": [
+      "E-Commerce Architecture",
+      "Mobile-First Design",
+      "Payment Gateway Integration",
+      "UPI & COD Workflows",
+      "Inventory Management",
+      "TypeScript",
+      "Responsive Layouts",
+      "Data Schemas"
+    ],
+    "challenges": [
+      {
+        "issue": "Online sizing anxiety and fit uncertainty",
+        "investigation": "Shoppers frequently abandon online apparel purchases because standard 'S/M/L' labels vary widely across brands and return procedures feel intimidating.",
+        "solution": "Provided measured garment dimensions in centimeters for chest, length, shoulder and sleeve, alongside model height, fit notes ('Relaxed fit. Take your usual size'), and a prominent 15-day exchange guarantee on every product page."
+      },
+      {
+        "issue": "Communicating fabric weight and hand-feel through screens",
+        "investigation": "Standard online clothing photos do not convey the tactile weight, density, or durability of the garments, leaving buyers uncertain about material quality.",
+        "solution": "Turned fabric specifications into a primary product highlight: displaying fabric weights in GSM (e.g. 420 GSM fleece), material compositions, and plain-language care guides directly on the product card."
+      },
+      {
+        "issue": "Managing high Cash on Delivery (COD) friction and return rates",
+        "investigation": "Indian retail has high COD demand, but excessive COD orders increase return-to-origin logistics costs and operational uncertainty.",
+        "solution": "Supported Cash on Delivery across India for buyer trust, while introducing a targeted incentive: free shipping exclusively on prepaid orders over ₹1,999 alongside seamless UPI and RuPay payments to encourage online prepayment."
+      },
+      {
+        "issue": "Establishing credibility for an unknown new brand",
+        "investigation": "Shoppers and payment gateway compliance teams both require verifiable policies and clear operational infrastructure before transacting with a newly launched brand.",
+        "solution": "Built 14 dedicated supporting pages across Help (Track Order, Shipping, Returns, Size Guide, FAQs, Contact), Brand Story (Our Story, Why Blak Root, Fabric & Craft, Garment Care), and Legal (Privacy, Terms, Refund, Shipping Policies) with transparent support hours."
+      }
+    ],
+    "outcome": [
+      "Built and launched a complete, mobile-first store for 30+ men's clothing products ready for nationwide orders",
+      "Eliminated pre-purchase hesitation through transparent centimeter sizing, GSM weights, and clear exchange policies",
+      "Integrated seamless Indian payments with UPI, cards, net banking, and Cash on Delivery across all postal codes",
+      "Structured 14 trust, policy, and compliance pages satisfying all payment processor requirements and customer inquiries",
+      "Designed sticky add-to-bag bars, 'Shop your size' filters, and one-tap bottom navigation optimized for phone shoppers"
+    ],
+    "lessonsLearned": [
+      "People do not buy from a brand they do not trust; answering fit, fabric, and return questions upfront prevents cart abandonment.",
+      "Incentive structures (like free shipping thresholds on prepaid orders) effectively shift customer behavior away from high-risk COD.",
+      "Clear policy and help documentation is as crucial for payment gateway approval as it is for consumer peace of mind."
+    ],
+    "metrics": [
+      {
+        "number": "30+",
+        "caption": "Clothing products"
+      },
+      {
+        "number": "14",
+        "caption": "Trust & policy pages"
+      },
+      {
+        "number": "Pan-India",
+        "caption": "Prepaid & COD ready"
+      }
+    ],
+    "preview": {
+      "headline": "A store built around fit, fabric and trust",
+      "type": "Blak Root — Men's Clothing Store",
+      "metrics": [
+        "Mobile-first store",
+        "30+ apparel products",
+        "COD across India"
+      ],
+      "kpis": [
+        {
+          "label": "RANGE",
+          "value": "30+ Products"
+        },
+        {
+          "label": "PAYMENTS",
+          "value": "UPI, Cards & COD"
+        },
+        {
+          "label": "SPECIFICATIONS",
+          "value": "GSM & Size in cm"
+        },
+        {
+          "label": "PAGES",
+          "value": "14 Trust Pages"
+        }
+      ]
+    },
+    "liveUrl": "https://juncqy-bq.myshopify.com"
   }
 ];
