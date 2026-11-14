@@ -25,6 +25,62 @@ function caseFromHash(): ProjectId | null {
   return projectOrder.find(id => location.hash === `#case/${projectPresentation[id].slug}`) ?? null;
 }
 
+function FooterWordmark() {
+  const containerRef = useRef<HTMLAnchorElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const arrowRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const textEl = textRef.current;
+    const arrowEl = arrowRef.current;
+    if (!container || !textEl || !arrowEl) return;
+
+    let lastWidth = 0;
+    const fit = () => {
+      const containerWidth = container.clientWidth;
+      if (containerWidth <= 0 || containerWidth === lastWidth) return;
+      lastWidth = containerWidth;
+
+      const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
+      const textWidth = textEl.getBoundingClientRect().width;
+      const arrowWidth = arrowEl.getBoundingClientRect().width;
+      const totalWidth = textWidth + arrowWidth;
+
+      if (totalWidth > 0) {
+        const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
+        container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
+      }
+    };
+
+    const ro = new ResizeObserver(fit);
+    ro.observe(container);
+    fit();
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        lastWidth = 0;
+        fit();
+      });
+    }
+
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <a
+      ref={containerRef}
+      className="wordmark notranslate"
+      translate="no"
+      href="#top"
+      aria-label="Sufiyan Ahmed — back to top"
+    >
+      <span ref={textRef} className="footer-name-text">Sufiyan Ahmed</span>
+      <span ref={arrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
+    </a>
+  );
+}
+
 export function StudioPage() {
   const [activeCase,setActiveCase] = useState<ProjectId|null>(caseFromHash);
   const [openTechCategory, setOpenTechCategory] = useState<string | null>(null);
@@ -175,7 +231,7 @@ export function StudioPage() {
       </section>
       <ProjectContact/>
     </main>
-    <footer className="studio-footer"><a className="wordmark notranslate" translate="no" href="#top" aria-label="Sufiyan Ahmed — back to top">Sufiyan Ahmed<span aria-hidden="true"><ArrowGlyph/></span></a><span>Independent engineering. Thoughtfully built.</span><div><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div></footer>
+    <footer className="studio-footer"><FooterWordmark /><span>Independent engineering. Thoughtfully built.</span><div><span>© {new Date().getFullYear()}</span><a href="#top">Back to top ↑</a></div></footer>
     <FloatingNavBar activeCase={activeCase} onCloseCase={closeCase} />
     {activeCase&&<Suspense fallback={<div className="case-loading" role="status"><p>Opening case study…</p><button onClick={closeCase}>Back to work</button></div>}><CaseStudy key={activeCase} id={activeCase} onClose={closeCase} onContact={()=>{contactPending.current=true;closeCase();}}/></Suspense>}
   </>;
