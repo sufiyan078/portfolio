@@ -6,6 +6,7 @@ interface FolderProject {
   number: string;
   tabLabel: string;
   slot: number;
+  tone: 'green' | 'terracotta' | 'lilac' | 'ink';
   title: string;
   discipline: string;
   subtitle: string;
@@ -19,6 +20,7 @@ const FOLDER_PROJECTS: FolderProject[] = [
     number: '01',
     tabLabel: 'PROJECT 01 →',
     slot: 0.58,
+    tone: 'green',
     title: 'MONTHLY INVENTORY VISUALIZATION',
     discipline: 'Inventory Analytics & Executive BI',
     subtitle: 'From ERP exports to governed dataset history, aging analysis and executive reports.',
@@ -30,6 +32,7 @@ const FOLDER_PROJECTS: FolderProject[] = [
     number: '02',
     tabLabel: 'PROJECT 02 →',
     slot: 0.08,
+    tone: 'terracotta',
     title: 'QUARTERLY INVENTORY RECONCILIATION',
     discipline: 'Audit Reconciliation & Reporting',
     subtitle: 'One model. Every report. Deterministic stock-count reconciliation, discrepancy audit and evidence.',
@@ -41,6 +44,7 @@ const FOLDER_PROJECTS: FolderProject[] = [
     number: '03',
     tabLabel: 'PROJECT 03 →',
     slot: 0.74,
+    tone: 'lilac',
     title: 'CAREERAI WORKFLOW PLATFORM',
     discipline: 'AI Application & Product Engineering',
     subtitle: 'Better applications. Less repetition. Structured AI output for resume creation and ATS scoring.',
@@ -52,6 +56,7 @@ const FOLDER_PROJECTS: FolderProject[] = [
     number: '04',
     tabLabel: 'PROJECT 04 →',
     slot: 0.28,
+    tone: 'ink',
     title: "MEN'S APPAREL STORE SYSTEM",
     discipline: 'Store Architecture & Product Systems',
     subtitle: 'Built around fit, fabric and trust. Transparent sizing, GSM details & frictionless Indian checkout.',
@@ -82,6 +87,7 @@ export function WorkFolderAccordion({ onOpenCase, onMinimize }: WorkFolderAccord
               key={project.id}
               className="ftp-folder ftp-band"
               data-open={isExpanded ? 'true' : 'false'}
+              data-tone={project.tone}
               style={{ '--tx': project.slot } as React.CSSProperties}
               onClick={() => toggleProject(project.id)}
               role="button"
