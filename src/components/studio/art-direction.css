@@ -5896,7 +5896,6 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 .ftp-band:hover {
   transform: translateY(-3px);
   filter: drop-shadow(0 -2px 0 #8B004A) drop-shadow(0 -10px 22px rgba(139, 0, 74, 0.18));
-  z-index: 8;
 }
 
 .ftp-band:hover .ftp-band-t {
@@ -5906,15 +5905,13 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 /* Expanded active state */
 .ftp-band[data-open="true"] {
-  z-index: 10;
   cursor: default;
 }
 .ftp-band[data-open="true"]:hover {
   transform: none;
 }
 .ftp-band[data-open="true"] + .ftp-band {
-  margin-top: 6px;
-  z-index: 11;
+  margin-top: calc(-1 * var(--th, 30px));
 }
 .ftp-band[data-open="true"] .ftp-band-head {
   display: none !important;
