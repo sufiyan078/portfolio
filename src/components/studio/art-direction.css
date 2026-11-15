@@ -479,11 +479,24 @@ body>.skiptranslate {
   transform: translateZ(0);
 }
 
-.hero-copy>p {
+.hero-copy>p,
+.hero-bio {
   color: #F2EFE7;
   margin-top: 35px;
   font-size: 15px;
   max-width: 390px;
+  line-height: 1.8;
+}
+
+/* Only on laptops/desktop: full sentence on exactly one line */
+@media (min-width: 1024px) {
+  .hero-copy>p,
+  .hero-bio {
+    white-space: nowrap !important;
+    max-width: none !important;
+    width: max-content !important;
+    font-size: clamp(12.5px, 1.05vw, 15px) !important;
+  }
 }
 
 .hero-actions {
