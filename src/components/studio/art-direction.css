@@ -5734,7 +5734,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  height: var(--th, 30px);
+  height: calc(var(--th, 30px) + 1.5px);
   padding: 0 18px;
   border-radius: var(--fr, 12px) var(--fr, 12px) 0 0;
   background: var(--c);
@@ -5749,22 +5749,23 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   transition: background-color .35s ease, color .35s ease;
 }
 
-/* Template's exact concave fillets without disconnected lines */
+/* Seamless concave fillets with subpixel overlap to eliminate disconnected hairline cracks */
 .ftp-tabshape::before,
 .ftp-tabshape::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  width: var(--fr);
-  height: var(--fr);
+  bottom: -1.5px;
+  width: calc(var(--fr) + 2px);
+  height: calc(var(--fr) + 1.5px);
   transition: opacity .25s;
+  pointer-events: none;
 }
 .ftp-tabshape::before {
-  right: 100%;
+  right: calc(100% - 2px);
   background: radial-gradient(circle at 0 0, transparent calc(var(--fr) - .5px), var(--c) var(--fr));
 }
 .ftp-tabshape::after {
-  left: 100%;
+  left: calc(100% - 2px);
   background: radial-gradient(circle at 100% 0, transparent calc(var(--fr) - .5px), var(--c) var(--fr));
 }
 
@@ -6042,11 +6043,12 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   }
   .ftp-folder {
     padding-top: 24px;
+    --th: 24px;
     --fr: 10px;
     --br: 14px;
   }
   .ftp-tabshape {
-    height: 24px;
+    height: calc(var(--th, 24px) + 1.5px);
     padding: 0 12px;
     font-size: 9px;
   }
