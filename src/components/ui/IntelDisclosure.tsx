@@ -5,7 +5,7 @@ import { getUniversalAudioProps } from '../../utils/soundEffects';
 /** Keep full case-study copy available without making every card a wall of text. */
 export function IntelDisclosure({ children, label = 'Inspect details' }: { children: ReactNode; label?: string }) {
   return (
-    <details className="realm-intel group/intel">
+    <details className="realm-intel group/intel" name="realm-intel">
       <summary {...getUniversalAudioProps('CARD_CLICK', 'CARD_HOVER')}>
         <span className="realm-intel-label">{label}</span>
         <span className="realm-intel-btn" aria-hidden="true">

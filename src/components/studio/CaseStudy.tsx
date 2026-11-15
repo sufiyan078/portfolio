@@ -54,6 +54,7 @@ export default function CaseStudy({ id, onClose, onContact }: { id: ProjectId; o
   const project = PROJECTS.find(item => item.id === id)!;
   const presentation = projectPresentation[id];
   const modal = useRef<HTMLDivElement>(null);
+  const [openChallenge, setOpenChallenge] = useState<string | null>(null);
   useModalLayer(true, modal);
   useEffect(() => {
     const key = (event: KeyboardEvent) => { if(event.key==='Escape') onClose(); };
@@ -68,7 +69,36 @@ export default function CaseStudy({ id, onClose, onContact }: { id: ProjectId; o
     {id === 'mission-01' && <MonthlyProductTour/>}
     {id === 'mission-03' && <QuarterlyProductTour/>}
     <section className="case-architecture section-pad"><div className="section-marker"><span className="section-pill">Architecture</span><span>FROM INPUT TO OUTCOME</span></div><CaseSystem id={id}/><details className="architecture-reference"><summary>Explore the complete architecture <span>+</span></summary><ol>{project.architecture.nodes.map((node,index)=><li key={node.name}><span>{String(index+1).padStart(2, '0')}</span><strong>{node.name}</strong><small>{node.type}</small></li>)}</ol><p>{project.architecture.description}</p></details></section>
-    <section className="case-details section-pad"><div className="section-heading"><span className="eyebrow">03 / ENGINEERING DECISIONS</span><h2>The work beneath<br/>the interface.</h2></div>{project.challenges.map((challenge,i)=><details key={challenge.issue}><summary><span>0{i+1}</span>{challenge.issue}<b aria-hidden="true">+</b></summary><div><h3>Investigation</h3><p>{challenge.investigation}</p><h3>Implementation</h3><p>{challenge.solution}</p></div></details>)}</section>
+    <section className="case-details section-pad"><div className="section-heading"><span className="eyebrow">03 / ENGINEERING DECISIONS</span><h2>The work beneath<br/>the interface.</h2></div>{project.challenges.map((challenge,i)=>{
+      const isOpen = openChallenge === challenge.issue;
+      return (
+        <details
+          key={challenge.issue}
+          name="case-challenges"
+          open={isOpen}
+          onToggle={e => {
+            const isNowOpen = (e.currentTarget as HTMLDetailsElement).open;
+            if (isNowOpen) setOpenChallenge(challenge.issue);
+            else if (openChallenge === challenge.issue) setOpenChallenge(null);
+          }}
+        >
+          <summary
+            onClick={e => {
+              e.preventDefault();
+              setOpenChallenge(current => current === challenge.issue ? null : challenge.issue);
+            }}
+          >
+            <span>0{i+1}</span>{challenge.issue}<b aria-hidden="true">+</b>
+          </summary>
+          <div>
+            <h3>Investigation</h3>
+            <p>{challenge.investigation}</p>
+            <h3>Implementation</h3>
+            <p>{challenge.solution}</p>
+          </div>
+        </details>
+      );
+    })}</section>
     <section className="case-results section-pad"><span className="eyebrow">04 / OUTCOME</span><h2>{project.preview.headline}</h2><div className="case-metrics">{project.metrics.map(metric=><div key={metric.caption}><strong>{metric.number}</strong><span>{metric.caption}</span></div>)}</div><ul>{project.outcome.map(outcome=><li key={outcome}>{outcome}</li>)}</ul><details><summary>Full functionality & lessons learned <span>+</span></summary><div className="case-features"><div><h3>Functionality</h3><ul>{project.features.map(feature=><li key={feature}>{feature}</li>)}</ul></div><div><h3>What this project taught me</h3>{project.lessonsLearned.map(lesson=><p key={lesson}>{lesson}</p>)}</div></div></details>{project.liveUrl&&<a className="button case-live-button" href={project.liveUrl} target="_blank" rel="noreferrer">View live project <span><ArrowGlyph/></span></a>}{project.githubUrl&&<a className="text-link" href={project.githubUrl} target="_blank" rel="noreferrer">View source <ArrowGlyph/></a>}</section>
     <footer className="case-footer section-pad"><span className="eyebrow">FROM THIS SYSTEM TO YOURS</span><h2>Working through<br/>a similar problem?</h2><button className="button" onClick={onContact}>Start a conversation <span><ArrowGlyph/></span></button><button className="text-link" onClick={onClose}>Return to selected work</button></footer>
   </div>, document.body);
