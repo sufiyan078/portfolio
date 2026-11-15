@@ -241,7 +241,7 @@ em {
 .header-lang {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 28px;
 }
 
 .lang-tab {
@@ -297,6 +297,27 @@ em {
   background-repeat: no-repeat;
   background-position: right center;
   transition: color 0.18s ease;
+  color-scheme: dark;
+}
+
+.lang-select option {
+  background-color: #0C1E29;
+  color: #FFFBD4;
+  font-family: var(--font-label, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+}
+
+.lang-select option:disabled {
+  color: rgba(255, 251, 212, 0.4);
+}
+
+.lang-select option:checked,
+.lang-select option:hover {
+  background-color: #8B004A;
+  color: #FFFFFF;
 }
 
 .lang-select:hover {
