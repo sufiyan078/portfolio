@@ -164,16 +164,39 @@ em {
 }
 
 .studio-header nav>.header-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  line-height: 1;
+  text-align: center;
   background: #FFFBD4;
   color: var(--ink);
   border: 1px solid #FFFBD4;
-  border-radius: 30px;
-  padding: 13px 20px;
+  border-radius: 9999px;
+  padding: 12px 22px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   transform-origin: center center;
   animation: headerContinuousPulse 1.5s ease-in-out infinite;
   will-change: transform, box-shadow;
   transition: background .2s, color .2s, transform .2s, box-shadow .2s;
+  white-space: nowrap;
+}
+
+.studio-header nav>.header-cta span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.studio-header nav>.header-cta .header-cta-arrow {
+  font-size: 13px;
+  transition: transform .2s ease;
+}
+
+.studio-header nav>.header-cta:hover .header-cta-arrow {
+  transform: translate(2px, -2px);
 }
 
 .studio-header nav>.header-cta:hover {

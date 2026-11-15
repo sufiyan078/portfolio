@@ -208,7 +208,7 @@ export function StudioPage() {
       <div className="header-right-group">
         <HeaderLang />
         <nav aria-label="Main navigation">
-          <a className="header-cta" href="#contact">Start a project <span><ArrowGlyph/></span></a>
+          <a className="header-cta" href="#contact"><span>Start a project</span><span className="header-cta-arrow" aria-hidden="true"><ArrowGlyph/></span></a>
         </nav>
       </div>
     </header>
