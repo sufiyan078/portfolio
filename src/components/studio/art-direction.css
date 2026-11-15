@@ -1982,17 +1982,17 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   .hero-copy h1 {
     font-size: clamp(30px, 8.2vw, 36px) !important;
     line-height: 1.08 !important;
-    margin: 0 0 16px 0 !important;
+    margin: 0 0 clamp(22px, 3.2vh, 28px) 0 !important;
   }
   .hero-copy > p {
     font-size: 12.5px !important;
     line-height: 1.45 !important;
     max-width: 350px !important;
-    margin: 0 0 12px 0 !important;
+    margin: 0 0 14px 0 !important;
     color: #CAE8E8 !important;
   }
   .hero-actions {
-    margin: clamp(34px, 5.5vh, 46px) 0 0 !important;
+    margin: clamp(24px, 4vh, 34px) 0 0 !important;
     gap: 14px !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
