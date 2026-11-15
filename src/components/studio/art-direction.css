@@ -999,8 +999,62 @@ body > .skiptranslate {
 .contact-intro h2 { font-size:clamp(44px,5.8vw,87px); }
 .contact-intro h2 em { color:#FAAE62; }
 .contact-intro>p,.contact-intro>.text-link { color:#CAE8E8; }
-.contact-intro>p { font-size:16px; }
-.contact-email { font-size:clamp(18px,1.9vw,28px); }
+.contact-intro>p { font-size:16px; margin-bottom:32px; }
+.contact-channels {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.5vw, 36px);
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.contact-channels .contact-networks {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 0;
+  flex-shrink: 0;
+}
+.contact-email-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.contact-email {
+  font-size: clamp(18px, 1.9vw, 28px);
+  color: #FFFBD4;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  line-height: 1.25;
+}
+.contact-email span {
+  display: inline-flex;
+  transition: transform 0.2s ease;
+}
+.contact-email:hover span {
+  transform: translate(2px, -2px);
+}
+.contact-copy-btn {
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+  min-height: auto;
+  border: 0;
+  color: #CAE8E8;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  line-height: 1.4;
+}
+.contact-copy-btn:hover {
+  color: #FAAE62;
+}
 .contact-networks {
   display: flex;
   align-items: center;
@@ -1265,8 +1319,10 @@ body > .skiptranslate {
   }
   .contact-marker-tagline { display:none !important; }
   .contact-intro h2 { font-size:52px; }
-  .contact-intro>p { font-size:14px; }
-  .contact-email { font-size:20px; }
+  .contact-intro>p { font-size:14px; margin-bottom:24px; }
+  .contact-channels { gap: 16px 22px; }
+  .contact-channels .contact-networks { gap: 12px; margin-top: 0; }
+  .contact-email { font-size:19px; }
   .contact-networks { gap: 14px; margin-top: 24px; }
   .contact-network-chip { width: 42px; height: 42px; }
   .contact-network-chip svg { width: 19px; height: 19px; }

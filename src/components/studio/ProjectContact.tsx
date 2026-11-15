@@ -47,7 +47,25 @@ export function ProjectContact() {
       </div>
       <span className="contact-marker-tagline">A GOOD PLACE TO START</span>
     </div>
-    <div className="contact-layout"><div className="contact-intro"><h2>Have a problem<br/><em>worth solving?</em></h2><p>Tell me what you’re trying to build, automate or improve. We can start with the problem.</p><a className="contact-email notranslate" translate="no" href={`mailto:${contactEmail}`}>{contactEmail} <span><ArrowGlyph/></span></a><button className="text-link" onClick={() => void copy(contactEmail, 'Email address copied.')}>Copy email address</button><div className="contact-networks" aria-label="Professional networks"><a href="https://linkedin.com/in/sufiyan-ahmed-66baa91b3" target="_blank" rel="noreferrer" className="contact-network-chip" aria-label="LinkedIn profile" title="LinkedIn"><LinkedInIcon /></a><a href="https://github.com/sufiyan078" target="_blank" rel="noreferrer" className="contact-network-chip" aria-label="GitHub profile" title="GitHub"><GitHubIcon /></a></div></div>
+    <div className="contact-layout">
+      <div className="contact-intro">
+        <h2>Have a problem<br/><em>worth solving?</em></h2>
+        <p>Tell me what you’re trying to build, automate or improve. We can start with the problem.</p>
+        <div className="contact-channels">
+          <div className="contact-networks" aria-label="Professional networks">
+            <a href="https://linkedin.com/in/sufiyan-ahmed-66baa91b3" target="_blank" rel="noreferrer" className="contact-network-chip" aria-label="LinkedIn profile" title="LinkedIn"><LinkedInIcon /></a>
+            <a href="https://github.com/sufiyan078" target="_blank" rel="noreferrer" className="contact-network-chip" aria-label="GitHub profile" title="GitHub"><GitHubIcon /></a>
+          </div>
+          <div className="contact-email-block">
+            <a className="contact-email notranslate" translate="no" href={`mailto:${contactEmail}`}>
+              {contactEmail} <span><ArrowGlyph/></span>
+            </a>
+            <button className="text-link contact-copy-btn" onClick={() => void copy(contactEmail, 'Email address copied.')}>
+              Copy email address
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="contact-form-wrap">{!ready ? <form onSubmit={prepare} aria-label="Project inquiry">
         <div className="form-title"><h3>A little about your project.</h3><span>01 / BRIEF</span></div>
         <div className="form-pair"><label>Your name<input ref={nameInput} name="name" autoComplete="name" required maxLength={100} value={values.name} onChange={e => update('name', e.target.value)} placeholder="Alex Morgan"/></label><label>Email address<input name="email" autoComplete="email" type="email" required maxLength={254} value={values.email} onChange={e => update('email', e.target.value)} placeholder="alex@company.com"/></label></div>
