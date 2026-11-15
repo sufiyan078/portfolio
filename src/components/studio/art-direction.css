@@ -5675,20 +5675,19 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 /* ========================================================
-   WORK FOLDER STACK ACCORDION (Exact Reference: Images 2, 3, 4)
-   - Image 2: Physical overlapping folder stack, dark navy/slate
-     editorial aesthetic, staggered tabs with concave fillets,
-     ghosted all-caps titles with crisp hover elevation.
-   - Image 3: Active royal cobalt blue expanded card dossier.
-   - Image 4: Dark pill "Explore the system ↗" button.
+   WORK FOLDER STACK ACCORDION (Exact Reference: Images 2, 3, 4) - LIGHT THEME
+   - Preserves exact physical overlapping folder stack architecture,
+     negative margins, layered z-indexes, and curved tab fillets.
+   - Elegant light color palette harmonizing with the portfolio:
+     --paper (#F2EFE7), --ink (#0C1E29), --line (#B38F6F), --accent (#8B004A).
    ======================================================== */
 .work-folder-stage {
-  background: #09131D;
-  border: 1px solid rgba(100, 150, 190, 0.22);
+  background: #FAF8F5;
+  border: 1px solid rgba(179, 143, 111, 0.4);
   border-radius: 20px;
   padding: 48px clamp(16px, 3.5vw, 44px) clamp(36px, 4vw, 48px);
   margin-top: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 45px rgba(12, 30, 41, 0.08);
   position: relative;
 }
 
@@ -5732,7 +5731,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card:focus-visible {
-  outline: 2px solid #3B82F6;
+  outline: 2px solid #8B004A;
   outline-offset: 4px;
 }
 
@@ -5782,28 +5781,28 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 .folder-tab::before {
   left: -12px;
-  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #122536) 12.5px);
+  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
 }
 .folder-tab::after {
   right: -12px;
-  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #122536) 12.5px);
+  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
 }
 
-/* --- COLLAPSED STATE (Image 2 - Slate Dark Physical Folder Stack) --- */
+/* --- COLLAPSED STATE (Image 2 Stack - Light Editorial Paper Theme) --- */
 .folder-card.is-collapsed {
-  --card-bg: #122536;
-  background: linear-gradient(180deg, #122536 0%, #0D1B28 100%);
-  border: 1px solid rgba(120, 165, 200, 0.2);
+  --card-bg: #FFFFFF;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F1E8 100%);
+  border: 1px solid rgba(179, 143, 111, 0.45);
   min-height: 88px;
-  box-shadow: 0 -5px 18px rgba(0, 0, 0, 0.42), 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -5px 16px rgba(12, 30, 41, 0.07), 0 4px 12px rgba(12, 30, 41, 0.04);
 }
 
 .folder-card.is-collapsed .folder-tab {
-  background: #122536;
-  color: rgba(220, 240, 255, 0.85);
-  border-top: 1px solid rgba(120, 165, 200, 0.25);
-  border-left: 1px solid rgba(120, 165, 200, 0.25);
-  border-right: 1px solid rgba(120, 165, 200, 0.25);
+  background: #FFFFFF;
+  color: #48252F;
+  border-top: 1px solid rgba(179, 143, 111, 0.45);
+  border-left: 1px solid rgba(179, 143, 111, 0.45);
+  border-right: 1px solid rgba(179, 143, 111, 0.45);
   border-bottom: none;
 }
 
@@ -5819,7 +5818,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-family: var(--font-label);
   font-size: 14.5px;
   font-weight: 700;
-  color: #6C8FA6;
+  color: #8B004A;
   flex-shrink: 0;
 }
 
@@ -5830,7 +5829,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: rgba(135, 175, 205, 0.35); /* Signature ghosted slate editorial text from Image 2 */
+  color: rgba(12, 30, 41, 0.38); /* Ghosted editorial title from Image 2 in light palette */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -5838,44 +5837,44 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card.is-collapsed:hover {
-  background: linear-gradient(180deg, #183347 0%, #102433 100%);
-  --card-bg: #183347;
-  border-color: rgba(160, 205, 240, 0.45);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDE6D8 100%);
+  --card-bg: #FFFFFF;
+  border-color: #8B004A;
   transform: translateY(-3px);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.55), 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 -8px 24px rgba(139, 0, 74, 0.12), 0 8px 24px rgba(12, 30, 41, 0.08);
 }
 
 .folder-card.is-collapsed:hover .folder-tab {
-  background: #183347;
-  border-color: rgba(160, 205, 240, 0.45);
-  color: #FFFFFF;
+  background: #FFFFFF;
+  border-color: #8B004A;
+  color: #8B004A;
 }
 
 .folder-card.is-collapsed:hover .folder-num {
-  color: #A3C9E2;
+  color: #8B004A;
 }
 
 .folder-card.is-collapsed:hover .folder-collapsed-title {
-  color: #FFFFFF;
+  color: #0C1E29; /* Crisp deep ink on hover */
   transform: translateX(6px);
 }
 
-/* --- EXPANDED ACTIVE STATE (Image 3 - Royal Cobalt Blue Dossier) --- */
+/* --- EXPANDED ACTIVE STATE (Image 3 - Light Dossier) --- */
 .folder-card.is-expanded {
-  --card-bg: #2563EB;
-  background: linear-gradient(140deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  --card-bg: #FFFFFF;
+  background: #FFFFFF;
+  border: 2px solid #8B004A;
   border-radius: 16px;
-  box-shadow: 0 16px 45px rgba(29, 78, 216, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 16px 45px rgba(139, 0, 74, 0.12), 0 4px 16px rgba(12, 30, 41, 0.06);
   cursor: default;
 }
 
 .folder-card.is-expanded .folder-tab {
-  background: #2563EB;
-  color: #FFFFFF;
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  border-left: 1px solid rgba(255, 255, 255, 0.35);
-  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  background: #FFFFFF;
+  color: #8B004A;
+  border-top: 2px solid #8B004A;
+  border-left: 2px solid #8B004A;
+  border-right: 2px solid #8B004A;
   border-bottom: none;
 }
 
@@ -5903,7 +5902,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 .folder-card.is-expanded .folder-num {
   font-size: 16px;
   font-weight: 800;
-  color: #BFDBFE;
+  color: #8B004A;
   margin-top: 6px;
   flex-shrink: 0;
 }
@@ -5922,7 +5921,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   line-height: 1.15;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #0C1E29;
 }
 
 .folder-discipline {
@@ -5935,16 +5934,16 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   border-radius: 4px;
   display: inline-block;
   width: fit-content;
-  background: rgba(255, 255, 255, 0.16);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(139, 0, 74, 0.08);
+  color: #8B004A;
+  border: 1px solid rgba(139, 0, 74, 0.25);
 }
 
 .folder-subtitle {
   margin: 14px 0 0;
   font-size: 14.5px;
   line-height: 1.6;
-  color: #DBEAFE;
+  color: #48252F;
   max-width: 500px;
 }
 
@@ -5956,7 +5955,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #BFDBFE;
+  color: #8B004A;
 }
 
 .folder-expanded-right {
@@ -5980,13 +5979,13 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   align-items: center;
   gap: 8px;
   font-size: 13.5px;
-  color: #FFFFFF;
+  color: #0C1E29;
 }
 
 .folder-bullet-dot {
   font-size: 11px;
   line-height: 1;
-  color: #93C5FD;
+  color: #8B004A;
 }
 
 .folder-bullet-text {
@@ -6000,7 +5999,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   align-self: flex-end;
   background: #0C1E29;
   color: #FFFBD4;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid #0C1E29;
   border-radius: 9999px;
   padding: 13px 26px;
   font-family: var(--font-body), -apple-system, sans-serif;
@@ -6011,7 +6010,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.25);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -6021,11 +6020,11 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-explore-btn:hover {
-  background: #FAAE62;
-  color: #0C1E29;
-  border-color: #FAAE62;
+  background: #8B004A;
+  color: #FFFFFF;
+  border-color: #8B004A;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 22px rgba(139, 0, 74, 0.3);
 }
 
 .folder-explore-btn:hover span {
@@ -6044,21 +6043,21 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .work-folder-stage .work-minimize-btn-large {
-  background: #102131;
+  background: #0C1E29;
   color: #FFFBD4;
-  border: 1px solid rgba(130, 175, 210, 0.3);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(179, 143, 111, 0.45);
+  box-shadow: 0 4px 16px rgba(12, 30, 41, 0.2);
   padding: 12px 28px;
   border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .work-folder-stage .work-minimize-btn-large:hover {
-  background: #FAAE62;
-  color: #0C1E29;
-  border-color: #FAAE62;
+  background: #8B004A;
+  color: #FFFFFF;
+  border-color: #8B004A;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(139, 0, 74, 0.3);
 }
 
 /* --- MOBILE RESPONSIVE ADAPTATIONS --- */
