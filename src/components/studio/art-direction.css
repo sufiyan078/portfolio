@@ -4726,6 +4726,7 @@ body>.skiptranslate {
     padding: 9px 11px;
     font-size: 10px;
     gap: 6px;
+    margin-top: 8px;
   }
 
   .header-lang .lang-tab,
@@ -5172,6 +5173,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
     padding: 9px 12px;
     font-size: 10px;
     gap: 8px;
+    margin-top: 8px;
   }
 
   .header-clock {
