@@ -50,7 +50,7 @@ function FooterWordmark() {
           const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 80;
           const w = el.getBoundingClientRect().width;
           if (w > 0) {
-            const target = (containerWidth / w) * currentSize * 0.985;
+            const target = (containerWidth / w) * currentSize * 0.98;
             container.style.setProperty('--footer-line1-size', `${Math.max(40, target)}px`);
           }
         }
@@ -60,7 +60,7 @@ function FooterWordmark() {
           const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 75;
           const w = el.getBoundingClientRect().width;
           if (w > 0) {
-            const target = (containerWidth / w) * currentSize * 0.985;
+            const target = (containerWidth / w) * currentSize * 0.93;
             container.style.setProperty('--footer-line2-size', `${Math.max(35, target)}px`);
           }
         }
