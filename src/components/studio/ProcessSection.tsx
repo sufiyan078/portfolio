@@ -65,7 +65,6 @@ export function ProcessSection() {
       <div className="studio-process-stage">
         <div className="section-marker">
           <span className="section-pill">How I Work</span>
-          <span>CLARITY AT EVERY STEP</span>
         </div>
 
         <div className="process-scrolly-grid">

@@ -45,7 +45,6 @@ export function ProjectContact() {
       <div className="contact-marker-tab">
         <span className="section-pill">Contact</span>
       </div>
-      <span className="contact-marker-tagline">A GOOD PLACE TO START</span>
     </div>
     <div className="contact-layout">
       <div className="contact-intro">

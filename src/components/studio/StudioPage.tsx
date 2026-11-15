@@ -221,7 +221,6 @@ export function StudioPage() {
       <section id="work" className="selected-work section-pad">
         <div className="section-marker">
           <span className="section-pill">Selected Work</span>
-          <span>FOUR SYSTEMS · REAL BUSINESS PROBLEMS</span>
         </div>
         <div className="section-heading work-heading">
           <h2>Proof, in<br/><em>practice.</em></h2>
@@ -263,7 +262,6 @@ export function StudioPage() {
           <div className="services-marker-tab">
             <span className="section-pill">Services</span>
           </div>
-          <span className="services-marker-tagline">FROM THE FIRST QUESTION TO THE WORKING PRODUCT</span>
         </div>
         <div className="section-heading"><h2>Your next chapter.<br/><em>Built together.</em></h2><p>You don’t need to arrive with a technical specification. A messy workflow, an underused dataset or an idea worth testing is a good starting point.</p></div><div className="service-list">{services.map(([title,lead,copy,tools],index)=><details key={title}><summary><span>0{index+1}</span><h3>{title}</h3><p>{lead}</p><b aria-hidden="true">+</b></summary><div className="service-detail"><div className="service-detail-left"><p>{copy}</p><a href="#contact">Let’s discuss it <ArrowGlyph/></a></div><div className="service-detail-right"><TechIconsRow items={tools.split(' / ').map(t=>t.trim())} className="service-tech-icons" /></div></div></details>)}</div></section>
       <ProcessSection />
