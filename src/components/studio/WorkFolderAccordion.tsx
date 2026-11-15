@@ -6,8 +6,9 @@ interface FolderProject {
   number: string;
   tabLabel: string;
   tabPositionClass: string;
+  themeClass: string;
   title: string;
-  subheading: string;
+  discipline: string;
   subtitle: string;
   bullets: string[];
   chapterMeta: string;
@@ -17,46 +18,50 @@ const FOLDER_PROJECTS: FolderProject[] = [
   {
     id: 'mission-01',
     number: '01',
-    tabLabel: 'PROGRAM 1 →',
+    tabLabel: 'PROJECT 01 →',
     tabPositionClass: 'tab-pos-1',
-    title: 'SELF-INTRODUCTION',
-    subheading: '自我介紹',
-    subtitle: 'A clearer picture of inventory. Governed dataset history, ERP normalization and executive reports.',
-    bullets: ['Skills', 'Work content', 'Interests', 'How I grew'],
-    chapterMeta: 'Chapter 01 · page 03',
+    themeClass: 'theme-sage',
+    title: 'MONTHLY INVENTORY VISUALIZATION',
+    discipline: 'Inventory Analytics & Executive BI',
+    subtitle: 'From ERP exports to governed dataset history, aging analysis and executive reports.',
+    bullets: ['ERP Normalization', 'Aging & Risk Rules', 'Governed Cloud History', 'Executive PDF & PPT Reports'],
+    chapterMeta: 'Project 01 · Enterprise Client',
   },
   {
     id: 'mission-03',
     number: '02',
-    tabLabel: 'PROGRAM 2 →',
+    tabLabel: 'PROJECT 02 →',
     tabPositionClass: 'tab-pos-2',
-    title: 'CONTENT OUTPUT',
-    subheading: '內容產出',
+    themeClass: 'theme-stone',
+    title: 'QUARTERLY INVENTORY RECONCILIATION',
+    discipline: 'Audit Reconciliation & Reporting',
     subtitle: 'One model. Every report. Deterministic stock-count reconciliation, discrepancy audit and evidence.',
-    bullets: ['Workbook Validation', 'Deterministic Model', 'Audit Trail', 'Executive Reports'],
-    chapterMeta: 'Chapter 02 · page 04',
+    bullets: ['Workbook Validation', 'Deterministic Model', 'Audit Trail & Evidence', 'Multi-Deliverable Generator'],
+    chapterMeta: 'Project 02 · Enterprise Client',
   },
   {
     id: 'mission-02',
     number: '03',
-    tabLabel: 'PROGRAM 3 →',
+    tabLabel: 'PROJECT 03 →',
     tabPositionClass: 'tab-pos-3',
-    title: 'WORKING PROCESS',
-    subheading: '工作流程',
+    themeClass: 'theme-lilac',
+    title: 'CAREERAI WORKFLOW PLATFORM',
+    discipline: 'AI Application & Product Engineering',
     subtitle: 'Better applications. Less repetition. Structured AI output for resume creation and ATS scoring.',
-    bullets: ['Gemini Flash LLM', 'ATS Scoring', 'Tailored Letters', 'Streamed Generation'],
-    chapterMeta: 'Chapter 03 · page 05',
+    bullets: ['Gemini Flash LLM', 'ATS Scoring & Keywords', 'Tailored Cover Letters', 'Streamed Generation'],
+    chapterMeta: 'Project 03 · CareerAI',
   },
   {
     id: 'mission-04',
     number: '04',
-    tabLabel: 'PROGRAM 4 →',
+    tabLabel: 'PROJECT 04 →',
     tabPositionClass: 'tab-pos-4',
-    title: 'TEAM EVALUATION',
-    subheading: '團隊評價',
+    themeClass: 'theme-ink',
+    title: "MEN'S APPAREL STORE SYSTEM",
+    discipline: 'Store Architecture & Product Systems',
     subtitle: 'Built around fit, fabric and trust. Transparent sizing, GSM details & frictionless Indian checkout.',
-    bullets: ['Fit Confidence UI', 'Fabric & GSM Spec', 'Transparent Returns', 'UPI & COD Flow'],
-    chapterMeta: 'Chapter 04 · page 06',
+    bullets: ['Fit Confidence UI', 'Fabric & GSM Specs', 'Transparent Returns', 'UPI & COD Checkout'],
+    chapterMeta: 'Project 04 · Apparel Label',
   },
 ];
 
@@ -80,7 +85,7 @@ export function WorkFolderAccordion({ onOpenCase, onMinimize }: WorkFolderAccord
           return (
             <div
               key={project.id}
-              className={`folder-card ${project.tabPositionClass} ${isExpanded ? 'is-expanded' : 'is-collapsed'}`}
+              className={`folder-card ${project.themeClass} ${project.tabPositionClass} ${isExpanded ? 'is-expanded' : 'is-collapsed'}`}
               onClick={() => toggleProject(project.id)}
               role="button"
               tabIndex={0}
@@ -110,11 +115,10 @@ export function WorkFolderAccordion({ onOpenCase, onMinimize }: WorkFolderAccord
                       <span className="folder-num">{project.number}</span>
                       <div className="folder-title-wrap">
                         <h3 className="folder-expanded-title">{project.title}</h3>
-                        {project.subheading && (
-                          <span className="folder-subheading">{project.subheading}</span>
-                        )}
+                        <span className="folder-discipline">{project.discipline}</span>
                       </div>
                     </div>
+                    <p className="folder-subtitle">{project.subtitle}</p>
                     <span className="folder-chapter-meta">{project.chapterMeta}</span>
                   </div>
 
