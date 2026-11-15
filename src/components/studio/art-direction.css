@@ -1992,7 +1992,7 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
     color: #CAE8E8 !important;
   }
   .hero-actions {
-    margin: 14px 0 0 !important;
+    margin: clamp(26px, 4.5vh, 36px) 0 0 !important;
     gap: 14px !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
