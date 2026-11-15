@@ -29,6 +29,8 @@ function FooterWordmark() {
   const containerRef = useRef<HTMLAnchorElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const arrowRef = useRef<HTMLSpanElement>(null);
+  const firstRef = useRef<HTMLSpanElement>(null);
+  const lastRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -43,13 +45,27 @@ function FooterWordmark() {
       lastWidth = containerWidth;
 
       const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
-      const textWidth = textEl.getBoundingClientRect().width;
-      const arrowWidth = arrowEl.getBoundingClientRect().width;
-      const totalWidth = textWidth + arrowWidth;
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
 
-      if (totalWidth > 0) {
-        const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
-        container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
+      if (isMobile && firstRef.current && lastRef.current) {
+        const firstWidth = firstRef.current.getBoundingClientRect().width;
+        const lastWidthVal = lastRef.current.getBoundingClientRect().width;
+        const arrowWidth = arrowEl.getBoundingClientRect().width;
+        const maxLineWidth = Math.max(firstWidth, lastWidthVal + arrowWidth);
+
+        if (maxLineWidth > 0) {
+          const targetSize = (containerWidth / maxLineWidth) * currentSize * 0.96;
+          container.style.setProperty('--footer-name-size', `${Math.max(40, targetSize)}px`);
+        }
+      } else {
+        const textWidth = textEl.getBoundingClientRect().width;
+        const arrowWidth = arrowEl.getBoundingClientRect().width;
+        const totalWidth = textWidth + arrowWidth;
+
+        if (totalWidth > 0) {
+          const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
+          container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
+        }
       }
     };
 
@@ -75,7 +91,11 @@ function FooterWordmark() {
       href="#top"
       aria-label="Sufiyan Ahmed — back to top"
     >
-      <span ref={textRef} className="footer-name-text">Sufiyan Ahmed</span>
+      <span ref={textRef} className="footer-name-text">
+        <span ref={firstRef} className="footer-name-first">Sufiyan</span>
+        <span className="footer-name-space"> </span>
+        <span ref={lastRef} className="footer-name-last">Ahmed</span>
+      </span>
       <span ref={arrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
     </a>
   );

@@ -876,6 +876,9 @@ body > .skiptranslate {
 .studio-footer { background:#48252F; color:#CAE8E8; border-top:none !important; border-color:transparent !important; border:none !important; padding-block:40px; flex-wrap:wrap; }
 .studio-footer .wordmark { color:#F2EFE7; font-size:var(--footer-name-size, clamp(38px,13.6vw,320px)); letter-spacing:-.075em; width:100%; display:flex; align-items:baseline; justify-content:space-between; line-height:0.95; padding-bottom:25px; white-space:nowrap; }
 .studio-footer .wordmark .footer-name-text { display:inline-block; white-space:nowrap; letter-spacing:inherit; }
+.studio-footer .wordmark .footer-name-first,
+.studio-footer .wordmark .footer-name-space,
+.studio-footer .wordmark .footer-name-last { display:inline; }
 .studio-footer .wordmark .footer-name-arrow,
 .studio-footer .wordmark>span { font-size:1.05em; display:inline-flex; align-items:baseline; flex-shrink:0; }
 .studio-footer>span { display:block; }
@@ -2090,7 +2093,43 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
     pointer-events:none;
   }
   .studio-footer { padding-inline: 16px; border-top: none !important; border:none !important; }
-  .studio-footer .wordmark { font-size: var(--footer-name-size, clamp(26px, 12.8vw, 65px)); }
+  .studio-footer .wordmark {
+    font-size: var(--footer-name-size, clamp(52px, 17vw, 88px));
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    width: 100% !important;
+    line-height: 0.92 !important;
+    row-gap: 4px !important;
+    padding-bottom: 20px !important;
+    letter-spacing: -0.06em !important;
+    white-space: normal !important;
+  }
+  .studio-footer .wordmark .footer-name-text {
+    display: contents !important;
+  }
+  .studio-footer .wordmark .footer-name-space {
+    display: none !important;
+  }
+  .studio-footer .wordmark .footer-name-first {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  .studio-footer .wordmark .footer-name-last {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    display: block !important;
+  }
+  .studio-footer .wordmark .footer-name-arrow {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    justify-self: end !important;
+    align-self: baseline !important;
+    font-size: 0.95em !important;
+    display: inline-flex !important;
+  }
   .studio-footer .wordmark>span { min-width:0; }
   .studio-footer .phone-arrow-glyph { max-width:100%; }
 }
