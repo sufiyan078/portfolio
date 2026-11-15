@@ -2031,6 +2031,15 @@ body>.skiptranslate {
   min-width: 0;
 }
 
+@media (min-width: 1024px) {
+  .contact-channels {
+    gap: clamp(36px, 4vw, 56px);
+  }
+  .contact-email-block {
+    margin-left: clamp(14px, 1.8vw, 32px);
+  }
+}
+
 .contact-email {
   font-size: clamp(18px, 1.9vw, 28px);
   color: #FFFBD4;
