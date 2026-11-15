@@ -83,7 +83,16 @@ export function createSystemSculpture(host: HTMLElement) {
     if (changing) frame = requestAnimationFrame(draw);
   };
   const schedule = () => { if (!frame && canDraw()) frame = requestAnimationFrame(draw); };
-  const resize = new ResizeObserver(() => { const {width,height}=host.getBoundingClientRect(); if(!width||!height)return; renderer.setSize(width,height,false); camera.aspect=width/height; camera.position.z=camera.aspect<.9?13:11.5; camera.updateProjectionMatrix(); schedule(); });
+  const resize = new ResizeObserver(() => {
+    const { width, height } = host.getBoundingClientRect();
+    if (!width || !height) return;
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    const isPhone = window.matchMedia('(max-width: 640px)').matches;
+    camera.position.z = isPhone ? 15.5 : (camera.aspect < .9 ? 13 : 11.5);
+    camera.updateProjectionMatrix();
+    schedule();
+  });
   resize.observe(host);
   const intersection = new IntersectionObserver(([entry]) => {visible=entry.isIntersecting; if(!visible){cancelAnimationFrame(frame);frame=0;host.dataset.motion='paused';}else schedule();}); intersection.observe(host);
   const root = document.getElementById('root'); const inert = new MutationObserver(schedule); if(root)inert.observe(root,{attributes:true,attributeFilter:['inert']});
