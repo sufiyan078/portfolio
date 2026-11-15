@@ -78,9 +78,9 @@ em { letter-spacing:-.035em; }
 .studio-header .wordmark::before {
   display: none;
 }
-.identity-mark { font-size:35px; font-weight:600; letter-spacing:-.12em; color:var(--accent); padding-right:5px; }
-.identity-name { font-size:14px; font-weight:600; letter-spacing:-.02em; line-height:1.4; }
-.identity-name small { display:block; font-family:var(--font-label); font-size:7px; font-weight:400; letter-spacing:.06em; margin-top:4px; }
+.identity-mark { font-size:36px; font-weight:600; letter-spacing:-.12em; color:var(--accent); padding-right:5px; }
+.identity-name { font-size:20px; font-weight:600; letter-spacing:-.02em; line-height:1.25; }
+.identity-name small { display:block; font-family:var(--font-label); font-size:9.5px; font-weight:400; letter-spacing:.07em; margin-top:4px; }
 .studio-header nav { gap:28px; }
 
 /* Continuous pulse animation for the header "Start a project" CTA across all devices */
@@ -927,8 +927,9 @@ body > .skiptranslate {
   :root { --gutter:24px; }
   .section-pad { padding-block:70px; }
   .studio-header { height:76px; }
-  .identity-mark { font-size:31px; }
-  .identity-name { font-size:12px; }
+  .identity-mark { font-size:32px; }
+  .identity-name { font-size:16px; }
+  .identity-name small { font-size:8px; }
   .header-clock { display:block; }
   .header-right-group { gap:12px; }
   .lang-tab { display:block; }
@@ -1830,8 +1831,8 @@ body > .skiptranslate {
   .studio-header nav>.header-cta { margin: 0; }
 }
 @media(max-width:480px) {
-  .identity-name { font-size: 11px; }
-  .identity-name small { font-size: 6px; }
+  .identity-name { font-size: 13.5px; }
+  .identity-name small { font-size: 7.5px; }
   .studio-header nav>.header-cta { padding: 9px 11px; font-size: 10px; gap: 6px; }
   .header-lang .lang-tab, .header-lang .lang-select { font-size: 10px; }
 }
@@ -1988,15 +1989,15 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   }
   .studio-header .identity-mark {
     line-height: 1;
-    font-size: 26px;
+    font-size: 28px;
   }
   .identity-name {
-    font-size: 11px;
+    font-size: 13.5px;
     line-height: 1.25;
   }
   .identity-name small {
-    font-size: 6.5px;
-    letter-spacing: 0.04em;
+    font-size: 7.5px;
+    letter-spacing: 0.05em;
     margin-top: 2px;
   }
   .studio-header nav>.header-cta {
