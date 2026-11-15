@@ -921,7 +921,79 @@ body > .skiptranslate {
 .behind-build { background:#CAE8E8; margin:0 16px 16px; border-radius:8px; padding:70px calc(var(--gutter) - 16px); }
 .behind-layout h2 { font-size:clamp(43px,5.4vw,82px); }
 .behind-layout dl>div { border-color:#E5BDDF; }
-.studio-contact { background:#48252F; color:#FFFBD4; padding-top:80px; border-bottom:none !important; }
+.studio-contact {
+  position: relative;
+  background: #48252F;
+  color: #FFFBD4;
+  padding-top: 0;
+  border-bottom: none !important;
+}
+.studio-contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: var(--paper);
+  z-index: 1;
+  pointer-events: none;
+}
+.contact-section-marker {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: none;
+  padding-top: 0;
+  margin-bottom: 48px;
+  min-height: 58px;
+}
+.contact-marker-tab {
+  position: relative;
+  z-index: 2;
+  align-self: stretch;
+  justify-self: start;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  background: var(--paper);
+  border-bottom-right-radius: 24px;
+  padding-left: var(--gutter);
+  padding-right: 54px;
+  margin-left: calc(-1 * var(--gutter));
+  min-height: 58px;
+  transition: background 0.25s ease;
+}
+.contact-marker-tab .section-pill {
+  background: rgba(12, 30, 41, 0.05) !important;
+  color: var(--ink) !important;
+  border: 1px solid rgba(179, 143, 111, 0.35) !important;
+}
+.contact-marker-tab .section-pill:hover {
+  background: var(--ink) !important;
+  color: #FFFBD4 !important;
+  border-color: var(--ink) !important;
+}
+.contact-marker-tab::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 100%;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 100% 100%, transparent 21px, var(--paper) 21.5px);
+  pointer-events: none;
+  transition: background 0.25s ease;
+}
+.contact-marker-tagline {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  color: #CAE8E8;
+  padding-top: 14px;
+  margin-left: auto;
+}
 .studio-contact .section-marker { border-color:#B38F6F; color:#FFFBD4; }
 .studio-contact .section-marker>span:last-child { color:#CAE8E8; }
 .contact-intro h2 { font-size:clamp(44px,5.8vw,87px); }
@@ -995,6 +1067,17 @@ body > .skiptranslate {
     min-height: 52px;
   }
   .services-marker-tab::after {
+    top: 9px;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 100% 100%, transparent 17px, var(--paper) 17.5px);
+  }
+  .contact-marker-tab {
+    padding-right: 36px;
+    border-bottom-right-radius: 18px;
+    min-height: 52px;
+  }
+  .contact-marker-tab::after {
     top: 9px;
     width: 18px;
     height: 18px;
@@ -1129,7 +1212,21 @@ body > .skiptranslate {
   .about-copy>.large-copy { font-size:25px; }
   .behind-build { margin-inline:8px; padding:50px 20px; }
   .behind-layout h2 { font-size:47px; }
-  .studio-contact { padding-top:55px; }
+  .studio-contact { padding-top:0; }
+  .studio-contact::before { height:7px; }
+  .contact-section-marker { min-height:48px; margin-bottom:30px; }
+  .contact-marker-tab {
+    min-height:48px;
+    padding-right:22px;
+    border-bottom-right-radius:14px;
+  }
+  .contact-marker-tab::after {
+    top:7px;
+    width:14px;
+    height:14px;
+    background:radial-gradient(circle at 100% 100%, transparent 13px, var(--paper) 13.5px);
+  }
+  .contact-marker-tagline { display:none !important; }
   .contact-intro h2 { font-size:52px; }
   .contact-intro>p { font-size:14px; }
   .contact-email { font-size:20px; }
