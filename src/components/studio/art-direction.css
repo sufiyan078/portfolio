@@ -1977,12 +1977,12 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
     color: #FAAE62;
     font-size: 8px !important;
     letter-spacing: 0.12em !important;
-    margin-bottom: 6px !important;
+    margin-bottom: clamp(14px, 2.2vh, 18px) !important;
   }
   .hero-copy h1 {
     font-size: clamp(30px, 8.2vw, 36px) !important;
     line-height: 1.08 !important;
-    margin: 0 0 clamp(34px, 5vh, 44px) 0 !important;
+    margin: 0 0 clamp(22px, 3.5vh, 30px) 0 !important;
   }
   .hero-copy > p {
     font-size: 12.5px !important;
