@@ -1,10 +1,8 @@
 import { ArrowGlyph } from './ArrowGlyph';
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
-import { PROJECTS } from '../../data/projects';
 import { PLAYER_PROFILE } from '../../data/player';
 import { INVENTORY_CATEGORIES } from '../../data/inventory';
 import { SystemLens } from './SystemLens';
-import { ProjectVisual } from './ProjectVisual';
 import { ProjectContact } from './ProjectContact';
 import { projectOrder, projectPresentation, type ProjectId } from './projectPresentation';
 import { ProcessSection } from './ProcessSection';
@@ -12,6 +10,7 @@ import { LiquidTextMorph } from './LiquidTextMorph';
 import { TechIconsRow } from './TechIconsRow';
 import { FloatingNavBar } from './FloatingNavBar';
 import { HeaderClock, HeaderLang } from './HeaderMeta';
+import { WorkFolderAccordion } from './WorkFolderAccordion';
 const CaseStudy = lazy(() => import('./CaseStudy'));
 const baseTitle = 'Sufiyan Ahmed — Independent Engineer · Web, Data & AI';
 const services = [
@@ -250,22 +249,13 @@ export function StudioPage() {
         </div>
 
         {isWorkExpanded && (
-          <div className="work-expanded-content" id="work-projects-list">
-            {projectOrder.map((id,index)=>{const project=PROJECTS.find(item=>item.id===id)!;const presentation=projectPresentation[id];return <article key={id} className={`work-feature theme-${presentation.theme} is-visible`} data-reveal><a className="work-visual-link" href={`#case/${presentation.slug}`} aria-label={`View ${presentation.shortName} case study`} onClick={event=>{event.preventDefault();openCase(id);}}><ProjectVisual id={id}/></a><div className="work-caption"><div className="work-meta"><span>0{index+1} / {presentation.client}</span><span>{project.status==='COMPLETED'?'Completed':'In development'}</span></div><h3>{presentation.title}</h3><p>{presentation.summary}</p><span className="work-discipline">{presentation.discipline}</span><a href={`#case/${presentation.slug}`} className="case-link" onClick={event=>{event.preventDefault();openCase(id);}}>Explore case study <span aria-hidden="true"><ArrowGlyph/></span><span className="sr-only">: {presentation.shortName}</span></a></div></article>;})}
-
-            <div className="work-collapse-bottom">
-              <button 
-                type="button" 
-                className="work-minimize-btn-large"
-                onClick={() => {
-                  setIsWorkExpanded(false);
-                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Minimize selected work <span>▲</span>
-              </button>
-            </div>
-          </div>
+          <WorkFolderAccordion
+            onOpenCase={openCase}
+            onMinimize={() => {
+              setIsWorkExpanded(false);
+              document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
         )}
       </section>
       <section id="services" className="studio-services section-pad">

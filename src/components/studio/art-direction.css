@@ -5673,3 +5673,374 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
     transition: none;
   }
 }
+
+/* ========================================================
+   WORK FOLDER STACK ACCORDION (Images 2, 3, 4)
+   ======================================================== */
+.work-folder-stage {
+  background: #08141D;
+  border: 1px solid rgba(179, 143, 111, 0.35);
+  border-radius: 20px;
+  padding: clamp(40px, 4.5vw, 68px) clamp(20px, 3.5vw, 48px) 36px;
+  margin-top: 36px;
+  box-shadow: 0 24px 60px rgba(8, 20, 29, 0.3);
+  position: relative;
+}
+
+.work-folder-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 100%;
+}
+
+.folder-card {
+  position: relative;
+  border-radius: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background-color 0.25s ease;
+  user-select: none;
+}
+
+.folder-card:focus-visible {
+  outline: 2px solid #FAAE62;
+  outline-offset: 4px;
+}
+
+/* Folder tab at top edge */
+.folder-tab {
+  position: absolute;
+  top: -30px;
+  height: 31px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 2;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Staggered tab horizontal positions matching Image 2 */
+.folder-card.tab-pos-1 .folder-tab {
+  left: 55%;
+}
+.folder-card.tab-pos-2 .folder-tab {
+  left: 8%;
+}
+.folder-card.tab-pos-3 .folder-tab {
+  left: 72%;
+}
+.folder-card.tab-pos-4 .folder-tab {
+  left: 28%;
+}
+
+/* Signature Concave Fillets on the Tab Base */
+.folder-tab::before,
+.folder-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  transition: background 0.25s ease;
+}
+.folder-tab::before {
+  left: -12px;
+  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #0F2231) 12.5px);
+}
+.folder-tab::after {
+  right: -12px;
+  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #0F2231) 12.5px);
+}
+
+/* --- COLLAPSED STATE (Image 2) --- */
+.folder-card.is-collapsed {
+  --card-bg: #0F2231;
+  background: #0F2231;
+  border: 1px solid rgba(255, 251, 212, 0.1);
+  min-height: 88px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.folder-card.is-collapsed .folder-tab {
+  background: #0F2231;
+  color: rgba(255, 251, 212, 0.75);
+}
+
+.folder-collapsed-content {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 36px);
+  padding: clamp(18px, 2vw, 24px) clamp(20px, 3vw, 40px);
+  min-height: 88px;
+}
+
+.folder-num {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  color: #556E84;
+  flex-shrink: 0;
+}
+
+.folder-collapsed-title {
+  margin: 0;
+  font-family: var(--font-heading), 'Nura', -apple-system, sans-serif;
+  font-size: clamp(22px, 3.4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: rgba(148, 175, 200, 0.32);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.folder-card.is-collapsed:hover {
+  background: #142B3E;
+  --card-bg: #142B3E;
+  border-color: rgba(255, 251, 212, 0.22);
+  transform: translateY(-2px);
+}
+
+.folder-card.is-collapsed:hover .folder-tab {
+  background: #142B3E;
+  color: #FFFBD4;
+}
+
+.folder-card.is-collapsed:hover .folder-collapsed-title {
+  color: rgba(210, 230, 250, 0.85);
+  transform: translateX(4px);
+}
+
+/* --- EXPANDED ACTIVE STATE (Image 3) --- */
+.folder-card.is-expanded {
+  --card-bg: #2B66FF;
+  background: #2B66FF;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 45px rgba(43, 102, 255, 0.35);
+  cursor: default;
+}
+
+.folder-card.is-expanded .folder-tab {
+  background: #2B66FF;
+  color: #FFFFFF;
+}
+
+.folder-expanded-content {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(24px, 3.5vw, 48px);
+  padding: clamp(32px, 3.8vw, 48px) clamp(24px, 3.8vw, 48px);
+  align-items: stretch;
+}
+
+.folder-expanded-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.folder-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.folder-card.is-expanded .folder-num {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.folder-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.folder-expanded-title {
+  margin: 0;
+  font-family: var(--font-heading), 'Nura', -apple-system, sans-serif;
+  font-size: clamp(28px, 4.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.folder-subheading {
+  font-size: clamp(22px, 3.2vw, 36px);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+
+.folder-chapter-meta {
+  display: inline-block;
+  margin-top: clamp(32px, 4vw, 48px);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.folder-expanded-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 28px;
+}
+
+.folder-bullets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.folder-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #FFFFFF;
+}
+
+.folder-bullet-dot {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1;
+}
+
+.folder-bullet-text {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Image 4: Explore the system pill button */
+.folder-explore-btn {
+  margin-top: auto;
+  align-self: flex-end;
+  background: #0C1E29;
+  color: #FFFBD4;
+  border: 1px solid rgba(255, 251, 212, 0.25);
+  border-radius: 9999px;
+  padding: 13px 26px;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.folder-explore-btn span {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.folder-explore-btn:hover {
+  background: #FAAE62;
+  color: #0C1E29;
+  border-color: #FAAE62;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+.folder-explore-btn:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* --- MOBILE RESPONSIVE ADAPTATIONS --- */
+@media (max-width: 860px) {
+  .folder-expanded-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .folder-expanded-right {
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .folder-explore-btn {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .work-folder-stage {
+    padding: 32px 14px 24px;
+    border-radius: 14px;
+  }
+  .work-folder-stack {
+    gap: 24px;
+  }
+  .folder-tab {
+    top: -26px;
+    height: 27px;
+    padding: 0 12px;
+    font-size: 9px;
+  }
+  .folder-card.tab-pos-1 .folder-tab,
+  .folder-card.tab-pos-3 .folder-tab {
+    right: 14px;
+    left: auto;
+  }
+  .folder-card.tab-pos-2 .folder-tab,
+  .folder-card.tab-pos-4 .folder-tab {
+    left: 14px;
+  }
+  .folder-collapsed-content {
+    min-height: 72px;
+    padding: 16px;
+    gap: 14px;
+  }
+  .folder-collapsed-title {
+    font-size: 20px;
+  }
+  .folder-expanded-content {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .folder-expanded-title {
+    font-size: 24px;
+  }
+  .folder-subheading {
+    font-size: 18px;
+  }
+  .folder-bullets-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-width: none;
+  }
+  .folder-explore-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+  }
+}
