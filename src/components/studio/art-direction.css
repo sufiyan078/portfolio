@@ -5929,6 +5929,36 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 /* Tone Colors on Selection (Matching User-Specified Images 2, 3, 4, 5) */
 
+/* Tactile physical cardstock paper & linen texture on expanded folder cards */
+.ftp-band[data-open="true"] .ftp-fbody {
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.2), inset 0 -1.5px 0 rgba(0, 0, 0, 0.16);
+}
+
+.ftp-band[data-open="true"] .ftp-fbody::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    /* Ambient tactile lighting */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, 0.07) 100%),
+    /* Micro-linen tactile weave */
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.018) 0px, rgba(255, 255, 255, 0.018) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.018) 0px, rgba(0, 0, 0, 0.018) 1px, transparent 1px, transparent 3px),
+    /* Authentic cardstock fractal noise */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.055'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+.ftp-band[data-open="true"] .ftp-tabshape {
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.22);
+}
+
 /* Option 1: Image 2 Green (#5E775E) */
 .ftp-folder[data-open="true"][data-tone="green"] {
   --c: #5E775E;
@@ -6011,10 +6041,12 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 /* Expanded content layout */
 .folder-expanded-content {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.25fr 1fr;
   gap: clamp(24px, 3.5vw, 48px);
-  padding: clamp(32px, 3.8vw, 48px) clamp(24px, 3.8vw, 48px);
+  padding: clamp(36px, 4vw, 50px) clamp(28px, 4vw, 52px) clamp(46px, 5vw, 62px);
   align-items: stretch;
 }
 
@@ -6028,13 +6060,20 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 .folder-header-row {
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 16px;
+}
+
+.folder-header-row .ftp-band-n {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .folder-title-wrap {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .folder-expanded-title {
@@ -6066,11 +6105,11 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-subtitle {
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   font-size: 14.5px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--sub-color, #48252F);
-  max-width: 500px;
+  max-width: 520px;
   transition: color .35s ease;
 }
 
@@ -6096,16 +6135,16 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 .folder-bullets-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px clamp(20px, 2.5vw, 32px);
   width: 100%;
-  max-width: 380px;
+  max-width: 440px;
 }
 
 .folder-bullet-item {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: baseline;
+  gap: 9px;
   font-size: 13.5px;
   color: var(--bullet-color, #0C1E29);
   transition: color .35s ease;
@@ -6194,11 +6233,12 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 @media (max-width: 860px) {
   .folder-expanded-content {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 26px;
+    padding: clamp(30px, 3.8vw, 44px) clamp(22px, 3.8vw, 40px) clamp(42px, 5vw, 54px);
   }
   .folder-expanded-right {
     align-items: flex-start;
-    gap: 20px;
+    gap: 24px;
   }
   .folder-explore-btn {
     align-self: flex-start;
@@ -6233,8 +6273,8 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
     font-size: 18px;
   }
   .folder-expanded-content {
-    padding: 24px 16px;
-    gap: 20px;
+    padding: 26px 18px clamp(38px, 6vw, 48px);
+    gap: 22px;
   }
   .folder-expanded-title {
     font-size: 22px;
@@ -6244,7 +6284,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   }
   .folder-bullets-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 10px;
     max-width: none;
   }
   .folder-explore-btn {
