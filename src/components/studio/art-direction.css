@@ -5675,24 +5675,26 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 /* ========================================================
-   WORK FOLDER STACK ACCORDION (Images 2, 3, 4)
-   Colors harmonize with the entire portfolio design system:
-   --paper, --ink, --line, --accent, --lime, --sage, --stone, --lilac
+   WORK FOLDER STACK ACCORDION (Images 2, 3, 4) - LIGHT THEME
+   Harmonizes with portfolio light system:
+   --paper (#F2EFE7), --ink (#0C1E29), --line (#B38F6F),
+   --accent (#8B004A), --lime (#FFFBD4), --sage, --stone, --lilac
    ======================================================== */
 .work-folder-stage {
-  background: #0C1E29;
-  border: 1px solid #B38F6F;
-  border-radius: 20px;
-  padding: clamp(40px, 4.5vw, 68px) clamp(20px, 3.5vw, 48px) clamp(36px, 4.5vw, 48px);
-  margin-top: 36px;
-  box-shadow: 0 20px 50px rgba(12, 30, 41, 0.22);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 12px 0 clamp(36px, 4vw, 56px);
+  margin-top: 24px;
+  box-shadow: none;
   position: relative;
 }
 
 .work-folder-stack {
   display: flex;
   flex-direction: column;
-  gap: 34px;
+  gap: 26px;
+  padding-top: 36px;
   width: 100%;
 }
 
@@ -5709,22 +5711,22 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card:focus-visible {
-  outline: 2px solid #FAAE62;
+  outline: 2px solid #8B004A;
   outline-offset: 4px;
 }
 
 /* Folder tab at top edge */
 .folder-tab {
   position: absolute;
-  top: -30px;
-  height: 31px;
-  padding: 0 18px;
+  top: -28px;
+  height: 29px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   font-family: var(--font-label);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5759,43 +5761,45 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 .folder-tab::before {
   left: -12px;
-  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #112634) 12.5px);
+  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
 }
 .folder-tab::after {
   right: -12px;
-  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #112634) 12.5px);
+  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
 }
 
-/* --- COLLAPSED STATE (Image 2) --- */
+/* --- COLLAPSED STATE (Image 2 - Clean Light Cards) --- */
 .folder-card.is-collapsed {
-  --card-bg: #112634;
-  background: #112634;
-  border: 1px solid rgba(179, 143, 111, 0.28);
-  min-height: 88px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  --card-bg: #FFFFFF;
+  --folder-border: rgba(179, 143, 111, 0.45);
+  background: #FFFFFF;
+  border: 1.5px solid var(--folder-border);
+  min-height: 86px;
+  box-shadow: 0 4px 18px rgba(12, 30, 41, 0.04);
 }
 
 .folder-card.is-collapsed .folder-tab {
-  background: #112634;
-  color: #FFFBD4;
-  border-top: 1px solid rgba(179, 143, 111, 0.4);
-  border-left: 1px solid rgba(179, 143, 111, 0.4);
-  border-right: 1px solid rgba(179, 143, 111, 0.4);
+  background: #FFFFFF;
+  color: #8B004A;
+  border-top: 1.5px solid var(--folder-border);
+  border-left: 1.5px solid var(--folder-border);
+  border-right: 1.5px solid var(--folder-border);
+  border-bottom: none;
 }
 
 .folder-collapsed-content {
   display: flex;
   align-items: center;
   gap: clamp(16px, 2.5vw, 36px);
-  padding: clamp(18px, 2vw, 24px) clamp(20px, 3vw, 40px);
-  min-height: 88px;
+  padding: clamp(18px, 2vw, 24px) clamp(22px, 3.2vw, 44px);
+  min-height: 86px;
 }
 
 .folder-num {
   font-family: var(--font-label);
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
-  color: #FAAE62;
+  color: #8B004A;
   flex-shrink: 0;
 }
 
@@ -5806,91 +5810,143 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: rgba(202, 232, 232, 0.45);
+  color: rgba(12, 30, 41, 0.24);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .folder-card.is-collapsed:hover {
-  background: #183344;
-  --card-bg: #183344;
-  border-color: #FAAE62;
+  background: #FFFDF9;
+  --card-bg: #FFFDF9;
+  border-color: #8B004A;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 10px 28px rgba(139, 0, 74, 0.08);
 }
 
 .folder-card.is-collapsed:hover .folder-tab {
-  background: #183344;
-  color: #FAAE62;
-  border-color: #FAAE62;
+  background: #FFFDF9;
+  color: #8B004A;
+  border-color: #8B004A;
 }
 
 .folder-card.is-collapsed:hover .folder-collapsed-title {
-  color: #FFFBD4;
+  color: #0C1E29;
   transform: translateX(6px);
 }
 
-/* --- EXPANDED ACTIVE THEMES (Image 3) --- */
+/* --- EXPANDED ACTIVE LIGHT THEMES (Image 3) --- */
 /* Theme Sage (Project 01) */
 .folder-card.theme-sage.is-expanded {
-  --card-bg: #1D3B2F;
-  background: linear-gradient(145deg, #254A3B, #1A362A);
-  border: 1px solid #5E775E;
-  box-shadow: 0 16px 45px rgba(26, 54, 42, 0.45);
+  --card-bg: #F4FAF7;
+  --folder-border: #4D7B6A;
+  background: linear-gradient(150deg, #FFFFFF, #EDF7F3);
+  border: 1.5px solid var(--folder-border);
+  box-shadow: 0 16px 45px rgba(44, 94, 77, 0.08), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-sage.is-expanded .folder-tab {
-  background: #254A3B;
-  color: #FFFBD4;
-  border-top: 1px solid #5E775E;
-  border-left: 1px solid #5E775E;
-  border-right: 1px solid #5E775E;
+  background: #EDF7F3;
+  color: #2C5E4D;
+  border-top: 1.5px solid var(--folder-border);
+  border-left: 1.5px solid var(--folder-border);
+  border-right: 1.5px solid var(--folder-border);
+}
+.folder-card.theme-sage.is-expanded .folder-num {
+  color: #2C5E4D;
+}
+.folder-card.theme-sage.is-expanded .folder-discipline {
+  color: #2C5E4D;
+  background: rgba(44, 94, 77, 0.08);
+  border: 1px solid rgba(44, 94, 77, 0.25);
+}
+.folder-card.theme-sage.is-expanded .folder-chapter-meta,
+.folder-card.theme-sage.is-expanded .folder-bullet-dot {
+  color: #2C5E4D;
 }
 
 /* Theme Stone (Project 02) */
 .folder-card.theme-stone.is-expanded {
-  --card-bg: #633216;
-  background: linear-gradient(145deg, #7A3E1B, #592B12);
-  border: 1px solid #B38F6F;
-  box-shadow: 0 16px 45px rgba(89, 43, 18, 0.45);
+  --card-bg: #FAF5EE;
+  --folder-border: #B38F6F;
+  background: linear-gradient(150deg, #FFFFFF, #F8EFE5);
+  border: 1.5px solid var(--folder-border);
+  box-shadow: 0 16px 45px rgba(179, 143, 111, 0.12), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-stone.is-expanded .folder-tab {
-  background: #7A3E1B;
-  color: #FFFBD4;
-  border-top: 1px solid #B38F6F;
-  border-left: 1px solid #B38F6F;
-  border-right: 1px solid #B38F6F;
+  background: #F8EFE5;
+  color: #875734;
+  border-top: 1.5px solid var(--folder-border);
+  border-left: 1.5px solid var(--folder-border);
+  border-right: 1.5px solid var(--folder-border);
+}
+.folder-card.theme-stone.is-expanded .folder-num {
+  color: #875734;
+}
+.folder-card.theme-stone.is-expanded .folder-discipline {
+  color: #875734;
+  background: rgba(179, 143, 111, 0.12);
+  border: 1px solid rgba(179, 143, 111, 0.3);
+}
+.folder-card.theme-stone.is-expanded .folder-chapter-meta,
+.folder-card.theme-stone.is-expanded .folder-bullet-dot {
+  color: #875734;
 }
 
 /* Theme Lilac / Wine (Project 03) */
 .folder-card.theme-lilac.is-expanded {
-  --card-bg: #52142E;
-  background: linear-gradient(145deg, #6B1D3D, #461026);
-  border: 1px solid #8B004A;
-  box-shadow: 0 16px 45px rgba(70, 16, 38, 0.45);
+  --card-bg: #FAF2F6;
+  --folder-border: #8B004A;
+  background: linear-gradient(150deg, #FFFFFF, #F6EAF1);
+  border: 1.5px solid var(--folder-border);
+  box-shadow: 0 16px 45px rgba(139, 0, 74, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-lilac.is-expanded .folder-tab {
-  background: #6B1D3D;
-  color: #FFFBD4;
-  border-top: 1px solid #8B004A;
-  border-left: 1px solid #8B004A;
-  border-right: 1px solid #8B004A;
+  background: #F6EAF1;
+  color: #8B004A;
+  border-top: 1.5px solid var(--folder-border);
+  border-left: 1.5px solid var(--folder-border);
+  border-right: 1.5px solid var(--folder-border);
+}
+.folder-card.theme-lilac.is-expanded .folder-num {
+  color: #8B004A;
+}
+.folder-card.theme-lilac.is-expanded .folder-discipline {
+  color: #8B004A;
+  background: rgba(139, 0, 74, 0.08);
+  border: 1px solid rgba(139, 0, 74, 0.25);
+}
+.folder-card.theme-lilac.is-expanded .folder-chapter-meta,
+.folder-card.theme-lilac.is-expanded .folder-bullet-dot {
+  color: #8B004A;
 }
 
-/* Theme Ink (Project 04) */
+/* Theme Ink / Slate (Project 04) */
 .folder-card.theme-ink.is-expanded {
-  --card-bg: #11222E;
-  background: linear-gradient(145deg, #183142, #0E1B25);
-  border: 1px solid rgba(179, 143, 111, 0.45);
-  box-shadow: 0 16px 45px rgba(14, 27, 37, 0.55);
+  --card-bg: #F2F5F8;
+  --folder-border: #23485E;
+  background: linear-gradient(150deg, #FFFFFF, #EBF1F5);
+  border: 1.5px solid var(--folder-border);
+  box-shadow: 0 16px 45px rgba(35, 72, 94, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-ink.is-expanded .folder-tab {
-  background: #183142;
-  color: #FFFBD4;
-  border-top: 1px solid rgba(179, 143, 111, 0.45);
-  border-left: 1px solid rgba(179, 143, 111, 0.45);
-  border-right: 1px solid rgba(179, 143, 111, 0.45);
+  background: #EBF1F5;
+  color: #183A4C;
+  border-top: 1.5px solid var(--folder-border);
+  border-left: 1.5px solid var(--folder-border);
+  border-right: 1.5px solid var(--folder-border);
+}
+.folder-card.theme-ink.is-expanded .folder-num {
+  color: #183A4C;
+}
+.folder-card.theme-ink.is-expanded .folder-discipline {
+  color: #183A4C;
+  background: rgba(35, 72, 94, 0.1);
+  border: 1px solid rgba(35, 72, 94, 0.25);
+}
+.folder-card.theme-ink.is-expanded .folder-chapter-meta,
+.folder-card.theme-ink.is-expanded .folder-bullet-dot {
+  color: #183A4C;
 }
 
 .folder-card.is-expanded {
@@ -5919,9 +5975,8 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card.is-expanded .folder-num {
-  font-size: 15px;
-  font-weight: 700;
-  color: #FAAE62;
+  font-size: 16px;
+  font-weight: 800;
   margin-top: 6px;
   flex-shrink: 0;
 }
@@ -5940,18 +5995,15 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   line-height: 1.15;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #FFFBD4;
+  color: #0C1E29;
 }
 
 .folder-discipline {
   font-family: var(--font-label);
   font-size: 10.5px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #CAE8E8;
-  background: rgba(202, 232, 232, 0.12);
-  border: 1px solid rgba(202, 232, 232, 0.22);
   padding: 3px 10px;
   border-radius: 4px;
   display: inline-block;
@@ -5960,9 +6012,9 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 .folder-subtitle {
   margin: 14px 0 0;
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.6;
-  color: #F2EFE7;
+  color: #48252F;
   max-width: 500px;
 }
 
@@ -5974,7 +6026,6 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #FAAE62;
 }
 
 .folder-expanded-right {
@@ -5997,18 +6048,17 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: #F2EFE7;
+  font-size: 13.5px;
+  color: #0C1E29;
 }
 
 .folder-bullet-dot {
   font-size: 11px;
-  color: #FAAE62;
   line-height: 1;
 }
 
 .folder-bullet-text {
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -6018,7 +6068,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   align-self: flex-end;
   background: #0C1E29;
   color: #FFFBD4;
-  border: 1px solid rgba(179, 143, 111, 0.5);
+  border: 1px solid #0C1E29;
   border-radius: 9999px;
   padding: 13px 26px;
   font-family: var(--font-body), -apple-system, sans-serif;
@@ -6029,7 +6079,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.4);
+  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.2);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -6039,39 +6089,42 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-explore-btn:hover {
-  background: #FAAE62;
-  color: #0C1E29;
-  border-color: #FAAE62;
+  background: #8B004A;
+  color: #FFFFFF;
+  border-color: #8B004A;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 22px rgba(139, 0, 74, 0.25);
 }
 
 .folder-explore-btn:hover span {
   transform: translate(2px, -2px);
 }
 
-/* Minimize button inside folder stage */
+/* Minimize button safely below project cards with generous clearance */
 .work-folder-stage .work-collapse-bottom {
   display: flex;
   justify-content: center;
-  margin-top: clamp(44px, 5vw, 64px);
+  margin-top: clamp(48px, 6vw, 76px);
+  margin-bottom: 24px;
   padding: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .work-folder-stage .work-minimize-btn-large {
-  background: #112634;
+  background: #0C1E29;
   color: #FFFBD4;
   border: 1px solid rgba(179, 143, 111, 0.45);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 16px rgba(12, 30, 41, 0.15);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .work-folder-stage .work-minimize-btn-large:hover {
-  background: #FAAE62;
-  color: #0C1E29;
-  border-color: #FAAE62;
+  background: #8B004A;
+  color: #FFFFFF;
+  border-color: #8B004A;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 24px rgba(139, 0, 74, 0.25);
 }
 
 /* --- MOBILE RESPONSIVE ADAPTATIONS --- */
@@ -6091,17 +6144,17 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 @media (max-width: 760px) {
   .work-folder-stage {
-    padding: 32px 14px 24px;
-    border-radius: 14px;
+    padding: 20px 0 24px;
   }
   .work-folder-stack {
-    gap: 24px;
+    gap: 20px;
+    padding-top: 30px;
   }
   .folder-tab {
     top: -26px;
     height: 27px;
-    padding: 0 12px;
-    font-size: 9px;
+    padding: 0 14px;
+    font-size: 9.5px;
   }
   .folder-card.tab-pos-1 .folder-tab,
   .folder-card.tab-pos-3 .folder-tab {
@@ -6141,6 +6194,6 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
     padding: 12px 18px;
   }
   .work-folder-stage .work-collapse-bottom {
-    margin-top: 28px;
+    margin-top: 36px;
   }
 }
