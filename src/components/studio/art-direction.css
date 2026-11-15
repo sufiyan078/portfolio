@@ -1982,7 +1982,7 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
   .hero-copy h1 {
     font-size: clamp(30px, 8.2vw, 36px) !important;
     line-height: 1.08 !important;
-    margin: 0 0 clamp(22px, 3.2vh, 28px) 0 !important;
+    margin: 0 0 clamp(34px, 5vh, 44px) 0 !important;
   }
   .hero-copy > p {
     font-size: 12.5px !important;
@@ -1992,7 +1992,7 @@ body > [class*="VIpgJd-ZVi9od-aZ2wEe"] { display:none !important; }
     color: #CAE8E8 !important;
   }
   .hero-actions {
-    margin: clamp(24px, 4vh, 34px) 0 0 !important;
+    margin: clamp(16px, 2.8vh, 24px) 0 0 !important;
     gap: 14px !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
