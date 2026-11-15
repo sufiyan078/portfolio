@@ -703,7 +703,7 @@ body>.skiptranslate {
   gap: 40px;
   padding-top: 45px;
   margin-top: 45px;
-  border-top: 1px solid var(--line);
+  border-top: none;
 }
 
 .manifesto-bottom>span {
