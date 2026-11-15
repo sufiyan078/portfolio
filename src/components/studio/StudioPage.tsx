@@ -247,7 +247,7 @@ export function StudioPage() {
           </button>
         </div>
 
-        {isWorkExpanded && (
+        <div style={{ display: isWorkExpanded ? 'block' : 'none' }}>
           <WorkFolderAccordion
             onOpenCase={openCase}
             onMinimize={() => {
@@ -255,7 +255,7 @@ export function StudioPage() {
               document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
             }}
           />
-        )}
+        </div>
       </section>
       <section id="services" className="studio-services section-pad">
         <div className="section-marker services-section-marker">

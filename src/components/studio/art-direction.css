@@ -5901,6 +5901,12 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 .ftp-band[data-open="true"]:hover {
   transform: none;
 }
+.ftp-band[data-open="true"] .ftp-band-head {
+  display: none !important;
+}
+.ftp-band[data-open="false"] .folder-expanded-content {
+  display: none !important;
+}
 .ftp-band[data-open="true"] .ftp-band-t {
   color: var(--on, #8B004A);
   transform: none;

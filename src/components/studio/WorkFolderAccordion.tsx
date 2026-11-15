@@ -105,53 +105,51 @@ export function WorkFolderAccordion({ onOpenCase, onMinimize }: WorkFolderAccord
               </span>
 
               <div className="ftp-fbody">
-                {!isExpanded ? (
-                  /* Collapsed View matching Template */
-                  <div className="ftp-band-head">
-                    <span className="ftp-band-n">{project.number}</span>
-                    <span style={{ minWidth: 0 }}>
-                      <span className="ftp-band-t">{project.title}</span>
-                    </span>
+                {/* Collapsed View matching Template */}
+                <div className="ftp-band-head">
+                  <span className="ftp-band-n">{project.number}</span>
+                  <span style={{ minWidth: 0 }}>
+                    <span className="ftp-band-t">{project.title}</span>
+                  </span>
+                </div>
+
+                {/* Expanded View matching Image 3 */}
+                <div className="folder-expanded-content">
+                  <div className="folder-expanded-left">
+                    <div className="folder-header-row">
+                      <span className="ftp-band-n">{project.number}</span>
+                      <div className="folder-title-wrap">
+                        <h3 className="folder-expanded-title">{project.title}</h3>
+                        <span className="folder-discipline">{project.discipline}</span>
+                      </div>
+                    </div>
+                    <p className="folder-subtitle">{project.subtitle}</p>
+                    <span className="folder-chapter-meta">{project.chapterMeta}</span>
                   </div>
-                ) : (
-                  /* Expanded View matching Image 3 */
-                  <div className="folder-expanded-content">
-                    <div className="folder-expanded-left">
-                      <div className="folder-header-row">
-                        <span className="ftp-band-n">{project.number}</span>
-                        <div className="folder-title-wrap">
-                          <h3 className="folder-expanded-title">{project.title}</h3>
-                          <span className="folder-discipline">{project.discipline}</span>
+
+                  <div className="folder-expanded-right">
+                    <div className="folder-bullets-grid">
+                      {project.bullets.map((bullet, idx) => (
+                        <div key={idx} className="folder-bullet-item">
+                          <span className="folder-bullet-dot">○</span>
+                          <span className="folder-bullet-text">{bullet}</span>
                         </div>
-                      </div>
-                      <p className="folder-subtitle">{project.subtitle}</p>
-                      <span className="folder-chapter-meta">{project.chapterMeta}</span>
+                      ))}
                     </div>
 
-                    <div className="folder-expanded-right">
-                      <div className="folder-bullets-grid">
-                        {project.bullets.map((bullet, idx) => (
-                          <div key={idx} className="folder-bullet-item">
-                            <span className="folder-bullet-dot">○</span>
-                            <span className="folder-bullet-text">{bullet}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <button
-                        type="button"
-                        className="folder-explore-btn"
-                        onClick={e => {
-                          e.stopPropagation();
-                          onOpenCase(project.id);
-                        }}
-                        aria-label={`Explore ${project.title}`}
-                      >
-                        Explore the system <span>↗</span>
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      className="folder-explore-btn"
+                      onClick={e => {
+                        e.stopPropagation();
+                        onOpenCase(project.id);
+                      }}
+                      aria-label={`Explore ${project.title}`}
+                    >
+                      Explore the system <span>↗</span>
+                    </button>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           );
