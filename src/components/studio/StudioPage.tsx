@@ -27,16 +27,14 @@ function caseFromHash(): ProjectId | null {
 
 function FooterWordmark() {
   const containerRef = useRef<HTMLAnchorElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const arrowRef = useRef<HTMLSpanElement>(null);
-  const firstRef = useRef<HTMLSpanElement>(null);
-  const lastRef = useRef<HTMLSpanElement>(null);
+  const desktopTextRef = useRef<HTMLSpanElement>(null);
+  const desktopArrowRef = useRef<HTMLSpanElement>(null);
+  const mobileLine1Ref = useRef<HTMLSpanElement>(null);
+  const mobileLine2Ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    const textEl = textRef.current;
-    const arrowEl = arrowRef.current;
-    if (!container || !textEl || !arrowEl) return;
+    if (!container) return;
 
     let lastWidth = 0;
     const fit = () => {
@@ -44,27 +42,41 @@ function FooterWordmark() {
       if (containerWidth <= 0 || containerWidth === lastWidth) return;
       lastWidth = containerWidth;
 
-      const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
       const isMobile = window.matchMedia('(max-width: 640px)').matches;
 
-      if (isMobile && firstRef.current && lastRef.current) {
-        const firstWidth = firstRef.current.getBoundingClientRect().width;
-        const lastWidthVal = lastRef.current.getBoundingClientRect().width;
-        const arrowWidth = arrowEl.getBoundingClientRect().width;
-        const maxLineWidth = Math.max(firstWidth, lastWidthVal + arrowWidth);
+      if (isMobile) {
+        if (mobileLine1Ref.current) {
+          const el = mobileLine1Ref.current;
+          const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 80;
+          const w = el.getBoundingClientRect().width;
+          if (w > 0) {
+            const target = (containerWidth / w) * currentSize * 0.985;
+            container.style.setProperty('--footer-line1-size', `${Math.max(40, target)}px`);
+          }
+        }
 
-        if (maxLineWidth > 0) {
-          const targetSize = (containerWidth / maxLineWidth) * currentSize * 0.96;
-          container.style.setProperty('--footer-name-size', `${Math.max(40, targetSize)}px`);
+        if (mobileLine2Ref.current) {
+          const el = mobileLine2Ref.current;
+          const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 75;
+          const w = el.getBoundingClientRect().width;
+          if (w > 0) {
+            const target = (containerWidth / w) * currentSize * 0.985;
+            container.style.setProperty('--footer-line2-size', `${Math.max(35, target)}px`);
+          }
         }
       } else {
-        const textWidth = textEl.getBoundingClientRect().width;
-        const arrowWidth = arrowEl.getBoundingClientRect().width;
-        const totalWidth = textWidth + arrowWidth;
+        const textEl = desktopTextRef.current;
+        const arrowEl = desktopArrowRef.current;
+        if (textEl && arrowEl) {
+          const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
+          const textWidth = textEl.getBoundingClientRect().width;
+          const arrowWidth = arrowEl.getBoundingClientRect().width;
+          const totalWidth = textWidth + arrowWidth;
 
-        if (totalWidth > 0) {
-          const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
-          container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
+          if (totalWidth > 0) {
+            const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
+            container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
+          }
         }
       }
     };
@@ -91,12 +103,18 @@ function FooterWordmark() {
       href="#top"
       aria-label="Sufiyan Ahmed — back to top"
     >
-      <span ref={textRef} className="footer-name-text">
-        <span ref={firstRef} className="footer-name-first">Sufiyan</span>
-        <span className="footer-name-space"> </span>
-        <span ref={lastRef} className="footer-name-last">Ahmed</span>
+      <span className="footer-desktop-view">
+        <span ref={desktopTextRef} className="footer-name-text">Sufiyan Ahmed</span>
+        <span ref={desktopArrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
       </span>
-      <span ref={arrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
+
+      <span className="footer-mobile-view" aria-hidden="true">
+        <span ref={mobileLine1Ref} className="footer-mobile-line1">Sufiyan</span>
+        <span ref={mobileLine2Ref} className="footer-mobile-line2">
+          <span>Ahmed</span>
+          <span className="footer-mobile-arrow"><ArrowGlyph /></span>
+        </span>
+      </span>
     </a>
   );
 }
