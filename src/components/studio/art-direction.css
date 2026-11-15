@@ -3770,7 +3770,7 @@ body>.skiptranslate {
   }
 }
 
-@media(max-height:740px), (prefers-reduced-motion:reduce) {
+@media(prefers-reduced-motion:reduce) {
   .case-transformation {
     --system-progress: 1;
   }
@@ -3813,7 +3813,7 @@ body>.skiptranslate {
   }
 }
 
-@media(max-height:740px), (prefers-reduced-motion:reduce) {
+@media(prefers-reduced-motion:reduce) {
   .flow-output {
     opacity: 1;
   }

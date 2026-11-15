@@ -17,7 +17,7 @@ function CaseSystem({ id }: { id: ProjectId }) {
   const [step, setStep] = useState(0);
   const update = useCallback((progress: number, reduced: boolean) => {
     const host = stage.current; if (!host) return;
-    const staticView = reduced || window.innerHeight <= 740;
+    const staticView = reduced;
     const active = staticView ? 4 : Math.min(4, Math.floor(progress * 5));
     setStep(current => current === active ? current : active);
     host.style.setProperty('--system-progress', String(staticView ? 1 : progress));

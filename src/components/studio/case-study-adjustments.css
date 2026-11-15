@@ -25,8 +25,18 @@
   .case-study .case-transformation .flow-core,
   .case-study .case-transformation .flow-output { width:94%; }
 }
-@media(max-height:740px),(prefers-reduced-motion:reduce) {
+@media(prefers-reduced-motion:reduce) {
   .case-study .case-transformation .flow-output { transform:translateX(-50%); }
+}
+@media(min-width:761px) and (max-height:800px) {
+  .case-system-stage {
+    top: 60px;
+    min-height: 460px;
+    height: calc(100svh - 75px);
+  }
+  .case-transformation {
+    height: min(480px, calc(100svh - 100px));
+  }
 }
 @media(prefers-reduced-motion:reduce) {
   .case-study .case-transformation .flow-input,
