@@ -243,7 +243,7 @@ export function StudioPage() {
             aria-expanded={isWorkExpanded}
             aria-controls="work-projects-list"
           >
-            <span>Need a website, app, AI tool or reports? See all our services</span>
+            <span>Need a website, app, AI tool or reports? <span className="work-prompt-orange">See all our services</span></span>
             <span className="prompt-arrow" aria-hidden="true"><ArrowGlyph /></span>
           </button>
         </div>

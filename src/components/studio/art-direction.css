@@ -893,6 +893,11 @@ body>.skiptranslate {
   display: inline;
 }
 
+.work-prompt-orange {
+  color: #C87740;
+  transition: color 0.2s ease;
+}
+
 .work-reference-prompt:hover {
   color: var(--accent);
   border-color: var(--ink);
