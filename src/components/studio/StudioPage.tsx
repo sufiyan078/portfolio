@@ -27,14 +27,14 @@ function caseFromHash(): ProjectId | null {
 
 function FooterWordmark() {
   const containerRef = useRef<HTMLAnchorElement>(null);
-  const desktopTextRef = useRef<HTMLSpanElement>(null);
-  const desktopArrowRef = useRef<HTMLSpanElement>(null);
-  const mobileLine1Ref = useRef<HTMLSpanElement>(null);
-  const mobileLine2Ref = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const arrowRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    const textEl = textRef.current;
+    const arrowEl = arrowRef.current;
+    if (!container || !textEl || !arrowEl) return;
 
     let lastWidth = 0;
     const fit = () => {
@@ -42,42 +42,14 @@ function FooterWordmark() {
       if (containerWidth <= 0 || containerWidth === lastWidth) return;
       lastWidth = containerWidth;
 
-      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
+      const textWidth = textEl.getBoundingClientRect().width;
+      const arrowWidth = arrowEl.getBoundingClientRect().width;
+      const totalWidth = textWidth + arrowWidth;
 
-      if (isMobile) {
-        if (mobileLine1Ref.current) {
-          const el = mobileLine1Ref.current;
-          const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 80;
-          const w = el.getBoundingClientRect().width;
-          if (w > 0) {
-            const target = (containerWidth / w) * currentSize * 0.98;
-            container.style.setProperty('--footer-line1-size', `${Math.max(40, target)}px`);
-          }
-        }
-
-        if (mobileLine2Ref.current) {
-          const el = mobileLine2Ref.current;
-          const currentSize = parseFloat(window.getComputedStyle(el).fontSize) || 75;
-          const w = el.getBoundingClientRect().width;
-          if (w > 0) {
-            const target = (containerWidth / w) * currentSize * 0.93;
-            container.style.setProperty('--footer-line2-size', `${Math.max(35, target)}px`);
-          }
-        }
-      } else {
-        const textEl = desktopTextRef.current;
-        const arrowEl = desktopArrowRef.current;
-        if (textEl && arrowEl) {
-          const currentSize = parseFloat(window.getComputedStyle(container).fontSize) || 100;
-          const textWidth = textEl.getBoundingClientRect().width;
-          const arrowWidth = arrowEl.getBoundingClientRect().width;
-          const totalWidth = textWidth + arrowWidth;
-
-          if (totalWidth > 0) {
-            const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
-            container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
-          }
-        }
+      if (totalWidth > 0) {
+        const targetSize = (containerWidth / totalWidth) * currentSize * 0.985;
+        container.style.setProperty('--footer-name-size', `${Math.max(20, targetSize)}px`);
       }
     };
 
@@ -103,18 +75,8 @@ function FooterWordmark() {
       href="#top"
       aria-label="Sufiyan Ahmed — back to top"
     >
-      <span className="footer-desktop-view">
-        <span ref={desktopTextRef} className="footer-name-text">Sufiyan Ahmed</span>
-        <span ref={desktopArrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
-      </span>
-
-      <span className="footer-mobile-view" aria-hidden="true">
-        <span ref={mobileLine1Ref} className="footer-mobile-line1">Sufiyan</span>
-        <span ref={mobileLine2Ref} className="footer-mobile-line2">
-          <span>Ahmed</span>
-          <span className="footer-mobile-arrow"><ArrowGlyph /></span>
-        </span>
-      </span>
+      <span ref={textRef} className="footer-name-text">Sufiyan Ahmed</span>
+      <span ref={arrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
     </a>
   );
 }
