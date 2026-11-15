@@ -5675,83 +5675,79 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 /* ========================================================
-   WORK FOLDER STACK ACCORDION (Images 2, 3, 4) - DISTINCT LIGHT COLORS
-   Harmonizes with portfolio light system:
-   Sage (#DCEFEA), Stone (#FCE6D2), Lilac (#F7DCEB), Ink Slate (#DDE8F0)
-   with high-contrast crisp text (#0C1E29) for supreme readability.
+   WORK FOLDER STACK ACCORDION (Exact Reference: Images 2, 3, 4)
+   - Image 2: Physical overlapping folder stack, dark navy/slate
+     editorial aesthetic, staggered tabs with concave fillets,
+     ghosted all-caps titles with crisp hover elevation.
+   - Image 3: Active royal cobalt blue expanded card dossier.
+   - Image 4: Dark pill "Explore the system ↗" button.
    ======================================================== */
 .work-folder-stage {
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 12px 0 clamp(36px, 4vw, 56px);
-  margin-top: 24px;
-  box-shadow: none;
+  background: #09131D;
+  border: 1px solid rgba(100, 150, 190, 0.22);
+  border-radius: 20px;
+  padding: 48px clamp(16px, 3.5vw, 44px) clamp(36px, 4vw, 48px);
+  margin-top: 32px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   position: relative;
 }
 
 .work-folder-stack {
   display: flex;
   flex-direction: column;
-  gap: 26px;
-  padding-top: 36px;
+  padding-top: 34px;
   width: 100%;
-}
-
-/* Theme Color Tokens for Each Project Card */
-.folder-card.theme-sage {
-  --card-bg: #DCEFEA;
-  --folder-border: #7EA698;
-  --num-color: #164334;
-}
-
-.folder-card.theme-stone {
-  --card-bg: #FCE6D2;
-  --folder-border: #C89973;
-  --num-color: #663311;
-}
-
-.folder-card.theme-lilac {
-  --card-bg: #F7DCEB;
-  --folder-border: #BE779F;
-  --num-color: #681642;
-}
-
-.folder-card.theme-ink {
-  --card-bg: #DDE8F0;
-  --folder-border: #80A1B8;
-  --num-color: #143750;
 }
 
 .folder-card {
   position: relative;
-  border-radius: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   cursor: pointer;
   outline: none;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              background-color 0.25s ease;
+              background 0.25s ease,
+              border-color 0.25s ease;
   user-select: none;
 }
 
+/* Authentic Physical Overlap matching Image 2 */
+.folder-card:nth-child(1) {
+  z-index: 1;
+}
+.folder-card:nth-child(2) {
+  z-index: 2;
+  margin-top: -14px;
+}
+.folder-card:nth-child(3) {
+  z-index: 3;
+  margin-top: -14px;
+}
+.folder-card:nth-child(4) {
+  z-index: 4;
+  margin-top: -14px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
 .folder-card:focus-visible {
-  outline: 2px solid var(--num-color, #8B004A);
+  outline: 2px solid #3B82F6;
   outline-offset: 4px;
 }
 
 /* Folder tab at top edge */
 .folder-tab {
   position: absolute;
-  top: -28px;
-  height: 29px;
+  top: -27px;
+  height: 28px;
   padding: 0 20px;
   display: flex;
   align-items: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   font-family: var(--font-label);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5761,13 +5757,13 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 /* Staggered tab horizontal positions matching Image 2 */
 .folder-card.tab-pos-1 .folder-tab {
-  left: 55%;
+  left: 58%;
 }
 .folder-card.tab-pos-2 .folder-tab {
   left: 8%;
 }
 .folder-card.tab-pos-3 .folder-tab {
-  left: 72%;
+  left: 74%;
 }
 .folder-card.tab-pos-4 .folder-tab {
   left: 28%;
@@ -5786,27 +5782,28 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 .folder-tab::before {
   left: -12px;
-  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
+  background: radial-gradient(circle at 0 0, transparent 12px, var(--card-bg, #122536) 12.5px);
 }
 .folder-tab::after {
   right: -12px;
-  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
+  background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #122536) 12.5px);
 }
 
-/* --- COLLAPSED STATE (Distinct Soft Pastel Tones + High-Contrast Typography) --- */
+/* --- COLLAPSED STATE (Image 2 - Slate Dark Physical Folder Stack) --- */
 .folder-card.is-collapsed {
-  background: var(--card-bg);
-  border: 1.5px solid var(--folder-border);
-  min-height: 86px;
-  box-shadow: 0 4px 18px rgba(12, 30, 41, 0.05);
+  --card-bg: #122536;
+  background: linear-gradient(180deg, #122536 0%, #0D1B28 100%);
+  border: 1px solid rgba(120, 165, 200, 0.2);
+  min-height: 88px;
+  box-shadow: 0 -5px 18px rgba(0, 0, 0, 0.42), 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .folder-card.is-collapsed .folder-tab {
-  background: var(--card-bg);
-  color: var(--num-color);
-  border-top: 1.5px solid var(--folder-border);
-  border-left: 1.5px solid var(--folder-border);
-  border-right: 1.5px solid var(--folder-border);
+  background: #122536;
+  color: rgba(220, 240, 255, 0.85);
+  border-top: 1px solid rgba(120, 165, 200, 0.25);
+  border-left: 1px solid rgba(120, 165, 200, 0.25);
+  border-right: 1px solid rgba(120, 165, 200, 0.25);
   border-bottom: none;
 }
 
@@ -5814,137 +5811,72 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: flex;
   align-items: center;
   gap: clamp(16px, 2.5vw, 36px);
-  padding: clamp(18px, 2vw, 24px) clamp(22px, 3.2vw, 44px);
-  min-height: 86px;
+  padding: clamp(16px, 2vw, 22px) clamp(22px, 3.2vw, 44px) clamp(20px, 2.2vw, 26px);
+  min-height: 88px;
 }
 
 .folder-num {
   font-family: var(--font-label);
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--num-color);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #6C8FA6;
   flex-shrink: 0;
 }
 
 .folder-collapsed-title {
   margin: 0;
   font-family: var(--font-heading), 'Nura', -apple-system, sans-serif;
-  font-size: clamp(20px, 3.2vw, 38px);
+  font-size: clamp(24px, 3.8vw, 44px);
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #0C1E29; /* Crisp, high-contrast dark ink */
+  color: rgba(135, 175, 205, 0.35); /* Signature ghosted slate editorial text from Image 2 */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .folder-card.is-collapsed:hover {
+  background: linear-gradient(180deg, #183347 0%, #102433 100%);
+  --card-bg: #183347;
+  border-color: rgba(160, 205, 240, 0.45);
   transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(12, 30, 41, 0.12);
-  filter: brightness(1.02);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.55), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.folder-card.is-collapsed:hover .folder-tab {
+  background: #183347;
+  border-color: rgba(160, 205, 240, 0.45);
+  color: #FFFFFF;
+}
+
+.folder-card.is-collapsed:hover .folder-num {
+  color: #A3C9E2;
 }
 
 .folder-card.is-collapsed:hover .folder-collapsed-title {
+  color: #FFFFFF;
   transform: translateX(6px);
 }
 
-/* --- EXPANDED ACTIVE LIGHT THEMES (Image 3) --- */
-/* Theme Sage (Project 01) */
-.folder-card.theme-sage.is-expanded {
-  background: linear-gradient(150deg, #FFFFFF 20%, #E6F5F1 100%);
-  border: 2px solid #5A8E7C;
-  box-shadow: 0 16px 45px rgba(22, 67, 52, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
-}
-.folder-card.theme-sage.is-expanded .folder-tab {
-  background: #FFFFFF;
-  color: #164334;
-  border-top: 2px solid #5A8E7C;
-  border-left: 2px solid #5A8E7C;
-  border-right: 2px solid #5A8E7C;
-}
-.folder-card.theme-sage.is-expanded .folder-discipline {
-  color: #164334;
-  background: rgba(22, 67, 52, 0.08);
-  border: 1px solid rgba(22, 67, 52, 0.25);
-}
-.folder-card.theme-sage.is-expanded .folder-chapter-meta,
-.folder-card.theme-sage.is-expanded .folder-bullet-dot {
-  color: #164334;
-}
-
-/* Theme Stone (Project 02) */
-.folder-card.theme-stone.is-expanded {
-  background: linear-gradient(150deg, #FFFFFF 20%, #FDF0E2 100%);
-  border: 2px solid #BA875E;
-  box-shadow: 0 16px 45px rgba(102, 51, 17, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
-}
-.folder-card.theme-stone.is-expanded .folder-tab {
-  background: #FFFFFF;
-  color: #663311;
-  border-top: 2px solid #BA875E;
-  border-left: 2px solid #BA875E;
-  border-right: 2px solid #BA875E;
-}
-.folder-card.theme-stone.is-expanded .folder-discipline {
-  color: #663311;
-  background: rgba(102, 51, 17, 0.08);
-  border: 1px solid rgba(102, 51, 17, 0.25);
-}
-.folder-card.theme-stone.is-expanded .folder-chapter-meta,
-.folder-card.theme-stone.is-expanded .folder-bullet-dot {
-  color: #663311;
-}
-
-/* Theme Lilac / Wine (Project 03) */
-.folder-card.theme-lilac.is-expanded {
-  background: linear-gradient(150deg, #FFFFFF 20%, #FBE5F2 100%);
-  border: 2px solid #B0648F;
-  box-shadow: 0 16px 45px rgba(104, 22, 66, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
-}
-.folder-card.theme-lilac.is-expanded .folder-tab {
-  background: #FFFFFF;
-  color: #681642;
-  border-top: 2px solid #B0648F;
-  border-left: 2px solid #B0648F;
-  border-right: 2px solid #B0648F;
-}
-.folder-card.theme-lilac.is-expanded .folder-discipline {
-  color: #681642;
-  background: rgba(104, 22, 66, 0.08);
-  border: 1px solid rgba(104, 22, 66, 0.25);
-}
-.folder-card.theme-lilac.is-expanded .folder-chapter-meta,
-.folder-card.theme-lilac.is-expanded .folder-bullet-dot {
-  color: #681642;
-}
-
-/* Theme Ink / Slate (Project 04) */
-.folder-card.theme-ink.is-expanded {
-  background: linear-gradient(150deg, #FFFFFF 20%, #E7EFF5 100%);
-  border: 2px solid #6D92AC;
-  box-shadow: 0 16px 45px rgba(20, 55, 80, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
-}
-.folder-card.theme-ink.is-expanded .folder-tab {
-  background: #FFFFFF;
-  color: #143750;
-  border-top: 2px solid #6D92AC;
-  border-left: 2px solid #6D92AC;
-  border-right: 2px solid #6D92AC;
-}
-.folder-card.theme-ink.is-expanded .folder-discipline {
-  color: #143750;
-  background: rgba(20, 55, 80, 0.08);
-  border: 1px solid rgba(20, 55, 80, 0.25);
-}
-.folder-card.theme-ink.is-expanded .folder-chapter-meta,
-.folder-card.theme-ink.is-expanded .folder-bullet-dot {
-  color: #143750;
-}
-
+/* --- EXPANDED ACTIVE STATE (Image 3 - Royal Cobalt Blue Dossier) --- */
 .folder-card.is-expanded {
+  --card-bg: #2563EB;
+  background: linear-gradient(140deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 16px 45px rgba(29, 78, 216, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
   cursor: default;
+}
+
+.folder-card.is-expanded .folder-tab {
+  background: #2563EB;
+  color: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: none;
 }
 
 .folder-expanded-content {
@@ -5971,6 +5903,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 .folder-card.is-expanded .folder-num {
   font-size: 16px;
   font-weight: 800;
+  color: #BFDBFE;
   margin-top: 6px;
   flex-shrink: 0;
 }
@@ -5989,7 +5922,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   line-height: 1.15;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #0C1E29;
+  color: #FFFFFF;
 }
 
 .folder-discipline {
@@ -6002,13 +5935,16 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   border-radius: 4px;
   display: inline-block;
   width: fit-content;
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .folder-subtitle {
   margin: 14px 0 0;
   font-size: 14.5px;
   line-height: 1.6;
-  color: #1B2B35;
+  color: #DBEAFE;
   max-width: 500px;
 }
 
@@ -6020,6 +5956,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: #BFDBFE;
 }
 
 .folder-expanded-right {
@@ -6043,12 +5980,13 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   align-items: center;
   gap: 8px;
   font-size: 13.5px;
-  color: #0C1E29;
+  color: #FFFFFF;
 }
 
 .folder-bullet-dot {
   font-size: 11px;
   line-height: 1;
+  color: #93C5FD;
 }
 
 .folder-bullet-text {
@@ -6062,7 +6000,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   align-self: flex-end;
   background: #0C1E29;
   color: #FFFBD4;
-  border: 1px solid #0C1E29;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 9999px;
   padding: 13px 26px;
   font-family: var(--font-body), -apple-system, sans-serif;
@@ -6073,7 +6011,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(12, 30, 41, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -6083,11 +6021,11 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-explore-btn:hover {
-  background: #8B004A;
-  color: #FFFFFF;
-  border-color: #8B004A;
+  background: #FAAE62;
+  color: #0C1E29;
+  border-color: #FAAE62;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(139, 0, 74, 0.25);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
 }
 
 .folder-explore-btn:hover span {
@@ -6099,26 +6037,28 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   display: flex;
   justify-content: center;
   margin-top: clamp(48px, 6vw, 76px);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   padding: 0;
   position: relative;
   z-index: 10;
 }
 
 .work-folder-stage .work-minimize-btn-large {
-  background: #0C1E29;
+  background: #102131;
   color: #FFFBD4;
-  border: 1px solid rgba(179, 143, 111, 0.45);
-  box-shadow: 0 4px 16px rgba(12, 30, 41, 0.15);
+  border: 1px solid rgba(130, 175, 210, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  padding: 12px 28px;
+  border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .work-folder-stage .work-minimize-btn-large:hover {
-  background: #8B004A;
-  color: #FFFFFF;
-  border-color: #8B004A;
+  background: #FAAE62;
+  color: #0C1E29;
+  border-color: #FAAE62;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(139, 0, 74, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* --- MOBILE RESPONSIVE ADAPTATIONS --- */
@@ -6138,17 +6078,17 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 @media (max-width: 760px) {
   .work-folder-stage {
-    padding: 20px 0 24px;
+    padding: 32px 14px 24px;
+    border-radius: 16px;
   }
   .work-folder-stack {
-    gap: 20px;
-    padding-top: 30px;
+    padding-top: 28px;
   }
   .folder-tab {
-    top: -26px;
-    height: 27px;
+    top: -24px;
+    height: 25px;
     padding: 0 14px;
-    font-size: 9.5px;
+    font-size: 9px;
   }
   .folder-card.tab-pos-1 .folder-tab,
   .folder-card.tab-pos-3 .folder-tab {
@@ -6161,7 +6101,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   }
   .folder-collapsed-content {
     min-height: 72px;
-    padding: 16px;
+    padding: 14px 16px;
     gap: 14px;
   }
   .folder-collapsed-title {
