@@ -89,6 +89,7 @@ function FooterWordmark() {
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => {
+        lastWidth = 0;
         fit();
       });
     }
@@ -107,10 +108,8 @@ function FooterWordmark() {
       href="#top"
       aria-label="Sufiyan Ahmed — back to top"
     >
-      <span className="footer-desktop-view">
-        <span ref={desktopTextRef} className="footer-name-text">Sufiyan Ahmed</span>
-        <span ref={desktopArrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
-      </span>
+      <span ref={desktopTextRef} className="footer-name-text">Sufiyan Ahmed</span>
+      <span ref={desktopArrowRef} className="footer-name-arrow" aria-hidden="true"><ArrowGlyph /></span>
 
       <span className="footer-mobile-view" aria-hidden="true">
         <span className="footer-mobile-row1">
