@@ -5675,10 +5675,10 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 /* ========================================================
-   WORK FOLDER STACK ACCORDION (Images 2, 3, 4) - LIGHT THEME
+   WORK FOLDER STACK ACCORDION (Images 2, 3, 4) - DISTINCT LIGHT COLORS
    Harmonizes with portfolio light system:
-   --paper (#F2EFE7), --ink (#0C1E29), --line (#B38F6F),
-   --accent (#8B004A), --lime (#FFFBD4), --sage, --stone, --lilac
+   Sage (#DCEFEA), Stone (#FCE6D2), Lilac (#F7DCEB), Ink Slate (#DDE8F0)
+   with high-contrast crisp text (#0C1E29) for supreme readability.
    ======================================================== */
 .work-folder-stage {
   background: transparent;
@@ -5698,6 +5698,31 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   width: 100%;
 }
 
+/* Theme Color Tokens for Each Project Card */
+.folder-card.theme-sage {
+  --card-bg: #DCEFEA;
+  --folder-border: #7EA698;
+  --num-color: #164334;
+}
+
+.folder-card.theme-stone {
+  --card-bg: #FCE6D2;
+  --folder-border: #C89973;
+  --num-color: #663311;
+}
+
+.folder-card.theme-lilac {
+  --card-bg: #F7DCEB;
+  --folder-border: #BE779F;
+  --num-color: #681642;
+}
+
+.folder-card.theme-ink {
+  --card-bg: #DDE8F0;
+  --folder-border: #80A1B8;
+  --num-color: #143750;
+}
+
 .folder-card {
   position: relative;
   border-radius: 16px;
@@ -5711,7 +5736,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card:focus-visible {
-  outline: 2px solid #8B004A;
+  outline: 2px solid var(--num-color, #8B004A);
   outline-offset: 4px;
 }
 
@@ -5768,19 +5793,17 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   background: radial-gradient(circle at 100% 0, transparent 12px, var(--card-bg, #FFFFFF) 12.5px);
 }
 
-/* --- COLLAPSED STATE (Image 2 - Clean Light Cards) --- */
+/* --- COLLAPSED STATE (Distinct Soft Pastel Tones + High-Contrast Typography) --- */
 .folder-card.is-collapsed {
-  --card-bg: #FFFFFF;
-  --folder-border: rgba(179, 143, 111, 0.45);
-  background: #FFFFFF;
+  background: var(--card-bg);
   border: 1.5px solid var(--folder-border);
   min-height: 86px;
-  box-shadow: 0 4px 18px rgba(12, 30, 41, 0.04);
+  box-shadow: 0 4px 18px rgba(12, 30, 41, 0.05);
 }
 
 .folder-card.is-collapsed .folder-tab {
-  background: #FFFFFF;
-  color: #8B004A;
+  background: var(--card-bg);
+  color: var(--num-color);
   border-top: 1.5px solid var(--folder-border);
   border-left: 1.5px solid var(--folder-border);
   border-right: 1.5px solid var(--folder-border);
@@ -5797,20 +5820,20 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 .folder-num {
   font-family: var(--font-label);
-  font-size: 14.5px;
-  font-weight: 700;
-  color: #8B004A;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--num-color);
   flex-shrink: 0;
 }
 
 .folder-collapsed-title {
   margin: 0;
   font-family: var(--font-heading), 'Nura', -apple-system, sans-serif;
-  font-size: clamp(20px, 3.2vw, 40px);
+  font-size: clamp(20px, 3.2vw, 38px);
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: rgba(12, 30, 41, 0.24);
+  color: #0C1E29; /* Crisp, high-contrast dark ink */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -5818,135 +5841,106 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 }
 
 .folder-card.is-collapsed:hover {
-  background: #FFFDF9;
-  --card-bg: #FFFDF9;
-  border-color: #8B004A;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(139, 0, 74, 0.08);
-}
-
-.folder-card.is-collapsed:hover .folder-tab {
-  background: #FFFDF9;
-  color: #8B004A;
-  border-color: #8B004A;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(12, 30, 41, 0.12);
+  filter: brightness(1.02);
 }
 
 .folder-card.is-collapsed:hover .folder-collapsed-title {
-  color: #0C1E29;
   transform: translateX(6px);
 }
 
 /* --- EXPANDED ACTIVE LIGHT THEMES (Image 3) --- */
 /* Theme Sage (Project 01) */
 .folder-card.theme-sage.is-expanded {
-  --card-bg: #F4FAF7;
-  --folder-border: #4D7B6A;
-  background: linear-gradient(150deg, #FFFFFF, #EDF7F3);
-  border: 1.5px solid var(--folder-border);
-  box-shadow: 0 16px 45px rgba(44, 94, 77, 0.08), 0 2px 8px rgba(12, 30, 41, 0.04);
+  background: linear-gradient(150deg, #FFFFFF 20%, #E6F5F1 100%);
+  border: 2px solid #5A8E7C;
+  box-shadow: 0 16px 45px rgba(22, 67, 52, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-sage.is-expanded .folder-tab {
-  background: #EDF7F3;
-  color: #2C5E4D;
-  border-top: 1.5px solid var(--folder-border);
-  border-left: 1.5px solid var(--folder-border);
-  border-right: 1.5px solid var(--folder-border);
-}
-.folder-card.theme-sage.is-expanded .folder-num {
-  color: #2C5E4D;
+  background: #FFFFFF;
+  color: #164334;
+  border-top: 2px solid #5A8E7C;
+  border-left: 2px solid #5A8E7C;
+  border-right: 2px solid #5A8E7C;
 }
 .folder-card.theme-sage.is-expanded .folder-discipline {
-  color: #2C5E4D;
-  background: rgba(44, 94, 77, 0.08);
-  border: 1px solid rgba(44, 94, 77, 0.25);
+  color: #164334;
+  background: rgba(22, 67, 52, 0.08);
+  border: 1px solid rgba(22, 67, 52, 0.25);
 }
 .folder-card.theme-sage.is-expanded .folder-chapter-meta,
 .folder-card.theme-sage.is-expanded .folder-bullet-dot {
-  color: #2C5E4D;
+  color: #164334;
 }
 
 /* Theme Stone (Project 02) */
 .folder-card.theme-stone.is-expanded {
-  --card-bg: #FAF5EE;
-  --folder-border: #B38F6F;
-  background: linear-gradient(150deg, #FFFFFF, #F8EFE5);
-  border: 1.5px solid var(--folder-border);
-  box-shadow: 0 16px 45px rgba(179, 143, 111, 0.12), 0 2px 8px rgba(12, 30, 41, 0.04);
+  background: linear-gradient(150deg, #FFFFFF 20%, #FDF0E2 100%);
+  border: 2px solid #BA875E;
+  box-shadow: 0 16px 45px rgba(102, 51, 17, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-stone.is-expanded .folder-tab {
-  background: #F8EFE5;
-  color: #875734;
-  border-top: 1.5px solid var(--folder-border);
-  border-left: 1.5px solid var(--folder-border);
-  border-right: 1.5px solid var(--folder-border);
-}
-.folder-card.theme-stone.is-expanded .folder-num {
-  color: #875734;
+  background: #FFFFFF;
+  color: #663311;
+  border-top: 2px solid #BA875E;
+  border-left: 2px solid #BA875E;
+  border-right: 2px solid #BA875E;
 }
 .folder-card.theme-stone.is-expanded .folder-discipline {
-  color: #875734;
-  background: rgba(179, 143, 111, 0.12);
-  border: 1px solid rgba(179, 143, 111, 0.3);
+  color: #663311;
+  background: rgba(102, 51, 17, 0.08);
+  border: 1px solid rgba(102, 51, 17, 0.25);
 }
 .folder-card.theme-stone.is-expanded .folder-chapter-meta,
 .folder-card.theme-stone.is-expanded .folder-bullet-dot {
-  color: #875734;
+  color: #663311;
 }
 
 /* Theme Lilac / Wine (Project 03) */
 .folder-card.theme-lilac.is-expanded {
-  --card-bg: #FAF2F6;
-  --folder-border: #8B004A;
-  background: linear-gradient(150deg, #FFFFFF, #F6EAF1);
-  border: 1.5px solid var(--folder-border);
-  box-shadow: 0 16px 45px rgba(139, 0, 74, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
+  background: linear-gradient(150deg, #FFFFFF 20%, #FBE5F2 100%);
+  border: 2px solid #B0648F;
+  box-shadow: 0 16px 45px rgba(104, 22, 66, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-lilac.is-expanded .folder-tab {
-  background: #F6EAF1;
-  color: #8B004A;
-  border-top: 1.5px solid var(--folder-border);
-  border-left: 1.5px solid var(--folder-border);
-  border-right: 1.5px solid var(--folder-border);
-}
-.folder-card.theme-lilac.is-expanded .folder-num {
-  color: #8B004A;
+  background: #FFFFFF;
+  color: #681642;
+  border-top: 2px solid #B0648F;
+  border-left: 2px solid #B0648F;
+  border-right: 2px solid #B0648F;
 }
 .folder-card.theme-lilac.is-expanded .folder-discipline {
-  color: #8B004A;
-  background: rgba(139, 0, 74, 0.08);
-  border: 1px solid rgba(139, 0, 74, 0.25);
+  color: #681642;
+  background: rgba(104, 22, 66, 0.08);
+  border: 1px solid rgba(104, 22, 66, 0.25);
 }
 .folder-card.theme-lilac.is-expanded .folder-chapter-meta,
 .folder-card.theme-lilac.is-expanded .folder-bullet-dot {
-  color: #8B004A;
+  color: #681642;
 }
 
 /* Theme Ink / Slate (Project 04) */
 .folder-card.theme-ink.is-expanded {
-  --card-bg: #F2F5F8;
-  --folder-border: #23485E;
-  background: linear-gradient(150deg, #FFFFFF, #EBF1F5);
-  border: 1.5px solid var(--folder-border);
-  box-shadow: 0 16px 45px rgba(35, 72, 94, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
+  background: linear-gradient(150deg, #FFFFFF 20%, #E7EFF5 100%);
+  border: 2px solid #6D92AC;
+  box-shadow: 0 16px 45px rgba(20, 55, 80, 0.1), 0 2px 8px rgba(12, 30, 41, 0.04);
 }
 .folder-card.theme-ink.is-expanded .folder-tab {
-  background: #EBF1F5;
-  color: #183A4C;
-  border-top: 1.5px solid var(--folder-border);
-  border-left: 1.5px solid var(--folder-border);
-  border-right: 1.5px solid var(--folder-border);
-}
-.folder-card.theme-ink.is-expanded .folder-num {
-  color: #183A4C;
+  background: #FFFFFF;
+  color: #143750;
+  border-top: 2px solid #6D92AC;
+  border-left: 2px solid #6D92AC;
+  border-right: 2px solid #6D92AC;
 }
 .folder-card.theme-ink.is-expanded .folder-discipline {
-  color: #183A4C;
-  background: rgba(35, 72, 94, 0.1);
-  border: 1px solid rgba(35, 72, 94, 0.25);
+  color: #143750;
+  background: rgba(20, 55, 80, 0.08);
+  border: 1px solid rgba(20, 55, 80, 0.25);
 }
 .folder-card.theme-ink.is-expanded .folder-chapter-meta,
 .folder-card.theme-ink.is-expanded .folder-bullet-dot {
-  color: #183A4C;
+  color: #143750;
 }
 
 .folder-card.is-expanded {
@@ -6014,7 +6008,7 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   margin: 14px 0 0;
   font-size: 14.5px;
   line-height: 1.6;
-  color: #48252F;
+  color: #1B2B35;
   max-width: 500px;
 }
 
