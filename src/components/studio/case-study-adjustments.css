@@ -24,6 +24,24 @@
   .case-study .case-transformation .flow-input,
   .case-study .case-transformation .flow-core,
   .case-study .case-transformation .flow-output { width:94%; }
+
+  .case-study .case-metrics {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .case-study .case-metrics > div {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .case-study .case-metrics strong {
+    white-space: nowrap;
+    word-break: keep-all;
+    hyphens: none;
+    -webkit-hyphens: none;
+    font-size: clamp(24px, 6.8vw, 38px);
+  }
 }
 @media(prefers-reduced-motion:reduce) {
   .case-study .case-transformation .flow-output { transform:translateX(-50%); }

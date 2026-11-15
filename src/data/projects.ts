@@ -563,7 +563,7 @@ export const PROJECTS: Project[] = [
         "caption": "Trust & policy pages"
       },
       {
-        "number": "Pan-India",
+        "number": "Pan\u2011India",
         "caption": "Prepaid & COD ready"
       }
     ],
