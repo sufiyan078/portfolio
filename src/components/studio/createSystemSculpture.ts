@@ -88,8 +88,7 @@ export function createSystemSculpture(host: HTMLElement) {
     if (!width || !height) return;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
-    const isPhone = window.matchMedia('(max-width: 640px)').matches;
-    camera.position.z = isPhone ? 15.5 : (camera.aspect < .9 ? 13 : 11.5);
+    camera.position.z = camera.aspect < .9 ? 13 : 11.8;
     camera.updateProjectionMatrix();
     schedule();
   });
