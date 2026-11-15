@@ -91,7 +91,7 @@ function loadTranslator(): Promise<HTMLSelectElement> {
   return translator;
 }
 
-const TRANSLATION_SAMPLE_SELECTOR = '.manifesto-bottom > p, .work-heading > p';
+const TRANSLATION_SAMPLE_SELECTOR = '.hero-bio, .manifesto-bottom > p, .work-heading > p';
 type TranslationSample = { original: string };
 function captureTranslationSamples(): TranslationSample[] {
   // Static editorial text only: animated copy, names, artwork and form values
