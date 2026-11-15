@@ -5682,12 +5682,12 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
      --paper (#F2EFE7), --ink (#0C1E29), --line (#B38F6F), --accent (#8B004A).
    ======================================================== */
 .work-folder-stage {
-  background: #FAF8F5;
-  border: 1px solid rgba(179, 143, 111, 0.4);
-  border-radius: 20px;
-  padding: 48px clamp(16px, 3.5vw, 44px) clamp(36px, 4vw, 48px);
-  margin-top: 32px;
-  box-shadow: 0 16px 45px rgba(12, 30, 41, 0.08);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 12px 0 clamp(36px, 4vw, 56px);
+  margin-top: 24px;
+  box-shadow: none;
   position: relative;
 }
 
@@ -6077,8 +6077,8 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
 
 @media (max-width: 760px) {
   .work-folder-stage {
-    padding: 32px 14px 24px;
-    border-radius: 16px;
+    padding: 12px 0 24px;
+    border-radius: 0;
   }
   .work-folder-stack {
     padding-top: 28px;
