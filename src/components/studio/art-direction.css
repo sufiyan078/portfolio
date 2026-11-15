@@ -1881,6 +1881,7 @@ body>.skiptranslate {
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  margin-top: 36px;
 }
 
 .about-principle-card {
@@ -3053,6 +3054,7 @@ body>.skiptranslate {
 
   .about-principles-cards {
     gap: 12px;
+    margin-top: 28px;
   }
 
   .about-principle-card {
