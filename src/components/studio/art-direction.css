@@ -786,7 +786,7 @@ body>.skiptranslate {
   align-items: center;
 }
 
-/* Section Highlight Pill Badge — Solid Black Default (Matching User-Specified Screenshot 2) */
+/* Section Highlight Pill Badge — Original Default Style for other options */
 .section-pill {
   display: inline-flex;
   align-items: center;
@@ -795,16 +795,16 @@ body>.skiptranslate {
   padding: 6px 18px;
   min-height: 32px;
   border-radius: 9999px;
-  background: var(--ink) !important;
-  color: #FFFBD4 !important;
+  background: rgba(12, 30, 41, 0.05);
+  color: var(--ink) !important;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.2;
   text-transform: none;
-  border: 1px solid var(--ink) !important;
-  box-shadow: 0 1px 3px rgba(12, 30, 41, 0.12);
+  border: 1px solid rgba(179, 143, 111, 0.35);
+  box-shadow: none;
   white-space: nowrap;
   user-select: none;
   flex-shrink: 0;
@@ -813,22 +813,38 @@ body>.skiptranslate {
 
 .section-pill:hover {
   transform: translateY(-1px);
+  background: var(--ink);
+  color: #FFFBD4 !important;
+  border-color: var(--ink);
+}
+
+/* Black pill badge specifically on the 5 user-requested options: Selected Work, Services, How I Work, About Me, Contact */
+.selected-work .section-pill,
+.studio-services .section-pill,
+.studio-about > .section-marker > .section-pill,
+.contact-marker-tab .section-pill,
+.studio-contact .section-pill {
+  background: var(--ink) !important;
+  color: #FFFBD4 !important;
+  border: 1px solid var(--ink) !important;
+  box-shadow: 0 1px 3px rgba(12, 30, 41, 0.12);
+}
+
+.selected-work .section-pill:hover,
+.studio-services .section-pill:hover,
+.studio-about > .section-marker > .section-pill:hover,
+.contact-marker-tab .section-pill:hover,
+.studio-contact .section-pill:hover {
   background: var(--ink) !important;
   color: #FFFBD4 !important;
   border-color: var(--ink) !important;
 }
 
-.studio-process-stage .section-pill {
+.studio-process-stage .section-pill,
+.studio-process-stage .section-pill:hover {
   background: var(--ink) !important;
   color: #FFFBD4 !important;
   border: 1px solid rgba(179, 143, 111, 0.45) !important;
-}
-
-.studio-process-stage .section-pill:hover {
-  transform: translateY(-1px);
-  background: var(--ink) !important;
-  color: #FFFBD4 !important;
-  border-color: #FAAE62 !important;
 }
 
 .section-pill-wrap {
