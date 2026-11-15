@@ -1734,7 +1734,9 @@ body>.skiptranslate {
   padding-top: 20px;
   text-decoration: underline;
   text-underline-offset: 5px;
-  color: var(--ink);
+  color: #C87740;
+  text-decoration-color: #C87740;
+  font-weight: 600;
 }
 
 .service-detail-right {
@@ -6282,4 +6284,31 @@ body>[class*="VIpgJd-ZVi9od-aZ2wEe"] {
   .work-folder-stage .work-collapse-bottom {
     margin-top: 36px;
   }
+}
+
+/* Orange CTA Links (Matching user request: "Discuss a similar project ↗", "Let’s discuss it ↗", "Work with me ↗") */
+.case-nav .case-nav-discuss,
+.case-nav button.case-nav-discuss,
+.case-nav button:last-child,
+.service-detail-left a,
+.service-discuss-link,
+.about-copy > .text-link,
+.about-work-link {
+  color: #C87740 !important;
+  border-bottom-color: #C87740 !important;
+  text-decoration-color: #C87740 !important;
+  font-weight: 600;
+  transition: color .2s ease, border-color .2s ease, opacity .2s ease;
+}
+
+.case-nav .case-nav-discuss:hover,
+.case-nav button.case-nav-discuss:hover,
+.case-nav button:last-child:hover,
+.service-detail-left a:hover,
+.service-discuss-link:hover,
+.about-copy > .text-link:hover,
+.about-work-link:hover {
+  color: #8B004A !important;
+  border-bottom-color: #8B004A !important;
+  text-decoration-color: #8B004A !important;
 }

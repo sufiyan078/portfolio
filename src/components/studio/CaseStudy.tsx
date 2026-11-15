@@ -62,7 +62,7 @@ export default function CaseStudy({ id, onClose, onContact }: { id: ProjectId; o
     return ()=>window.removeEventListener('keydown',key);
   },[onClose]);
   return createPortal(<div className={`case-study theme-${presentation.theme}`} ref={modal} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="case-title" data-story-scroll-root>
-    <header className="case-nav"><button onClick={onClose}>← Back to selected work</button><span>SUFIYAN AHMED / CASE STUDY</span><button onClick={onContact}>Discuss a similar project <ArrowGlyph/></button></header>
+    <header className="case-nav"><button onClick={onClose}>← Back to selected work</button><span>SUFIYAN AHMED / CASE STUDY</span><button onClick={onContact} className="case-nav-discuss">Discuss a similar project <ArrowGlyph/></button></header>
     <div className="case-intro section-pad"><span className="eyebrow">{presentation.client} / {project.status === 'COMPLETED' ? 'COMPLETED' : 'IN DEVELOPMENT'}</span><h1 id="case-title">{presentation.title}</h1><p>{project.title}</p><TechIconsRow items={project.technologyLoadout} /></div>
     <ProjectVisual id={id}/>
     <section className="case-context section-pad"><div><span className="eyebrow">01 / THE PROBLEM</span><h2>{presentation.principle}</h2></div><div><p className="case-lead">{project.businessProblem}</p><h3>Context</h3><p>{project.description}</p><h3>The approach</h3><p>{presentation.approach}</p></div></section>
